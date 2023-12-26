@@ -1,0 +1,28 @@
+{
+  "darkLogoAltText": "Dark Logo",
+  "lightLogoAltText": "Logo",
+  "searchPlaceholder": "Search",
+  "country": "Country",
+  "languages": "Language",
+  "signIn": "Sign In",
+  "darkMode": "Dark Mode",
+  "RevolutionizeYourRide": "Revolutionize Your Ride:",
+  "RentBuySellAndMore": "Rent, Buy, Sell and More!",
+  "QuickSell": "Quick Sell",
+  "BestPlatformForSellingCars": "The Best Platform for Selling Cars",
+  "CarRentalSafelyAndReliably": "Ease of doing a car rental safely and reliably. Of course at a low price.",
+  "EasyWayToBuyACar": "Easy way to buy a car at a low price",
+  "ProvidingCheapCarRentalServices": "Providing cheap car rental services and safe and comfortable facilities.",
+  "Sell": "Sell",
+  "Buy": "Buy",
+  "categories": {
+    "TrucksAndTrailers": "Trucks and Trailers",
+    "CarsForSale": "Cars for Sale",
+    "CarsForRent": "Cars for Rent",
+    "CrashedCars": "Crashed Cars",
+    "BoatsYachts": "Boats - Yachts",
+    "CarPlatesNumbers": "Car Plates Numbers",
+    "WheelsRims": "Wheels - Rims",
+    "CarSpareParts": "Car Spare Parts"
+  }
+}

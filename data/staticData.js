@@ -6,14 +6,13 @@ import { FaTruck, FaCar, FaCarCrash } from 'react-icons/fa';
 import { IoBoatOutline } from "react-icons/io5";
 
 const categoriesData = [
-    { text: 'Trucks and Trailers', icon: <FaTruck/> },
-    { text: 'Cars for Sale', icon: <GiCarKey/> },
-    { text: 'Cars for Rent', icon: <FaCar/> },
-    { text: 'Crashed Cars', icon: <FaCarCrash/> },
-    { text: 'Boats - Yachts', icon: <IoBoatOutline/> },
-    { text: 'Car Plates Numbers', icon: <TiDocumentText/> },
-    { text: 'Wheels - Rims', icon: <RxColorWheel/> },
-    { text: 'Car Spare Parts', icon: <MdOutlineCarCrash/> },
-  ];
-
-  export { categoriesData}
+  { text: 'TrucksAndTrailers', icon: <FaTruck/> },
+  { text: 'CarsForSale', icon: <GiCarKey/> },
+  { text: 'CarsForRent', icon: <FaCar/> },
+  { text: 'CrashedCars', icon: <FaCarCrash/> },
+  { text: 'BoatsYachts', icon: <IoBoatOutline/> },
+  { text: 'CarPlatesNumbers', icon: <TiDocumentText/> },
+  { text: 'WheelsRims', icon: <RxColorWheel/> },
+  { text: 'CarSpareParts', icon: <MdOutlineCarCrash/> },
+];
+  export { categoriesData }

@@ -1,0 +1,28 @@
+{
+    "darkLogoAltText": "شعار داكن",
+    "lightLogoAltText": "الشعار",
+    "searchPlaceholder": "ابحث",
+    "country": "البلد",
+    "languages": "اللغة",
+    "signIn": "تسجيل الدخول",
+    "darkMode": "الوضع الداكن",
+    "RevolutionizeYourRide": "قم بثورة في رحلتك:",
+    "RentBuySellAndMore": "الإيجار، الشراء، البيع وأكثر!",
+    "QuickSell": "البيع السريع",
+    "BestPlatformForSellingCars": "أفضل منصة لبيع السيارات",
+    "CarRentalSafelyAndReliably": "سهولة في إيجار السيارات بأمان وبشكل موثوق به. بالطبع بسعر منخفض.",
+    "EasyWayToBuyACar": "طريقة سهلة لشراء سيارة بسعر منخفض",
+    "ProvidingCheapCarRentalServices": "توفير خدمات إيجار السيارات الرخيصة والمرافق الآمنة والمريحة.",
+    "Sell": "بيع",
+    "Buy": "شراء",
+    "categories": {
+      "TrucksAndTrailers": "الشاحنات والمقطورات",
+      "CarsForSale": "سيارات للبيع",
+      "CarsForRent": "سيارات للإيجار",
+      "CrashedCars": "سيارات محطمة",
+      "BoatsYachts": "قوارب - يخوت",
+      "CarPlatesNumbers": "أرقام لوحات السيارات",
+      "WheelsRims": "عجلات - حافات",
+      "CarSpareParts": "قطع غيار السيارات"
+    }
+}

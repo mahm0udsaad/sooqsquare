@@ -1,34 +1,46 @@
 "use client"
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { BiFlag, BiSearch } from 'react-icons/bi';
+import {  BiSearch } from 'react-icons/bi';
 import { FiChevronDown } from 'react-icons/fi';
 import { DropdownMenuTrigger, DropdownMenuItem, DropdownMenuContent, DropdownMenu } from '@/components/ui/dropdown-menu';
 import { TfiWorld } from 'react-icons/tfi';
 import { IoLanguageOutline } from 'react-icons/io5';
+import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+import { useTranslation } from "../app/i18n/client"
+import { useDarkMode } from '@/context/darkModeContext';
 
-
-const NavBar = ()=> {
-    const [darkMode, setDarkMode] = useState(false);
-
-    useEffect(() => {
-      if (darkMode) {
-        document.documentElement.classList.add('dark');
-      } else {
-        document.documentElement.classList.remove('dark');
-      }
-    }, [darkMode]);
+const NavBar = ({lng})=> { 
+  const { darkMode, setDarkMode } = useDarkMode();
   
+  const { t } = useTranslation(lng , "translation")
+
     const toggleDarkMode = () => {
       setDarkMode((prevMode) => !prevMode);
     };
+    
+    const router = useRouter();
+    
+    const changeToArabic = () => {
+      const currentPath = router.asPath || '/en'; // Set a default path if asPath is undefined
+      const arabicPath = currentPath.replace('/en', '/ar');
+      router.push(arabicPath);
+    };
+    const changeToEnglish = () => {
+      const currentPath = router.asPath || '/ar'; // Set a default path if asPath is undefined
+      const arabicPath = currentPath.replace('/ar', '/en');
+      router.push(arabicPath);
+    };
+    
+
   return (
     <header className="flex items-center justify-between px-6 py-4 bg-white dark:bg-zinc-950">
       <Link className="flex items-center" href="#">
         {darkMode ? 
-        <img src="/darkLogo.svg" width={"80px"}  />
+      <Image src="/darkLogo.svg" width={80} height={80} alt="Dark Logo" />
       :
-      <img src="/lightLogo.svg" width={"80px"}  />
+      <Image src="/lightLogo.svg" width={80} height={80} alt='logo'  />
       }
       </Link>
       <div className="flex items-center ">
@@ -45,7 +57,7 @@ const NavBar = ()=> {
         <DropdownMenuTrigger asChild>
             <button className="border dark:bg-zinc-900 px-4 py-2 rounded-full flex items-center">
             <TfiWorld className="text-xl mx-3" />
-            Country <FiChevronDown className="ml-2" />
+            {t("country")} <FiChevronDown className="ml-2" />
             </button>
         </DropdownMenuTrigger>
         <DropdownMenuContent className="dark:bg-zinc-900 bg-white border dark:bg-zinc-900 mt-2 py-2 rounded-md shadow-md">
@@ -59,17 +71,16 @@ const NavBar = ()=> {
         <DropdownMenuTrigger asChild>
             <button className="border dark:bg-zinc-900 px-4 py-2 rounded-full flex items-center">
             <IoLanguageOutline className="text-xl mx-3" />
-            Language <FiChevronDown className="ml-2" />
+            {t("languages")}  <FiChevronDown className="ml-2" />
             </button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent className="dark:bg-zinc-900 bg-white border border-gray-300 mt-2 py-2 rounded-md shadow-md">
-            <DropdownMenuItem className="hover:bg-gray-100  px-4 py-2">English</DropdownMenuItem>
-            <DropdownMenuItem className="hover:bg-gray-100  px-4 py-2">German</DropdownMenuItem>
-            <DropdownMenuItem className="hover:bg-gray-100  px-4 py-2">Spanish</DropdownMenuItem>
+        <DropdownMenuContent  className="dark:bg-zinc-900 bg-white border border-gray-300 mt-2 py-2 rounded-md shadow-md">
+            <DropdownMenuItem onClick={changeToEnglish} className="hover:bg-gray-100  px-4 py-2">English</DropdownMenuItem>
+            <DropdownMenuItem onClick={changeToArabic} className="hover:bg-gray-100  px-4 py-2">Arabic</DropdownMenuItem>
         </DropdownMenuContent>
         </DropdownMenu>
         </div>
-        <button className="mx-4 border rounded-full px-8 py-2">Sign In</button>
+        <button className="mx-4 border rounded-full px-8 py-2">{t('signIn')}</button>
         <label htmlFor="darkModeToggle" className="flex items-center cursor-pointer">
         <div className="relative">
           <input
@@ -82,7 +93,7 @@ const NavBar = ()=> {
           <div className={`w-10 h-5 bg-gray-400 dark:bg-gray-600 rounded-full shadow-inner`}></div>
           <div className={`toggle-dot absolute w-5 h-5 bg-white dark:bg-gray-800 rounded-full shadow-md inset-y-0 left-0 ${darkMode ? 'transform translate-x-full' : ''}`}></div>
         </div>
-        <span className="ml-2 text-gray-700 dark:text-gray-200">Dark Mode</span>
+        <span className="ml-2 text-gray-700 dark:text-gray-200">{t('darkMode')}</span>
       </label>
       </div>
     </header>

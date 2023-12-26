@@ -65,12 +65,7 @@
     --ring: 0 0% 83.1%;
   }
 }
-.gt-text{
-  /* background-clip: text; */
-  background: linear-gradient(90deg, #FF3337, #009A8F, #F5F853, #FFFFFF);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
+ 
 @layer base {
   * {
     @apply border-border;
@@ -78,4 +73,11 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+.gt-text{
+  /* background-clip: text; */
+  background: linear-gradient(90deg, #FF3337, #009A8F, #F5F853, #FFFFFF);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
