@@ -25,8 +25,11 @@ const NavBar = ()=> {
   return (
     <header className="flex items-center justify-between px-6 py-4 bg-white dark:bg-zinc-950">
       <Link className="flex items-center" href="#">
-        <BiFlag className="w-8 h-8" />
-        <h1 className="ml-2 text-lg font-semibold text-gray-700 dark:text-gray-200">Company Name</h1>
+        {darkMode ? 
+        <img src="/darkLogo.svg" width={"80px"}  />
+      :
+      <img src="/lightLogo.svg" width={"80px"}  />
+      }
       </Link>
       <div className="flex items-center ">
         <form className="flex items-center dark:bg-zinc-900 mx-6 border rounded-full px-4">
@@ -45,7 +48,7 @@ const NavBar = ()=> {
             Country <FiChevronDown className="ml-2" />
             </button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent className=" dark:bg-zinc-900 bg-white border dark:bg-zinc-900 mt-2 py-2 rounded-md shadow-md">
+        <DropdownMenuContent className="dark:bg-zinc-900 bg-white border dark:bg-zinc-900 mt-2 py-2 rounded-md shadow-md">
             <DropdownMenuItem className="hover:bg-gray-100  px-4 py-2">USA</DropdownMenuItem>
             <DropdownMenuItem className="hover:bg-gray-100  px-4 py-2">UK</DropdownMenuItem>
             <DropdownMenuItem className="hover:bg-gray-100  px-4 py-2">Germany</DropdownMenuItem>
@@ -59,7 +62,7 @@ const NavBar = ()=> {
             Language <FiChevronDown className="ml-2" />
             </button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent className=" dark:bg-zinc-900 bg-white border border-gray-300 mt-2 py-2 rounded-md shadow-md">
+        <DropdownMenuContent className="dark:bg-zinc-900 bg-white border border-gray-300 mt-2 py-2 rounded-md shadow-md">
             <DropdownMenuItem className="hover:bg-gray-100  px-4 py-2">English</DropdownMenuItem>
             <DropdownMenuItem className="hover:bg-gray-100  px-4 py-2">German</DropdownMenuItem>
             <DropdownMenuItem className="hover:bg-gray-100  px-4 py-2">Spanish</DropdownMenuItem>
