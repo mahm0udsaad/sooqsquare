@@ -14,12 +14,10 @@ import { RiAttachmentLine, RiPencilLine } from 'react-icons/ri'; // Assuming you
 
 const SellForm = ({ params : { lng }  }) =>{
     const  category  = useSearchParams().get("category");
-    const  adType  = useSearchParams().get("adType");
     const  brand  = useSearchParams().get("brand");
   return (
       <div className=''>
       <CategoriesForm  lng={lng}/>
-      <AdType lng={lng}/>
       <CarBrandSelector />
       <ModelSelection />
       <ModelYearSelection />
@@ -31,7 +29,6 @@ const SellForm = ({ params : { lng }  }) =>{
        <ImageAdAndDescription />
       {/* <div className="absolute top-0 left-0">
       <h1>{category}</h1>
-      <h1>{adType}</h1>
       <h1>{brand}</h1>
       </div> */}
       </div>
@@ -57,89 +54,49 @@ export default SellForm
         </>
     )
 }
+const CarBrandSelector = () => {
+const router = useRouter();
+const category = useSearchParams().get("category");
+const brand = useSearchParams().get("brand");
 
-const AdType = ({lng}) => {
-    const { t } = useTranslation(lng , "translation")
-    const  category  = useSearchParams().get("category");
-    const  adType  = useSearchParams().get("adType");
+if (brand || !category ) return null;
 
-    const router = useRouter();
+function handleSelectBrand(selectedBrand) {
+    console.log("brand: " + selectedBrand);
+    router.push(`?category=${category}&brand=${selectedBrand}`);
+}
 
-    function handleSelectType (adType){
-            router.push(`?category=${category}&adType=${adType}`);
-    }
-
-    if ( adType || !category) return ; 
-
-    return (
-      <section className="flex flex-col items-center p-10">
-            <h1 className="text-center text-2xl py-4">
-            Choose the ad type
-            </h1>
-        <Card onClick={()=>handleSelectType("Buy")} className="w-64 mb-8 cursor-pointer">
-            <CardContent className="p-4">
-            <h2 className="font-bold text-lg mb-2">{t('Buy')}</h2>
-            </CardContent>
-        </Card>
-        <Card onClick={()=>handleSelectType("Sell")} className="w-64 mb-8 cursor-pointer">
-            <CardContent className="p-4">
-            <h2 className="font-bold text-lg mb-2">{t('Sell')}</h2>
-            </CardContent>
-        </Card>
-        
-      </section>
-    )
-  }
-
-
-  const CarBrandSelector = () => {
-    const router = useRouter();
-    const category = useSearchParams().get("category");
-    const adType = useSearchParams().get("adType");
-    const brand = useSearchParams().get("brand");
-  
-    if (brand || !category || !adType) return null;
-  
-    function handleSelectBrand(selectedBrand) {
-      console.log("brand: " + selectedBrand);
-      router.push(`?category=${category}&adType=${adType}&brand=${selectedBrand}`);
-    }
-  
-    return (
-      <div className="w-full">
-        <div className={'flex justify-center items-center flex-col'} >
-          <h1 className="text-center text-2xl py-4">Choose your brand</h1>
-          <div className="grid grid-cols-3 gap-2" >
-            {Object.keys(carBrands).map((brand, index) => (
-              <div
-                key={index}
-                onClick={() => handleSelectBrand(brand)}
-                className="border rounded p-8 cursor-pointer hover:opacity-70"
-              >
-                {brand}
-              </div>
-            ))}
-          </div>
+return (
+    <div className="w-full">
+    <div className={'flex justify-center items-center flex-col'} >
+        <h1 className="text-center text-2xl py-4">Choose your brand</h1>
+        <div className="grid grid-cols-5 gap-4" >
+        {Object.keys(carBrands).map((brand, index) => (
+            <div
+            key={index}
+            onClick={() => handleSelectBrand(brand)}
+            className="border rounded p-8 cursor-pointer hover:opacity-70"
+            >
+            {brand}
+            </div>
+        ))}
         </div>
-      </div>
-    );
-  };
-  
-
-
- const ModelSelection = () => {
+    </div>
+    </div>
+);
+};
+const ModelSelection = () => {
     const router = useRouter();
     const  brand  = useSearchParams().get("brand");
     const  category  = useSearchParams().get("category");
-    const  adType  = useSearchParams().get("adType");
     const  model  = useSearchParams().get("model");
 
-    if ( model || !brand || !category || !adType ) return ; 
+    if ( model || !brand || !category  ) return ; 
     
     const models = carBrands[`${brand}`]
 
     function handleSelectModel(model) {
-        router.push(`?category=${category}&adType=${adType}&brand=${brand}&model=${model}`);
+        router.push(`?category=${category}&brand=${brand}&model=${model}`);
     
       }
     return (
@@ -167,19 +124,17 @@ const AdType = ({lng}) => {
         </div>
     )
 }
-
 const ModelYearSelection = () => {
     const router = useRouter();
     const  brand  = useSearchParams().get("brand");
     const  category  = useSearchParams().get("category");
-    const  adType  = useSearchParams().get("adType");
     const  model  = useSearchParams().get("model");
     const  year  = useSearchParams().get("year");
 
-    if ( year || !model || !brand || !category || !adType ) return ; 
+    if ( year || !model || !brand || !category  ) return ; 
     
     function handleSelectModel(year) {
-        router.push(`?category=${category}&adType=${adType}&brand=${brand}&model=${model}&year=${year}`);
+        router.push(`?category=${category}&brand=${brand}&model=${model}&year=${year}`);
       }
     return (
         <div key="1" className="w-4/5 mx-auto  flex justify-center">
@@ -204,22 +159,18 @@ const ModelYearSelection = () => {
         </div>
     )
 }
-
-
-
 const CarTypeSelection = () => {
 const router = useRouter();
 const  brand  = useSearchParams().get("brand");
 const  category  = useSearchParams().get("category");
-const  adType  = useSearchParams().get("adType");
 const  model  = useSearchParams().get("model");
 const  year  = useSearchParams().get("year");
 const  carType  = useSearchParams().get("carType");
 
-if ( carType || !year || !model || !brand || !category || !adType ) return ; 
+if ( carType || !year || !model || !brand || !category  ) return ; 
 
 function handleSelectModel(type) {
-    router.push(`?category=${category}&adType=${adType}&brand=${brand}&model=${model}&year=${year}&carType=${type}`);
+    router.push(`?category=${category}&brand=${brand}&model=${model}&year=${year}&carType=${type}`);
     }
 return (
     <div key="1" className="w-4/5 mx-auto  flex justify-center">
@@ -247,16 +198,15 @@ const CarStatusSelection = () => {
 const router = useRouter();
 const brand = useSearchParams().get("brand");
 const category = useSearchParams().get("category");
-const adType = useSearchParams().get("adType");
 const model = useSearchParams().get("model");
 const year = useSearchParams().get("year");
 const carType = useSearchParams().get("carType");
 const carStatus = useSearchParams().get("carStatus");
 
-if (!brand || !category || !adType || !model || !year || !carType || carStatus) return null;
+if (!brand || !category  || !model || !year || !carType || carStatus) return null;
 
 function handleSelectStatus(status) {
-    router.push(`?category=${category}&adType=${adType}&brand=${brand}&model=${model}&year=${year}&carType=${carType}&carStatus=${status}`);
+    router.push(`?category=${category}&brand=${brand}&model=${model}&year=${year}&carType=${carType}&carStatus=${status}`);
 }
 
 return (
@@ -284,17 +234,16 @@ const TransmissionSelection = () => {
 const router = useRouter();
 const brand = useSearchParams().get("brand");
 const category = useSearchParams().get("category");
-const adType = useSearchParams().get("adType");
 const model = useSearchParams().get("model");
 const year = useSearchParams().get("year");
 const carType = useSearchParams().get("carType");
 const carStatus = useSearchParams().get("carStatus");
 const transmission = useSearchParams().get("transmission");
 
-if (!brand || !category || !adType || !model || !year || !carType || !carStatus || transmission) return null;
+if (!brand || !category  || !model || !year || !carType || !carStatus || transmission) return null;
 
 function handleSelectTransmission(selectedTransmission) {
-    router.push(`?category=${category}&adType=${adType}&brand=${brand}&model=${model}&year=${year}&carType=${carType}&carStatus=${carStatus}&transmission=${selectedTransmission}`);
+    router.push(`?category=${category}&brand=${brand}&model=${model}&year=${year}&carType=${carType}&carStatus=${carStatus}&transmission=${selectedTransmission}`);
 }
 
 return (
@@ -322,7 +271,6 @@ const FuelTypeSelection = () => {
 const router = useRouter();
 const brand = useSearchParams().get("brand");
 const category = useSearchParams().get("category");
-const adType = useSearchParams().get("adType");
 const model = useSearchParams().get("model");
 const year = useSearchParams().get("year");
 const carType = useSearchParams().get("carType");
@@ -330,10 +278,10 @@ const carStatus = useSearchParams().get("carStatus");
 const transmission = useSearchParams().get("transmission");
 const fuelType = useSearchParams().get("fuelType");
 
-if (!brand || !category || !adType || !model || !year || !carType || !carStatus || !transmission || fuelType) return null;
+if (!brand || !category  || !model || !year || !carType || !carStatus || !transmission || fuelType) return null;
 
 function handleSelectFuelType(selectedFuelType) {
-    router.push(`?category=${category}&adType=${adType}&brand=${brand}&model=${model}&year=${year}&carType=${carType}&carStatus=${carStatus}&transmission=${transmission}&fuelType=${selectedFuelType}`);
+    router.push(`?category=${category}&brand=${brand}&model=${model}&year=${year}&carType=${carType}&carStatus=${carStatus}&transmission=${transmission}&fuelType=${selectedFuelType}`);
 }
 
 return (
@@ -376,7 +324,6 @@ const MeterRangeSelection = () => {
 const router = useRouter();
 const brand = useSearchParams().get("brand");
 const category = useSearchParams().get("category");
-const adType = useSearchParams().get("adType");
 const model = useSearchParams().get("model");
 const year = useSearchParams().get("year");
 const carType = useSearchParams().get("carType");
@@ -385,7 +332,7 @@ const transmission = useSearchParams().get("transmission");
 const fuelType = useSearchParams().get("fuelType");
 const meterRange = useSearchParams().get("meterRange");
 
-if (!brand || !category || !adType || !model || !year || !carType || !carStatus || !transmission || !fuelType || meterRange) return null;
+if (!brand || !category  || !model || !year || !carType || !carStatus || !transmission || !fuelType || meterRange) return null;
 
 const meterRanges = [
     { label: '0 - 1000 km', value: '0-1000' },
@@ -394,7 +341,7 @@ const meterRanges = [
 ];
 
 function handleSelectMeterRange(selectedRange) {
-    router.push(`?category=${category}&adType=${adType}&brand=${brand}&model=${model}&year=${year}&carType=${carType}&carStatus=${carStatus}&transmission=${transmission}&fuelType=${fuelType}&meterRange=${selectedRange}`);
+    router.push(`?category=${category}&brand=${brand}&model=${model}&year=${year}&carType=${carType}&carStatus=${carStatus}&transmission=${transmission}&fuelType=${fuelType}&meterRange=${selectedRange}`);
 }
 
 return (
@@ -420,44 +367,9 @@ return (
 );
 };
   
-
-
 function ImageAdAndDescription() {
-  const [imagePath, setImagePath] = useState('');
-  const [description, setDescription] = useState('');
-  function extractFilePath(filePath) {
-    // Split the file path by backslashes
-    const parts = filePath.split('\\');
-  
-    // Return the last part of the path
-    return parts[parts.length - 1];
-  }
- 
-  function handleUpload(event) {
-    event.preventDefault();
-    console.log(event.target.value);
-    // const uploadedPath = upload(formData).then(res => setImagePath(`/upload/${extractFilePath(res.path)}`));
-    // const carInfo = {
-    //     brand: useSearchParams().get('brand'),
-    //     adImage:imagePath,
-    //     addescription:description,
-    //     category: useSearchParams().get('category'),
-    //     adType: useSearchParams().get('adType'),
-    //     model: useSearchParams().get('model'),
-    //     year: useSearchParams().get('year'),
-    //     carType: useSearchParams().get('carType'),
-    //     carStatus: useSearchParams().get('carStatus'),
-    //     transmission: useSearchParams().get('transmission'),
-    //     fuelType: useSearchParams().get('fuelType'),
-    //     meterRange: useSearchParams().get('meterRange'),
-    //   };
-    // //do somthing
-    // console.log(carInfo);
-  }
-
   const brand = useSearchParams().get("brand");
   const category = useSearchParams().get("category");
-  const adType = useSearchParams().get("adType");
   const model = useSearchParams().get("model");
   const year = useSearchParams().get("year");
   const carType = useSearchParams().get("carType");
@@ -465,19 +377,19 @@ function ImageAdAndDescription() {
   const transmission = useSearchParams().get("transmission");
   const fuelType = useSearchParams().get("fuelType");
   const meterRange = useSearchParams().get("meterRange");
-  
-  if (!brand || !category || !adType || !model || !year || !carType || !carStatus || !transmission || !fuelType || !meterRange ) return null;
-  
 
+  if (!brand || !category  || !model || !year || !carType || !carStatus || !transmission || !fuelType || !meterRange ) return null;
+  
   return (
     <main className="flex flex-col items-center justify-center h-screen bg-gray-100">
     <div className="grid w-full max-w-md items-center gap-4 p-6 bg-white rounded-lg shadow-md">
       <h1 className="text-lg font-semibold text-gray-700">Upload Files</h1>
-      <div className="relative flex items-center justify-center bg-gray-50 rounded p-4">
+      <form  action={upload}> 
+       <div className="relative flex items-center justify-center bg-gray-50 rounded p-4">
         <input
           className="pl-12 w-full text-sm text-gray-600"
-          id="upload"
           type="file"
+          name="file"
         />
         <RiAttachmentLine className="w-6 h-6 absolute left-4 text-gray-600" />
       </div>
@@ -485,15 +397,26 @@ function ImageAdAndDescription() {
         <input
           className="pl-12 w-full text-sm text-gray-600"
           id="description"
+          name="description"
           placeholder="Enter a description..."
           type="text"
         />
         <RiPencilLine className="w-6 h-6 absolute left-4 text-gray-600" />
       </div>
-      <button onClick={handleUpload} className="bg-blue-600 hover:bg-blue-700 text-white rounded py-2">
+    <input type="hidden" name="brand" value={brand} />
+    <input type="hidden" name="category" value={category} />
+    <input type="hidden" name="model" value={model} />
+    <input type="hidden" name="year" value={year} />
+    <input type="hidden" name="carType" value={carType} />
+    <input type="hidden" name="carStatus" value={carStatus} />
+    <input type="hidden" name="transmission" value={transmission} />
+    <input type="hidden" name="fuelType" value={fuelType} />
+    <input type="hidden" name="meterRange" value={meterRange} />
+      <button className="bg-blue-600 hover:bg-blue-700 text-white rounded py-2">
         Upload
       </button>
+      </form>
     </div>
-  </main>
+     </main>
   );
 }
