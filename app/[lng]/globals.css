@@ -74,7 +74,9 @@
     @apply bg-background text-foreground;
   }
 }
-
+w-full{
+  width: 100% !important;
+}
 .gt-text{
   /* background-clip: text; */
   background: linear-gradient(90deg, #FF3337, #009A8F, #F5F853, #FFFFFF);

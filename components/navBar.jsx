@@ -9,13 +9,19 @@ import { IoLanguageOutline } from 'react-icons/io5';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useTranslation } from "../app/i18n/client"
-import { useDarkMode } from '@/context/darkModeContext';
 
 const NavBar = ({lng})=> { 
-  const { darkMode, setDarkMode } = useDarkMode();
   
   const { t } = useTranslation(lng , "translation")
+  const [darkMode, setDarkMode] = useState(false);
 
+  useEffect(() => {
+    if (darkMode) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  }, [darkMode]);
     const toggleDarkMode = () => {
       setDarkMode((prevMode) => !prevMode);
     };
@@ -33,7 +39,6 @@ const NavBar = ({lng})=> {
       router.push(arabicPath);
     };
     
-
   return (
     <header className="flex items-center justify-between px-6 py-4 bg-white dark:bg-zinc-950">
       <Link className="flex items-center" href="#">

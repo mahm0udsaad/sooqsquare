@@ -4,29 +4,19 @@ import { categoriesData } from "../data/staticData"
 import Image from 'next/image'; 
 import { useTranslation } from "../app/i18n/index"
 import Link from 'next/link';
+import { CategroyLink } from './categoriesCard';
 
-const IconWithText = ({ icon, text }) => {
-return (
-    <div className={`flex items-center justify-center border rounded-full px-2 py-4 hover:dark:bg-zinc-800 hover:bg-gray-200 cursor-pointer transition`}>
-    <div className="text-2xl">
-        {icon}
-    </div>
-    <span className={`ml-2`}>{text}</span>
-    </div>
-);
-};
 
 const HomePage= async ({ lng })=> {
     const { t } = await useTranslation(lng , "translation")
 
   return (
     <>
-        <NavBar lng={lng}/>
         <main className='mx-auto w-[95%]'>
         <div className="grid grid-cols-4 gap-4 w-11/12 mx-auto py-4">
         {categoriesData.map((item, i) => (
-        <IconWithText key={i} icon={item.icon} text={t(`categories.${item.text}`)} />
-      ))}
+        <CategroyLink key={i} icon={item.icon} text={t(`categories.${item.text}`)} />
+        ))}
         </div>
         <div className="gap-5 flex max-md:flex-col max-md:items-stretch max-md:gap-0">
           <div className="flex flex-col items-stretch w-1/2 max-md:w-full max-md:ml-0">
