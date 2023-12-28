@@ -47,7 +47,6 @@ export default  function SignIn() {
           </CardContent>
           <CardFooter className="text-center">
             <p className="text-gray-500">
-              Don't have an account?{" "}
               <Link className="underline" href="#">
                 Sign Up
               </Link>
