@@ -9,8 +9,8 @@ export function GoogleSignInButton() {
 
   return (
     <Button onClick={handleClick} className="w-full bg-[#4285F4] text-white" type="button">
-              <ChromeIcon className="w-4 h-4 mr-2" />
-              Sign in with Google
+        <ChromeIcon className="w-4 h-4 mr-2" />
+          Sign in with Google
     </Button>
   );
 }

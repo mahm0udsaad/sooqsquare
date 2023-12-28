@@ -39,7 +39,7 @@ const HomePage= async ({ lng })=> {
                     <Image
                     src="/site/Ads%201.svg" // Update the path to your SVG file
                     alt="Ads Icon"
-                    width={350}
+                    width={450}
                     height={300}
                     style={{ objectFit: 'cover' }} // Adjust as needed
                     />
@@ -57,10 +57,10 @@ const HomePage= async ({ lng })=> {
                     </div>
                     {/* Second image placed absolutely */}
                     <Image
-                    className="absolute bottom-0 right-0"
+                    className="absolute bottom-5 right-10"
                     src="/site/buyCar.png" 
-                    width={150}
-                    height={80}
+                    width={220}
+                    height={120}
                     alt="Sell Car"
                     />
                 </div>
@@ -69,7 +69,7 @@ const HomePage= async ({ lng })=> {
                     <Image
                     src="/site/Ads%202.svg" // Update the path to your SVG file
                     alt="Ads Icon"
-                    width={350}
+                    width={450}
                     height={300}
                     style={{ objectFit: 'cover' }} // Adjust as needed
                     />
@@ -87,10 +87,10 @@ const HomePage= async ({ lng })=> {
                     </div>
                     {/* Second image placed absolutely */}
                     <Image
-                    className="absolute bottom-0 right-0"
-                    width={150}
-                    height={80}
-                    src="/site/buyCar.png" 
+                    className="absolute bottom-5 right-10"
+                    width={220}
+                    height={120}
+                    src="/site/sellCar.png" 
                     alt="Buy Car"
                     />
                 </div>

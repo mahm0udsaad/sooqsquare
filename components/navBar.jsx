@@ -9,8 +9,13 @@ import { IoLanguageOutline } from 'react-icons/io5';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useTranslation } from "../app/i18n/client"
+import Logo from './logo'
+import {
+  SignedIn,
+  UserButton,
+} from "@clerk/nextjs";
 
-const NavBar = ({lng})=> { 
+const NavBar = ({lng , userId})=> { 
   
   const { t } = useTranslation(lng , "translation")
   const [darkMode, setDarkMode] = useState(false);
@@ -40,13 +45,9 @@ const NavBar = ({lng})=> {
     };
     
   return (
-    <header className="flex items-center justify-between px-6 py-4 bg-white dark:bg-zinc-950">
+    <header className="fixed w-full flex items-center justify-between px-6  bg-white dark:bg-zinc-950">
       <Link className="flex items-center" href="#">
-        {darkMode ? 
-      <Image src="/darkLogo.svg" width={80} height={80} alt="Dark Logo" />
-      :
-      <Image src="/lightLogo.svg" width={80} height={80} alt='logo'  />
-      }
+        <Logo lng={lng} darkMode={darkMode}/>
       </Link>
       <div className="flex items-center ">
         <form className="flex items-center dark:bg-zinc-900 mx-6 border rounded-full px-4">
@@ -85,7 +86,14 @@ const NavBar = ({lng})=> {
         </DropdownMenuContent>
         </DropdownMenu>
         </div>
-        <button className="mx-4 border rounded-full px-8 py-2">{t('signIn')}</button>
+        {!userId ? <button className="mx-4 border rounded-full px-8 py-2">{t('signIn')}</button>
+        :
+        <div className="px-4">
+          <SignedIn>
+        <UserButton />
+      </SignedIn>
+        </div>
+      }
         <label htmlFor="darkModeToggle" className="flex items-center cursor-pointer">
         <div className="relative">
           <input

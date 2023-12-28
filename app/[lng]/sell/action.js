@@ -1,57 +1,72 @@
 'use server'
-import { writeFile } from 'fs/promises'
-import { join } from 'path'
+// Import createAd from prisma/actions
+import { writeFile } from 'fs/promises';
+import { join } from 'path';
+import { createAd } from '../../../prisma/actions';
+import { redirect } from 'next/navigation';
 
+// Function to extract file path
 function extractFilePath(filePath) {
-  // Split the file path by backslashes
   const parts = filePath.split('\\');
   return parts[parts.length - 1];
 }
 
 export default async function upload(data) {
+  const file = data.get('file');
+  const description = data.get('description');
+  const brand = data.get('brand');
+  const category = data.get('category');
+  const adType = data.get('adType');
+  const model = data.get('model');
+  const year = data.get('year');
+  const carType = data.get('carType');
+  const carStatus = data.get('carStatus');
+  const transmission = data.get('transmission');
+  const fuelType = data.get('fuelType');
+  const meterRange = data.get('meterRange');
+  const userId = data.get('userId');
 
-    const file= data.get('file')
-    const description = data.get('description');
-    const brand = data.get('brand');
-    const category = data.get('category');
-    const adType = data.get('adType');
-    const model = data.get('model');
-    const year = data.get('year');
-    const carType = data.get('carType');
-    const carStatus = data.get('carStatus');
-    const transmission = data.get('transmission');
-    const fuelType = data.get('fuelType');
-    const meterRange = data.get('meterRange');
-
-  
+  try {
     if (!file) {
-      throw new Error('No file uploaded')
+      throw new Error('No file uploaded');
     }
 
-    const bytes = await file.arrayBuffer()
-    const buffer = Buffer.from(bytes)
+    const bytes = await file.arrayBuffer();
+    const buffer = Buffer.from(bytes);
 
-    // With the file data in the buffer, you can do whatever you want with it.
-    // For this, we'll just write it to the filesystem in a new location
     let path = join(process.cwd(), 'public', 'ar', 'upload', file.name);
-    await writeFile(path, buffer)
-    console.log(`open ${path} to see the uploaded file`)
-    path = extractFilePath(path)
-    const imagePath = `/upload/${path}` 
-    console.log(
-      {
-        imagePath,
-        description,
-        brand,
-        category,
-        adType,
-        model,
-        year,
-        carType,
-        carStatus,
-        transmission,
-        fuelType,
-        meterRange,
-      }
-    );
+    await writeFile(path, buffer);
+    console.log(`Open ${path} to see the uploaded file`);
+    path = extractFilePath(path);
+    const adImage = `/upload/${path}`;
+
+    const adData = {
+      adImage,
+      description,
+      brand,
+      category,
+      adType:"buy",
+      model,
+      year:2024,
+      carType,
+      carStatus,
+      transmission,
+      fuelType,
+      meterRange,
+    };
+
+    // Create the ad
+    const createdAd = await createAd(adData, userId);
+    // Return success message or data
+    return { success: true, data: createdAd };
+  } catch (error) {
+    // Return error message
+    return { success: false, error: error.message };
+  }finally{
+    redirect('/myAds')
   }
+}
+
+
+
+

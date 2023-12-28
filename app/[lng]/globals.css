@@ -74,8 +74,17 @@
     @apply bg-background text-foreground;
   }
 }
-w-full{
+.w-full{
   width: 100% !important;
+}
+.cl-internal-b3fm6y{
+display: none !important;
+}
+.text-card-foreground{
+  border:none !important ;
+}
+.cl-internal-wkkub3{
+  display: none !important;
 }
 .gt-text{
   /* background-clip: text; */

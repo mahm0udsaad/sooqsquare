@@ -2,27 +2,28 @@ import { dir } from 'i18next'
 import { languages } from '../i18n/settings'
 import './globals.css'
 import NavBar from '@/components/navBar'
-import { NextAuthProvider } from "./providers/nextOuth";
+import { ClerkProvider, auth } from '@clerk/nextjs'
+
+
 
 
 export async function generateStaticParams() {
   return languages.map((lng) => ({ lng }))
 }
 
-export default function RootLayout({
-  children,
-  params: {
-    lng
-  }
-}) {
+export default async function RootLayout({ children, params: { lng }}) {
+  const { userId } = await auth()
+
   return (
     <html lang={lng}>
-      <NextAuthProvider>    
+      <ClerkProvider>    
         <body >
-        <NavBar lng={lng}/>
+        <NavBar userId={userId} lng={lng}/>
+          <div className="pt-24 w-full">
           {children}
+          </div>
           </body>
-      </NextAuthProvider>
+      </ClerkProvider>
       </html>
 
   )

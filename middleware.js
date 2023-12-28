@@ -1,8 +1,9 @@
 import { NextResponse } from 'next/server';
 import acceptLanguage from 'accept-language';
 import { fallbackLng, languages, cookieName } from './app/i18n/settings';
+import { authMiddleware } from '@clerk/nextjs';
 
-const middleware = (req, res) => {
+const customBeforeAuth = (req, res) => {
   if (req.nextUrl.pathname.startsWith('/sign-in') || req.nextUrl.pathname.startsWith('/sign-up')) {
     return;
   }
@@ -26,9 +27,20 @@ const middleware = (req, res) => {
       if (lngInReferer) response.cookies.set(cookieName, lngInReferer);
       return response;
     }
+    
 
     return NextResponse.next();
   }
 };
 
-export default middleware
+export default authMiddleware({
+  publicRoutes: ['/','/:locale','/ar/sign-in','/en/sign-in','/ar/sign-up','/en/sign-up'],
+  beforeAuth: customBeforeAuth,
+});
+export const config = {
+  matcher: [
+    "/((?!.+\\.[\\w]+$|_next).*)",
+    "/",
+    "/(api|trpc)(.*)"
+  ],
+};
