@@ -75,7 +75,7 @@ export const ModelSelection = () => {
    
      }
    return (
-       <div key="1" className="w-4/5 mx-auto  flex justify-center">
+       <div key="1" className="w-4/5 mx-auto flex justify-center">
        <DropdownMenu className="py-3" open>
            <DropdownMenuTrigger asChild>
            <Button className="w-full flex justify-between items-center" variant="outline">
@@ -83,18 +83,20 @@ export const ModelSelection = () => {
                <IoIosArrowDropdown className="w-4 h-4" />
            </Button>
            </DropdownMenuTrigger>
+           <div className=" w-full">
            <DropdownMenuContent  className="w-full">
            <DropdownMenuLabel>Models</DropdownMenuLabel>
            <DropdownMenuGroup  className="w-full">
                  {models && models.length > 0 ? (
                    models.map((model, index) => (
-                   <DropdownMenuItem className='w-full' onClick={()=> handleSelectModel(model)} key={index}>{model}</DropdownMenuItem>
+                   <DropdownMenuItem className='w-80 text-lg border-b-[1px] pb-4' onClick={()=> handleSelectModel(model)} key={index}>{model}</DropdownMenuItem>
                    ))
                ) : (
                    <DropdownMenuItem>No models available</DropdownMenuItem>
                )}
            </DropdownMenuGroup>
            </DropdownMenuContent>
+           </div>
        </DropdownMenu>
        </div>
    )
@@ -154,7 +156,7 @@ export const ModelYearSelection = () => {
        router.push(`?category=${category}&brand=${brand}&model=${model}&carStatus=${status}&year=${year}`);
      }
    return (
-       <div key="1" className="w-4/5 mx-auto  flex justify-center">
+       <div key="1" className="w-4/5 mx-auto flex justify-center">
        <DropdownMenu className="py-3" open>
            <DropdownMenuTrigger asChild>
            <Button className="w-full flex justify-between items-center" variant="outline">
@@ -167,7 +169,7 @@ export const ModelYearSelection = () => {
            <DropdownMenuGroup  className="w-full h-[60vh] overflow-y-scroll">
             {    
               yearsArray.map((year, index) => (
-                   <DropdownMenuItem className='w-full' onClick={()=> handleSelectModel(year)} key={index}>{year}</DropdownMenuItem>
+                   <DropdownMenuItem className='w-72' onClick={()=> handleSelectModel(year)} key={index}>{year}</DropdownMenuItem>
                    ))}
       
            </DropdownMenuGroup>
@@ -204,7 +206,7 @@ return (
        <DropdownMenuGroup  className="w-full h-[60vh] overflow-y-scroll">
            {    
            carTypesArray.map((type, index) => (
-               <DropdownMenuItem className='w-full p-4' onClick={()=> handleSelectModel(type)} key={index}>{type}</DropdownMenuItem>
+               <DropdownMenuItem className='w-72 p-4' onClick={()=> handleSelectModel(type)} key={index}>{type}</DropdownMenuItem>
                ))}
    
        </DropdownMenuGroup>
@@ -327,6 +329,8 @@ const meterRanges = [
    { label: '0 - 1000 km', value: '0-1000' },
    { label: '1000 - 5000 km', value: '1000-5000' },
    { label: '5000 - 10000 km', value: '5000-10000' },
+   { label: '5000 - 10000 km', value: '10000-15000' },
+   { label: '5000 - 10000 km', value: '15000-20000' },
 ];
 
 function handleSelectMeterRange(selectedRange) {
@@ -345,7 +349,7 @@ return (
        <DropdownMenuContent className="w-full">
        <DropdownMenuGroup className="w-full h-[60vh] overflow-y-scroll">
            {meterRanges.map((range, index) => (
-           <DropdownMenuItem className='w-full p-4' onClick={() => handleSelectMeterRange(range.value)} key={index}>
+           <DropdownMenuItem className='w-72 p-4' onClick={() => handleSelectMeterRange(range.value)} key={index}>
                {range.label}
            </DropdownMenuItem>
            ))}

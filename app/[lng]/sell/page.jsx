@@ -6,7 +6,7 @@ const SellForm = async ({ params : { lng }  }) =>{
     const { userId } = await auth()
 
   return (
-      <div className=''>
+      <div className='pt-20'>
       <CategoriesForm  lng={lng}/>
       <CarBrandSelector />
       <ModelSelection />

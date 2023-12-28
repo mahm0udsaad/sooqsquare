@@ -15,7 +15,7 @@ export default async function RootLayout({ children, params: { lng }}) {
       <ClerkProvider>    
         <body >
         <NavBar userId={userId} lng={lng}/>
-          <div className="pt-24 w-full">
+          <div className="pt-16 w-full">
           {children}
           </div>
           </body>
