@@ -1,11 +1,7 @@
-import { dir } from 'i18next'
 import { languages } from '../i18n/settings'
 import './globals.css'
 import NavBar from '@/components/navBar'
 import { ClerkProvider, auth } from '@clerk/nextjs'
-
-
-
 
 export async function generateStaticParams() {
   return languages.map((lng) => ({ lng }))
