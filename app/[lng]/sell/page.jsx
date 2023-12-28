@@ -1,20 +1,26 @@
 
 "use client"
-import {  useRouter, useSearchParams } from 'next/navigation';
+import {  redirect, useRouter, useSearchParams } from 'next/navigation';
 import { AdCategroy } from '../../../components/categoriesCard';
 import { categoriesData ,carBrands ,yearsArray ,carTypesArray} from "../../../data/staticData"
 import { useTranslation } from "../../i18n/client"
 import { CardContent, Card } from "@/components/ui/card"
 import { Button } from "@/components/ui/button";
-import { DropdownMenuTrigger, DropdownMenuLabel, DropdownMenuGroup ,DropdownMenuSeparator, DropdownMenuRadioItem, DropdownMenuRadioGroup, DropdownMenuContent, DropdownMenu, DropdownMenuItem } from "@/components/ui/dropdown-menu"
+import { DropdownMenuTrigger, DropdownMenuLabel, DropdownMenuGroup , DropdownMenuContent, DropdownMenu, DropdownMenuItem } from "@/components/ui/dropdown-menu"
 import { IoIosArrowDropdown } from "react-icons/io";
 import upload from './action'
-import { useState } from 'react';
-import { RiAttachmentLine, RiPencilLine } from 'react-icons/ri'; // Assuming you've imported the required icons
+import { RiAttachmentLine, RiPencilLine } from 'react-icons/ri'; 
+import { signIn, useSession } from 'next-auth/react';
 
 const SellForm = ({ params : { lng }  }) =>{
+    const { data: session } = useSession();
+
     const  category  = useSearchParams().get("category");
     const  brand  = useSearchParams().get("brand");
+    if(!session){
+        redirect('/ar/sign-in')
+    }
+    console.log(session);
   return (
       <div className=''>
       <CategoriesForm  lng={lng}/>
@@ -382,7 +388,7 @@ function ImageAdAndDescription() {
   
   return (
     <main className="flex flex-col items-center justify-center h-screen bg-gray-100">
-    <div className="grid w-full max-w-md items-center gap-4 p-6 bg-white rounded-lg shadow-md">
+    <div className="grid w-full max-w-md items-center gap-4 p-6 rounded-lg shadow-md">
       <h1 className="text-lg font-semibold text-gray-700">Upload Files</h1>
       <form  action={upload}> 
        <div className="relative flex items-center justify-center bg-gray-50 rounded p-4">
