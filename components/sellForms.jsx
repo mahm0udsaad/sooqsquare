@@ -1,14 +1,14 @@
 "use client"
 import {  useRouter, useSearchParams } from 'next/navigation';
 import { AdCategroy } from './categoriesCard';
-import { categoriesData ,carBrands ,yearsArray ,carTypesArray} from "./../data/staticData"
+import { categoriesData ,carBrands ,yearsArray ,carTypesArray, carBrandsWithLogos} from "./../data/staticData"
 import { useTranslation } from "../app/i18n/client"
 import { CardContent, Card } from "@/components/ui/card"
 import { Button } from "@/components/ui/button";
 import { DropdownMenuTrigger, DropdownMenuLabel, DropdownMenuGroup , DropdownMenuContent, DropdownMenu, DropdownMenuItem } from "@/components/ui/dropdown-menu"
 import { IoIosArrowDropdown } from "react-icons/io";
 import  upload  from '../app/[lng]/sell/action'
-import { useFormState } from 'react-dom';
+import Image from 'next/image';
 
 export const CategoriesForm = ({lng}) =>{
     const { t } = useTranslation(lng , "translation")
@@ -16,10 +16,10 @@ export const CategoriesForm = ({lng}) =>{
    if ( category ) return ; 
    return (
        <>
-       <h1 className="text-center text-2xl py-4">
-           what you want to sell
+       <h1 className="text-center text-2xl py-8">
+           {t("sellTitle")}
        </h1>
-       <div className="grid grid-cols-4 gap-4 w-11/12 mx-auto py-4">
+       <div className="grid grid-cols-4 gap-4 w-11/12  py-4">
        {categoriesData.map((item, i) => (
        <AdCategroy lng={lng} key={i} icon={item.icon} text={item.text} />
        ))}
@@ -28,30 +28,68 @@ export const CategoriesForm = ({lng}) =>{
    )
 }
 
-export const CarBrandSelector = () => {
+export const CarStatusSelection = ({lng}) => {
+    const { t } = useTranslation(lng , "translation")
+    const router = useRouter();
+    const category = useSearchParams().get("category");
+    const carStatus = useSearchParams().get("carStatus");
+    
+    if (carStatus || !category ) return null;
+    
+    function handleSelectStatus(status) {
+       router.push(`?category=${category}&carStatus=${status}`);
+    }
+    
+    return (
+       <div key="1" className="w-4/5 mx-auto flex flex-col justify-center items-center">
+           <div className="w-full text-2xl font-semibold flex justify-around items-center" >
+              { t('carstatus')}
+               <IoIosArrowDropdown className="w-4 h-4" />
+           </div>
+           <div className="w-full flex justify-center items-center gap-4 pt-8">
+           <Card onClick={()=>handleSelectStatus("New")} className="w-64 mb-8 hover:opacity-50 cursor-pointer">
+               <CardContent className="p-4">
+               <h2 className="font-bold text-lg mb-2">{t('new')}</h2>
+               </CardContent>
+           </Card>
+           <Card onClick={()=>handleSelectStatus("Used")} className="w-64 mb-8 hover:opacity-50 cursor-pointer">
+               <CardContent className="p-4">
+               <h2 className="font-bold text-lg mb-2">{t('used')}</h2>
+               </CardContent>
+           </Card>
+           </div>
+       </div>
+    );
+};
+
+export const CarBrandSelector = ({lng}) => {
 const router = useRouter();
 const category = useSearchParams().get("category");
 const brand = useSearchParams().get("brand");
+const carStatus = useSearchParams().get("carStatus");
 
-if (brand || !category ) return null;
+
+if (brand || !category || !carStatus ) return null;
 
 function handleSelectBrand(selectedBrand) {
-   console.log("brand: " + selectedBrand);
-   router.push(`?category=${category}&brand=${selectedBrand}`);
+   router.push(`?category=${category}&carStatus=${carStatus}&brand=${selectedBrand}`);
 }
 
 return (
    <div className="w-full">
-   <div className={'flex justify-center items-center flex-col'} >
+   <div className={' items-center flex-col'} >
        <h1 className="text-center text-2xl py-4">Choose your brand</h1>
        <div className="grid grid-cols-5 gap-4" >
        {Object.keys(carBrands).map((brand, index) => (
            <div
            key={index}
            onClick={() => handleSelectBrand(brand)}
-           className="border rounded p-8 cursor-pointer hover:opacity-70"
+           className="border text-center rounded p-8 cursor-pointer hover:opacity-70"
            >
            {brand}
+           <div className="flex items-center justify-center w-full">
+           <Image className='pt-4' src={carBrandsWithLogos[brand]} width={80} height={100} alt="brandLogo"  />
+           </div>
            </div>
        ))}
        </div>
@@ -60,31 +98,35 @@ return (
 );
 };
 
-export const ModelSelection = () => {
+export const ModelSelection = ({lng}) => {
    const router = useRouter();
    const  brand  = useSearchParams().get("brand");
    const  category  = useSearchParams().get("category");
+   const  carStatus  = useSearchParams().get("carStatus");
+   const  carType  = useSearchParams().get("carType");
+   const  year  = useSearchParams().get("year");
    const  model  = useSearchParams().get("model");
+   const { t } = useTranslation(lng , "translation")
 
    if ( model || !brand || !category  ) return ; 
    
    const models = carBrands[`${brand}`]
 
    function handleSelectModel(model) {
-       router.push(`?category=${category}&brand=${brand}&model=${model}`);
+       router.push(`?category=${category}&carStatus=${carStatus}&brand=${brand}&model=${model}`);
    
      }
    return (
-       <div key="1" className="w-4/5 mx-auto flex justify-center">
-       <DropdownMenu className="py-3" open>
+       <div key="1" className="">
+       <DropdownMenu className="py-3" open={year}>
            <DropdownMenuTrigger asChild>
            <Button className="w-full flex justify-between items-center" variant="outline">
-               Car Model
+               {t('carModel')}
                <IoIosArrowDropdown className="w-4 h-4" />
            </Button>
            </DropdownMenuTrigger>
            <div className=" w-full">
-           <DropdownMenuContent  className="w-full">
+          {<DropdownMenuContent  className="w-full">
            <DropdownMenuLabel>Models</DropdownMenuLabel>
            <DropdownMenuGroup  className="w-full">
                  {models && models.length > 0 ? (
@@ -95,129 +137,88 @@ export const ModelSelection = () => {
                    <DropdownMenuItem>No models available</DropdownMenuItem>
                )}
            </DropdownMenuGroup>
-           </DropdownMenuContent>
+           </DropdownMenuContent>}
            </div>
        </DropdownMenu>
        </div>
    )
 }
-
-export const CarStatusSelection = () => {
-    const router = useRouter();
-    const brand = useSearchParams().get("brand");
-    const category = useSearchParams().get("category");
-    const model = useSearchParams().get("model");
-    const year = useSearchParams().get("year");
-    const carType = useSearchParams().get("carType");
-    const carStatus = useSearchParams().get("carStatus");
-    
-    if ( !model || !brand || !category || carStatus ) return ; 
-    
-    function handleSelectStatus(status) {
-       router.push(`?category=${category}&brand=${brand}&model=${model}&carStatus=${status}`);
-    }
-    
-    return (
-       <div key="1" className="w-4/5 mx-auto flex flex-col justify-center items-center">
-           <div className="w-full text-2xl font-semibold flex justify-around items-center" >
-               Car status
-               <IoIosArrowDropdown className="w-4 h-4" />
-           </div>
-           <div className="w-full flex justify-center gap-4 pt-8">
-           <Card onClick={()=>handleSelectStatus("New")} className="w-64 mb-8 hover:opacity-50 cursor-pointer">
-               <CardContent className="p-4">
-               <h2 className="font-bold text-lg mb-2">New</h2>
-               </CardContent>
-           </Card>
-           <Card onClick={()=>handleSelectStatus("Used")} className="w-64 mb-8 hover:opacity-50 cursor-pointer">
-               <CardContent className="p-4">
-               <h2 className="font-bold text-lg mb-2">Used</h2>
-               </CardContent>
-           </Card>
-           </div>
-       </div>
-    );
-    };
-
-export const ModelYearSelection = () => {
+export const ModelYearSelection = ({lng}) => {
    const router = useRouter();
    const  brand  = useSearchParams().get("brand");
    const  category  = useSearchParams().get("category");
    const  model  = useSearchParams().get("model");
-   const  year  = useSearchParams().get("year");
    const  status  = useSearchParams().get("carStatus");
    const  carType  = useSearchParams().get("carType");
-   if (!model || !brand || !category || !status || year) return null;
+   const  year  = useSearchParams().get("year");
+   if (model || !brand || !category || !status) return null;
    
    if(status === "New" ){
     router.push(`?category=${category}&brand=${brand}&model=${model}&carStatus=${status}&year=2024`);
    }
    function handleSelectModel(year) {
-       router.push(`?category=${category}&brand=${brand}&model=${model}&carStatus=${status}&year=${year}`);
+       router.push(`?category=${category}&brand=${brand}&carStatus=${status}&carType=${carType}&year=${year}`);
      }
    return (
-       <div key="1" className="w-4/5 mx-auto flex justify-center">
-       <DropdownMenu className="py-3" open>
+       <div key="1" className="  ">
+       <DropdownMenu className="py-3" open={carType && !year}>
            <DropdownMenuTrigger asChild>
            <Button className="w-full flex justify-between items-center" variant="outline">
                Car year
                <IoIosArrowDropdown className="w-4 h-4" />
            </Button>
            </DropdownMenuTrigger>
-           <DropdownMenuContent  className="w-full">
+          { <DropdownMenuContent  className="w-full">
            <DropdownMenuLabel>year</DropdownMenuLabel>
            <DropdownMenuGroup  className="w-full h-[60vh] overflow-y-scroll">
-            {    
+            {   
               yearsArray.map((year, index) => (
-                   <DropdownMenuItem className='w-72' onClick={()=> handleSelectModel(year)} key={index}>{year}</DropdownMenuItem>
+                   <DropdownMenuItem className='w-72 p-4' onClick={()=> handleSelectModel(year)} key={index}>{year}</DropdownMenuItem>
                    ))}
       
            </DropdownMenuGroup>
-           </DropdownMenuContent>
+           </DropdownMenuContent>}
        </DropdownMenu>
        </div>
    )
 }
-
-export const CarTypeSelection = () => {
-const router = useRouter();
-const  brand  = useSearchParams().get("brand");
-const  category  = useSearchParams().get("category");
-const  model  = useSearchParams().get("model");
-const  year  = useSearchParams().get("year");
-const  status  = useSearchParams().get("carStatus");
-const  carType  = useSearchParams().get("carType");
-
-if ( carType || !model || !brand || !category || !status || !year ) return ; 
-
-function handleSelectModel(type) {
-   router.push(`?category=${category}&brand=${brand}&model=${model}&carStatus=${status}&year=${year}&carType=${type}`);
-   }
-return (
-   <div key="1" className="w-4/5 mx-auto  flex justify-center">
-   <DropdownMenu className="py-3" open>
-       <DropdownMenuTrigger asChild>
-       <Button className="w-full flex justify-between items-center" variant="outline">
-           Car type
-           <IoIosArrowDropdown className="w-4 h-4" />
-       </Button>
-       </DropdownMenuTrigger>
-       <DropdownMenuContent  className="w-full">
-       <DropdownMenuGroup  className="w-full h-[60vh] overflow-y-scroll">
-           {    
-           carTypesArray.map((type, index) => (
-               <DropdownMenuItem className='w-72 p-4' onClick={()=> handleSelectModel(type)} key={index}>{type}</DropdownMenuItem>
-               ))}
-   
-       </DropdownMenuGroup>
-       </DropdownMenuContent>
-   </DropdownMenu>
-   </div>
-)
+export const CarTypeSelection = ({lng}) => {
+    const router = useRouter();
+    const  brand  = useSearchParams().get("brand");
+    const  category  = useSearchParams().get("category");
+    const  status  = useSearchParams().get("carStatus");
+    const  carType  = useSearchParams().get("carType");
+    const  model  = useSearchParams().get("model");
+    const  year  = useSearchParams().get("year");
+    
+   if (model || !brand || !category || !status) return null;
+    
+    function handleSelectModel(type) {
+       router.push(`?category=${category}&brand=${brand}&carStatus=${status}&carType=${type}`);
+       }
+    return (
+       <div key="1" className=" ">
+       <DropdownMenu className="py-3" open>
+           <DropdownMenuTrigger asChild>
+           <Button className="w-full flex justify-between items-center" variant="outline">
+               Car type
+               <IoIosArrowDropdown className="w-4 h-4" />
+           </Button>
+           </DropdownMenuTrigger>
+       {!carType && !year && <DropdownMenuContent  className="w-full">
+           <DropdownMenuGroup  className="w-full h-[60vh] overflow-y-scroll">
+               {    
+               carTypesArray.map((type, index) => (
+                   <DropdownMenuItem className='w-72 p-4' onClick={()=> handleSelectModel(type)} key={index}>{type}</DropdownMenuItem>
+                   ))}
+       
+           </DropdownMenuGroup>
+           </DropdownMenuContent>}
+       </DropdownMenu>
+       </div>
+    )
 }
-
-
-export const TransmissionSelection = () => {
+export const TransmissionSelection = ({lng}) => {
 const router = useRouter();
 const brand = useSearchParams().get("brand");
 const category = useSearchParams().get("category");
@@ -234,12 +235,12 @@ function handleSelectTransmission(selectedTransmission) {
 }
 
 return (
-   <div key="1" className="w-4/5 mx-auto flex flex-col justify-center items-center">
+   <div key="1" className="">
    <div className="w-full text-2xl font-semibold flex justify-around items-center">
        Transmission
        <IoIosArrowDropdown className="w-4 h-4" />
    </div>
-   <div className="w-full flex justify-center gap-4 pt-8">
+   <div className="w-full  gap-4 pt-8">
        <Card onClick={() => handleSelectTransmission('Automatic')} className="w-64 mb-8 hover:opacity-50 cursor-pointer">
            <CardContent className="p-4">
                <h2 className="font-bold text-lg mb-2">Automatic</h2>
@@ -254,8 +255,7 @@ return (
 </div>
 );
 };
-
-export const FuelTypeSelection = () => {
+export const FuelTypeSelection = ({lng}) => {
 const router = useRouter();
 const brand = useSearchParams().get("brand");
 const category = useSearchParams().get("category");
@@ -273,7 +273,7 @@ function handleSelectFuelType(selectedFuelType) {
 }
 
 return (
-   <div key="1" className="w-4/5 mx-auto flex flex-col justify-center">
+   <div key="1" className="">
    <div className="w-full text-2xl font-semibold flex justify-around items-center">
        Fuel Type
        <IoIosArrowDropdown className="w-4 h-4" />
@@ -309,7 +309,7 @@ return (
 );
 };
 
-export const MeterRangeSelection = () => {
+export const MeterRangeSelection = ({lng}) => {
 const router = useRouter();
 const brand = useSearchParams().get("brand");
 const category = useSearchParams().get("category");
@@ -338,7 +338,7 @@ function handleSelectMeterRange(selectedRange) {
 }
 
 return (
-   <div key="1" className="w-4/5 mx-auto flex justify-center">
+   <div key="1" className=" ">
    <DropdownMenu className="py-3" open>
        <DropdownMenuTrigger asChild>
        <Button className="w-full flex justify-between items-center" variant="outline">
@@ -361,7 +361,6 @@ return (
 };
   
 export function ImageAdAndDescription({userId}) {
-    const [pending , formAction ] = useFormState(upload ,)
     const brand = useSearchParams().get("brand");
     const category = useSearchParams().get("category");
     const model = useSearchParams().get("model");

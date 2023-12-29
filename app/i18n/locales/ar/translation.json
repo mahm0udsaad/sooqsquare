@@ -1,6 +1,11 @@
 {
     "darkLogoAltText": "شعار داكن",
     "lightLogoAltText": "الشعار",
+    "sellTitle": "ما اللذي تريد بيعه ؟",
+    "new": "جديد",
+    "used": "مستعمل",
+    "carModel":"موديل السياره",
+    "carstatus":"حاله السياره",
     "searchPlaceholder": "ابحث",
     "country": "البلد",
     "languages": "اللغة",

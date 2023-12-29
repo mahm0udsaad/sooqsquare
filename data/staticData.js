@@ -34,6 +34,25 @@ const carBrands = {
   Volvo: ['S60', 'XC90', 'XC60', 'S90', 'XC40', 'V60', 'V90'],
   Porsche: ['911', 'Cayenne', 'Panamera', 'Macan', 'Taycan', 'Boxster', 'Cayman'],
   };
+  const carBrandsWithLogos = {
+    Toyota: '/brandLogos/toyota.png',
+    BMW: '/brandLogos/bmw.png',
+    Audi: '/brandLogos/audi.png',
+    Mercedes: '/brandLogos/mercedes.png',
+    Ford: '/brandLogos/ford.png', // Assuming a logo exists for Ford
+    Honda: '/brandLogos/honda.png', // Assuming a logo exists for Honda
+    Hyundai: '/brandLogos/hyundai.png', // Assuming a logo exists for Hyundai
+    Lexus: '/brandLogos/lexus.png', // Assuming a logo exists for Lexus
+    Chevrolet: '/brandLogos/chevrolet.png', // Assuming a logo exists for Chevrolet
+    Volkswagen: '/brandLogos/wagen.png', // Assuming a logo exists for Volkswagen
+    Nissan: '/brandLogos/nissan.png', // Assuming a logo exists for Nissan
+    Subaru: '/brandLogos/subaru.png', // Assuming a logo exists for Subaru
+    Tesla: '/brandLogos/tesla.png', // Assuming a logo exists for Tesla
+    Kia: '/brandLogos/kia.png', // Assuming a logo exists for Kia
+    Mazda: '/brandLogos/mazda.png', // Assuming a logo exists for Mazda
+    Volvo: '/brandLogos/volvo.png', // Assuming a logo exists for Volvo
+    Porsche: '/brandLogos/porsche.png', 
+  };
   const yearsArray = [
   2024, 2023, 2022, 2021, 2020, 2019, 2018, 2017, 2016, 2015,
   2014, 2013, 2012, 2011, 2010, 2009, 2008, 2007, 2006, 2005,
@@ -45,4 +64,4 @@ const carBrands = {
   'Pickup Truck', 'Crossover', 'Wagon', 'Sports Car', 'Luxury Car',
   'Electric Car', 'Hybrid Car', 'Compact Car', 'Off-road Vehicle'
   ];
-  export { categoriesData ,carBrands ,yearsArray ,carTypesArray}
+  export { categoriesData ,carBrands ,yearsArray ,carTypesArray , carBrandsWithLogos}
