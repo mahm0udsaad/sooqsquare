@@ -8,7 +8,7 @@ import { CardContent, Card } from "@/components/ui/card"
 import { Button } from "@/components/ui/button";
 import  upload  from '../app/[lng]/sell/imageUploadAction'
 import Image from 'next/image';
-import { Label } from "@/components/ui/Label"
+import { Label } from "@/components/ui/label"
 import { AvatarImage, AvatarFallback, Avatar } from "@/components/ui/avatar"
 import { CiImageOn } from "react-icons/ci";
 import { MdOutlineRocketLaunch } from "react-icons/md";
