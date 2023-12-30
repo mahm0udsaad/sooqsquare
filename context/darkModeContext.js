@@ -1,21 +1,14 @@
 "use client"
-import React, { createContext, useState, useEffect, useContext } from 'react';
+import React, { createContext, useState, useContext } from 'react';
 
 const DarkModeContext = createContext();
 
 export const DarkModeProvider = ({ children }) => {
-  const [darkMode, setDarkMode] = useState(false);
-
-  useEffect(() => {
-    if (darkMode) {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
-  }, [darkMode]);
+  const [adImages, setAdImages] = useState([]);
+  const [successMessage, setSuccessMessage] = useState(false);
 
   return (
-    <DarkModeContext.Provider value={{ darkMode, setDarkMode }}>
+    <DarkModeContext.Provider value={{successMessage, setSuccessMessage, adImages ,setAdImages }}>
       {children}
     </DarkModeContext.Provider>
   );

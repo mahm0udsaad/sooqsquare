@@ -1,7 +1,38 @@
 {
+  "engineCapacity":"سعه المحرك (cc)",
+  "saveAd":"حفظ الاعلان",
+"publishAd":"نشر الاعلان",
+  "meterRange":"المسافه المقطوعه",
+  "paintType":"نوع الدهان",
+  "Original paint": "الطلاء الأصلي",
+  "Partial paint": "الطلاء الجزئي",
+  "Complete paint": "الطلاء الكامل",
+  "Another": "آخر",
+  "above":"فوق",
+  "fuelTypes": {
+    "Petrol": "بنزين",
+    "Diesel": "ديزل",
+    "Electric": "كهربائي",
+    "Hybrid": "هجين",
+    "Other": "آخر"
+  },
+  "fuelType": "نوع الوقود",
+  "transmission":"نوع ناقل الحركه",
+  "RegionalSpecifications": {
+    "Gulf": "مواصفات الخليج",
+    "Japanese": "مواصفات يابانية",
+    "LosAngeles": "مواصفات لوس أنجلوس",
+    "European": "المواصفات الأوروبية",
+    "Other": "مواصفات أخرى"
+  },
+  "DropdownText": "ما هي المواصفات الإقليمية؟",
     "darkLogoAltText": "شعار داكن",
     "lightLogoAltText": "الشعار",
     "sellTitle": "ما اللذي تريد بيعه ؟",
+    "chooseBrand":"اختر نوع السياره",
+    "cartype":"هيكل السياره",  
+    "carDetails":"تفاصيل السياره",  
+    "carYear":"سنه السياره",  
     "new": "جديد",
     "used": "مستعمل",
     "carModel":"موديل السياره",
@@ -30,5 +61,32 @@
       "CarPlatesNumbers": "أرقام لوحات السيارات",
       "WheelsRims": "عجلات - حافات",
       "CarSpareParts": "قطع غيار السيارات"
-    }
+    },
+    "locationDetails": {
+      "title": "تفاصيل الموقع",
+      "selectCity": "اختر مدينة",
+      "useCurrentLocation": "استخدم الموقع الحالي"
+    },
+    "cities": {
+      "Dubai": "دبي",
+      "Abu Dhabi": "أبو ظبي",
+      "Doha": "الدوحة",
+      "Riyadh": "الرياض",
+      "Muscat": "مسقط",
+      "Kuwait City": "مدينة الكويت",
+      "Manama": "المنامة",
+      "Amman": "عمان",
+      "Jerusalem": "القدس",
+      "Beirut": "بيروت",
+      "Baghdad": "بغداد",
+      "Tehran": "طهران",
+      "Ankara": "أنقرة",
+      "Istanbul": "اسطنبول",
+      "Damascus": "دمشق",
+      "Cairo": "القاهرة",
+      "Alexandria": "الإسكندرية",
+      "Tripoli": "طرابلس",
+      "Tunis": "تونس",
+      "Algiers": "الجزائر"
+}
 }

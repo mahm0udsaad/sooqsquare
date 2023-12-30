@@ -1946,130 +1946,150 @@ export namespace Prisma {
 
   export type AggregateAd = {
     _count: AdCountAggregateOutputType | null
-    _avg: AdAvgAggregateOutputType | null
-    _sum: AdSumAggregateOutputType | null
     _min: AdMinAggregateOutputType | null
     _max: AdMaxAggregateOutputType | null
-  }
-
-  export type AdAvgAggregateOutputType = {
-    year: number | null
-  }
-
-  export type AdSumAggregateOutputType = {
-    year: number | null
   }
 
   export type AdMinAggregateOutputType = {
     id: string | null
     userId: string | null
-    adImage: string | null
+    createdAt: Date | null
     description: string | null
     brand: string | null
+    EnginCapacity: string | null
     category: string | null
-    adType: string | null
-    model: string | null
-    year: number | null
     carType: string | null
+    model: string | null
+    year: string | null
     carStatus: string | null
     transmission: string | null
     fuelType: string | null
     meterRange: string | null
+    paintType: string | null
+    payment: string | null
+    price: string | null
+    name: string | null
+    RegionalSpecifications: string | null
+    location: string | null
   }
 
   export type AdMaxAggregateOutputType = {
     id: string | null
     userId: string | null
-    adImage: string | null
+    createdAt: Date | null
     description: string | null
     brand: string | null
+    EnginCapacity: string | null
     category: string | null
-    adType: string | null
-    model: string | null
-    year: number | null
     carType: string | null
+    model: string | null
+    year: string | null
     carStatus: string | null
     transmission: string | null
     fuelType: string | null
     meterRange: string | null
+    paintType: string | null
+    payment: string | null
+    price: string | null
+    name: string | null
+    RegionalSpecifications: string | null
+    location: string | null
   }
 
   export type AdCountAggregateOutputType = {
     id: number
     userId: number
-    adImage: number
+    createdAt: number
+    adImages: number
     description: number
     brand: number
+    EnginCapacity: number
     category: number
-    adType: number
+    carType: number
     model: number
     year: number
-    carType: number
     carStatus: number
     transmission: number
     fuelType: number
     meterRange: number
+    paintType: number
+    payment: number
+    price: number
+    name: number
+    RegionalSpecifications: number
+    location: number
     _all: number
   }
 
 
-  export type AdAvgAggregateInputType = {
-    year?: true
-  }
-
-  export type AdSumAggregateInputType = {
-    year?: true
-  }
-
   export type AdMinAggregateInputType = {
     id?: true
     userId?: true
-    adImage?: true
+    createdAt?: true
     description?: true
     brand?: true
+    EnginCapacity?: true
     category?: true
-    adType?: true
+    carType?: true
     model?: true
     year?: true
-    carType?: true
     carStatus?: true
     transmission?: true
     fuelType?: true
     meterRange?: true
+    paintType?: true
+    payment?: true
+    price?: true
+    name?: true
+    RegionalSpecifications?: true
+    location?: true
   }
 
   export type AdMaxAggregateInputType = {
     id?: true
     userId?: true
-    adImage?: true
+    createdAt?: true
     description?: true
     brand?: true
+    EnginCapacity?: true
     category?: true
-    adType?: true
+    carType?: true
     model?: true
     year?: true
-    carType?: true
     carStatus?: true
     transmission?: true
     fuelType?: true
     meterRange?: true
+    paintType?: true
+    payment?: true
+    price?: true
+    name?: true
+    RegionalSpecifications?: true
+    location?: true
   }
 
   export type AdCountAggregateInputType = {
     id?: true
     userId?: true
-    adImage?: true
+    createdAt?: true
+    adImages?: true
     description?: true
     brand?: true
+    EnginCapacity?: true
     category?: true
-    adType?: true
+    carType?: true
     model?: true
     year?: true
-    carType?: true
     carStatus?: true
     transmission?: true
     fuelType?: true
     meterRange?: true
+    paintType?: true
+    payment?: true
+    price?: true
+    name?: true
+    RegionalSpecifications?: true
+    location?: true
     _all?: true
   }
 
@@ -2111,18 +2131,6 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Select which fields to average
-    **/
-    _avg?: AdAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: AdSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
      * Select which fields to find the minimum value
     **/
     _min?: AdMinAggregateInputType
@@ -2153,8 +2161,6 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: AdCountAggregateInputType | true
-    _avg?: AdAvgAggregateInputType
-    _sum?: AdSumAggregateInputType
     _min?: AdMinAggregateInputType
     _max?: AdMaxAggregateInputType
   }
@@ -2162,21 +2168,26 @@ export namespace Prisma {
   export type AdGroupByOutputType = {
     id: string
     userId: string | null
-    adImage: string
+    createdAt: Date
+    adImages: string[]
     description: string | null
     brand: string
+    EnginCapacity: string
     category: string
-    adType: string
-    model: string
-    year: number
     carType: string
+    model: string
+    year: string
     carStatus: string
     transmission: string
     fuelType: string
     meterRange: string
+    paintType: string
+    payment: string
+    price: string
+    name: string
+    RegionalSpecifications: string
+    location: string
     _count: AdCountAggregateOutputType | null
-    _avg: AdAvgAggregateOutputType | null
-    _sum: AdSumAggregateOutputType | null
     _min: AdMinAggregateOutputType | null
     _max: AdMaxAggregateOutputType | null
   }
@@ -2198,36 +2209,50 @@ export namespace Prisma {
   export type AdSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     userId?: boolean
-    adImage?: boolean
+    createdAt?: boolean
+    adImages?: boolean
     description?: boolean
     brand?: boolean
+    EnginCapacity?: boolean
     category?: boolean
-    adType?: boolean
+    carType?: boolean
     model?: boolean
     year?: boolean
-    carType?: boolean
     carStatus?: boolean
     transmission?: boolean
     fuelType?: boolean
     meterRange?: boolean
+    paintType?: boolean
+    payment?: boolean
+    price?: boolean
+    name?: boolean
+    RegionalSpecifications?: boolean
+    location?: boolean
     user?: boolean | Ad$userArgs<ExtArgs>
   }, ExtArgs["result"]["ad"]>
 
   export type AdSelectScalar = {
     id?: boolean
     userId?: boolean
-    adImage?: boolean
+    createdAt?: boolean
+    adImages?: boolean
     description?: boolean
     brand?: boolean
+    EnginCapacity?: boolean
     category?: boolean
-    adType?: boolean
+    carType?: boolean
     model?: boolean
     year?: boolean
-    carType?: boolean
     carStatus?: boolean
     transmission?: boolean
     fuelType?: boolean
     meterRange?: boolean
+    paintType?: boolean
+    payment?: boolean
+    price?: boolean
+    name?: boolean
+    RegionalSpecifications?: boolean
+    location?: boolean
   }
 
   export type AdInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2243,18 +2268,25 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: string
       userId: string | null
-      adImage: string
+      createdAt: Date
+      adImages: string[]
       description: string | null
       brand: string
+      EnginCapacity: string
       category: string
-      adType: string
-      model: string
-      year: number
       carType: string
+      model: string
+      year: string
       carStatus: string
       transmission: string
       fuelType: string
       meterRange: string
+      paintType: string
+      payment: string
+      price: string
+      name: string
+      RegionalSpecifications: string
+      location: string
     }, ExtArgs["result"]["ad"]>
     composites: {}
   }
@@ -2679,18 +2711,25 @@ export namespace Prisma {
   interface AdFieldRefs {
     readonly id: FieldRef<"Ad", 'String'>
     readonly userId: FieldRef<"Ad", 'String'>
-    readonly adImage: FieldRef<"Ad", 'String'>
+    readonly createdAt: FieldRef<"Ad", 'DateTime'>
+    readonly adImages: FieldRef<"Ad", 'String[]'>
     readonly description: FieldRef<"Ad", 'String'>
     readonly brand: FieldRef<"Ad", 'String'>
+    readonly EnginCapacity: FieldRef<"Ad", 'String'>
     readonly category: FieldRef<"Ad", 'String'>
-    readonly adType: FieldRef<"Ad", 'String'>
-    readonly model: FieldRef<"Ad", 'String'>
-    readonly year: FieldRef<"Ad", 'Int'>
     readonly carType: FieldRef<"Ad", 'String'>
+    readonly model: FieldRef<"Ad", 'String'>
+    readonly year: FieldRef<"Ad", 'String'>
     readonly carStatus: FieldRef<"Ad", 'String'>
     readonly transmission: FieldRef<"Ad", 'String'>
     readonly fuelType: FieldRef<"Ad", 'String'>
     readonly meterRange: FieldRef<"Ad", 'String'>
+    readonly paintType: FieldRef<"Ad", 'String'>
+    readonly payment: FieldRef<"Ad", 'String'>
+    readonly price: FieldRef<"Ad", 'String'>
+    readonly name: FieldRef<"Ad", 'String'>
+    readonly RegionalSpecifications: FieldRef<"Ad", 'String'>
+    readonly location: FieldRef<"Ad", 'String'>
   }
     
 
@@ -3081,18 +3120,25 @@ export namespace Prisma {
   export const AdScalarFieldEnum: {
     id: 'id',
     userId: 'userId',
-    adImage: 'adImage',
+    createdAt: 'createdAt',
+    adImages: 'adImages',
     description: 'description',
     brand: 'brand',
+    EnginCapacity: 'EnginCapacity',
     category: 'category',
-    adType: 'adType',
+    carType: 'carType',
     model: 'model',
     year: 'year',
-    carType: 'carType',
     carStatus: 'carStatus',
     transmission: 'transmission',
     fuelType: 'fuelType',
-    meterRange: 'meterRange'
+    meterRange: 'meterRange',
+    paintType: 'paintType',
+    payment: 'payment',
+    price: 'price',
+    name: 'name',
+    RegionalSpecifications: 'RegionalSpecifications',
+    location: 'location'
   };
 
   export type AdScalarFieldEnum = (typeof AdScalarFieldEnum)[keyof typeof AdScalarFieldEnum]
@@ -3158,20 +3204,6 @@ export namespace Prisma {
    * Reference to a field of type 'Int[]'
    */
   export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
-    
-
-
-  /**
-   * Reference to a field of type 'Float'
-   */
-  export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
-    
-
-
-  /**
-   * Reference to a field of type 'Float[]'
-   */
-  export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
     
   /**
    * Deep Input Types
@@ -3239,36 +3271,50 @@ export namespace Prisma {
     NOT?: AdWhereInput | AdWhereInput[]
     id?: StringFilter<"Ad"> | string
     userId?: StringNullableFilter<"Ad"> | string | null
-    adImage?: StringFilter<"Ad"> | string
+    createdAt?: DateTimeFilter<"Ad"> | Date | string
+    adImages?: StringNullableListFilter<"Ad">
     description?: StringNullableFilter<"Ad"> | string | null
     brand?: StringFilter<"Ad"> | string
+    EnginCapacity?: StringFilter<"Ad"> | string
     category?: StringFilter<"Ad"> | string
-    adType?: StringFilter<"Ad"> | string
-    model?: StringFilter<"Ad"> | string
-    year?: IntFilter<"Ad"> | number
     carType?: StringFilter<"Ad"> | string
+    model?: StringFilter<"Ad"> | string
+    year?: StringFilter<"Ad"> | string
     carStatus?: StringFilter<"Ad"> | string
     transmission?: StringFilter<"Ad"> | string
     fuelType?: StringFilter<"Ad"> | string
     meterRange?: StringFilter<"Ad"> | string
+    paintType?: StringFilter<"Ad"> | string
+    payment?: StringFilter<"Ad"> | string
+    price?: StringFilter<"Ad"> | string
+    name?: StringFilter<"Ad"> | string
+    RegionalSpecifications?: StringFilter<"Ad"> | string
+    location?: StringFilter<"Ad"> | string
     user?: XOR<UserNullableRelationFilter, UserWhereInput> | null
   }
 
   export type AdOrderByWithRelationInput = {
     id?: SortOrder
     userId?: SortOrder
-    adImage?: SortOrder
+    createdAt?: SortOrder
+    adImages?: SortOrder
     description?: SortOrder
     brand?: SortOrder
+    EnginCapacity?: SortOrder
     category?: SortOrder
-    adType?: SortOrder
+    carType?: SortOrder
     model?: SortOrder
     year?: SortOrder
-    carType?: SortOrder
     carStatus?: SortOrder
     transmission?: SortOrder
     fuelType?: SortOrder
     meterRange?: SortOrder
+    paintType?: SortOrder
+    payment?: SortOrder
+    price?: SortOrder
+    name?: SortOrder
+    RegionalSpecifications?: SortOrder
+    location?: SortOrder
     user?: UserOrderByWithRelationInput
   }
 
@@ -3278,41 +3324,53 @@ export namespace Prisma {
     OR?: AdWhereInput[]
     NOT?: AdWhereInput | AdWhereInput[]
     userId?: StringNullableFilter<"Ad"> | string | null
-    adImage?: StringFilter<"Ad"> | string
+    createdAt?: DateTimeFilter<"Ad"> | Date | string
+    adImages?: StringNullableListFilter<"Ad">
     description?: StringNullableFilter<"Ad"> | string | null
     brand?: StringFilter<"Ad"> | string
+    EnginCapacity?: StringFilter<"Ad"> | string
     category?: StringFilter<"Ad"> | string
-    adType?: StringFilter<"Ad"> | string
-    model?: StringFilter<"Ad"> | string
-    year?: IntFilter<"Ad"> | number
     carType?: StringFilter<"Ad"> | string
+    model?: StringFilter<"Ad"> | string
+    year?: StringFilter<"Ad"> | string
     carStatus?: StringFilter<"Ad"> | string
     transmission?: StringFilter<"Ad"> | string
     fuelType?: StringFilter<"Ad"> | string
     meterRange?: StringFilter<"Ad"> | string
+    paintType?: StringFilter<"Ad"> | string
+    payment?: StringFilter<"Ad"> | string
+    price?: StringFilter<"Ad"> | string
+    name?: StringFilter<"Ad"> | string
+    RegionalSpecifications?: StringFilter<"Ad"> | string
+    location?: StringFilter<"Ad"> | string
     user?: XOR<UserNullableRelationFilter, UserWhereInput> | null
   }, "id">
 
   export type AdOrderByWithAggregationInput = {
     id?: SortOrder
     userId?: SortOrder
-    adImage?: SortOrder
+    createdAt?: SortOrder
+    adImages?: SortOrder
     description?: SortOrder
     brand?: SortOrder
+    EnginCapacity?: SortOrder
     category?: SortOrder
-    adType?: SortOrder
+    carType?: SortOrder
     model?: SortOrder
     year?: SortOrder
-    carType?: SortOrder
     carStatus?: SortOrder
     transmission?: SortOrder
     fuelType?: SortOrder
     meterRange?: SortOrder
+    paintType?: SortOrder
+    payment?: SortOrder
+    price?: SortOrder
+    name?: SortOrder
+    RegionalSpecifications?: SortOrder
+    location?: SortOrder
     _count?: AdCountOrderByAggregateInput
-    _avg?: AdAvgOrderByAggregateInput
     _max?: AdMaxOrderByAggregateInput
     _min?: AdMinOrderByAggregateInput
-    _sum?: AdSumOrderByAggregateInput
   }
 
   export type AdScalarWhereWithAggregatesInput = {
@@ -3321,18 +3379,25 @@ export namespace Prisma {
     NOT?: AdScalarWhereWithAggregatesInput | AdScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Ad"> | string
     userId?: StringNullableWithAggregatesFilter<"Ad"> | string | null
-    adImage?: StringWithAggregatesFilter<"Ad"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"Ad"> | Date | string
+    adImages?: StringNullableListFilter<"Ad">
     description?: StringNullableWithAggregatesFilter<"Ad"> | string | null
     brand?: StringWithAggregatesFilter<"Ad"> | string
+    EnginCapacity?: StringWithAggregatesFilter<"Ad"> | string
     category?: StringWithAggregatesFilter<"Ad"> | string
-    adType?: StringWithAggregatesFilter<"Ad"> | string
-    model?: StringWithAggregatesFilter<"Ad"> | string
-    year?: IntWithAggregatesFilter<"Ad"> | number
     carType?: StringWithAggregatesFilter<"Ad"> | string
+    model?: StringWithAggregatesFilter<"Ad"> | string
+    year?: StringWithAggregatesFilter<"Ad"> | string
     carStatus?: StringWithAggregatesFilter<"Ad"> | string
     transmission?: StringWithAggregatesFilter<"Ad"> | string
     fuelType?: StringWithAggregatesFilter<"Ad"> | string
     meterRange?: StringWithAggregatesFilter<"Ad"> | string
+    paintType?: StringWithAggregatesFilter<"Ad"> | string
+    payment?: StringWithAggregatesFilter<"Ad"> | string
+    price?: StringWithAggregatesFilter<"Ad"> | string
+    name?: StringWithAggregatesFilter<"Ad"> | string
+    RegionalSpecifications?: StringWithAggregatesFilter<"Ad"> | string
+    location?: StringWithAggregatesFilter<"Ad"> | string
   }
 
   export type UserCreateInput = {
@@ -3393,116 +3458,165 @@ export namespace Prisma {
 
   export type AdCreateInput = {
     id?: string
-    adImage: string
+    createdAt?: Date | string
+    adImages?: AdCreateadImagesInput | string[]
     description?: string | null
     brand: string
+    EnginCapacity: string
     category: string
-    adType: string
-    model: string
-    year: number
     carType: string
+    model: string
+    year: string
     carStatus: string
     transmission: string
     fuelType: string
     meterRange: string
+    paintType: string
+    payment: string
+    price: string
+    name: string
+    RegionalSpecifications: string
+    location: string
     user?: UserCreateNestedOneWithoutAdsInput
   }
 
   export type AdUncheckedCreateInput = {
     id?: string
     userId?: string | null
-    adImage: string
+    createdAt?: Date | string
+    adImages?: AdCreateadImagesInput | string[]
     description?: string | null
     brand: string
+    EnginCapacity: string
     category: string
-    adType: string
-    model: string
-    year: number
     carType: string
+    model: string
+    year: string
     carStatus: string
     transmission: string
     fuelType: string
     meterRange: string
+    paintType: string
+    payment: string
+    price: string
+    name: string
+    RegionalSpecifications: string
+    location: string
   }
 
   export type AdUpdateInput = {
-    adImage?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    adImages?: AdUpdateadImagesInput | string[]
     description?: NullableStringFieldUpdateOperationsInput | string | null
     brand?: StringFieldUpdateOperationsInput | string
+    EnginCapacity?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
-    adType?: StringFieldUpdateOperationsInput | string
-    model?: StringFieldUpdateOperationsInput | string
-    year?: IntFieldUpdateOperationsInput | number
     carType?: StringFieldUpdateOperationsInput | string
+    model?: StringFieldUpdateOperationsInput | string
+    year?: StringFieldUpdateOperationsInput | string
     carStatus?: StringFieldUpdateOperationsInput | string
     transmission?: StringFieldUpdateOperationsInput | string
     fuelType?: StringFieldUpdateOperationsInput | string
     meterRange?: StringFieldUpdateOperationsInput | string
+    paintType?: StringFieldUpdateOperationsInput | string
+    payment?: StringFieldUpdateOperationsInput | string
+    price?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    RegionalSpecifications?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
     user?: UserUpdateOneWithoutAdsNestedInput
   }
 
   export type AdUncheckedUpdateInput = {
     userId?: NullableStringFieldUpdateOperationsInput | string | null
-    adImage?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    adImages?: AdUpdateadImagesInput | string[]
     description?: NullableStringFieldUpdateOperationsInput | string | null
     brand?: StringFieldUpdateOperationsInput | string
+    EnginCapacity?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
-    adType?: StringFieldUpdateOperationsInput | string
-    model?: StringFieldUpdateOperationsInput | string
-    year?: IntFieldUpdateOperationsInput | number
     carType?: StringFieldUpdateOperationsInput | string
+    model?: StringFieldUpdateOperationsInput | string
+    year?: StringFieldUpdateOperationsInput | string
     carStatus?: StringFieldUpdateOperationsInput | string
     transmission?: StringFieldUpdateOperationsInput | string
     fuelType?: StringFieldUpdateOperationsInput | string
     meterRange?: StringFieldUpdateOperationsInput | string
+    paintType?: StringFieldUpdateOperationsInput | string
+    payment?: StringFieldUpdateOperationsInput | string
+    price?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    RegionalSpecifications?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
   }
 
   export type AdCreateManyInput = {
     id?: string
     userId?: string | null
-    adImage: string
+    createdAt?: Date | string
+    adImages?: AdCreateadImagesInput | string[]
     description?: string | null
     brand: string
+    EnginCapacity: string
     category: string
-    adType: string
-    model: string
-    year: number
     carType: string
+    model: string
+    year: string
     carStatus: string
     transmission: string
     fuelType: string
     meterRange: string
+    paintType: string
+    payment: string
+    price: string
+    name: string
+    RegionalSpecifications: string
+    location: string
   }
 
   export type AdUpdateManyMutationInput = {
-    adImage?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    adImages?: AdUpdateadImagesInput | string[]
     description?: NullableStringFieldUpdateOperationsInput | string | null
     brand?: StringFieldUpdateOperationsInput | string
+    EnginCapacity?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
-    adType?: StringFieldUpdateOperationsInput | string
-    model?: StringFieldUpdateOperationsInput | string
-    year?: IntFieldUpdateOperationsInput | number
     carType?: StringFieldUpdateOperationsInput | string
+    model?: StringFieldUpdateOperationsInput | string
+    year?: StringFieldUpdateOperationsInput | string
     carStatus?: StringFieldUpdateOperationsInput | string
     transmission?: StringFieldUpdateOperationsInput | string
     fuelType?: StringFieldUpdateOperationsInput | string
     meterRange?: StringFieldUpdateOperationsInput | string
+    paintType?: StringFieldUpdateOperationsInput | string
+    payment?: StringFieldUpdateOperationsInput | string
+    price?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    RegionalSpecifications?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
   }
 
   export type AdUncheckedUpdateManyInput = {
     userId?: NullableStringFieldUpdateOperationsInput | string | null
-    adImage?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    adImages?: AdUpdateadImagesInput | string[]
     description?: NullableStringFieldUpdateOperationsInput | string | null
     brand?: StringFieldUpdateOperationsInput | string
+    EnginCapacity?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
-    adType?: StringFieldUpdateOperationsInput | string
-    model?: StringFieldUpdateOperationsInput | string
-    year?: IntFieldUpdateOperationsInput | number
     carType?: StringFieldUpdateOperationsInput | string
+    model?: StringFieldUpdateOperationsInput | string
+    year?: StringFieldUpdateOperationsInput | string
     carStatus?: StringFieldUpdateOperationsInput | string
     transmission?: StringFieldUpdateOperationsInput | string
     fuelType?: StringFieldUpdateOperationsInput | string
     meterRange?: StringFieldUpdateOperationsInput | string
+    paintType?: StringFieldUpdateOperationsInput | string
+    payment?: StringFieldUpdateOperationsInput | string
+    price?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    RegionalSpecifications?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -3613,15 +3727,12 @@ export namespace Prisma {
     isSet?: boolean
   }
 
-  export type IntFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntFilter<$PrismaModel> | number
+  export type StringNullableListFilter<$PrismaModel = never> = {
+    equals?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    has?: string | StringFieldRefInput<$PrismaModel> | null
+    hasEvery?: string[] | ListStringFieldRefInput<$PrismaModel>
+    hasSome?: string[] | ListStringFieldRefInput<$PrismaModel>
+    isEmpty?: boolean
   }
 
   export type UserNullableRelationFilter = {
@@ -3632,60 +3743,71 @@ export namespace Prisma {
   export type AdCountOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
-    adImage?: SortOrder
+    createdAt?: SortOrder
+    adImages?: SortOrder
     description?: SortOrder
     brand?: SortOrder
+    EnginCapacity?: SortOrder
     category?: SortOrder
-    adType?: SortOrder
+    carType?: SortOrder
     model?: SortOrder
     year?: SortOrder
-    carType?: SortOrder
     carStatus?: SortOrder
     transmission?: SortOrder
     fuelType?: SortOrder
     meterRange?: SortOrder
-  }
-
-  export type AdAvgOrderByAggregateInput = {
-    year?: SortOrder
+    paintType?: SortOrder
+    payment?: SortOrder
+    price?: SortOrder
+    name?: SortOrder
+    RegionalSpecifications?: SortOrder
+    location?: SortOrder
   }
 
   export type AdMaxOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
-    adImage?: SortOrder
+    createdAt?: SortOrder
     description?: SortOrder
     brand?: SortOrder
+    EnginCapacity?: SortOrder
     category?: SortOrder
-    adType?: SortOrder
+    carType?: SortOrder
     model?: SortOrder
     year?: SortOrder
-    carType?: SortOrder
     carStatus?: SortOrder
     transmission?: SortOrder
     fuelType?: SortOrder
     meterRange?: SortOrder
+    paintType?: SortOrder
+    payment?: SortOrder
+    price?: SortOrder
+    name?: SortOrder
+    RegionalSpecifications?: SortOrder
+    location?: SortOrder
   }
 
   export type AdMinOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
-    adImage?: SortOrder
+    createdAt?: SortOrder
     description?: SortOrder
     brand?: SortOrder
+    EnginCapacity?: SortOrder
     category?: SortOrder
-    adType?: SortOrder
+    carType?: SortOrder
     model?: SortOrder
     year?: SortOrder
-    carType?: SortOrder
     carStatus?: SortOrder
     transmission?: SortOrder
     fuelType?: SortOrder
     meterRange?: SortOrder
-  }
-
-  export type AdSumOrderByAggregateInput = {
-    year?: SortOrder
+    paintType?: SortOrder
+    payment?: SortOrder
+    price?: SortOrder
+    name?: SortOrder
+    RegionalSpecifications?: SortOrder
+    location?: SortOrder
   }
 
   export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -3705,22 +3827,6 @@ export namespace Prisma {
     _min?: NestedStringNullableFilter<$PrismaModel>
     _max?: NestedStringNullableFilter<$PrismaModel>
     isSet?: boolean
-  }
-
-  export type IntWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedIntFilter<$PrismaModel>
-    _min?: NestedIntFilter<$PrismaModel>
-    _max?: NestedIntFilter<$PrismaModel>
   }
 
   export type AdCreateNestedManyWithoutUserInput = {
@@ -3773,23 +3879,24 @@ export namespace Prisma {
     deleteMany?: AdScalarWhereInput | AdScalarWhereInput[]
   }
 
+  export type AdCreateadImagesInput = {
+    set: string[]
+  }
+
   export type UserCreateNestedOneWithoutAdsInput = {
     create?: XOR<UserCreateWithoutAdsInput, UserUncheckedCreateWithoutAdsInput>
     connectOrCreate?: UserCreateOrConnectWithoutAdsInput
     connect?: UserWhereUniqueInput
   }
 
+  export type AdUpdateadImagesInput = {
+    set?: string[]
+    push?: string | string[]
+  }
+
   export type NullableStringFieldUpdateOperationsInput = {
     set?: string | null
     unset?: boolean
-  }
-
-  export type IntFieldUpdateOperationsInput = {
-    set?: number
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
   }
 
   export type UserUpdateOneWithoutAdsNestedInput = {
@@ -3914,63 +4021,50 @@ export namespace Prisma {
     isSet?: boolean
   }
 
-  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedIntFilter<$PrismaModel>
-    _min?: NestedIntFilter<$PrismaModel>
-    _max?: NestedIntFilter<$PrismaModel>
-  }
-
-  export type NestedFloatFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel>
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatFilter<$PrismaModel> | number
-  }
-
   export type AdCreateWithoutUserInput = {
     id?: string
-    adImage: string
+    createdAt?: Date | string
+    adImages?: AdCreateadImagesInput | string[]
     description?: string | null
     brand: string
+    EnginCapacity: string
     category: string
-    adType: string
-    model: string
-    year: number
     carType: string
+    model: string
+    year: string
     carStatus: string
     transmission: string
     fuelType: string
     meterRange: string
+    paintType: string
+    payment: string
+    price: string
+    name: string
+    RegionalSpecifications: string
+    location: string
   }
 
   export type AdUncheckedCreateWithoutUserInput = {
     id?: string
-    adImage: string
+    createdAt?: Date | string
+    adImages?: AdCreateadImagesInput | string[]
     description?: string | null
     brand: string
+    EnginCapacity: string
     category: string
-    adType: string
-    model: string
-    year: number
     carType: string
+    model: string
+    year: string
     carStatus: string
     transmission: string
     fuelType: string
     meterRange: string
+    paintType: string
+    payment: string
+    price: string
+    name: string
+    RegionalSpecifications: string
+    location: string
   }
 
   export type AdCreateOrConnectWithoutUserInput = {
@@ -4004,18 +4098,25 @@ export namespace Prisma {
     NOT?: AdScalarWhereInput | AdScalarWhereInput[]
     id?: StringFilter<"Ad"> | string
     userId?: StringNullableFilter<"Ad"> | string | null
-    adImage?: StringFilter<"Ad"> | string
+    createdAt?: DateTimeFilter<"Ad"> | Date | string
+    adImages?: StringNullableListFilter<"Ad">
     description?: StringNullableFilter<"Ad"> | string | null
     brand?: StringFilter<"Ad"> | string
+    EnginCapacity?: StringFilter<"Ad"> | string
     category?: StringFilter<"Ad"> | string
-    adType?: StringFilter<"Ad"> | string
-    model?: StringFilter<"Ad"> | string
-    year?: IntFilter<"Ad"> | number
     carType?: StringFilter<"Ad"> | string
+    model?: StringFilter<"Ad"> | string
+    year?: StringFilter<"Ad"> | string
     carStatus?: StringFilter<"Ad"> | string
     transmission?: StringFilter<"Ad"> | string
     fuelType?: StringFilter<"Ad"> | string
     meterRange?: StringFilter<"Ad"> | string
+    paintType?: StringFilter<"Ad"> | string
+    payment?: StringFilter<"Ad"> | string
+    price?: StringFilter<"Ad"> | string
+    name?: StringFilter<"Ad"> | string
+    RegionalSpecifications?: StringFilter<"Ad"> | string
+    location?: StringFilter<"Ad"> | string
   }
 
   export type UserCreateWithoutAdsInput = {
@@ -4066,63 +4167,91 @@ export namespace Prisma {
 
   export type AdCreateManyUserInput = {
     id?: string
-    adImage: string
+    createdAt?: Date | string
+    adImages?: AdCreateadImagesInput | string[]
     description?: string | null
     brand: string
+    EnginCapacity: string
     category: string
-    adType: string
-    model: string
-    year: number
     carType: string
+    model: string
+    year: string
     carStatus: string
     transmission: string
     fuelType: string
     meterRange: string
+    paintType: string
+    payment: string
+    price: string
+    name: string
+    RegionalSpecifications: string
+    location: string
   }
 
   export type AdUpdateWithoutUserInput = {
-    adImage?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    adImages?: AdUpdateadImagesInput | string[]
     description?: NullableStringFieldUpdateOperationsInput | string | null
     brand?: StringFieldUpdateOperationsInput | string
+    EnginCapacity?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
-    adType?: StringFieldUpdateOperationsInput | string
-    model?: StringFieldUpdateOperationsInput | string
-    year?: IntFieldUpdateOperationsInput | number
     carType?: StringFieldUpdateOperationsInput | string
+    model?: StringFieldUpdateOperationsInput | string
+    year?: StringFieldUpdateOperationsInput | string
     carStatus?: StringFieldUpdateOperationsInput | string
     transmission?: StringFieldUpdateOperationsInput | string
     fuelType?: StringFieldUpdateOperationsInput | string
     meterRange?: StringFieldUpdateOperationsInput | string
+    paintType?: StringFieldUpdateOperationsInput | string
+    payment?: StringFieldUpdateOperationsInput | string
+    price?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    RegionalSpecifications?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
   }
 
   export type AdUncheckedUpdateWithoutUserInput = {
-    adImage?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    adImages?: AdUpdateadImagesInput | string[]
     description?: NullableStringFieldUpdateOperationsInput | string | null
     brand?: StringFieldUpdateOperationsInput | string
+    EnginCapacity?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
-    adType?: StringFieldUpdateOperationsInput | string
-    model?: StringFieldUpdateOperationsInput | string
-    year?: IntFieldUpdateOperationsInput | number
     carType?: StringFieldUpdateOperationsInput | string
+    model?: StringFieldUpdateOperationsInput | string
+    year?: StringFieldUpdateOperationsInput | string
     carStatus?: StringFieldUpdateOperationsInput | string
     transmission?: StringFieldUpdateOperationsInput | string
     fuelType?: StringFieldUpdateOperationsInput | string
     meterRange?: StringFieldUpdateOperationsInput | string
+    paintType?: StringFieldUpdateOperationsInput | string
+    payment?: StringFieldUpdateOperationsInput | string
+    price?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    RegionalSpecifications?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
   }
 
   export type AdUncheckedUpdateManyWithoutUserInput = {
-    adImage?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    adImages?: AdUpdateadImagesInput | string[]
     description?: NullableStringFieldUpdateOperationsInput | string | null
     brand?: StringFieldUpdateOperationsInput | string
+    EnginCapacity?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
-    adType?: StringFieldUpdateOperationsInput | string
-    model?: StringFieldUpdateOperationsInput | string
-    year?: IntFieldUpdateOperationsInput | number
     carType?: StringFieldUpdateOperationsInput | string
+    model?: StringFieldUpdateOperationsInput | string
+    year?: StringFieldUpdateOperationsInput | string
     carStatus?: StringFieldUpdateOperationsInput | string
     transmission?: StringFieldUpdateOperationsInput | string
     fuelType?: StringFieldUpdateOperationsInput | string
     meterRange?: StringFieldUpdateOperationsInput | string
+    paintType?: StringFieldUpdateOperationsInput | string
+    payment?: StringFieldUpdateOperationsInput | string
+    price?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    RegionalSpecifications?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
   }
 
 

@@ -111,18 +111,25 @@ exports.Prisma.UserScalarFieldEnum = {
 exports.Prisma.AdScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
-  adImage: 'adImage',
+  createdAt: 'createdAt',
+  adImages: 'adImages',
   description: 'description',
   brand: 'brand',
+  EnginCapacity: 'EnginCapacity',
   category: 'category',
-  adType: 'adType',
+  carType: 'carType',
   model: 'model',
   year: 'year',
-  carType: 'carType',
   carStatus: 'carStatus',
   transmission: 'transmission',
   fuelType: 'fuelType',
-  meterRange: 'meterRange'
+  meterRange: 'meterRange',
+  paintType: 'paintType',
+  payment: 'payment',
+  price: 'price',
+  name: 'name',
+  RegionalSpecifications: 'RegionalSpecifications',
+  location: 'location'
 };
 
 exports.Prisma.SortOrder = {

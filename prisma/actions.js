@@ -6,29 +6,70 @@ import { currentUser } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
 
 
-export async function createAd(data , userId) {
-  const user = await currentUser()
+export async function createAd(data, userId) {
+  const user = await currentUser();
   const userData = {
     userId,
-    username:user.firstName,
-    email:user.emailAddresses[0].emailAddress
-  }
+    username: user.firstName,
+    email: user.emailAddresses[0].emailAddress,
+  };
+
+  const {
+    EnginCapacity,
+    paintType,
+    payment,
+    price,
+    name,
+    RegionalSpecifications,
+    location,
+    adImages,
+    brand,
+    category,
+    model,
+    year,
+    carType,
+    carStatus,
+    transmission,
+    fuelType,
+    meterRange,
+  } = data; // Destructure all variables individually
+
   try {
-      const newUser = await createUserIfNotExists(userData)
-      const newAd = await prisma.Ad.create({
-        data: {
-          ...data, 
-          user: { connect: { userId } }, 
-        },
-      });
-      revalidatePath('/myAds')
-      
-    } catch (error) {
-      console.error('Error creating ad:', error);
-    } finally {
-      await prisma.$disconnect();
-    }
+    const newUser = await createUserIfNotExists(userData);
+
+    console.log('adImages:', adImages); // Log the adImages array
+
+    const newAd = await prisma.Ad.create({
+      data: {
+        EnginCapacity,
+        paintType,
+        payment,
+        price,
+        name,
+        RegionalSpecifications,
+        location,
+        brand,
+        category,
+        model,
+        year,
+        carType,
+        carStatus,
+        transmission,
+        fuelType,
+        meterRange,
+        user: { connect: { userId } },
+        adImages: { set: adImages }, // Use set to assign adImages
+      },
+    });
+
+    revalidatePath('/myAds');
+  } catch (error) {
+    console.error('Error creating ad:', error);
+  } finally {
+    await prisma.$disconnect();
   }
+}
+
 
   export  async function createUserIfNotExists(userData) {
     try {
@@ -64,7 +105,7 @@ export async function createAd(data , userId) {
           userId,
         },
         include: {
-          ads: true, // Include the user's ads if needed
+          ads: true,
         },
       });
 

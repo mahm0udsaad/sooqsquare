@@ -64,4 +64,27 @@ const carBrands = {
   'Pickup Truck', 'Crossover', 'Wagon', 'Sports Car', 'Luxury Car',
   'Electric Car', 'Hybrid Car', 'Compact Car', 'Off-road Vehicle'
   ];
-  export { categoriesData ,carBrands ,yearsArray ,carTypesArray , carBrandsWithLogos}
+  const cities = [
+    "Dubai",
+    "Abu Dhabi",
+    "Doha",
+    "Riyadh",
+    "Muscat",
+    "Kuwait City",
+    "Manama",
+    "Amman",
+    "Jerusalem",
+    "Beirut",
+    "Baghdad",
+    "Tehran",
+    "Ankara",
+    "Istanbul",
+    "Damascus",
+    "Cairo",
+    "Alexandria",
+    "Tripoli",
+    "Tunis",
+    "Algiers",
+    // Add more cities as needed
+  ];
+  export { cities,categoriesData ,carBrands ,yearsArray ,carTypesArray , carBrandsWithLogos}

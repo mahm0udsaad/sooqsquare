@@ -1,7 +1,38 @@
 {
+  "engineCapacity":"Engine Capacity (cc)",
+  "paintType":"Paint Type",
+  "saveAd":"Save Ad",
+  "publishAd":"Publish Ad",
+  "Original paint": "Original paint",
+  "Partial paint": "Partial paint",
+  "Complete paint": "Complete paint",
+  "Another": "Another",
+  "meterRange":"Meter Range",
+  "above":"Above",
+  "fuelTypes": {
+    "Petrol": "Petrol",
+    "Diesel": "Diesel",
+    "Electric": "Electric",
+    "Hybrid": "Hybrid",
+    "Other": "Other"
+  },
+  "fuelType": "Fuel Type",
+  "transmission":"Transmission",
+  "RegionalSpecifications": {
+    "Gulf": "Gulf specifications",
+    "Japanese": "Japanese specifications",
+    "LosAngeles": "Los Angeles specifications",
+    "European": "European specifications",
+    "Other": "Other specifications"
+  },
+  "DropdownText": "What are the regional specifications?",
   "darkLogoAltText": "Dark Logo",
   "lightLogoAltText": "Logo",
   "searchPlaceholder": "Search",
+  "chooseBrand":"Choose your car brand",
+  "cartype":"Car Type",  
+  "carYear":"Car Year",
+  "carDetails":"Car Details",  
   "new": "New",
   "used": "Used",
   "carstatus":"Car Status",
@@ -29,6 +60,33 @@
     "BoatsYachts": "Boats - Yachts",
     "CarPlatesNumbers": "Car Plates Numbers",
     "WheelsRims": "Wheels - Rims",
-    "CarSpareParts": "Car Spare Parts"
+    "CarSpareParts": "Car Spare Parts",
+    "locationDetails": {
+      "title": "Location Details",
+      "selectCity": "Select a city",
+      "useCurrentLocation": "Use Current Location"
+    },
+    "cities": {
+      "Dubai": "Dubai",
+      "Abu Dhabi": "Abu Dhabi",
+      "Doha": "Doha",
+      "Riyadh": "Riyadh",
+      "Muscat": "Muscat",
+      "Kuwait City": "Kuwait City",
+      "Manama": "Manama",
+      "Amman": "Amman",
+      "Jerusalem": "Jerusalem",
+      "Beirut": "Beirut",
+      "Baghdad": "Baghdad",
+      "Tehran": "Tehran",
+      "Ankara": "Ankara",
+      "Istanbul": "Istanbul",
+      "Damascus": "Damascus",
+      "Cairo": "Cairo",
+      "Alexandria": "Alexandria",
+      "Tripoli": "Tripoli",
+      "Tunis": "Tunis",
+      "Algiers": "Algiers"
+    }
   }
 }

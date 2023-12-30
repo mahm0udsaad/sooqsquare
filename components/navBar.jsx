@@ -6,7 +6,6 @@ import { FiChevronDown } from 'react-icons/fi';
 import { DropdownMenuTrigger, DropdownMenuItem, DropdownMenuContent, DropdownMenu } from '@/components/ui/dropdown-menu';
 import { TfiWorld } from 'react-icons/tfi';
 import { IoLanguageOutline } from 'react-icons/io5';
-import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useTranslation } from "../app/i18n/client"
 import Logo from './logo'
@@ -45,7 +44,7 @@ const NavBar = ({lng , userId})=> {
     };
     
   return (
-    <header className="fixed w-full flex items-center justify-between px-6  bg-white dark:bg-zinc-950">
+    <nav className="z-50 fixed w-full flex items-center justify-between px-6 bg-white dark:bg-zinc-950">
       <Link className="flex items-center" href="#">
         <Logo lng={lng} darkMode={darkMode}/>
       </Link>
@@ -109,7 +108,7 @@ const NavBar = ({lng , userId})=> {
         <span className="ml-2 text-gray-700 dark:text-gray-200">{t('darkMode')}</span>
       </label>
       </div>
-    </header>
+    </nav>
   )
 }
 export default  NavBar

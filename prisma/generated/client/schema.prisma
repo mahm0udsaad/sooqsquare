@@ -19,20 +19,41 @@ model User {
   ads                 Ad[]
 }
 
+
+
+
+
+
+
+
+
+
 model Ad {
   id            String      @id @default(auto()) @map("_id") @db.ObjectId
-  user          User?   @relation(fields: [userId], references: [userId])
+  user          User?       @relation(fields: [userId], references: [userId])
   userId        String?
-  adImage       String   
+  createdAt     DateTime    @default(now())
+  adImages      String[]   
   description   String?
-  brand         String
-  category      String
-  adType        String
-  model         String
-  year          Int      
-  carType       String
-  carStatus     String
-  transmission  String
-  fuelType      String
-  meterRange    String   
+  brand         String     
+  EnginCapacity  String     
+  category      String    
+  carType        String     
+  model         String   
+  year          String        
+  carStatus     String     
+  transmission  String    
+  fuelType      String     
+  meterRange    String  
+  paintType     String
+  payment       String
+  price         String
+  name          String
+  RegionalSpecifications String
+  location      String
 }
+
+
+
+
+
