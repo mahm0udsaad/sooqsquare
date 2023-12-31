@@ -18,22 +18,45 @@ import {  SelectTrigger, SelectItem, SelectGroup, SelectContent, Select } from "
 import {getLocation} from '../helper/location'
 import { useDarkMode } from '@/context/darkModeContext';
 import { createAd } from '../prisma/actions';
+import { RiTimerFlashLine } from "react-icons/ri";
+import { Textarea } from "@/components/ui/textarea"
+ 
+export const OverView = ({ lng }) =>{
+  const category = useSearchParams().get("category");
+  const { t } = useTranslation(lng , "translation")
+  if(!category)return ;
+  return (
+<div className="flex flex-col gap-4">
+     <MutliSteps />
+    <div className="flex">
+    <p className="font-semibold">{t('category')}</p>
+    <p>/{t(`${category}`)}</p>
+    </div>
 
+      <div className="flex justify-center hover:opacity-70 cursor-pointer py-8 rounded-3xl bg-gradient-to-r from-green-900 to-green-500 items-start max-md:px-5">
+      <RiTimerFlashLine className='text-4xl mx-2 text-white'/>
+      <div className="text-white text-2xl font-bold leading-10 my-auto">
+      {t('QuickSell')}
+      </div>
+      </div>
+        </div>
+  )
+}
 export const CategoriesForm = ({lng}) =>{
     const { t } = useTranslation(lng , "translation")
    const  category  = useSearchParams().get("category");
    if ( category ) return ; 
    return (
-       <>
-       <h1 className="text-center text-2xl py-8">
+       <div className=' '>
+       <h1 className="text-center text-2xl font-semibold py-8">
            {t("sellTitle")}
        </h1>
-       <div className="grid grid-cols-4 gap-4 w-11/12  py-4">
+       <div className="grid grid-cols-4 gap-8  py-4">
        {categoriesData.map((item, i) => (
        <AdCategroy lng={lng} key={i} icon={item.icon} text={item.text} />
        ))}
        </div>
-       </>
+       </div>
    )
 }
 // First Step Images 
@@ -47,40 +70,50 @@ export const MultiImageForm = () => {
   const router = useRouter();
 
   const handleImageChange = async (e, index) => {
-    const file = e.target.files[0];
-
+    const files = e.target.files;
+  
     try {
-      if (!file) {
-        throw new Error('No file uploaded');
+      if (!files) {
+        throw new Error('No files uploaded');
       }
-
+  
       setUploading(true);
-
-      const formData = new FormData();
-      formData.append('file', file);
-
-      const adImage = await upload(formData);
-
-      setImages((prevImages) => [...prevImages, adImage.adImage]);
-      setNum((prevNum) => prevNum + 1);
-
+  
+      const uploadPromises = [];
+  
+      for (let i = 0; i < files.length; i++) {
+        const formData = new FormData();
+        formData.append('file', files[i]);
+  
+        const uploadPromise = upload(formData);
+        uploadPromises.push(uploadPromise);
+      }
+  
+      const uploadedImages = await Promise.all(uploadPromises);
+  
+      setImages((prevImages) => {
+        const updatedImages = [...prevImages];
+        uploadedImages.forEach((uploadedImage, i) => {
+          updatedImages[index + i] = uploadedImage.adImage;
+        });
+        return updatedImages;
+      });
+  
       setUploading(false);
     } catch (error) {
       console.error(error.message);
       setUploading(false);
     }
   };
-
-  const handleImageRemove = (index) => {
-    const updatedImages = [...images];
-    updatedImages.splice(index, 1);
-    setNum((prevNum) => prevNum - 1);
-    setImages(updatedImages);
+  
+  const handleImageRemove = (indexToRemove) => {
+    setImages((prevImages) => prevImages.filter((_, index) => index !== indexToRemove));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     setAdImages(images)
+    console.log("submited");
     router.push(`?category=${category}&uploadedImages=${images.length}`);
   };
 
@@ -88,31 +121,30 @@ export const MultiImageForm = () => {
   if (uploadedImages || !category ) return null;
 
   return (
-    <div className="max-w-md mx-auto bg-white border rounded p-8 shadow-md  dark:bg-[#0a0a0a]">
-
+    <div className="w-11/12 mx-auto bg-white border rounded p-8 shadow-md  dark:bg-[#0a0a0a]">
       <div className="title relative">
       <div className="absolute  w-8 h-8 border dark:bg-[#0a0a0a] dark:border-white rounded-full flex items-center justify-center">
       <span className="font-semibold text-rose-500 text-lg">{images.length}</span>
       </div>
       <h1 className="text-3xl font-bold mb-6 text-center">Upload Ad Images</h1>
-
       </div>
-      <form onSubmit={handleSubmit} className="space-y-4 dark:bg-[#0a0a0a]">
-          <div className="grid grid-cols-3 gap-3 dark:bg-[#0a0a0a]">
-        {Array.from({ length: num }).map((_, index) => (
+      <form  className="space-y-4 dark:bg-[#0a0a0a]">
+          <div className="grid grid-cols-4 gap-3 dark:bg-[#0a0a0a]">
+          {Array.from({ length: 20 }).map((_, index) => (
           <div key={index} className="border flex flex-col gap-4 p-3 rounded">
             <Label htmlFor={`image${index}`} className="block mb-1 font-semibold text-center">
-              Image {index + 1}
+              {index == 0 ? <Badge>Cover</Badge> :`Slide ${index + 1}`}
             </Label>
             <div className="relative">
-              <input
-                  type="file"
-                  id={`image${index}`}
-                  name={`image${index}`}
-                  accept="image/*"
-                  className="hidden"
-                  onChange={(e) => handleImageChange(e, index)}
-              />
+            <input
+              type="file"
+              id={`image${index}`}
+              name={`image${index}`}
+              accept="image/*"
+              className="hidden"
+              onChange={(e) => handleImageChange(e, index)}
+              multiple={true}
+            />
               {images[index] && (
                   <div className="flex flex-col items-center gap-6">
                   <Avatar>
@@ -126,6 +158,7 @@ export const MultiImageForm = () => {
                   </Avatar>
                   <Button
                       onClick={() => handleImageRemove(index)}
+                      type="button"
                       className="w-full justify-around text-center font-normal"
                       variant="outline"
                   >
@@ -148,7 +181,7 @@ export const MultiImageForm = () => {
         ))}
           </div>
         <div className="flex justify-center">
-        <Button className="w-[240px] justify-center text-center font-normal mt-4">
+        <Button type="submit" onClick={handleSubmit} className="w-[240px] justify-center text-center font-normal mt-4">
           <MdOutlineRocketLaunch className="w-4 h-4 mr-3" />
           Submit
         </Button>
@@ -157,48 +190,13 @@ export const MultiImageForm = () => {
     </div>
   );
 };
-// city selection
-export const CarStatusSelection = ({lng}) => {
-    const { t } = useTranslation(lng , "translation")
-    const router = useRouter();
-    const category = useSearchParams().get("category");
-    const uploadedImages = useSearchParams().get("uploadedImages");
-    const carStatus = useSearchParams().get("carStatus");
-    
-    if (carStatus || !category || !uploadedImages ) return null;
-    
-    function handleSelectStatus(status) {
-       router.push(`?category=${category}&uploadedImages=${uploadedImages}&carStatus=${status}`);
-    }
-    
-    return (
-       <div key="1" className="w-4/5 mx-auto flex flex-col justify-center items-center">
-           <div className="w-full  text-2xl font-semibold flex justify-center items-center" >
-              { t('carstatus')}
-           </div>
-           <div className="w-full flex justify-center items-center gap-4 pt-8">
-           <Card onClick={()=>handleSelectStatus("New")} className="w-64 mb-8 hover:opacity-50 cursor-pointer">
-               <CardContent className="p-4">
-               <h2 className="font-bold text-lg mb-2">{t('new')}</h2>
-               </CardContent>
-           </Card>
-           <Card onClick={()=>handleSelectStatus("Used")} className="w-64 mb-8 hover:opacity-50 cursor-pointer">
-               <CardContent className="p-4">
-               <h2 className="font-bold text-lg mb-2">{t('used')}</h2>
-               </CardContent>
-           </Card>
-           </div>
-       </div>
-    );
-};
-// Third step location
+
 export  function LocationDetails({lng}) {
   const { t } = useTranslation(lng,"translation");
   const [loading , setLoading] = useState(false)
   const router = useRouter();
   const category = useSearchParams().get("category");
   const uploadedImages = useSearchParams().get("uploadedImages");
-  const carStatus = useSearchParams().get("carStatus");
   const location = useSearchParams().get("location");
 
   const handleButtonClick = async () => {
@@ -206,13 +204,13 @@ export  function LocationDetails({lng}) {
       setLoading(true)
       const userLocation = await getLocation();
       // Do something with the userLocation, like sending it to an API, etc.
-      router.push(`?category=${category}&uploadedImages=${uploadedImages}&carStatus=${carStatus}&location=${userLocation.city}`);
+      router.push(`?category=${category}&uploadedImages=${uploadedImages}&location=${userLocation.city}`);
     } catch (error) {
       console.error('Error getting location:', error);
       // Handle error, show a message to the user, etc.
     }
   };
-  if (location || !carStatus || !category || !uploadedImages) return null;
+  if (location  || !category || !uploadedImages ) return null;
   function handleLocationSelection(location) {
     console.log(location);
     router.push(`?category=${category}&uploadedImages=${uploadedImages}&carStatus=${carStatus}&location=${location}`);
@@ -221,7 +219,7 @@ export  function LocationDetails({lng}) {
     <>
     <h1 className='text-center text-xl'>{t('locationDetails.title')}</h1>
     <div key="1" className="flex w-full h-1/2 pt-12 justify-center ">
-      <div className="w-1/2  flex max-w-md items-center space-x-2">
+      <div className="w-1/2  flex max-w-md items-center space-x-4">
       <Select className="flex-grow">
         <SelectTrigger>
         {t('locationDetails.selectCity')}
@@ -248,6 +246,42 @@ export  function LocationDetails({lng}) {
     </>
   )
 }
+// city selection
+export const CarStatusSelection = ({lng}) => {
+    const { t } = useTranslation(lng , "translation")
+    const router = useRouter();
+    const category = useSearchParams().get("category");
+    const uploadedImages = useSearchParams().get("uploadedImages");
+    const carStatus = useSearchParams().get("carStatus");
+    const location = useSearchParams().get("location");
+    
+    if (carStatus || !category || !uploadedImages || !location) return null;
+    
+    function handleSelectStatus(status) {
+       router.push(`?category=${category}&uploadedImages=${uploadedImages}&location=${location}&carStatus=${status}`);
+    }
+    
+    return (
+       <div key="1" className="w-4/5 mx-auto flex flex-col justify-center items-center">
+           <div className="w-full  text-2xl font-semibold flex justify-center items-center" >
+              { t('carstatus')}
+           </div>
+           <div className="w-full flex justify-center items-center gap-4 pt-8">
+           <Card onClick={()=>handleSelectStatus("New")} className="w-64 mb-8 hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition dark:shadow-gray-500 cursor-pointer shadow-lg">
+               <CardContent className="p-4">
+               <h2 className="font-bold text-lg mb-2">{t('new')}</h2>
+               </CardContent>
+           </Card>
+           <Card onClick={()=>handleSelectStatus("Used")} className="w-64 mb-8 hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition dark:shadow-gray-500 cursor-pointer shadow-lg">
+               <CardContent className="p-4">
+               <h2 className="font-bold text-lg mb-2">{t('used')}</h2>
+               </CardContent>
+           </Card>
+           </div>
+       </div>
+    );
+};
+// Third step location
 export const CarBrandSelector = ({lng}) => {
 const { t } = useTranslation(lng,"translation");
 const router = useRouter();
@@ -273,7 +307,7 @@ return (
            <div
            key={index}
            onClick={() => handleSelectBrand(brand)}
-           className="border text-center rounded p-8 cursor-pointer hover:opacity-70"
+           className="border text-center shadow-md  dark:shadow-white rounded p-8 cursor-pointer hover:opacity-70"
            >
            {brand}
            <div className="flex items-center justify-center w-full">
@@ -737,7 +771,7 @@ export function PriceSelection({lng}) {
   return (
    <div className="w-1/2 mx-auto">
        <form className="grid w-full  items-center gap-4" onSubmit={handleSubmit}>
-      <Label htmlFor="price">Price</Label>
+      <Label htmlFor="price">{t('price')}</Label>
       <div className="flex items-center gap-2">
         <span className="text-lg">$</span>
         <Input
@@ -751,7 +785,7 @@ export function PriceSelection({lng}) {
           <Select className="flex-grow">
               <SelectTrigger>
                   <div className="w-full text-xl font-semibold flex justify-around items-center">
-                  Payment Method
+                  {t('paymentMethod')}
                   </div>
               </SelectTrigger>
               <SelectContent>
@@ -760,12 +794,12 @@ export function PriceSelection({lng}) {
                       <SelectItem
                       onMouseDown={()=> setSelectedPaymentMethod("cash")}
                       >
-                          Cash
+                      {t('Cash')}
                       </SelectItem>
                       <SelectItem
                       onMouseDown={()=> setSelectedPaymentMethod("Installment")}
                       >
-                          Installment
+                      {t('installment')}
                       </SelectItem>
                   </SelectGroup>
               </SelectContent>
@@ -809,8 +843,6 @@ export const NameDescriptionSelector = ({ lng }) => {
     const handleSubmit = (e) => {
       e.preventDefault()
       handleSelectNameDescription(nameInput , description)
-        // Handle name input change
-        // You might want to use state or other management here
     };
 
 
@@ -823,11 +855,12 @@ export const NameDescriptionSelector = ({ lng }) => {
                 value={name}
                 onChange={(e) => setName(e.target.value)}
             />
-            <Input
-                className="mb-4"
-                placeholder="Enter Description"
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
+            <Textarea 
+            placeholder="Type your Description here" 
+            className="mb-4"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            
             />
             <Button
             className='w-full'
@@ -1025,7 +1058,7 @@ export const MutliSteps = () => {
   };
 
   return (
-    <section key="1" className="w-11/12 mx-auto absolute top-0 ">
+    <div key="1" className="w-full">
       {/* ... Your existing code ... */}
       <div className="flex w-full  overflow-x-hidden">
         {Array.from({ length: totalSteps }, (_, index) => (
@@ -1048,7 +1081,7 @@ export const MutliSteps = () => {
         ))}
       </div>
       {/* Button to change step */}
-    </section>
+    </div>
   );
 };
 function ArrowRightIcon(props) {

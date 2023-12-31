@@ -5,10 +5,11 @@ const DarkModeContext = createContext();
 
 export const DarkModeProvider = ({ children }) => {
   const [adImages, setAdImages] = useState([]);
+  const [errorMessage, seSrrorMessage] = useState([]);
   const [successMessage, setSuccessMessage] = useState(false);
 
   return (
-    <DarkModeContext.Provider value={{successMessage, setSuccessMessage, adImages ,setAdImages }}>
+    <DarkModeContext.Provider value={{errorMessage , seSrrorMessage , successMessage, setSuccessMessage, adImages ,setAdImages }}>
       {children}
     </DarkModeContext.Provider>
   );

@@ -1,6 +1,13 @@
 {
   "engineCapacity":"سعه المحرك (cc)",
   "saveAd":"حفظ الاعلان",
+  "Cash":"كاش",
+  "installment":"اقساط",
+  "price":"السعر",
+  "paymentMethod":"طريقه الدفع",
+  "CarsForSale":"سيارات للبيع",
+  "carForRent":"سيارات للإيجار",
+  "category":"القسم",
 "publishAd":"نشر الاعلان",
   "meterRange":"المسافه المقطوعه",
   "paintType":"نوع الدهان",

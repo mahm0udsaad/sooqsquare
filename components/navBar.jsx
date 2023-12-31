@@ -44,7 +44,7 @@ const NavBar = ({lng , userId})=> {
     };
     
   return (
-    <nav className="z-50 fixed w-full flex items-center justify-between px-6 bg-white dark:bg-zinc-950">
+    <nav className="z-50 fixed shadow-lg w-full flex items-center justify-between px-6 bg-white dark:bg-zinc-950">
       <Link className="flex items-center" href="#">
         <Logo lng={lng} darkMode={darkMode}/>
       </Link>
