@@ -1,4 +1,3 @@
-import NavBar from './navBar'
 import { RiTimerFlashLine } from "react-icons/ri";
 import { categoriesData } from "../data/staticData"
 import Image from 'next/image'; 

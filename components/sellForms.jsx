@@ -2,56 +2,58 @@
 import {   useRouter, useSearchParams } from 'next/navigation';
 import { Input } from "@/components/ui/input";
 import { AdCategroy } from './categoriesCard';
-import { categoriesData ,carBrands ,yearsArray ,carTypesArray, carBrandsWithLogos , cities} from "./../data/staticData"
+import { categoriesData ,carBrands ,yearsArray ,carTypesArray} from "./../data/staticData"
 import { useTranslation } from "../app/i18n/client"
-import { CardContent, Card } from "@/components/ui/card"
 import { Button } from "@/components/ui/button";
-import  upload  from '../app/[lng]/sell/imageUploadAction'
-import Image from 'next/image';
 import { Label } from "@/components/ui/label"
-import { AvatarImage, AvatarFallback, Avatar } from "@/components/ui/avatar"
-import { CiImageOn } from "react-icons/ci";
-import { MdOutlineRocketLaunch } from "react-icons/md";
 import { Badge } from "@/components/ui/badge"
 import React, { useState, useRef, useEffect } from 'react';
 import {  SelectTrigger, SelectItem, SelectGroup, SelectContent, Select } from "@/components/ui/select"
-import {getLocation} from '../helper/location'
 import { useDarkMode } from '@/context/darkModeContext';
 import { createAd } from '../prisma/actions';
 import { RiTimerFlashLine } from "react-icons/ri";
-import { Textarea } from "@/components/ui/textarea"
  
 export const OverView = ({ lng }) =>{
   const category = useSearchParams().get("category");
   const { t } = useTranslation(lng , "translation")
   if(!category)return ;
   return (
-<div className="flex flex-col gap-4">
+<div className="flex flex-col gap-4  lg:w-[25%]">
      <MutliSteps />
-    <div className="flex">
+    <div className="flex py-3 border-b-2">
     <p className="font-semibold">{t('category')}</p>
     <p>/{t(`${category}`)}</p>
     </div>
+      
+    <div className="max-w-xs bg-[#21be5b47] border border-[#21be5b] rounded-xl overflow-hidden shadow-lg">
+        <div className="px-6 py-4">
+          <div className="font-bold text-xl sm:mb-4 my-4 mb-2 text-green-800 dark:text-white">Tip for You</div>
+          <p className="text-gray-700 dark:text-white text-base">
+            This is a sample card with Tailwind CSS. You can add your content here.
+          </p>
+        </div>
+      </div>
 
-      <div className="flex justify-center hover:opacity-70 cursor-pointer py-8 rounded-3xl bg-gradient-to-r from-green-900 to-green-500 items-start max-md:px-5">
+      <div className="flex justify-center hover:opacity-70 cursor-pointer py-8 rounded-xl bg-gradient-to-r from-green-900 to-green-500 items-start max-md:px-5">
       <RiTimerFlashLine className='text-4xl mx-2 text-white'/>
       <div className="text-white text-2xl font-bold leading-10 my-auto">
       {t('QuickSell')}
       </div>
       </div>
+   
         </div>
   )
 }
-export const CategoriesForm = ({lng}) =>{
+ const CategoriesForm = ({lng}) =>{
     const { t } = useTranslation(lng , "translation")
    const  category  = useSearchParams().get("category");
    if ( category ) return ; 
    return (
        <div className=' '>
-       <h1 className="text-center text-2xl font-semibold py-8">
+       <h1 className="text-center text-2xl font-semibold sm:py-8">
            {t("sellTitle")}
        </h1>
-       <div className="grid grid-cols-4 gap-8  py-4">
+       <div className="grid lg:grid-cols-4 grid-cols-2  gap-8  py-4">
        {categoriesData.map((item, i) => (
        <AdCategroy lng={lng} key={i} icon={item.icon} text={item.text} />
        ))}
@@ -60,266 +62,14 @@ export const CategoriesForm = ({lng}) =>{
    )
 }
 // First Step Images 
-export const MultiImageForm = () => {
-  const { setAdImages } = useDarkMode()
-  const [images, setImages] = useState([]);
-  const [uploading, setUploading] = useState(false);
-  const [num, setNum] = useState(1);
-  const uploadedImages = useSearchParams().get('uploadedImages')
-  const category = useSearchParams().get('category')
-  const router = useRouter();
-
-  const handleImageChange = async (e, index) => {
-    const files = e.target.files;
-  
-    try {
-      if (!files) {
-        throw new Error('No files uploaded');
-      }
-  
-      setUploading(true);
-  
-      const uploadPromises = [];
-  
-      for (let i = 0; i < files.length; i++) {
-        const formData = new FormData();
-        formData.append('file', files[i]);
-  
-        const uploadPromise = upload(formData);
-        uploadPromises.push(uploadPromise);
-      }
-  
-      const uploadedImages = await Promise.all(uploadPromises);
-  
-      setImages((prevImages) => {
-        const updatedImages = [...prevImages];
-        uploadedImages.forEach((uploadedImage, i) => {
-          updatedImages[index + i] = uploadedImage.adImage;
-        });
-        return updatedImages;
-      });
-  
-      setUploading(false);
-    } catch (error) {
-      console.error(error.message);
-      setUploading(false);
-    }
-  };
-  
-  const handleImageRemove = (indexToRemove) => {
-    setImages((prevImages) => prevImages.filter((_, index) => index !== indexToRemove));
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setAdImages(images)
-    console.log("submited");
-    router.push(`?category=${category}&uploadedImages=${images.length}`);
-  };
+export default CategoriesForm
 
 
-  if (uploadedImages || !category ) return null;
 
-  return (
-    <div className="w-11/12 mx-auto bg-white border rounded p-8 shadow-md  dark:bg-[#0a0a0a]">
-      <div className="title relative">
-      <div className="absolute  w-8 h-8 border dark:bg-[#0a0a0a] dark:border-white rounded-full flex items-center justify-center">
-      <span className="font-semibold text-rose-500 text-lg">{images.length}</span>
-      </div>
-      <h1 className="text-3xl font-bold mb-6 text-center">Upload Ad Images</h1>
-      </div>
-      <form  className="space-y-4 dark:bg-[#0a0a0a]">
-          <div className="grid grid-cols-4 gap-3 dark:bg-[#0a0a0a]">
-          {Array.from({ length: 20 }).map((_, index) => (
-          <div key={index} className="border flex flex-col gap-4 p-3 rounded">
-            <Label htmlFor={`image${index}`} className="block mb-1 font-semibold text-center">
-              {index == 0 ? <Badge>Cover</Badge> :`Slide ${index + 1}`}
-            </Label>
-            <div className="relative">
-            <input
-              type="file"
-              id={`image${index}`}
-              name={`image${index}`}
-              accept="image/*"
-              className="hidden"
-              onChange={(e) => handleImageChange(e, index)}
-              multiple={true}
-            />
-              {images[index] && (
-                  <div className="flex flex-col items-center gap-6">
-                  <Avatar>
-                      <AvatarImage
-                      alt={`Uploaded image ${index}`}
-                      src={`${images[index]}`}
-                      height={120}
-                      width={120}
-                      />
-                      <AvatarFallback>Uploaded Image {index}</AvatarFallback>
-                  </Avatar>
-                  <Button
-                      onClick={() => handleImageRemove(index)}
-                      type="button"
-                      className="w-full justify-around text-center font-normal"
-                      variant="outline"
-                  >
-                      <TrashIcon className="w-4 h-4" />
-                  </Button>   
-                  </div>
-              )}
-              {uploading && (
-                  <div className="absolute inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 text-white">
-                  <span>Loading...</span>
-                  </div>
-              )}
-              {!images[index] && !uploading && (
-                  <Label htmlFor={`image${index}`} className="cursor-pointer flex items-center justify-center">
-                  <CiImageOn className="w-8 h-8 mt-3" />
-                  </Label>
-              )}
-              </div>
-          </div>
-        ))}
-          </div>
-        <div className="flex justify-center">
-        <Button type="submit" onClick={handleSubmit} className="w-[240px] justify-center text-center font-normal mt-4">
-          <MdOutlineRocketLaunch className="w-4 h-4 mr-3" />
-          Submit
-        </Button>
-        </div>
-      </form>
-    </div>
-  );
-};
-
-export  function LocationDetails({lng}) {
-  const { t } = useTranslation(lng,"translation");
-  const [loading , setLoading] = useState(false)
-  const router = useRouter();
-  const category = useSearchParams().get("category");
-  const uploadedImages = useSearchParams().get("uploadedImages");
-  const location = useSearchParams().get("location");
-
-  const handleButtonClick = async () => {
-    try {
-      setLoading(true)
-      const userLocation = await getLocation();
-      // Do something with the userLocation, like sending it to an API, etc.
-      router.push(`?category=${category}&uploadedImages=${uploadedImages}&location=${userLocation.city}`);
-    } catch (error) {
-      console.error('Error getting location:', error);
-      // Handle error, show a message to the user, etc.
-    }
-  };
-  if (location  || !category || !uploadedImages ) return null;
-  function handleLocationSelection(location) {
-    console.log(location);
-    router.push(`?category=${category}&uploadedImages=${uploadedImages}&carStatus=${carStatus}&location=${location}`);
-  }
-  return (
-    <>
-    <h1 className='text-center text-xl'>{t('locationDetails.title')}</h1>
-    <div key="1" className="flex w-full h-1/2 pt-12 justify-center ">
-      <div className="w-1/2  flex max-w-md items-center space-x-4">
-      <Select className="flex-grow">
-        <SelectTrigger>
-        {t('locationDetails.selectCity')}
-        </SelectTrigger>
-        <SelectContent>
-          <SelectGroup>
-          {cities.map((city) => (
-              <SelectItem key={city} onMouseDown={()=>handleLocationSelection(city)}>
-                {t(`cities.${city}`)}
-              </SelectItem>
-            ))}
-          </SelectGroup>
-        </SelectContent>
-      </Select>
-      <Button disabled={loading} onClick={handleButtonClick} className="relative">
-        <span className="absolute top-0 right-0 inline-flex h-3 w-3">
-          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75"></span>
-          <span className="relative inline-flex rounded-full h-3 w-3 bg-sky-500"></span>
-        </span>
-        {loading ? `loading...` : t('locationDetails.useCurrentLocation')}
-      </Button>
-      </div>
-    </div>
-    </>
-  )
-}
 // city selection
-export const CarStatusSelection = ({lng}) => {
-    const { t } = useTranslation(lng , "translation")
-    const router = useRouter();
-    const category = useSearchParams().get("category");
-    const uploadedImages = useSearchParams().get("uploadedImages");
-    const carStatus = useSearchParams().get("carStatus");
-    const location = useSearchParams().get("location");
-    
-    if (carStatus || !category || !uploadedImages || !location) return null;
-    
-    function handleSelectStatus(status) {
-       router.push(`?category=${category}&uploadedImages=${uploadedImages}&location=${location}&carStatus=${status}`);
-    }
-    
-    return (
-       <div key="1" className="w-4/5 mx-auto flex flex-col justify-center items-center">
-           <div className="w-full  text-2xl font-semibold flex justify-center items-center" >
-              { t('carstatus')}
-           </div>
-           <div className="w-full flex justify-center items-center gap-4 pt-8">
-           <Card onClick={()=>handleSelectStatus("New")} className="w-64 mb-8 hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition dark:shadow-gray-500 cursor-pointer shadow-lg">
-               <CardContent className="p-4">
-               <h2 className="font-bold text-lg mb-2">{t('new')}</h2>
-               </CardContent>
-           </Card>
-           <Card onClick={()=>handleSelectStatus("Used")} className="w-64 mb-8 hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition dark:shadow-gray-500 cursor-pointer shadow-lg">
-               <CardContent className="p-4">
-               <h2 className="font-bold text-lg mb-2">{t('used')}</h2>
-               </CardContent>
-           </Card>
-           </div>
-       </div>
-    );
-};
+
 // Third step location
-export const CarBrandSelector = ({lng}) => {
-const { t } = useTranslation(lng,"translation");
-const router = useRouter();
-const category = useSearchParams().get("category");
-const brand = useSearchParams().get("brand");
-const uploadedImages = useSearchParams().get("uploadedImages");
-const carStatus = useSearchParams().get("carStatus");
-const location = useSearchParams().get("location");
 
-
-if (brand || !category || !carStatus ||!location ) return null;
-
-function handleSelectBrand(selectedBrand) {
-   router.push(`?category=${category}&carStatus=${carStatus}&uploadedImages=${uploadedImages}&location=${location}&brand=${selectedBrand}`);
-}
-
-return (
-   <div className="w-full">
-   <div className={' items-center flex-col'} >
-       <h1 className="text-center text-2xl py-6">{t('chooseBrand')}</h1>
-       <div className="grid grid-cols-5 gap-4 mx-8" >
-       {Object.keys(carBrands).map((brand, index) => (
-           <div
-           key={index}
-           onClick={() => handleSelectBrand(brand)}
-           className="border text-center shadow-md  dark:shadow-white rounded p-8 cursor-pointer hover:opacity-70"
-           >
-           {brand}
-           <div className="flex items-center justify-center w-full">
-           <Image className='pt-4' src={carBrandsWithLogos[brand]} width={80} height={100} alt="brandLogo"  />
-           </div>
-           </div>
-       ))}
-       </div>
-   </div>
-   </div>
-);
-};
 export const ModelSelection = ({lng}) => {
    const router = useRouter();
    const  brand  = useSearchParams().get("brand");
@@ -811,66 +561,6 @@ export function PriceSelection({lng}) {
    </div>
   );
 }
-export const NameDescriptionSelector = ({ lng }) => {
-  const router = useRouter();
-  const brand = useSearchParams().get("brand");
-  const category = useSearchParams().get("category");
-  const model = useSearchParams().get("model");
-  const year = useSearchParams().get("year");
-  const location = useSearchParams().get("location");
-  const carType = useSearchParams().get("carType");
-  const carStatus = useSearchParams().get("carStatus");
-  const transmission = useSearchParams().get("transmission");
-  const uploadedImages = useSearchParams().get("uploadedImages");
-  const RegionalSpecifications = useSearchParams().get("RegionalSpecifications");
-  const fuelType = useSearchParams().get("fuelType");
-  const EnginCapacity = useSearchParams().get("EnginCapacity");
-  const meterRange = useSearchParams().get("meterRange");
-  const paintType = useSearchParams().get("paintType");
-  const { t } = useTranslation(lng , "translation")
-  const payment = useSearchParams().get("payment");
-  const price = useSearchParams().get("price");
-  const name = useSearchParams().get("name");
-  const [nameInput, setName] = useState('');
-  const [description, setDescription] = useState('');
-
-  if (!brand || !category || !model || !year || !carType || !carStatus || !transmission || !fuelType || !paintType || !price || !payment || name) return null;
-
-    const handleSelectNameDescription = (selectedName, selectedDescription) => {
-        router.push(`?category=${category}&carStatus=${carStatus}&uploadedImages=${uploadedImages}&location=${location}&brand=${brand}&carType=${carType}&year=${year}&model=${model}&transmission=${transmission}&RegionalSpecifications=${RegionalSpecifications}&fuelType=${fuelType}&EnginCapacity=${EnginCapacity}&meterRange=${meterRange}&paintType=${paintType}&price=${price}&payment=${payment}&name=${selectedName}&description=${selectedDescription}`);
-    };
-
-    const handleSubmit = (e) => {
-      e.preventDefault()
-      handleSelectNameDescription(nameInput , description)
-    };
-
-
-    return (
-        <div key="1" className="w-1/2 mx-auto pt-4">
-          <h1 className='text-xl text-center py-4'>Ad Details</h1>
-            <Input
-                className="mb-4"
-                placeholder="Enter Name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-            />
-            <Textarea 
-            placeholder="Type your Description here" 
-            className="mb-4"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            
-            />
-            <Button
-            className='w-full'
-                onClick={handleSubmit}
-            >
-                Submit
-            </Button>
-        </div>
-    );
-};
 export function Review({lng , userId}) {
   const brand = useSearchParams().get("brand");
   const category = useSearchParams().get("category");
@@ -967,26 +657,6 @@ export function Review({lng , userId}) {
   );
 }
 
-function TrashIcon(props) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M3 6h18" />
-      <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
-      <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
-    </svg>
-  )
-}
 // steps component
 export const MutliSteps = () => {
   const brand = useSearchParams().get("brand");
@@ -1058,9 +728,12 @@ export const MutliSteps = () => {
   };
 
   return (
-    <div key="1" className="w-full">
+    <div key="1" className="w-full border bg-white shadow-lg p-3 rounded-xl">
+      <p className='text-gray-700 dark:text-white'>we do it in a simple 12 Step</p>
+      <p className='text-gray-700 dark:text-white pt-2'>Remaining:  <Badge className=" bg-[#21be5b47] border-[#21be5b] text-green-700 dark:text-white mx-3">{ totalSteps - stepses.length  } step</Badge></p>
       {/* ... Your existing code ... */}
       <div className="flex w-full  overflow-x-hidden">
+      <p className='text-gray-700 dark:text-white pt-2 flex items-center'>Current:</p>
         {Array.from({ length: totalSteps }, (_, index) => (
           <div
             key={`step-${index + 1}`}
@@ -1084,25 +757,7 @@ export const MutliSteps = () => {
     </div>
   );
 };
-function ArrowRightIcon(props) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M5 12h14" />
-      <path d="m12 5 7 7-7 7" />
-    </svg>
-  )
-}
+
 function CheckIcon(props) {
   return (
     <svg
@@ -1121,6 +776,7 @@ function CheckIcon(props) {
     </svg>
   )
 }
+
 function HardDriveIcon(props) {
   return (
     <svg

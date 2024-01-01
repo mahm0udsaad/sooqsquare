@@ -1,14 +1,22 @@
 
 import { auth } from '@clerk/nextjs'
-import  {Review,NameDescriptionSelector,PriceSelection ,PaintTypeSelector,RegionalSpecifications , CategoriesForm , CarBrandSelector , ModelSelection,ModelYearSelection, CarTypeSelection ,CarStatusSelection, TransmissionSelection, FuelTypeSelection, MeterRangeSelection, ImageAdAndDescription, MultiImageForm, MutliSteps, LocationDetails, EngineCapacitySelector, OverView,} from '../../../components/sellForms'
+import  {EngineCapacitySelector, Review,PriceSelection ,PaintTypeSelector,RegionalSpecifications, OverView  , ModelSelection,ModelYearSelection, CarTypeSelection ,TransmissionSelection, FuelTypeSelection, MeterRangeSelection} from '../../../components/sellForms'
+import dynamic from 'next/dynamic'
+
+
+// Exporting components
+ const CategoriesForm = dynamic(() => import(`../../../components/sellForms`));
+ const NameDescriptionSelector = dynamic(() => import(`../../../components/NameDescriptionSelector`));
+ const CarBrandSelector = dynamic(() => import(`../../../components/CarBrandSelector`));
+ const CarStatusSelection = dynamic(() => import(`../../../components/CarStatusSelection`));
+ const MultiImageForm = dynamic(() => import(`../../../components/MultibleImages`));
+ const LocationDetails = dynamic(() => import(`../../../components/LocationSelector`));
 
 const SellForm = async ({ params : { lng }  }) =>{
     const { userId } = await auth()
   return (
-    <div className='pt-20 relative w-11/12 mx-auto flex flex'>
-    <div className="flex flex-col relative w-[25%]">
+    <div className='pt-20 relative w-11/12 mx-auto  flex lg:flex-row flex-col-reverse'>
       <OverView lng={lng} />
-    </div>
     <div className="flex flex-col w-full">
       <div className="w-full">
         <CategoriesForm lng={lng} />
