@@ -1,6 +1,10 @@
 {
   "engineCapacity":"Engine Capacity (cc)",
   "paintType":"Paint Type",
+  "postTitle":"Post Your Ad In a Simple 12 Step",
+  "remaining":"Remaining",
+  "Step":"Step",
+  "uploadImages":"Upload Up To 20 Photos",
   "Cash":"Cash",
   "installment":"Installment",
   "price":"Price",

@@ -12,14 +12,15 @@ import {  SelectTrigger, SelectItem, SelectGroup, SelectContent, Select } from "
 import { useDarkMode } from '@/context/darkModeContext';
 import { createAd } from '../prisma/actions';
 import { RiTimerFlashLine } from "react-icons/ri";
- 
+import { Toggle } from "@/components/ui/toggle"
+
 export const OverView = ({ lng }) =>{
   const category = useSearchParams().get("category");
   const { t } = useTranslation(lng , "translation")
   if(!category)return ;
   return (
 <div className="flex flex-col gap-4  lg:w-[25%]">
-     <MutliSteps />
+     <MutliSteps lng={lng}/>
     <div className="flex py-3 border-b-2">
     <p className="font-semibold">{t('category')}</p>
     <p>/{t(`${category}`)}</p>
@@ -61,15 +62,7 @@ export const OverView = ({ lng }) =>{
        </div>
    )
 }
-// First Step Images 
 export default CategoriesForm
-
-
-
-// city selection
-
-// Third step location
-
 export const ModelSelection = ({lng}) => {
    const router = useRouter();
    const  brand  = useSearchParams().get("brand");
@@ -202,10 +195,10 @@ function handleSelectTransmission(selectedTransmission) {
 return (
    <div key="1" className="w-1/2 mx-auto">
     <Select className="flex-grow" open={true}>
-        <SelectTrigger className="py-3">
-          <div className="w-full  text-2xl font-semibold flex justify-around items-center">
+        <SelectTrigger>
+        <div className="w-full py-3 text-2xl font-semibold flex justify-around items-center">
             {t('transmission')}
-          </div>
+        </div>
         </SelectTrigger>
         <SelectContent>
           <SelectGroup>
@@ -532,28 +525,24 @@ export function PriceSelection({lng}) {
           onChange={(e) => setPrice(e.target.value)}
         />
       </div>
-          <Select className="flex-grow">
-              <SelectTrigger>
-                  <div className="w-full text-xl font-semibold flex justify-around items-center">
-                  {t('paymentMethod')}
-                  </div>
-              </SelectTrigger>
-              <SelectContent>
-                  <SelectGroup 
-                  >
-                      <SelectItem
-                      onMouseDown={()=> setSelectedPaymentMethod("cash")}
-                      >
-                      {t('Cash')}
-                      </SelectItem>
-                      <SelectItem
-                      onMouseDown={()=> setSelectedPaymentMethod("Installment")}
-                      >
-                      {t('installment')}
-                      </SelectItem>
-                  </SelectGroup>
-              </SelectContent>
-          </Select>
+            <div className="w-full text-xl font-semibold flex justify-around items-center">
+            {t('paymentMethod')} :
+          <div className="flex gap-4">
+          <Toggle
+            className="border rounded-full px-3 shadow" 
+          onMouseDown={()=> setSelectedPaymentMethod("cash")}
+        aria-label="cash">
+                {t('Cash')}
+          
+        </Toggle>
+        <Toggle
+          className="border rounded-full px-3 shadow" 
+          onMouseDown={()=> setSelectedPaymentMethod("Installment")}
+        aria-label="Installment">
+                {t('installment')}
+        </Toggle>
+          </div>
+            </div>
       <Button   type="submit">
         Submit
       </Button>
@@ -633,7 +622,7 @@ export function Review({lng , userId}) {
  
   return (
     <main className="">
-      <div className="grid mx-8 grid-cols-1 md:grid-cols-3 gap-x-3 gap-y-2 p-4 md:p-6">
+      <div className="grid mx-8 grid-cols-1 md:grid-cols-3 gap-x-3 gap-y-2 pb-4">
       {steps.map((step, i) => (
         <div key={i}>
           <Label htmlFor={`step-${i}`}>{step.label}</Label>
@@ -643,11 +632,11 @@ export function Review({lng , userId}) {
       </div>
       <div className="w-full grid gap-4 px-8">
         <div className="flex gap-2 justify-end">
-          <Button onClick={handleSave} disabled={loading} className="inline-flex h-10 items-center justify-center rounded-md bg-gray-900 px-8 text-sm font-medium text-gray-50 shadow transition-colors hover:bg-gray-900/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-950 disabled:pointer-events-none disabled:opacity-50 dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-50/90 dark:focus-visible:ring-gray-300">
+          <Button onClick={handleSave} disabled={loading} className="inline-flex h-10 items-center justify-around rounded-md bg-gray-900 px-8 text-sm font-medium text-gray-50 shadow transition-colors hover:bg-gray-900/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-950 disabled:pointer-events-none disabled:opacity-50 dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-50/90 dark:focus-visible:ring-gray-300">
             {loading ? 'saving...' :  t('saveAd')}
             <HardDriveIcon className="ml-2 h-4 w-4" />
           </Button>
-          <Button className="inline-flex h-10 items-center justify-center rounded-md bg-green-500 px-8 text-sm font-medium text-gray-50 shadow transition-colors hover:bg-green-600 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-green-600 disabled:pointer-events-none disabled:opacity-50 dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-50/90 dark:focus-visible:ring-gray-300">
+          <Button className="inline-flex h-10 items-center justify-around rounded-md bg-green-500  px-8 text-sm font-medium text-gray-50 shadow transition-colors hover:bg-green-600 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-green-600 disabled:pointer-events-none disabled:opacity-50 dark:bg-green-500 dark:text-white dark:hover:bg-gray-50/90 dark:focus-visible:ring-gray-300">
             {t('publishAd')}
             <PlaneIcon className="ml-2 h-4 w-4" />
           </Button>
@@ -658,7 +647,7 @@ export function Review({lng , userId}) {
 }
 
 // steps component
-export const MutliSteps = () => {
+export const MutliSteps = ({ lng }) => {
   const brand = useSearchParams().get("brand");
   const category = useSearchParams().get("category");
   const model = useSearchParams().get("model");
@@ -676,7 +665,7 @@ export const MutliSteps = () => {
   const price = useSearchParams().get("price");
   const name = useSearchParams().get("name");
   const location = useSearchParams().get("location");
-
+  const { t } = useTranslation(lng , "translation")
 
   const steps = [
     EnginCapacity,
@@ -728,27 +717,26 @@ export const MutliSteps = () => {
   };
 
   return (
-    <div key="1" className="w-full border bg-white shadow-lg p-3 rounded-xl">
-      <p className='text-gray-700 dark:text-white'>we do it in a simple 12 Step</p>
-      <p className='text-gray-700 dark:text-white pt-2'>Remaining:  <Badge className=" bg-[#21be5b47] border-[#21be5b] text-green-700 dark:text-white mx-3">{ totalSteps - stepses.length  } step</Badge></p>
+    <div key="1" className="w-full border bg-white dark:bg-zinc-800 shadow-lg p-3 rounded-xl">
+      <p className='text-gray-700 dark:text-white'>{t("postTitle")}</p>
+      <p className='text-gray-700 dark:text-white pt-2'>{t("remaining")} :  <Badge className=" bg-[#21be5b47] border-[#21be5b] text-green-700 dark:text-white mx-3">{ totalSteps - stepses.length  } {t("Step")}</Badge></p>
       {/* ... Your existing code ... */}
       <div className="flex w-full  overflow-x-hidden">
-      <p className='text-gray-700 dark:text-white pt-2 flex items-center'>Current:</p>
         {Array.from({ length: totalSteps }, (_, index) => (
           <div
             key={`step-${index + 1}`}
             ref={stepRefs[index]}
-            className="flex items-center  p-4 sm:p-8"
+            className="flex items-center  p-4 sm:p-7"
           >
             <Badge
-              className={`items-center justify-center w-20 h-8 ${
+              className={`items-center border shadow-lg justify-around w-20 h-8 ${
                 currentStep === index + 1 || currentStep > index + 1 ? 'bg-green-500 text-white' : ''
               }`}
               variant="outline"
               onClick={() => handleStepChange(index + 1)}
             >
              {currentStep === index  || currentStep >= index + 1  && <CheckIcon className="h-3.5 w-3.5 -translate-x-1" />}
-             {index + 1 ==  steps.length   ? 'Complete' : `Step ${index + 1}`}
+             {index + 1 ==  steps.length   ? 'Complete' : `${t('Step')} ${index + 1}`}
             </Badge>
           </div>
         ))}

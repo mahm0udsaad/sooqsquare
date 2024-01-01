@@ -9,6 +9,8 @@ import  upload  from '../app/[lng]/sell/imageUploadAction'
 import { AvatarImage, AvatarFallback, Avatar } from "@/components/ui/avatar"
 import { CiImageOn } from "react-icons/ci";
 import { MdOutlineRocketLaunch } from "react-icons/md";
+import { t } from 'i18next';
+import { useTranslation } from '../app/i18n/client';
 function TrashIcon(props) {
     return (
       <svg
@@ -30,15 +32,15 @@ function TrashIcon(props) {
     )
   }
 
- const MultiImageForm = () => {
-    const { setAdImages } = useDarkMode()
+ const MultiImageForm = ({lng}) => {
+    const { setAdImages ,setErrorMessage } = useDarkMode()
     const [images, setImages] = useState([]);
     const [uploading, setUploading] = useState(false);
-    const [num, setNum] = useState(1);
     const uploadedImages = useSearchParams().get('uploadedImages')
     const category = useSearchParams().get('category')
     const router = useRouter();
-  
+    const { t } = useTranslation(lng , "translation")
+
     const handleImageChange = async (e, index) => {
       const files = e.target.files;
     
@@ -82,24 +84,27 @@ function TrashIcon(props) {
   
     const handleSubmit = (e) => {
       e.preventDefault();
+      if(images.length == 0 ){
+      setErrorMessage('There is no Images uploaded')
+      }else{
       setAdImages(images)
-      console.log("submited");
       router.push(`?category=${category}&uploadedImages=${images.length}`);
+      }
     };
   
   
     if (uploadedImages || !category ) return null;
   
     return (
-      <div className="w-11/12 mx-auto bg-white border rounded p-8 shadow-md  dark:bg-[#0a0a0a]">
+      <div className="w-11/12 mx-auto bg-white border rounded p-8 shadow-md  dark:bg-zinc-950">
         <div className="title relative">
         <div className="absolute  w-8 h-8 border dark:bg-[#0a0a0a] dark:border-white rounded-full flex items-center justify-center">
         <span className="font-semibold text-rose-500 text-lg">{images.length}</span>
         </div>
-        <h1 className="text-3xl font-bold mb-6 text-center">Upload Ad Images</h1>
+        <h1 className="text-3xl font-bold mb-6 text-center">{t('uploadImages')}</h1>
         </div>
-        <form  className="space-y-4 dark:bg-[#0a0a0a]">
-            <div className="grid grid-cols-4 gap-3 dark:bg-[#0a0a0a]">
+        <form  className="space-y-4">
+            <div className="grid grid-cols-4 gap-3">
             {Array.from({ length: 20 }).map((_, index) => (
             <div key={index} className="border flex flex-col gap-4 p-3 rounded">
               <Label htmlFor={`image${index}`} className="block mb-1 font-semibold text-center">

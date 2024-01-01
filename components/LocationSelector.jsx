@@ -34,11 +34,11 @@ export default function LocationDetails({lng}) {
     }
     return (
       <>
-      <h1 className='text-center text-xl'>{t('locationDetails.title')}</h1>
+      <h1 className='text-center font-semibold text-xl'>{t('locationDetails.title')}</h1>
       <div key="1" className="flex w-full h-1/2 pt-12 justify-center ">
         <div className="w-1/2  flex max-w-md items-center space-x-4">
-        <Select className="flex-grow">
-          <SelectTrigger>
+        <Select className="flex-grow mx-4">
+          <SelectTrigger className="py-5 ">
           {t('locationDetails.selectCity')}
           </SelectTrigger>
           <SelectContent>

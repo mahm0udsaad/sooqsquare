@@ -1,15 +1,21 @@
 "use client"
-import React, { createContext, useState, useContext } from 'react';
+import React, { createContext, useState, useContext, useEffect } from 'react';
 
 const DarkModeContext = createContext();
 
 export const DarkModeProvider = ({ children }) => {
   const [adImages, setAdImages] = useState([]);
-  const [errorMessage, seSrrorMessage] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(null);
   const [successMessage, setSuccessMessage] = useState(false);
 
+  useEffect(() => {
+    if (errorMessage !== null || successMessage !== null) {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }, [errorMessage , successMessage]);
+
   return (
-    <DarkModeContext.Provider value={{errorMessage , seSrrorMessage , successMessage, setSuccessMessage, adImages ,setAdImages }}>
+    <DarkModeContext.Provider value={{errorMessage , setErrorMessage , successMessage, setSuccessMessage, adImages ,setAdImages }}>
       {children}
     </DarkModeContext.Provider>
   );

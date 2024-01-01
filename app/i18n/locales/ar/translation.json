@@ -1,6 +1,10 @@
 {
   "engineCapacity":"سعه المحرك (cc)",
   "saveAd":"حفظ الاعلان",
+  "uploadImages":"قم بتحميل ما يصل إلى 20 صورة",
+  "postTitle":"قم بنشر اعلانك في 10 خطوات بسيطه",
+  "remaining":"متبقي",
+  "Step":"خطوه",
   "Cash":"كاش",
   "installment":"اقساط",
   "price":"السعر",

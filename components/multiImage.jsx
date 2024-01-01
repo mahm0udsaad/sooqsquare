@@ -1,8 +1,10 @@
 "use client"
 import { Badge } from "@/components/ui/badge"
 import React, { useState, useRef } from 'react';
+import { useTranslation } from "../app/i18n/client";
 
-const MultiImageForm = () => {
+const MultiImageForm = ({ lng }) => {
+  const { t } = useTranslation(lng , "translation")
   const totalSteps = 10;
   const [currentStep, setCurrentStep] = useState(1);
   const stepRefs = Array.from({ length: totalSteps }, () => useRef(null));

@@ -4,6 +4,7 @@ import NavBar from '@/components/navBar'
 import { ClerkProvider, auth } from '@clerk/nextjs'
 import { DarkModeProvider } from '../../context/darkModeContext'
 import { ErrorMessage, SonnerDemo } from '@/components/messages'
+
 import { dir } from 'i18next'
 
 export async function generateStaticParams() {
@@ -21,7 +22,7 @@ export default async function RootLayout({ children, params: { lng }}) {
         <NavBar userId={userId} lng={lng}/>
           <div dir={dir(lng)} className="pt-16 w-full relative">
           <SonnerDemo />
-          <ErrorMessage />
+           <ErrorMessage />
           {children}
           </div>
           </body>

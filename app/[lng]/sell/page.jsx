@@ -1,13 +1,12 @@
 
 import { auth } from '@clerk/nextjs'
-import  {EngineCapacitySelector, Review,PriceSelection ,PaintTypeSelector,RegionalSpecifications, OverView  , ModelSelection,ModelYearSelection, CarTypeSelection ,TransmissionSelection, FuelTypeSelection, MeterRangeSelection} from '../../../components/sellForms'
+import  {EngineCapacitySelector, Review,PriceSelection ,PaintTypeSelector,RegionalSpecifications, OverView  , ModelSelection, ModelYearSelection, CarTypeSelection ,TransmissionSelection, FuelTypeSelection, MeterRangeSelection} from '../../../components/sellForms'
 import dynamic from 'next/dynamic'
-
 
 // Exporting components
  const CategoriesForm = dynamic(() => import(`../../../components/sellForms`));
  const NameDescriptionSelector = dynamic(() => import(`../../../components/NameDescriptionSelector`));
- const CarBrandSelector = dynamic(() => import(`../../../components/CarBrandSelector`));
+ const CarBrandSelector = dynamic(() => import(`../../../components/carBrandSelection`));
  const CarStatusSelection = dynamic(() => import(`../../../components/CarStatusSelection`));
  const MultiImageForm = dynamic(() => import(`../../../components/MultibleImages`));
  const LocationDetails = dynamic(() => import(`../../../components/LocationSelector`));

@@ -9,6 +9,7 @@ import { IoLanguageOutline } from 'react-icons/io5';
 import { useRouter } from 'next/navigation';
 import { useTranslation } from "../app/i18n/client"
 import Logo from './logo'
+import { ErrorMessage } from '@/components/messages'
 import {
   SignedIn,
   UserButton,
@@ -44,7 +45,7 @@ const NavBar = ({lng , userId})=> {
     };
     
   return (
-    <nav className="z-50 fixed shadow-lg w-full flex items-center justify-between px-6 bg-white dark:bg-zinc-950">
+    <nav className="z-50 fixed  shadow-lg w-full flex items-center justify-between px-6 bg-white dark:bg-zinc-950">
       <Link className="flex items-center" href="#">
         <Logo lng={lng} darkMode={darkMode}/>
       </Link>

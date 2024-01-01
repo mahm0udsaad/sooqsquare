@@ -1,6 +1,6 @@
 "use client"
 import {   useRouter, useSearchParams } from 'next/navigation';
-import {carBrands , carBrandsWithLogos} from "./../data/staticData"
+import {carBrands , carBrandsWithLogos} from "../data/staticData"
 import { useTranslation } from "../app/i18n/client"
 import Image from 'next/image';
  
@@ -22,9 +22,9 @@ const CarBrandSelector = ({lng}) => {
   
   return (
      <div className="w-full">
+     <h1 className="text-center text-2xl py-6 font-semibold">{t('chooseBrand')}</h1>
      <div className={' items-center flex-col'} >
-         <h1 className="text-center text-2xl py-6">{t('chooseBrand')}</h1>
-         <div className="grid grid-cols-5 gap-4 mx-8" >
+         <div className="grid lg:grid-cols-5 grid-cols-3  gap-4 mx-8" >
          {Object.keys(carBrands).map((brand, index) => (
              <div
              key={index}
