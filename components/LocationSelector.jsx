@@ -15,6 +15,7 @@ export default function LocationDetails({lng}) {
     const category = useSearchParams().get("category");
     const uploadedImages = useSearchParams().get("uploadedImages");
     const location = useSearchParams().get("location");
+ 
   
     const handleButtonClick = async () => {
       try {
@@ -30,7 +31,7 @@ export default function LocationDetails({lng}) {
     if (location  || !category || !uploadedImages ) return null;
     function handleLocationSelection(location) {
       console.log(location);
-      router.push(`?category=${category}&uploadedImages=${uploadedImages}&carStatus=${carStatus}&location=${location}`);
+      router.push(`?category=${category}&uploadedImages=${uploadedImages}&location=${location}`);
     }
     return (
       <>
