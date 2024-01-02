@@ -12,7 +12,7 @@ export default async function upload(data) {
 
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
-    let path = join(process.cwd(), 'public', 'tmp', file.name);
+    let path = join(process.cwd(),'tmp', file.name);
     await writeFile(path, buffer);
     console.log(`Open ${path} to see the uploaded file`);
     path = extractFilePath(path);
