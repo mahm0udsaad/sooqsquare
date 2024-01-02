@@ -7,7 +7,7 @@ import dynamic from 'next/dynamic'
  const CategoriesForm = dynamic(() => import(`../../../components/sellForms`));
  const NameDescriptionSelector = dynamic(() => import(`../../../components/NameDescriptionSelector`));
  const CarBrandSelector = dynamic(() => import(`../../../components/carBrandSelection`));
- const CarStatusSelection = dynamic(() => import(`../../../components/CarStatusSelection`));
+ const CarStatusSelection = dynamic(() => import(`../../../components/carStatusSelection`));
  const MultiImageForm = dynamic(() => import(`../../../components/MultibleImages`));
  const LocationDetails = dynamic(() => import(`../../../components/LocationSelector`));
 

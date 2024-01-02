@@ -84,12 +84,8 @@ function TrashIcon(props) {
   
     const handleSubmit = (e) => {
       e.preventDefault();
-      if(images.length == 0 ){
-      setErrorMessage('There is no Images uploaded')
-      }else{
       setAdImages(images)
       router.push(`?category=${category}&uploadedImages=${images.length}`);
-      }
     };
   
   
