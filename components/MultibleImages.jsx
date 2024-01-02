@@ -76,6 +76,7 @@ function TrashIcon(props) {
         console.error(error.message);
         setUploading(false);
       }
+      console.log(images);
     };
     
     const handleImageRemove = (indexToRemove) => {
