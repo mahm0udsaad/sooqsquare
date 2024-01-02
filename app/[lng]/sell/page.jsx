@@ -1,6 +1,6 @@
 
 import { auth } from '@clerk/nextjs'
-import  {EngineCapacitySelector, Review,PriceSelection ,PaintTypeSelector,RegionalSpecifications, OverView  , ModelSelection, ModelYearSelection, CarTypeSelection ,TransmissionSelection, FuelTypeSelection, MeterRangeSelection} from '../../../components/sellForms'
+import  {EngineCapacitySelector, Review,PriceSelection ,PaintTypeSelector,RegionalSpecifications, OverView  , ModelSelection, ModelYearSelection, CarTypeSelection ,TransmissionSelection, FuelTypeSelection, MeterRangeSelection, ExtraFeatures, CarChassis} from '../../../components/sellForms'
 import dynamic from 'next/dynamic'
 
 // Exporting components
@@ -37,6 +37,8 @@ const SellForm = async ({ params : { lng }  }) =>{
         <EngineCapacitySelector lng={lng} />
         <MeterRangeSelection lng={lng} />
         <PaintTypeSelector lng={lng} />
+        <ExtraFeatures lng={lng} />
+        <CarChassis lng={lng} />
       </div>
     </div>
   </div>

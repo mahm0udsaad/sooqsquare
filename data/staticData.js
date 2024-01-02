@@ -87,4 +87,33 @@ const carBrands = {
     "Algiers",
     // Add more cities as needed
   ];
-  export { cities,categoriesData ,carBrands ,yearsArray ,carTypesArray , carBrandsWithLogos}
+  const features = [
+    "ABS",
+    "Air Conditioning",
+    "Airbags",
+    "Alarm/Anti-Theft System",
+    "AM/FM Radio",
+    "Aux Audio In",
+    "Bluetooth System",
+    "Cruise Control",
+    "EBD",
+    "Fog Lights",
+    "Keyless Start",
+    "Leather Seats",
+    "Navigation System",
+    "Off-Road Tyres",
+    "Parking Sensors",
+    "Power Locks",
+    "Power Mirrors",
+    "Power Seats",
+    "Power Steering",
+    "Power Windows",
+    "Premium Wheels/Rims",
+    "Rear View Camera",
+    "Roof Rack",
+    "Sunroof",
+    "Touch Screen",
+    "USB Charger"
+  ];
+  
+  export { features,cities,categoriesData ,carBrands ,yearsArray ,carTypesArray , carBrandsWithLogos}

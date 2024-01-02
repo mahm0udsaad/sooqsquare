@@ -1,8 +1,9 @@
 "use client"
-import {   useRouter, useSearchParams } from 'next/navigation';
+import {  useRouter, useSearchParams } from 'next/navigation';
 import { Input } from "@/components/ui/input";
 import { AdCategroy } from './categoriesCard';
-import { categoriesData ,carBrands ,yearsArray ,carTypesArray} from "./../data/staticData"
+import { MdOutlineRocketLaunch } from "react-icons/md";
+import { categoriesData ,carBrands ,yearsArray ,carTypesArray, features} from "./../data/staticData"
 import { useTranslation } from "../app/i18n/client"
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label"
@@ -12,18 +13,23 @@ import {  SelectTrigger, SelectItem, SelectGroup, SelectContent, Select } from "
 import { useDarkMode } from '@/context/darkModeContext';
 import { createAd } from '../prisma/actions';
 import { RiTimerFlashLine } from "react-icons/ri";
-import { Toggle } from "@/components/ui/toggle"
+import {
+  ToggleGroup,
+  ToggleGroupItem,
+} from "@/components/ui/toggle-group"
 
 export const OverView = ({ lng }) =>{
   const category = useSearchParams().get("category");
+  const carStatus = useSearchParams().get("carStatus");
   const { t } = useTranslation(lng , "translation")
   if(!category)return ;
   return (
-<div className="flex flex-col gap-4  lg:w-[25%]">
+  <div className="flex flex-col gap-4  lg:max-w-xs">
      <MutliSteps lng={lng}/>
     <div className="flex py-3 border-b-2">
     <p className="font-semibold">{t('category')}</p>
     <p>/{t(`${category}`)}</p>
+    {carStatus &&<p>/{t(`${carStatus.toLowerCase()}`)}</p>}
     </div>
       
     <div className="max-w-xs bg-[#21be5b47] border border-[#21be5b] rounded-xl overflow-hidden shadow-lg">
@@ -35,13 +41,12 @@ export const OverView = ({ lng }) =>{
         </div>
       </div>
 
-      <div className="flex justify-center hover:opacity-70 cursor-pointer py-8 rounded-xl bg-gradient-to-r from-green-900 to-green-500 items-start max-md:px-5">
+      <div className="max-w-xs flex justify-center hover:opacity-70 cursor-pointer py-8 rounded-xl bg-gradient-to-r from-green-900 to-green-500 items-start max-md:px-5">
       <RiTimerFlashLine className='text-4xl mx-2 text-white'/>
       <div className="text-white text-2xl font-bold leading-10 my-auto">
       {t('QuickSell')}
       </div>
       </div>
-   
         </div>
   )
 }
@@ -482,6 +487,143 @@ export const PaintTypeSelector = ({ lng }) => {
       </div>
   );
 };
+export const ExtraFeatures = ({ lng }) =>{
+  const router = useRouter()
+  const brand = useSearchParams().get("brand");
+  const category = useSearchParams().get("category");
+  const model = useSearchParams().get("model");
+  const year = useSearchParams().get("year"); 
+  const carType = useSearchParams().get("carType");
+  const carStatus = useSearchParams().get("carStatus");
+  const transmission = useSearchParams().get("transmission");
+  const uploadedImages = useSearchParams().get("uploadedImages");
+  const RegionalSpecifications = useSearchParams().get("RegionalSpecifications");
+  const fuelType = useSearchParams().get("fuelType");
+  const EnginCapacity = useSearchParams().get("EnginCapacity");
+  const meterRange = useSearchParams().get("meterRange");
+  const paintType = useSearchParams().get("paintType");
+  const location = useSearchParams().get("location");
+  const { t } = useTranslation(lng , "translation")
+  const extraFeatures = useSearchParams().get("extraFeatures");
+  const {extraFeature , setExtraFeature} = useDarkMode()
+
+  const handleSelect = (value) => {
+    setExtraFeature(prev => {
+      if (prev.includes(value)) {
+        return prev.filter(item => item !== value);
+      } else {
+        return [...prev, value];
+      }
+    });
+  };
+  if (!brand || !category || !model || !year || !carType || !carStatus || !transmission || !fuelType || !paintType || extraFeatures ) return null;
+  const handleSubmit = () => {
+    router.push(`?category=${category}&carStatus=${carStatus}&uploadedImages=${uploadedImages}&location=${location}&brand=${brand}&carType=${carType}&year=${year}&model=${model}&transmission=${transmission}&RegionalSpecifications=${RegionalSpecifications}&fuelType=${fuelType}&EnginCapacity=${EnginCapacity}&meterRange=${meterRange}&paintType=${paintType}&extraFeatures=${extraFeature.length}`);
+  };
+  return (
+    <div className='w-4/5 mx-auto'>
+    <h1 className="text-center text-xl font-semibold py-6">
+      {t('features.title')}
+    </h1>
+    <ToggleGroup className="grid grid-cols-4 gap-4 " type="multiple">
+      {features.map((key, index) => (
+        <ToggleGroupItem
+        key={index}
+        value={key}
+        aria-label={`Toggle ${key}`}
+        className={`border border-sky-800 transition rounded-full ${extraFeature?.includes(key) ? 'bg-sky-600 text-white' : 'bg-[#0284c71c] text-[#005795]'}`}
+        onClick={() => handleSelect(key)}
+      >
+          <p className="p-3 px-2 ">
+          {t(`features.${key}`)}
+            </p>
+        </ToggleGroupItem>
+      ))}
+    </ToggleGroup>  
+    <div className="flex justify-center pt-5 w-full">
+    <Button onClick={handleSubmit} className="w-[240px] justify-center text-center font-normal mt-4">
+          <MdOutlineRocketLaunch className="w-4 h-4 mx-3" />
+          {t('Submit')}
+        </Button>
+    </div>
+    </div>
+  );
+
+}
+export const CarChassis = ({ lng }) =>{
+  const router = useRouter()
+  const {setErrorMessage} = useDarkMode()
+  const brand = useSearchParams().get("brand");
+  const category = useSearchParams().get("category");
+  const model = useSearchParams().get("model");
+  const year = useSearchParams().get("year"); 
+  const carType = useSearchParams().get("carType");
+  const carStatus = useSearchParams().get("carStatus");
+  const transmission = useSearchParams().get("transmission");
+  const uploadedImages = useSearchParams().get("uploadedImages");
+  const RegionalSpecifications = useSearchParams().get("RegionalSpecifications");
+  const fuelType = useSearchParams().get("fuelType");
+  const EnginCapacity = useSearchParams().get("EnginCapacity");
+  const meterRange = useSearchParams().get("meterRange");
+  const paintType = useSearchParams().get("paintType");
+  const location = useSearchParams().get("location");
+  const { t } = useTranslation(lng , "translation")
+  const extraFeatures = useSearchParams().get("extraFeatures");
+  const carChassis = useSearchParams().get("carChassis");
+  const [chassisNum , setChassisNum] = useState(null)
+  if (
+    !brand ||
+    !category ||
+    !model ||
+    !year ||
+    !carType ||
+    !carStatus ||
+    !transmission ||
+    !fuelType ||
+    !paintType ||
+    !extraFeatures ||
+    carChassis
+  ) {
+    return null; 
+  }
+  
+  const handleSubmit = (chassisNumber) => {
+    if(!chassisNum){
+      setErrorMessage(t('messages.noValue'))
+    }else{
+      const queryParams = `?category=${category}&carStatus=${carStatus}&uploadedImages=${uploadedImages}&location=${location}&brand=${brand}&carType=${carType}&year=${year}&model=${model}&transmission=${transmission}&RegionalSpecifications=${RegionalSpecifications}&fuelType=${fuelType}&EnginCapacity=${EnginCapacity}&meterRange=${meterRange}&paintType=${paintType}&extraFeatures=${extraFeatures}&carChassis=${chassisNumber}`;
+      // Handle submission logic here (e.g., API calls, state updates)
+      router.push(queryParams)
+    }
+  };
+
+  const handleSkip = () => {
+    const queryParams = `?category=${category}&carStatus=${carStatus}&uploadedImages=${uploadedImages}&location=${location}&brand=${brand}&carType=${carType}&year=${year}&model=${model}&transmission=${transmission}&RegionalSpecifications=${RegionalSpecifications}&fuelType=${fuelType}&EnginCapacity=${EnginCapacity}&meterRange=${meterRange}&paintType=${paintType}&extraFeatures=${extraFeatures}&carChassis=0`;
+    router.push(queryParams)
+    // Handle skip logic here
+    console.log('Skipped chassis number input.');
+  };
+
+  return (
+    <div className="w-1/2 mx-auto">
+      <h1 className='text-xl text-center font-semibold'>{t('CarChassisTitle')}</h1>
+      <div className="flex items-center gap-2 pt-4">
+        <Input
+          id="chassis"
+          placeholder="Enter Chassis Number"
+          type="number"
+          className="py-6"
+          value={chassisNum}
+          onChange={(e) => setChassisNum(e.target.value)}
+        />
+      </div>
+      <div className="flex  gap-2 py-4">
+      <Button className="bg-transparent border border-zinc-800 hover:bg-zinc-800 hover:text-white text-zinc-800 dark:border-white dark:text-white" onClick={handleSkip}>{t('Skip')}</Button>
+      <Button className="" onClick={handleSubmit}>{t('Submit')}</Button>
+      </div>
+    </div>
+  );
+}
 export function PriceSelection({lng}) {
   const router = useRouter();
   const brand = useSearchParams().get("brand");
@@ -501,20 +643,27 @@ export function PriceSelection({lng}) {
   const { t } = useTranslation(lng , "translation")
   const payment = useSearchParams().get("payment");
   const price = useSearchParams().get("price");
+  const extraFeatures = useSearchParams().get("extraFeatures");
+  const carChassis = useSearchParams().get("carChassis");
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState("cash");
-  const [pricestate, setPrice] = useState("")
+  const [pricestate, setPrice] = useState(null)
+  const { setErrorMessage } = useDarkMode()
 
-  if (!brand || !category || !model || !year || !carType || !carStatus || !transmission || !fuelType || !paintType || price && payment ) return null;
-
+  if (!brand || !category || !model || !year || !carType || !carStatus || !transmission || !fuelType || !paintType || price && payment || !extraFeatures ||  !carChassis) return null;
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    router.push(`?category=${category}&carStatus=${carStatus}&uploadedImages=${uploadedImages}&location=${location}&brand=${brand}&carType=${carType}&year=${year}&model=${model}&transmission=${transmission}&RegionalSpecifications=${RegionalSpecifications}&fuelType=${fuelType}&EnginCapacity=${EnginCapacity}&meterRange=${meterRange}&paintType=${paintType}&price=${pricestate}&payment=${selectedPaymentMethod}`);
+    if(!pricestate){
+      setErrorMessage(t('messages.noValue'))
+    }else{
+
+      router.push(`?category=${category}&carStatus=${carStatus}&uploadedImages=${uploadedImages}&location=${location}&brand=${brand}&carType=${carType}&year=${year}&model=${model}&transmission=${transmission}&RegionalSpecifications=${RegionalSpecifications}&fuelType=${fuelType}&EnginCapacity=${EnginCapacity}&meterRange=${meterRange}&paintType=${paintType}&extraFeatures=${extraFeatures}&carChassis=${carChassis}&price=${pricestate}&payment=${selectedPaymentMethod}`);
+    }
   };
   return (
    <div className="w-1/2 mx-auto">
-       <form className="grid w-full  items-center gap-4" onSubmit={handleSubmit}>
-      <Label htmlFor="price">{t('price')}</Label>
+      <h1 className=" text-center text-xl font-semibold">{t('price')}</h1>
+       <form className="grid w-full  items-center gap-4 pt-4" onSubmit={handleSubmit}>
       <div className="flex items-center gap-2">
         <span className="text-lg">$</span>
         <Input
@@ -527,24 +676,24 @@ export function PriceSelection({lng}) {
       </div>
             <div className="w-full text-xl font-semibold flex justify-around items-center">
             {t('paymentMethod')} :
-          <div className="flex gap-4">
-          <Toggle
-            className="border rounded-full px-3 shadow" 
-          onMouseDown={()=> setSelectedPaymentMethod("cash")}
-        aria-label="cash">
-                {t('Cash')}
-          
-        </Toggle>
-        <Toggle
-          className="border rounded-full px-3 shadow" 
-          onMouseDown={()=> setSelectedPaymentMethod("Installment")}
-        aria-label="Installment">
-                {t('installment')}
-        </Toggle>
-          </div>
+          <ToggleGroup className="flex gap-4 " type="single">
+            <ToggleGroupItem
+            className={`border  transition rounded-full ${selectedPaymentMethod ==="cash"? 'bg-zinc-800 dark:bg-zinc-600 text-white' : ''}`}
+            onClick={()=> setSelectedPaymentMethod("cash")}
+          >
+              {t('Cash')}
+            </ToggleGroupItem>
+            <ToggleGroupItem
+            className={`border  transition rounded-full ${selectedPaymentMethod == "Installment" ? 'bg-zinc-800 dark:bg-zinc-600 text-white' : ''}`}
+            onClick={()=> setSelectedPaymentMethod("Installment")}
+          >
+                    {t('installment')}
+
+            </ToggleGroupItem>
+        </ToggleGroup> 
             </div>
-      <Button   type="submit">
-        Submit
+      <Button type="submit">
+        {t('Submit')}
       </Button>
     </form>
    </div>
@@ -568,27 +717,31 @@ export function Review({lng , userId}) {
   const price = useSearchParams().get("price");
   const name = useSearchParams().get("name");
   const location = useSearchParams().get("location");
+  const extraFeatures = useSearchParams().get("extraFeatures");
+  const carChassis = useSearchParams().get("carChassis");
   const {   adImages  ,setSuccessMessage} = useDarkMode()
   const [loading , setLoading] = useState(false)
   const { t } = useTranslation(lng , "translation")
   const router = useRouter()
   const data = {
-    EnginCapacity: EnginCapacity,
-    paintType:paintType,
-    payment: payment,
-    price: price,
     name: name,
-    RegionalSpecifications: RegionalSpecifications,
-    location: location,
-    adImages: adImages,
+    carStatus: carStatus,
+    price: price,
+    payment: payment,
     brand: brand,
-    category: category,
     model: model,
     year: year,
     carType: carType,
-    carStatus: carStatus,
+    paintType:paintType,
+    location: location,
+    adImages: adImages,
+    category: category,
     transmission: transmission,
     fuelType: fuelType,
+    CarChassis: carChassis ,
+    EnginCapacity: EnginCapacity,
+    ExtraFeatures: extraFeatures ,
+    RegionalSpecifications: RegionalSpecifications,
     meterRange: meterRange
   };
   const handleSave = () =>{
@@ -600,47 +753,50 @@ export function Review({lng , userId}) {
   }
   console.log(adImages);
   const steps = [
-    { label: 'Engine Capacity', value: EnginCapacity },
-    { label: 'Paint Type', value: paintType },
-    { label: 'Payment', value: payment },
-    { label: 'Price', value: price },
+    { label: 'Category', value: category },
+    { label: 'Car Status', value: carStatus },
     { label: 'Name', value: name },
-    { label: 'Regional Specifications', value: RegionalSpecifications },
-    { label: 'Location', value: location },
     { label: 'Uploaded Images', value: uploadedImages },
     { label: 'Brand', value: brand },
-    { label: 'Category', value: category },
     { label: 'Model', value: model },
     { label: 'Year', value: year },
     { label: 'Car Type', value: carType },
-    { label: 'Car Status', value: carStatus },
+    { label: 'Price', value: price },
+    { label: "Car Chassis", value: carChassis },
+    { label: 'Engine Capacity', value: EnginCapacity },
+    { label: 'Paint Type', value: paintType },
+    { label: 'Payment', value: payment },
+    { label: 'Regional Specifications', value: RegionalSpecifications },
+    { label: 'Location', value: location },
     { label: 'Transmission', value: transmission },
     { label: 'Fuel Type', value: fuelType },
     { label: 'Meter Range', value: meterRange },
+    { label : "Extra Features" ,value:extraFeatures },
   ];
-  if (!brand || !category || !model || !year || !carType || !carStatus || !transmission || !fuelType || !paintType || !price || !payment || !name) return null;
+  if (!brand || !category || !model || !year || !carType || !carStatus || !transmission || !fuelType || !paintType || !price || !payment || !name || !extraFeatures) return null;
  
   return (
     <main className="">
       <div className="grid mx-8 grid-cols-1 md:grid-cols-3 gap-x-3 gap-y-2 pb-4">
       {steps.map((step, i) => (
+        step.value !== 'null' && 
         <div key={i}>
           <Label htmlFor={`step-${i}`}>{step.label}</Label>
           <Input id={`step-${i}`} type="text" value={step.value || ''} />
         </div>
+
       ))}
+          <Button onClick={handleSave} disabled={loading} className="flex h-14 w-full rounded-md self-end justify-around rounded-md bg-gray-900  text-sm font-medium text-gray-50 shadow transition-colors hover:bg-gray-900/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-950 disabled:pointer-events-none disabled:opacity-50 dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-50/90 dark:focus-visible:ring-gray-300">
+            {loading ? 'saving...' :  t('saveAd')}
+            <HardDriveIcon className="ml-2 h-4 w-4 mx-3" />
+          </Button>
+          <Button className="flex h-14 w-full rounded-md self-end rounded-md bg-green-500   text-sm font-medium text-gray-50 shadow transition-colors hover:bg-green-600 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-green-600 disabled:pointer-events-none disabled:opacity-50 dark:bg-green-500 dark:text-white dark:hover:bg-gray-50/90 dark:focus-visible:ring-gray-300">
+            {t('publishAd')}
+            <PlaneIcon className="ml-2 h-4 w-4 mx-3" />
+          </Button>
       </div>
       <div className="w-full grid gap-4 px-8">
-        <div className="flex gap-2 justify-end">
-          <Button onClick={handleSave} disabled={loading} className="inline-flex h-10 items-center justify-around rounded-md bg-gray-900 px-8 text-sm font-medium text-gray-50 shadow transition-colors hover:bg-gray-900/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-950 disabled:pointer-events-none disabled:opacity-50 dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-50/90 dark:focus-visible:ring-gray-300">
-            {loading ? 'saving...' :  t('saveAd')}
-            <HardDriveIcon className="ml-2 h-4 w-4" />
-          </Button>
-          <Button className="inline-flex h-10 items-center justify-around rounded-md bg-green-500  px-8 text-sm font-medium text-gray-50 shadow transition-colors hover:bg-green-600 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-green-600 disabled:pointer-events-none disabled:opacity-50 dark:bg-green-500 dark:text-white dark:hover:bg-gray-50/90 dark:focus-visible:ring-gray-300">
-            {t('publishAd')}
-            <PlaneIcon className="ml-2 h-4 w-4" />
-          </Button>
-        </div>
+     
         </div>
     </main>
   );
@@ -665,9 +821,13 @@ export const MutliSteps = ({ lng }) => {
   const price = useSearchParams().get("price");
   const name = useSearchParams().get("name");
   const location = useSearchParams().get("location");
+  const extraFeatures = useSearchParams().get("extraFeatures");
+  const carChassis = useSearchParams().get("carChassis");
   const { t } = useTranslation(lng , "translation")
 
   const steps = [
+    extraFeatures,
+      carChassis,
     EnginCapacity,
     paintType,
     payment,
@@ -694,12 +854,9 @@ export const MutliSteps = ({ lng }) => {
   const stepRefs = Array.from({ length: totalSteps }, () => useRef(null));
 
   useEffect(() => {
-    // Check if a new step has been added
-    if (stepses.length > currentStep) {
       setCurrentStep(stepses.length);
       scrollToStep(stepses.length);
-    }
-  }, [stepses, currentStep]);
+  }, [stepses.length, currentStep]);
 
   const scrollToStep = (step) => {
     if (stepRefs[step - 1].current) {
@@ -717,9 +874,11 @@ export const MutliSteps = ({ lng }) => {
   };
 
   return (
-    <div key="1" className="w-full border bg-white dark:bg-zinc-800 shadow-lg p-3 rounded-xl">
+    <div key="1" className="w-full border bg-white dark:bg-zinc-800 shadow-lg  rounded-xl">
+      <div className="p-3">
       <p className='text-gray-700 dark:text-white'>{t("postTitle")}</p>
       <p className='text-gray-700 dark:text-white pt-2'>{t("remaining")} :  <Badge className=" bg-[#21be5b47] border-[#21be5b] text-green-700 dark:text-white mx-3">{ totalSteps - stepses.length  } {t("Step")}</Badge></p>
+      </div>
       {/* ... Your existing code ... */}
       <div className="flex w-full  overflow-x-hidden">
         {Array.from({ length: totalSteps }, (_, index) => (
@@ -729,7 +888,7 @@ export const MutliSteps = ({ lng }) => {
             className="flex items-center  p-4 sm:p-7"
           >
             <Badge
-              className={`items-center border shadow-lg justify-around w-20 h-8 ${
+              className={`items-center border shadow-lg justify-around w-24 h-8 ${
                 currentStep === index + 1 || currentStep > index + 1 ? 'bg-green-500 text-white' : ''
               }`}
               variant="outline"
@@ -745,6 +904,13 @@ export const MutliSteps = ({ lng }) => {
     </div>
   );
 };
+
+
+
+
+
+
+
 
 function CheckIcon(props) {
   return (
@@ -764,7 +930,6 @@ function CheckIcon(props) {
     </svg>
   )
 }
-
 function HardDriveIcon(props) {
   return (
     <svg

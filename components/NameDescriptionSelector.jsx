@@ -27,13 +27,15 @@ import { Textarea } from "@/components/ui/textarea"
     const payment = useSearchParams().get("payment");
     const price = useSearchParams().get("price");
     const name = useSearchParams().get("name");
+    const extraFeatures = useSearchParams().get("extraFeatures");
+    const carChassis  = useSearchParams().get("chassisNumber");
     const [nameInput, setName] = useState('');
     const [description, setDescription] = useState('');
   
     if (!brand || !category || !model || !year || !carType || !carStatus || !transmission || !fuelType || !paintType || !price || !payment || name) return null;
   
       const handleSelectNameDescription = (selectedName, selectedDescription) => {
-          router.push(`?category=${category}&carStatus=${carStatus}&uploadedImages=${uploadedImages}&location=${location}&brand=${brand}&carType=${carType}&year=${year}&model=${model}&transmission=${transmission}&RegionalSpecifications=${RegionalSpecifications}&fuelType=${fuelType}&EnginCapacity=${EnginCapacity}&meterRange=${meterRange}&paintType=${paintType}&price=${price}&payment=${payment}&name=${selectedName}&description=${selectedDescription}`);
+          router.push(`?category=${category}&carStatus=${carStatus}&uploadedImages=${uploadedImages}&location=${location}&brand=${brand}&carType=${carType}&year=${year}&model=${model}&transmission=${transmission}&RegionalSpecifications=${RegionalSpecifications}&fuelType=${fuelType}&EnginCapacity=${EnginCapacity}&meterRange=${meterRange}&paintType=${paintType}&extraFeatures=${extraFeatures}&carChassis=${carChassis}&price=${price}&payment=${payment}&name=${selectedName}&description=${selectedDescription}`);
       };
   
       const handleSubmit = (e) => {
@@ -41,18 +43,19 @@ import { Textarea } from "@/components/ui/textarea"
         handleSelectNameDescription(nameInput , description)
       };
   
-  
+      
+      
       return (
           <div key="1" className="w-1/2 mx-auto pt-4">
-            <h1 className='text-xl text-center py-4'>Ad Details</h1>
+            <h1 className='text-xl font-semibold text-center pb-8'>{t('adDetails')}</h1>
               <Input
                   className="mb-4"
-                  placeholder="Enter Name"
+                  placeholder={t('adNamePlaceHolder')}
                   value={name}
                   onChange={(e) => setName(e.target.value)}
               />
               <Textarea 
-              placeholder="Type your Description here" 
+              placeholder={t('descriptionPlaceHolder')}
               className="mb-4"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
@@ -62,7 +65,7 @@ import { Textarea } from "@/components/ui/textarea"
               className='w-full'
                   onClick={handleSubmit}
               >
-                  Submit
+                  {t('Submit')}
               </Button>
           </div>
       );

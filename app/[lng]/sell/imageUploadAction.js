@@ -12,15 +12,15 @@ export default async function upload(data) {
 
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
-
-    let path = join(process.cwd(), 'public', 'upload', file.name);
+    let path = join(process.cwd(), 'public', 'tmp', file.name);
     await writeFile(path, buffer);
     console.log(`Open ${path} to see the uploaded file`);
     path = extractFilePath(path);
-    const adImage = `/upload/${path}`;
-
+    const adImage = `/tmp/${path}`;
+    console.log(adImage);
     return { adImage };
   } catch (error) {
+    console.log(error);
     return { success: false, error: error.message };
   }
 }
