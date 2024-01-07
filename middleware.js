@@ -3,7 +3,7 @@ import acceptLanguage from 'accept-language';
 import { fallbackLng, languages, cookieName } from './app/i18n/settings';
 import { authMiddleware } from '@clerk/nextjs';
 
-const customBeforeAuth = (req, res) => {
+const middleware = (req, res) => {
   if (req.nextUrl.pathname.startsWith('/sign-in') || req.nextUrl.pathname.startsWith('/sign-up')) {
     return;
   }
@@ -33,14 +33,4 @@ const customBeforeAuth = (req, res) => {
   }
 };
 
-export default authMiddleware({
-  publicRoutes: ['/','/:locale','/ar/sign-in','/en/sign-in','/ar/sign-up','/en/sign-up'],
-  beforeAuth: customBeforeAuth,
-});
-export const config = {
-  matcher: [
-    "/((?!.+\\.[\\w]+$|_next).*)",
-    "/",
-    "/(api|trpc)(.*)"
-  ],
-};
+export default middleware

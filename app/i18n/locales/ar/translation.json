@@ -67,15 +67,14 @@
     "Hybrid": "هجين",
     "Other": "آخر"
   },
+  "/day":"يوم",
   "fuelType": "نوع الوقود",
   "transmission":"نوع ناقل الحركه",
-  "RegionalSpecifications": {
     "Gulf": "مواصفات الخليج",
     "Japanese": "مواصفات يابانية",
     "LosAngeles": "مواصفات لوس أنجلوس",
     "European": "المواصفات الأوروبية",
-    "Other": "مواصفات أخرى"
-  },
+    "Other": "مواصفات أخرى",
   "DropdownText": "ما هي المواصفات الإقليمية؟",
     "darkLogoAltText": "شعار داكن",
     "lightLogoAltText": "الشعار",

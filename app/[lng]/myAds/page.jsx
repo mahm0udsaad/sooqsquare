@@ -1,15 +1,12 @@
 
-import { getUserByUserId } from "@/prisma/actions";
-import { auth } from "@clerk/nextjs"
 import DynamicCard from '../../../components/adCard'
+import prisma from "../../../prisma/client";
 
 export default async function MyAds() {
-    const { userId } = await auth()
-    const user = await getUserByUserId(userId)
-    console.log(user.ads[1].adImages);
+    const ads = await prisma.Ad.findMany({});
   return (
     <main className=" mx-8 grid grid-cols-2 pt-20">
-       {user.ads.map((ad) => (
+       {ads.map((ad) => (
         <DynamicCard key={ad.id} ad={ad} />
       ))}
     </main>

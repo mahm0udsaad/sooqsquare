@@ -2,9 +2,9 @@
 import { writeFile } from 'fs/promises';
 import { join } from 'path';
 
-export default async function upload(data) {
+export default async function upload(data , lng) {
   const file = data.get('file');
-
+  console.log(lng);
   try {
     if (!file) {
       throw new Error('No file uploaded');
@@ -12,7 +12,7 @@ export default async function upload(data) {
 
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
-    let path = join(process.cwd(), 'public', 'upload', file.name);
+    let path = join(process.cwd(), 'public',lng, 'upload', file.name);
     await writeFile(path, buffer);
     console.log(`Open ${path} to see the uploaded file`);
     path = extractFilePath(path);

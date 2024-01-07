@@ -1,5 +1,6 @@
 {
   "CarChassisTitle":"Car Chassis Details",
+  "/day":"Per Day",
   "messages":{
       "noValue": "No value entered.",
       "somethingWentWrong": "Error. Please check your internet connection.",

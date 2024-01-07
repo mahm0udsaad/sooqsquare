@@ -2,17 +2,9 @@
 
 import { revalidatePath } from "next/cache";
 import prisma from "./client";
-import { currentUser } from "@clerk/nextjs";
-import { redirect } from "next/navigation";
 
 
-export async function createAd(data, userId) {
-  const user = await currentUser();
-  const userData = {
-    userId,
-    username: user.firstName,
-    email: user.emailAddresses[0].emailAddress,
-  };
+export async function createAd(data) {
 
   const {
     EnginCapacity,
@@ -35,9 +27,6 @@ export async function createAd(data, userId) {
   } = data; // Destructure all variables individually
 
   try {
-    const newUser = await createUserIfNotExists(userData);
-
-    console.log('adImages:', adImages); // Log the adImages array
 
     const newAd = await prisma.Ad.create({
       data: {
@@ -57,7 +46,6 @@ export async function createAd(data, userId) {
         transmission,
         fuelType,
         meterRange,
-        user: { connect: { userId } },
         adImages: { set: adImages }, // Use set to assign adImages
       },
     });

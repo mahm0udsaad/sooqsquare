@@ -33,7 +33,7 @@ function TrashIcon(props) {
   }
 
  const MultiImageForm = ({lng}) => {
-    const { setAdImages ,setErrorMessage } = useDarkMode()
+    const { setAdImages ,adImages,setErrorMessage } = useDarkMode()
     const [images, setImages] = useState([]);
     const [uploading, setUploading] = useState(false);
     const uploadedImages = useSearchParams().get('uploadedImages')
@@ -57,7 +57,7 @@ function TrashIcon(props) {
           const formData = new FormData();
           formData.append('file', files[i]);
     
-          const uploadPromise = upload(formData);
+          const uploadPromise = upload(formData, lng);
           uploadPromises.push(uploadPromise);
         }
     
@@ -70,13 +70,11 @@ function TrashIcon(props) {
           });
           return updatedImages;
         });
-    
         setUploading(false);
       } catch (error) {
         console.error(error.message);
         setUploading(false);
       }
-      console.log(images);
     };
     
     const handleImageRemove = (indexToRemove) => {

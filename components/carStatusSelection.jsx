@@ -5,8 +5,6 @@ import { useTranslation } from "../app/i18n/client"
 import { CardContent, Card } from "@/components/ui/card"
 
 
-
-
 const CarStatusSelection = ({lng}) => {
     const { t } = useTranslation(lng , "translation")
     const router = useRouter();

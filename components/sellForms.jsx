@@ -1,5 +1,7 @@
 "use client"
+import dynamic from 'next/dynamic'
 import {  useRouter, useSearchParams } from 'next/navigation';
+import {withGenericSelection , GenericSelection} from './dynamicSelection'
 import { Input } from "@/components/ui/input";
 import { AdCategroy } from './categoriesCard';
 import { MdOutlineRocketLaunch } from "react-icons/md";
@@ -9,7 +11,6 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label"
 import { Badge } from "@/components/ui/badge"
 import React, { useState, useRef, useEffect } from 'react';
-import {  SelectTrigger, SelectItem, SelectGroup, SelectContent, Select } from "@/components/ui/select"
 import { useDarkMode } from '@/context/darkModeContext';
 import { createAd } from '../prisma/actions';
 import { RiTimerFlashLine } from "react-icons/ri";
@@ -17,476 +18,257 @@ import {
   ToggleGroup,
   ToggleGroupItem,
 } from "@/components/ui/toggle-group"
+const NameDescriptionSelector = dynamic(() => import(`./NameDescriptionSelector`));
+const CarBrandSelector = dynamic(() => import(`./carBrandSelection`));
+const CarStatusSelection = dynamic(() => import(`./carStatusSelection`));
+const MultiImageForm = dynamic(() => import(`./MultibleImages`));
+const LocationDetails = dynamic(() => import(`./LocationSelector`));
 
-export const OverView = ({ lng }) =>{
-  const category = useSearchParams().get("category");
-  const carStatus = useSearchParams().get("carStatus");
+
+const SelectionComp = withGenericSelection(GenericSelection);
+
+export const CarForSellAd = ({lng}) =>{
   const { t } = useTranslation(lng , "translation")
-  if(!category)return ;
-  return (
-  <div className="flex flex-col gap-4  lg:max-w-xs">
-     <MutliSteps lng={lng}/>
-    <div className="flex py-3 border-b-2">
-    <p className="font-semibold">{t('category')}</p>
-    <p>/{t(`${category}`)}</p>
-    {carStatus &&<p>/{t(`${carStatus.toLowerCase()}`)}</p>}
-    </div>
-      
-    <div className="max-w-xs bg-[#21be5b47] border border-[#21be5b] rounded-xl overflow-hidden shadow-lg">
-        <div className="px-6 py-4">
-          <div className="font-bold text-xl sm:mb-4 my-4 mb-2 text-green-800 dark:text-white">Tip for You</div>
-          <p className="text-gray-700 dark:text-white text-base">
-            This is a sample card with Tailwind CSS. You can add your content here.
-          </p>
-        </div>
-      </div>
-
-      <div className="max-w-xs flex justify-center hover:opacity-70 cursor-pointer py-8 rounded-xl bg-gradient-to-r from-green-900 to-green-500 items-start max-md:px-5">
-      <RiTimerFlashLine className='text-4xl mx-2 text-white'/>
-      <div className="text-white text-2xl font-bold leading-10 my-auto">
-      {t('QuickSell')}
-      </div>
-      </div>
-        </div>
-  )
-}
- const CategoriesForm = ({lng}) =>{
-    const { t } = useTranslation(lng , "translation")
-   const  category  = useSearchParams().get("category");
-   if ( category ) return ; 
-   return (
-       <div className=' '>
-       <h1 className="text-center text-2xl font-semibold sm:py-8">
-           {t("sellTitle")}
-       </h1>
-       <div className="grid lg:grid-cols-4 grid-cols-2  gap-8  py-4">
-       {categoriesData.map((item, i) => (
-       <AdCategroy lng={lng} key={i} icon={item.icon} text={item.text} />
-       ))}
-       </div>
-       </div>
-   )
-}
-export default CategoriesForm
-export const ModelSelection = ({lng}) => {
-   const router = useRouter();
-   const  brand  = useSearchParams().get("brand");
-   const  category  = useSearchParams().get("category");
-   const  carStatus  = useSearchParams().get("carStatus");
-   const  carType  = useSearchParams().get("carType");
-   const  uploadedImages  = useSearchParams().get("uploadedImages");
-   const  location  = useSearchParams().get("location");
-   const  year  = useSearchParams().get("year");
-   const  model  = useSearchParams().get("model");
-   const { t } = useTranslation(lng , "translation")
-
-   if ( model || !brand || !category || !uploadedImages || !location ) return ; 
-   
-   const models = carBrands[`${brand}`]
-   function handleSelectModel(model) {
-     router.push(`?category=${category}&carStatus=${carStatus}&uploadedImages=${uploadedImages}&location=${location}&brand=${brand}&carType=${carType}&year=${year}&model=${model}`);
-   
-     }
-   return (
-       <div key="1" className="">
-          <Select className="flex-grow" open={!model && carType && year}>
-          <SelectTrigger>
-          {t('carModel')}
-          </SelectTrigger>
-          <SelectContent>
-            <SelectGroup>
-            {models.map((model) => (
-                <SelectItem key={model} onMouseDown={()=>handleSelectModel(model)}>
-                  {model}
-                </SelectItem>
-              ))}
-            </SelectGroup>
-          </SelectContent>
-        </Select>
-       </div>
-   )
-}
-export const ModelYearSelection = ({lng}) => {
-   const router = useRouter();
-   const  brand  = useSearchParams().get("brand");
-   const  uploadedImages  = useSearchParams().get("uploadedImages");
-   const  location  = useSearchParams().get("location");
-   const  category  = useSearchParams().get("category");
-   const  model  = useSearchParams().get("model");
-   const  status  = useSearchParams().get("carStatus");
-   const  carType  = useSearchParams().get("carType");
-   const  year  = useSearchParams().get("year");
-   const { t } = useTranslation(lng , "translation")
-
-   if (model || !brand || !category || !uploadedImages || !location) return null;
-
-   function handleYearSelection(year) {
-       router.push(`?category=${category}&carStatus=${status}&uploadedImages=${uploadedImages}&location=${location}&brand=${brand}&carType=${carType}&year=${year}`);
-     }
-   return (
-       <div key="1" className="  ">
-         <Select className="flex-grow" open={carType && !year}>
-        <SelectTrigger>
-        {t('carYear')}
-        </SelectTrigger>
-        <SelectContent>
-          <SelectGroup>
-          {yearsArray.map((year) => (
-              <SelectItem key={year} onMouseDown={()=>handleYearSelection(year)}>
-                {year}
-              </SelectItem>
-            ))}
-          </SelectGroup>
-        </SelectContent>
-      </Select>
-       </div>
-   )
-}
-export const CarTypeSelection = ({lng}) => {
-    const router = useRouter();
-    const  uploadedImages  = useSearchParams().get("uploadedImages");
-    const  location  = useSearchParams().get("location");
-    const  brand  = useSearchParams().get("brand");
-    const  category  = useSearchParams().get("category");
-    const  status  = useSearchParams().get("carStatus");
-    const  carType  = useSearchParams().get("carType");
-    const  model  = useSearchParams().get("model");
-    const  year  = useSearchParams().get("year");
-   const { t } = useTranslation(lng , "translation")
-    
-   if (model || !brand || !category || !uploadedImages || !location) return null;
-    
-    function handleCarTypeSelection(type) {
-       router.push(`?category=${category}&carStatus=${status}&uploadedImages=${uploadedImages}&location=${location}&brand=${brand}&carType=${type}`);
-       }
-
-    return (
-       <div key="1" className=" ">
-        <Select className="flex-grow" open={!carType}>
-        <SelectTrigger>
-        {t('cartype')}
-        </SelectTrigger>
-        <SelectContent>
-          <SelectGroup>
-          {carTypesArray.map((type) => (
-              <SelectItem key={type} onMouseDown={()=>handleCarTypeSelection(type)}>
-                {type}
-              </SelectItem>
-            ))}
-          </SelectGroup>
-        </SelectContent>
-      </Select>
-       </div>
-    )
-}
-export const TransmissionSelection = ({lng}) => {
-const router = useRouter();
-const brand = useSearchParams().get("brand");
-const category = useSearchParams().get("category");
-const model = useSearchParams().get("model");
-const location = useSearchParams().get("location");
-const year = useSearchParams().get("year");
-const carType = useSearchParams().get("carType");
-const carStatus = useSearchParams().get("carStatus");
-const transmission = useSearchParams().get("transmission");
-const uploadedImages = useSearchParams().get("uploadedImages");
-const { t } = useTranslation(lng , "translation")
-if (!brand || !category  || !model || !year || !carType || !carStatus || !uploadedImages|| transmission) return null;
-
-function handleSelectTransmission(selectedTransmission) {
-   router.push(`?category=${category}&carStatus=${carStatus}&uploadedImages=${uploadedImages}&location=${location}&brand=${brand}&carType=${carType}&year=${year}&model=${model}&transmission=${selectedTransmission}`);
-}
-
-return (
-   <div key="1" className="w-1/2 mx-auto">
-    <Select className="flex-grow" open={true}>
-        <SelectTrigger>
-        <div className="w-full py-3 text-2xl font-semibold flex justify-around items-center">
-            {t('transmission')}
-        </div>
-        </SelectTrigger>
-        <SelectContent>
-          <SelectGroup>
-            <SelectItem className='py-3' onMouseDown={() => handleSelectTransmission('Automatic')}>
-                Automatic
-            </SelectItem>
-            <SelectItem className='py-3' onMouseDown={() => handleSelectTransmission('Manual')}>
-                Manual
-            </SelectItem>
-          </SelectGroup>
-        </SelectContent>
-      </Select>
-  </div>
-);
-};
-export const RegionalSpecifications = ({ lng }) => {
-  const router = useRouter();
-  const brand = useSearchParams().get("brand");
-  const category = useSearchParams().get("category");
-const location = useSearchParams().get("location");
-  const model = useSearchParams().get("model");
-  const year = useSearchParams().get("year");
-  const carType = useSearchParams().get("carType");
-  const carStatus = useSearchParams().get("carStatus");
   const transmission = useSearchParams().get("transmission");
-  const RegionalSpecifications = useSearchParams().get("RegionalSpecifications");
-  const uploadedImages = useSearchParams().get("uploadedImages");
-  const { t } = useTranslation(lng , "translation")
-  
-  if (!brand || !category  || !model || !year || !carType || !carStatus || !uploadedImages|| !transmission || RegionalSpecifications) return null;
-  
-  const handleSelectSpecification = (selectedSpecification) => {
-    router.push(`?category=${category}&carStatus=${carStatus}&uploadedImages=${uploadedImages}&location=${location}&brand=${brand}&carType=${carType}&year=${year}&model=${model}&transmission=${transmission}&RegionalSpecifications=${selectedSpecification}`);
-  };
-
-  return (
-    <div className="w-1/2 mx-auto">
-      <Select className="flex-grow" open={true}>
-      <SelectTrigger >
-        <div className="w-full py-3 text-2xl font-semibold flex justify-around items-center">
-          {t('DropdownText')}
-        </div>
-      </SelectTrigger>
-      <SelectContent>
-        <SelectGroup>
-          <SelectItem className="py-3" onMouseDown={() => handleSelectSpecification('Gulf')}>
-            {t('RegionalSpecifications.Gulf')}
-          </SelectItem>
-          <SelectItem className="py-3" onMouseDown={() => handleSelectSpecification('Japanese')}>
-            {t('RegionalSpecifications.Japanese')}
-          </SelectItem>
-          <SelectItem className="py-3" onMouseDown={() => handleSelectSpecification('LosAngeles')}>
-            {t('RegionalSpecifications.LosAngeles')}
-          </SelectItem>
-          <SelectItem className="py-3" onMouseDown={() => handleSelectSpecification('European')}>
-            {t('RegionalSpecifications.European')}
-          </SelectItem>
-          <SelectItem className="py-3" onMouseDown={() => handleSelectSpecification('Other')}>
-            {t('RegionalSpecifications.Other')}
-          </SelectItem>
-        </SelectGroup>
-      </SelectContent>
-    </Select>
-    </div>
-  );
-};
-export const FuelTypeSelection = ({lng}) => {
-  const router = useRouter();
-  const brand = useSearchParams().get("brand");
-  const location = useSearchParams().get("location");
-  const category = useSearchParams().get("category");
-  const model = useSearchParams().get("model");
-  const year = useSearchParams().get("year");
-  const carType = useSearchParams().get("carType");
-  const carStatus = useSearchParams().get("carStatus");
-  const transmission = useSearchParams().get("transmission");
-  const fuelType = useSearchParams().get("fuelType");
-  const uploadedImages = useSearchParams().get("uploadedImages");
-  const RegionalSpecifications = useSearchParams().get("RegionalSpecifications");
-  const { t } = useTranslation(lng , "translation")
-
-  if (!brand || !category  || !model || !year || !carType || !carStatus || !uploadedImages|| !transmission || !RegionalSpecifications || fuelType) return null;
-  
-  function handleSelectFuelType(selectedFuelType) {
-    router.push(`?category=${category}&carStatus=${carStatus}&uploadedImages=${uploadedImages}&location=${location}&brand=${brand}&carType=${carType}&year=${year}&model=${model}&transmission=${transmission}&RegionalSpecifications=${RegionalSpecifications}&fuelType=${selectedFuelType}`);
-  }
-  
-  return (
-    <div className="w-1/2 mx-auto">
-     <Select className="flex-grow" open={true}>
-      <SelectTrigger>
-        <div className="w-full text-2xl font-semibold flex justify-around items-center">
-          {t('fuelType')}
-        </div>
-      </SelectTrigger>
-      <SelectContent>
-        <SelectGroup>
-          <SelectItem className="py-3" onMouseDown={() => handleSelectFuelType('Petrol')}>
-          {t('fuelTypes.Petrol')}
-          </SelectItem>
-          <SelectItem className="py-3" onMouseDown={() => handleSelectFuelType('Diesel')}>
-          {t('fuelTypes.Diesel')}
-          </SelectItem>
-          <SelectItem onClick={() => handleSelectFuelType('Electric')}>
-          {t('fuelTypes.Electric')}
-          </SelectItem>
-          <SelectItem className="py-3" onMouseDown={() => handleSelectFuelType('Hybrid')}>
-          {t('fuelTypes.Hybrid')}
-          </SelectItem>
-          <SelectItem className="py-3" onMouseDown={() => handleSelectFuelType('Other')}>
-          {t('fuelTypes.Other')}
-          </SelectItem>
-        </SelectGroup>
-      </SelectContent>
-    </Select>
-  </div>
-  );
-
-};
-export const EngineCapacitySelector = ({lng}) => {
-  const router = useRouter();
-  const brand = useSearchParams().get("brand");
-  const category = useSearchParams().get("category");
-const location = useSearchParams().get("location");
-  const model = useSearchParams().get("model");
-  const year = useSearchParams().get("year");
-  const carType = useSearchParams().get("carType");
-  const carStatus = useSearchParams().get("carStatus");
-  const transmission = useSearchParams().get("transmission");
-  const uploadedImages = useSearchParams().get("uploadedImages");
-  const RegionalSpecifications = useSearchParams().get("RegionalSpecifications");
-  const fuelType = useSearchParams().get("fuelType");
-  const EnginCapacity = useSearchParams().get("EnginCapacity");
-  const { t } = useTranslation(lng , "translation")
-
-  if (!brand || !category  || !model || !year || !carType || !carStatus || !uploadedImages|| !transmission || !RegionalSpecifications || !fuelType || EnginCapacity) return null;
-
-  const handleSelectEngineCapacity = (selectedCapacity) => {
-    // Handle the selected engine capacity
-  router.push(`?category=${category}&carStatus=${carStatus}&uploadedImages=${uploadedImages}&location=${location}&brand=${brand}&carType=${carType}&year=${year}&model=${model}&transmission=${transmission}&RegionalSpecifications=${RegionalSpecifications}&fuelType=${fuelType}&EnginCapacity=${selectedCapacity}`);
-  };
-
-  return (
-    <div key="1" className="w-1/2 mx-auto">
-      <Select className="flex-grow" open={true}>
-      <SelectTrigger>
-        <div className="w-full text-2xl font-semibold flex justify-around items-center">
-          {t("engineCapacity")}
-        </div>
-      </SelectTrigger>
-      <SelectContent>
-        <SelectGroup>
-          <SelectItem onMouseDown={() => handleSelectEngineCapacity('1000')}>
-            Up to 1000
-          </SelectItem>
-          <SelectItem onMouseDown={() => handleSelectEngineCapacity('1500')}>
-            1001 - 1500
-          </SelectItem>
-          <SelectItem onMouseDown={() => handleSelectEngineCapacity('2000')}>
-            1501 - 2000
-          </SelectItem>
-          <SelectItem onMouseDown={() => handleSelectEngineCapacity('2500')}>
-            2001 - 2500
-          </SelectItem>
-          <SelectItem onMouseDown={() => handleSelectEngineCapacity('3000')}>
-            {t('above')} 2500
-          </SelectItem>
-        </SelectGroup>
-      </SelectContent>
-    </Select>
-    </div>
-  );
-};
-export const MeterRangeSelection = ({ lng }) => {
-    const router = useRouter();
-    const brand = useSearchParams().get("brand");
-    const category = useSearchParams().get("category");
-    const location = useSearchParams().get("location");
-    const model = useSearchParams().get("model");
-    const year = useSearchParams().get("year");
-    const carType = useSearchParams().get("carType");
-    const carStatus = useSearchParams().get("carStatus");
-    const transmission = useSearchParams().get("transmission");
-    const uploadedImages = useSearchParams().get("uploadedImages");
-    const RegionalSpecifications = useSearchParams().get("RegionalSpecifications");
-    const fuelType = useSearchParams().get("fuelType");
-    const EnginCapacity = useSearchParams().get("EnginCapacity");
-    const meterRange = useSearchParams().get("meterRange");
-    const { t } = useTranslation(lng , "translation")
-
-    if (!brand || !category  || !model || !year || !carType || !carStatus || !uploadedImages|| !transmission || !RegionalSpecifications || !fuelType || !EnginCapacity || meterRange) return null;
-
-    const handleSelectMeterRange = (selectedRange) => {
-        router.push(`?category=${category}&carStatus=${carStatus}&uploadedImages=${uploadedImages}&location=${location}&brand=${brand}&carType=${carType}&year=${year}&model=${model}&transmission=${transmission}&RegionalSpecifications=${RegionalSpecifications}&fuelType=${fuelType}&EnginCapacity=${EnginCapacity}&meterRange=${selectedRange}`);
-    };
-
-    const meterRanges = [
-        { label: '0 - 1000 km', value: '0-1000' },
-        { label: '1000 - 5000 km', value: '1000-5000' },
-        { label: '5000 - 10000 km', value: '5000-10000' },
-        { label: '10000 - 15000 km', value: '10000-15000' },
-        { label: '15000 - 20000 km', value: '15000-20000' },
-    ];
-
-    return (
-        <div key="1" className="w-1/2 mx-auto">
-            <Select className="flex-grow" open={true}>
-                <SelectTrigger>
-                    <div className="w-full text-2xl font-semibold flex justify-around items-center">
-                        {t('meterRange')}
-                    </div>
-                </SelectTrigger>
-                <SelectContent>
-                    <SelectGroup>
-                        {meterRanges.map((range, index) => (
-                            <SelectItem
-                                onMouseDown={() => handleSelectMeterRange(range.value)}
-                                key={index}
-                            >
-                                {range.label}
-                            </SelectItem>
-                        ))}
-                    </SelectGroup>
-                </SelectContent>
-            </Select>
-        </div>
-    );
-};
-export const PaintTypeSelector = ({ lng }) => {
-  const router = useRouter();
-  const brand = useSearchParams().get("brand");
-  const category = useSearchParams().get("category");
-  const location = useSearchParams().get("location");
-  const model = useSearchParams().get("model");
-  const year = useSearchParams().get("year");
-  const carType = useSearchParams().get("carType");
-  const carStatus = useSearchParams().get("carStatus");
-  const transmission = useSearchParams().get("transmission");
-  const uploadedImages = useSearchParams().get("uploadedImages");
   const RegionalSpecifications = useSearchParams().get("RegionalSpecifications");
   const fuelType = useSearchParams().get("fuelType");
   const EnginCapacity = useSearchParams().get("EnginCapacity");
   const meterRange = useSearchParams().get("meterRange");
   const paintType = useSearchParams().get("paintType");
-  const { t } = useTranslation(lng , "translation")
 
-  if (!brand || !category  || !model || !year || !carType || !carStatus || !uploadedImages|| !transmission || !RegionalSpecifications || !fuelType || !EnginCapacity || !meterRange || paintType) return null;
-
-  const handleSelectPaintType = (selectedType) => {
-      router.push(`?category=${category}&carStatus=${carStatus}&uploadedImages=${uploadedImages}&location=${location}&brand=${brand}&carType=${carType}&year=${year}&model=${model}&transmission=${transmission}&RegionalSpecifications=${RegionalSpecifications}&fuelType=${fuelType}&EnginCapacity=${EnginCapacity}&meterRange=${meterRange}&paintType=${selectedType}`);
+  const transmissionProps = {
+    title: t('transmission'),
+    itemsArray: [
+      'Automatic',
+      'Manual',
+    ],
+    shouldOpen: true,
+    paramNameToSet:'transmission',
+    paramsToCheck: [
+      'category',
+      'uploadedImages',
+      'brand',
+      'year',
+      'carType',
+      'model',
+      'carStatus',
+    ],
+  };
+  const specificationSelectionProps = {
+    title: t('DropdownText'), // Replace with your specific translation key
+    itemsArray: [
+      t('Gulf'),
+      t('Japanese'),
+      t('LosAngeles'),
+      t('European'),
+      t('Other'),
+    ], 
+    shouldOpen: true,
+    paramNameToSet: 'RegionalSpecifications',
+    paramsToCheck: [
+      'model',
+      'brand',
+      'category',
+      'uploadedImages',
+      'location',
+      'carType',
+      'year',
+      'carStatus',
+      'transmission',
+    ], // Adjust as per your required parameters
+  };
+  const fuelTypeSelectionProps = {
+    title: t('fuelType'),
+    itemsArray: [
+      t('fuelTypes.Petrol'),
+      t('fuelTypes.Diesel'),
+      t('fuelTypes.Electric'),
+      t('fuelTypes.Hybrid'),
+      t('fuelTypes.Other'),
+    ],
+    shouldOpen: true,
+    paramNameToSet: 'fuelType',
+    paramsToCheck: [
+      'brand',
+      'location',
+      'category',
+      'model',
+      'year',
+      'carType',
+      'carStatus',
+      'transmission',
+      'RegionalSpecifications',
+      'uploadedImages',
+    ],
+  };
+  const engineCapacitySelectorProps = {
+    title: t('engineCapacity'), // Replace with your specific translation key
+    itemsArray: [
+      'Up to 1000',
+      '1001 - 1500',
+      '1501 - 2000',
+      '2001 - 2500',
+      'Above 2500', 
+    ],
+    shouldOpen: true, // Adjust as per your logic
+    paramNameToSet: 'EnginCapacity', // Adjust parameter name
+    paramsToCheck: [
+      'brand',
+      'category',
+      'model',
+      'year',
+      'carType',
+      'carStatus',
+      'uploadedImages',
+      'transmission',
+      'RegionalSpecifications',
+      'fuelType',
+    ],
+  };
+  const meterRangeSelectionProps = {
+    title: t('meterRange'), // Replace with your specific translation key
+    itemsArray: [
+      '0 - 1000 km',
+      '1000 - 5000 km',
+      '5000 - 10000 km',
+      '10000 - 15000 km',
+      '15000 - 20000 km',
+    ], // Adjust based on your specific translations or labels
+    shouldOpen: true, // Adjust as per your logic
+    paramNameToSet: 'meterRange', // Adjust parameter name
+    paramsToCheck: [
+      'brand',
+      'category',
+      'model',
+      'year',
+      'carType',
+      'carStatus',
+      'uploadedImages',
+      'transmission',
+      'RegionalSpecifications',
+      'fuelType',
+      'EnginCapacity',
+    ],
+  };
+  const paintTypeSelectorProps = {
+    title: t('paintType'), // Replace with your specific translation key
+    itemsArray: [
+      t('Original paint'),
+      t('Partial paint'),
+      t('Complete paint'),
+      t('Another'),
+    ], // Adjust based on your specific translations or labels
+    shouldOpen: true, // Adjust as per your logic
+    paramNameToSet: 'paintType', // Adjust parameter name
+    paramsToCheck: [
+      'brand',
+      'category',
+      'model',
+      'year',
+      'carType',
+      'carStatus',
+      'uploadedImages',
+      'transmission',
+      'RegionalSpecifications',
+      'fuelType',
+      'EnginCapacity',
+      'meterRange',
+    ],
   };
 
-  const paintTypes = [
-      { label: 'Original paint', value: 'Original' },
-      { label: 'Partial paint', value: 'Partial' },
-      { label: 'Complete paint', value: 'Complete' },
-      { label: 'Another', value: 'Another' },
-  ];
+return (
+  <>
+        <Review  lng={lng} />
+        <CategoriesForm lng={lng} />
+        <CarStatusSelection lng={lng} />
+        <MultiImageForm lng={lng} />
+        <NameDescriptionSelector lng={lng} />
+        <LocationDetails lng={lng} />
+        <CarBrandSelector lng={lng} />
 
-  return (
-      <div key="1" className="w-1/2 mx-auto">
-          <Select className="flex-grow" open={true}>
-              <SelectTrigger>
-                  <div className="w-full text-2xl font-semibold flex justify-around items-center">
-                      {t('paintType')}
-                  </div>
-              </SelectTrigger>
-              <SelectContent>
-                  <SelectGroup>
-                      {paintTypes.map((type, index) => (
-                          <SelectItem
-                              onMouseDown={() => handleSelectPaintType(type.value)}
-                              key={index}
-                          >
-                              {t(`${type.label}`)}
-                          </SelectItem>
-                      ))}
-                  </SelectGroup>
-              </SelectContent>
-          </Select>
-      </div>
-  );
-};
+        {!transmission && <SelectionComp {...transmissionProps} />}
+        {!RegionalSpecifications && <SelectionComp {...specificationSelectionProps} />}
+        {!fuelType && <SelectionComp {...fuelTypeSelectionProps} />}
+        {!EnginCapacity && <SelectionComp {...engineCapacitySelectorProps} />}
+        {!meterRange && <SelectionComp {...meterRangeSelectionProps} />}
+        {!paintType && <SelectionComp {...paintTypeSelectorProps} />}
+
+        <PriceSelection lng={lng} />
+        <ExtraFeatures lng={lng} />
+        <CarChassis lng={lng} />
+        <ModelSelection lng={lng} />
+  </>
+)
+}
+export const ModelSelection = ({lng}) => {
+   const  model  = useSearchParams().get("model");
+   const  brand  = useSearchParams().get("brand");
+   const  carStatus  = useSearchParams().get("carStatus");
+   const  carType  = useSearchParams().get("carType");
+   const  year  = useSearchParams().get("year");
+   const { t } = useTranslation(lng , "translation")
+
+   const models = carBrands[`${brand}`]
+     const modelSelectionProps = {
+      title: t('carModel'),
+      itemsArray: models,
+      shouldOpen: !model && carType && year,
+      paramNameToSet:'model',
+      paramsToCheck: [
+        'category',
+        'uploadedImages',
+        'location',
+      ],
+    };
+    const yearSelectionProps = {
+      title: t('carYear'),
+      itemsArray: yearsArray,
+      shouldOpen: carType && !year,
+      paramNameToSet: 'year',
+      paramsToCheck: [
+        'category',
+        'uploadedImages',
+        'location',
+      ],
+    };
+    const carTypeSelectionProps = {
+      title: t('cartype'),
+      itemsArray: carTypesArray,
+      shouldOpen: !carType,
+      paramNameToSet: 'carType',
+      paramsToCheck: [
+        'category',
+        'uploadedImages',
+        'location',
+      ],
+    };
+    if (year && model && year || !carStatus || !brand) return ;
+   return (
+   <div className='grid grid-cols-3 gap-4 mx-8 pt-8'>
+   <SelectionComp {...modelSelectionProps} />
+   <SelectionComp {...yearSelectionProps} />
+   <SelectionComp {...carTypeSelectionProps} />
+   </div>
+   )
+}
+const CategoriesForm = ({lng}) =>{
+  const { t } = useTranslation(lng , "translation")
+ const  category  = useSearchParams().get("category");
+
+ if ( category ) return ; 
+ return (
+     <div className=' '>
+     <h1 className="text-center text-2xl font-semibold sm:py-8">
+         {t("sellTitle")}
+     </h1>
+     <div className="grid  grid-cols-2  gap-8  py-4">
+     {categoriesData.map((item, i) => (
+     <AdCategroy lng={lng} key={i} icon={item.icon} text={item.text} />
+     ))}
+     </div>
+     </div>
+ )
+}
 export const ExtraFeatures = ({ lng }) =>{
   const router = useRouter()
   const brand = useSearchParams().get("brand");
@@ -665,7 +447,7 @@ export function PriceSelection({lng}) {
       <h1 className=" text-center text-xl font-semibold">{t('price')}</h1>
        <form className="grid w-full  items-center gap-4 pt-4" onSubmit={handleSubmit}>
       <div className="flex items-center gap-2">
-        <span className="text-lg">$</span>
+        <span className="text-lg w-[20%]">{category == "CarsForRent"  ? `${t('/day')}/` : '$'}</span>
         <Input
           id="price"
           placeholder="Enter price"
@@ -751,7 +533,6 @@ export function Review({lng , userId}) {
       setSuccessMessage(true)
     })
   }
-  console.log(adImages);
   const steps = [
     { label: 'Category', value: category },
     { label: 'Car Status', value: carStatus },
@@ -801,7 +582,6 @@ export function Review({lng , userId}) {
     </main>
   );
 }
-
 // steps component
 export const MutliSteps = ({ lng }) => {
   const brand = useSearchParams().get("brand");
@@ -849,7 +629,6 @@ export const MutliSteps = ({ lng }) => {
   
   let stepses = steps.filter(step => step !== null)
   const totalSteps = steps.length;
-  console.log(stepses);
   const [currentStep, setCurrentStep] = useState(0);
   const stepRefs = Array.from({ length: totalSteps }, () => useRef(null));
 
@@ -904,14 +683,38 @@ export const MutliSteps = ({ lng }) => {
     </div>
   );
 };
+export const OverView = ({ lng }) =>{
+  const category = useSearchParams().get("category");
+  const carStatus = useSearchParams().get("carStatus");
+  const { t } = useTranslation(lng , "translation")
+  if(!category)return ;
+  return (
+  <div className="flex flex-col gap-4  lg:max-w-xs">
+     <MutliSteps lng={lng}/>
+    <div className="flex py-3 border-b-2">
+    <p className="font-semibold">{t('category')}</p>
+    <p>/{t(`${category}`)}</p>
+    {carStatus &&<p>/{t(`${carStatus.toLowerCase()}`)}</p>}
+    </div>
+      
+    <div className="max-w-xs bg-[#21be5b47] border border-[#21be5b] rounded-xl overflow-hidden shadow-lg">
+        <div className="px-6 py-4">
+          <div className="font-bold text-xl sm:mb-4 my-4 mb-2 text-green-800 dark:text-white">Tip for You</div>
+          <p className="text-gray-700 dark:text-white text-base">
+            This is a sample card with Tailwind CSS. You can add your content here.
+          </p>
+        </div>
+      </div>
 
-
-
-
-
-
-
-
+      <div className="max-w-xs flex justify-center hover:opacity-70 cursor-pointer py-8 rounded-xl bg-gradient-to-r from-green-900 to-green-500 items-start max-md:px-5">
+      <RiTimerFlashLine className='text-4xl mx-2 text-white'/>
+      <div className="text-white text-2xl font-bold leading-10 my-auto">
+      {t('QuickSell')}
+      </div>
+      </div>
+        </div>
+  )
+}
 function CheckIcon(props) {
   return (
     <svg
