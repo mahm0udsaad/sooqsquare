@@ -14,7 +14,7 @@ const CarBrandSelector = ({lng}) => {
   const location = useSearchParams().get("location");
   
   
-  if (brand || !category || !carStatus || !location ) return null;
+  if (brand || !category || !carStatus ||!location ) return null;
   
   function handleSelectBrand(selectedBrand) {
      router.push(`?category=${category}&carStatus=${carStatus}&uploadedImages=${uploadedImages}&location=${location}&brand=${selectedBrand}`);

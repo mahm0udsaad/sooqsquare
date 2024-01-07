@@ -10,12 +10,12 @@ import { useRouter } from 'next/navigation';
 import { useTranslation } from "../app/i18n/client"
 import Logo from './logo'
 import { ErrorMessage } from '@/components/messages'
-import {
-  SignedIn,
-  UserButton,
-} from "@clerk/nextjs";
+// import {
+//   SignedIn,
+//   UserButton,
+// } from "@clerk/nextjs";
 
-const NavBar = ({lng , userId})=> { 
+const NavBar = ({lng })=> { 
   
   const { t } = useTranslation(lng , "translation")
   const [darkMode, setDarkMode] = useState(false);
@@ -86,14 +86,14 @@ const NavBar = ({lng , userId})=> {
         </DropdownMenuContent>
         </DropdownMenu>
         </div>
-        {!userId ? <button className="mx-4 border rounded-full px-8 py-2">{t('signIn')}</button>
+        {/* {!userId ? <button className="mx-4 border rounded-full px-8 py-2">{t('signIn')}</button>
         :
         <div className="px-4">
           <SignedIn>
         <UserButton />
       </SignedIn>
         </div>
-      }
+      } */}
         <label htmlFor="darkModeToggle" className="flex items-center cursor-pointer">
         <div className="relative">
           <input
