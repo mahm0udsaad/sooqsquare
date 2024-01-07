@@ -1,7 +1,6 @@
 import { NextResponse } from 'next/server';
 import acceptLanguage from 'accept-language';
 import { fallbackLng, languages, cookieName } from './app/i18n/settings';
-import { authMiddleware } from '@clerk/nextjs';
 
 const middleware = (req, res) => {
   if (req.nextUrl.pathname.startsWith('/sign-in') || req.nextUrl.pathname.startsWith('/sign-up')) {
