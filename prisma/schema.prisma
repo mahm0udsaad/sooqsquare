@@ -1,6 +1,6 @@
 datasource db {
-  provider = "mongodb"
-  url      = env("DATABASE_URL")
+  provider = "sqlite"
+  url      = "file:./dev.db"
 }
 
 generator client {
@@ -11,21 +11,28 @@ generator client {
 // Inside schema.prisma
 
 model User {
-  id                  String    @id @default(auto()) @map("_id") @db.ObjectId
+  id                  Int    @id @default(autoincrement())
   createdAt           DateTime  @default(now())
+  phoneNumber         String?
   userId              String    @unique
-  username            String
+  username            String?
   email               String    @unique
   ads                 Ad[]
 }
 
+model Image {
+  id       Int      @id @default(autoincrement())
+  url      String
+  ad       Ad       @relation(fields: [adId], references: [id])
+  adId     Int
+}
 
 model Ad {
-  id            String      @id @default(auto()) @map("_id") @db.ObjectId
+  id            Int      @id @default(autoincrement())
   user          User?       @relation(fields: [userId], references: [userId])
   userId        String?
   createdAt     DateTime    @default(now())
-  adImages      String[]   
+  Adimages      Image[]
   description   String?
   brand         String     
   EnginCapacity  String     

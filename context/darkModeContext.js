@@ -5,6 +5,7 @@ const DarkModeContext = createContext();
 
 export const DarkModeProvider = ({ children }) => {
   const [adImages, setAdImages] = useState([]);
+  const [phoneNum , setPhoneNum] =useState('')
   const [extraFeature, setExtraFeature] = useState([]);
   const [errorMessage, setErrorMessage] = useState(null);
   const [successMessage, setSuccessMessage] = useState(false);
@@ -16,7 +17,7 @@ export const DarkModeProvider = ({ children }) => {
   }, [errorMessage , successMessage]);
 
   return (
-    <DarkModeContext.Provider value={{extraFeature ,setExtraFeature,errorMessage , setErrorMessage , successMessage, setSuccessMessage, adImages ,setAdImages }}>
+    <DarkModeContext.Provider value={{phoneNum , setPhoneNum , extraFeature ,setExtraFeature,errorMessage , setErrorMessage , successMessage, setSuccessMessage, adImages ,setAdImages }}>
       {children}
     </DarkModeContext.Provider>
   );
