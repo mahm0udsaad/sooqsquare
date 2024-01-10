@@ -45,12 +45,11 @@ const NavBar = ({lng })=> {
     };
     
   return (
-    <nav className="z-50 fixed  shadow-lg w-full flex items-center justify-between px-6 bg-white dark:bg-zinc-950">
+    <nav className="z-50 fixed py-2 shadow-lg w-full flex items-center justify-between px-6  bg-white dark:bg-zinc-950">
       <Link className="flex items-center" href="#">
         <Logo lng={lng} darkMode={darkMode}/>
       </Link>
-      <div className="flex items-center ">
-        <form className="flex items-center dark:bg-zinc-900 mx-6 border rounded-full px-4">
+        <form className="flex items-center dark:bg-zinc-900 border rounded-full px-4 w-[40%]">
           <BiSearch className="w-4 h-4 text-gray-700 dark:text-gray-200" />
           <input
             className="ml-2 p-2 bg-transparent rounded-full focus:outline-none text-gray-700 dark:text-gray-200"
@@ -58,7 +57,7 @@ const NavBar = ({lng })=> {
             type="text"
           />
         </form>
-        <div className="flex gap-3">
+      <div className="flex items-center gap-3 ">
         <DropdownMenu>
         <DropdownMenuTrigger asChild>
             <button className="border dark:bg-zinc-900 px-4 py-2 rounded-full flex items-center">
@@ -72,7 +71,6 @@ const NavBar = ({lng })=> {
             <DropdownMenuItem className="hover:bg-gray-100  px-4 py-2">Germany</DropdownMenuItem>
         </DropdownMenuContent>
         </DropdownMenu>
-
         <DropdownMenu>
         <DropdownMenuTrigger asChild>
             <button className="border dark:bg-zinc-900 px-4 py-2 rounded-full flex items-center">
@@ -85,16 +83,7 @@ const NavBar = ({lng })=> {
             <DropdownMenuItem onClick={changeToArabic} className="hover:bg-gray-100  px-4 py-2">Arabic</DropdownMenuItem>
         </DropdownMenuContent>
         </DropdownMenu>
-        </div>
-        {/* {!userId ? <button className="mx-4 border rounded-full px-8 py-2">{t('signIn')}</button>
-        :
-        <div className="px-4">
-          <SignedIn>
-        <UserButton />
-      </SignedIn>
-        </div>
-      } */}
-        <label htmlFor="darkModeToggle" className="flex items-center cursor-pointer">
+        <label htmlFor="darkModeToggle" className="flex items-center cursor-pointer ">
         <div className="relative">
           <input
             id="darkModeToggle"

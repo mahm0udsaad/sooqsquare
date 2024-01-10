@@ -12,27 +12,27 @@ const HomePage= async ({ lng })=> {
   return (
     <>
         <main className='mx-auto w-[95%]'>
-        <div className="grid grid-cols-4 gap-4 w-11/12 mx-auto py-8">
+        <div className="grid lg:grid-cols-4  grid-cols-2 lg:gap-6 gap-3 w-11/12 mx-auto py-8">
         {categoriesData.map((item, i) => (
         <CategroyLink key={i} icon={item.icon} text={t(`categories.${item.text}`)} />
         ))}
         </div>
         <div className="gap-5 flex max-md:flex-col max-md:items-stretch max-md:gap-0">
           <div className="flex flex-col items-stretch w-1/2 max-md:w-full max-md:ml-0">
-            <div className="gt-text text-5xl font-bold leading-[73px] bg-clip-text relative w-full mt-16 max-md:max-w-full max-md:text-4xl max-md:leading-[57px] max-md:mt-10">
+            <div className="gt-text text-5xl font-bold leading-[73px] bg-clip-text relative w-full lg:mt-16 max-md:max-w-full max-md:text-4xl max-md:leading-[57px] ">
             {t('RevolutionizeYourRide')} <br />{t('RentBuySellAndMore')}
             </div>
           </div>
-          <div className="flex flex-col items-stretch w-4/5 ml-5 max-md:w-full max-md:ml-0">
-            <div className="relative flex grow flex-col items-end max-md:max-w-full max-md:mt-2.5">
-              <div className="flex justify-between mx-6 px-20 hover:opacity-70 cursor-pointer py-12 rounded-3xl bg-gradient-to-r from-green-900 to-green-500 items-start max-md:px-5">
+          <div className="flex flex-col items-stretch lg:w-4/5 ml-5 max-md:w-full max-md:ml-0">
+            <div className="relative flex grow flex-col items-end max-md:mt-2.5">
+              <div className="flex justify-between lg:w-auto w-11/12 mx-auto lg:mx-6 px-20 hover:opacity-70 cursor-pointer py-12 rounded-3xl bg-gradient-to-r from-green-900 to-green-500 items-start max-md:px-5">
               <RiTimerFlashLine className='text-4xl text-white'/>
               <div className="text-white text-3xl font-bold leading-10 my-auto">
               {t('QuickSell')}
             </div>
               </div>
               <div className="self-stretch mt-6 max-md:max-w-full">
-              <div className="gap-x-5 flex max-md:flex-col max-md:items-stretch max-md:gap-0">
+              <div className="gap-x-5 flex lg:flex-row flex-col max-md:items-stretch max-md:gap-0">
                 <div className="flex flex-col items-stretch w-full relative">
                     {/* First image as background */}
                     <Image

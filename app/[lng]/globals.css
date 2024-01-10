@@ -88,7 +88,7 @@ display: none !important;
 }
 .gt-text{
   /* background-clip: text; */
-  background: linear-gradient(90deg, #FF3337, #009A8F, #F5F853, #FFFFFF);
+  background: linear-gradient(90deg, #fa5b5e, #009A8F, #a71086bb);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
