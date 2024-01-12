@@ -10,6 +10,7 @@ export const DarkModeProvider = ({ children }) => {
   const [errorMessage, setErrorMessage] = useState(null);
   const [successMessage, setSuccessMessage] = useState(false);
 
+  
   useEffect(() => {
     if (errorMessage !== null || successMessage !== null) {
       window.scrollTo({ top: 0, behavior: 'smooth' });

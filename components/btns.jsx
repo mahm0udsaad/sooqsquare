@@ -1,14 +1,31 @@
 "use client"
 import { signIn } from 'next-auth/react'
 import { Button } from "@/components/ui/button"
+import { FcGoogle } from "react-icons/fc";
+import { FaFacebookSquare } from "react-icons/fa";
 
 export const Gbtn = () =>{
     return (
-        <Button onClick={()=> signIn('google')} className="w-full bg-[#4285F4] text-white" type="button">
-              <ChromeIcon className="w-4 h-4 mr-2" />
+        <Button onClick={()=> signIn('google')} className="w-full dark:text-white  hover:bg-rose-500 hover:text-white border border-rose-500 bg-transparent text-black" type="button">
+              <FcGoogle className="w-6 h-6 mx-2" />
               Sign in with Google
             </Button>
     )
+}
+export const Fbtn = () =>{
+  return (
+      <Button onClick={()=> signIn('facebook')} className="w-full dark:text-white hover:bg-blue-500 hover:text-white border border-blue-500 bg-transparent text-black" type="button">
+            <FaFacebookSquare className="w-6 h-6 mx-2 text-blue-700" />
+            Sign in with Facebook
+          </Button>
+  )
+}
+export const SginInBtn = () =>{
+  return (
+    <Button onClick={() => signIn('credentials')} className="w-full" type="submit">
+    Sign in
+  </Button>
+  )
 }
 
 

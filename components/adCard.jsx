@@ -12,7 +12,9 @@ import {
 } from "@/components/ui/carousel"
 
 
-const MyAdsCard = ({ ad }) => {
+const MyAdsCard = ({lng, ad }) => {
+  const isArabic = lng === 'ar';
+  const carouselStyle = isArabic ? { direction: 'ltr' } : {};
   const {
     EnginCapacity,
     paintType,
@@ -21,7 +23,7 @@ const MyAdsCard = ({ ad }) => {
     name,
     RegionalSpecifications,
     location,
-    adImages,
+    Adimages,
     brand,
     category,
     model,
@@ -32,18 +34,18 @@ const MyAdsCard = ({ ad }) => {
     fuelType,
     meterRange,
   } = ad;
-
   return (
+    
      <Card>
       <CardContent>
-      <Carousel className="w-full max-w-xs mx-auto">
-      <CarouselContent>
-        {adImages.map((image, index) => (
+      <Carousel style={carouselStyle} className="w-full max-w-xs mx-auto">
+      <CarouselContent >
+        {Adimages.map((image, index) => (
           <CarouselItem key={index}>
             <div className="p-1">
               <Card>
                 <CardContent className="flex aspect-square items-center justify-center p-6">
-                  <img className="w-48" src={image} alt="adImage"  />
+                  <img className="w-48" src={image.url} alt="adImage"  />
                 </CardContent>
               </Card>
             </div>

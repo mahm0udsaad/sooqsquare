@@ -1099,8 +1099,8 @@ export namespace Prisma {
     id: number | null
     createdAt: Date | null
     phoneNumber: string | null
-    userId: string | null
     username: string | null
+    image: string | null
     email: string | null
   }
 
@@ -1108,8 +1108,8 @@ export namespace Prisma {
     id: number | null
     createdAt: Date | null
     phoneNumber: string | null
-    userId: string | null
     username: string | null
+    image: string | null
     email: string | null
   }
 
@@ -1117,8 +1117,8 @@ export namespace Prisma {
     id: number
     createdAt: number
     phoneNumber: number
-    userId: number
     username: number
+    image: number
     email: number
     _all: number
   }
@@ -1136,8 +1136,8 @@ export namespace Prisma {
     id?: true
     createdAt?: true
     phoneNumber?: true
-    userId?: true
     username?: true
+    image?: true
     email?: true
   }
 
@@ -1145,8 +1145,8 @@ export namespace Prisma {
     id?: true
     createdAt?: true
     phoneNumber?: true
-    userId?: true
     username?: true
+    image?: true
     email?: true
   }
 
@@ -1154,8 +1154,8 @@ export namespace Prisma {
     id?: true
     createdAt?: true
     phoneNumber?: true
-    userId?: true
     username?: true
+    image?: true
     email?: true
     _all?: true
   }
@@ -1250,8 +1250,8 @@ export namespace Prisma {
     id: number
     createdAt: Date
     phoneNumber: string | null
-    userId: string
     username: string | null
+    image: string | null
     email: string
     _count: UserCountAggregateOutputType | null
     _avg: UserAvgAggregateOutputType | null
@@ -1278,8 +1278,8 @@ export namespace Prisma {
     id?: boolean
     createdAt?: boolean
     phoneNumber?: boolean
-    userId?: boolean
     username?: boolean
+    image?: boolean
     email?: boolean
     ads?: boolean | User$adsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
@@ -1289,8 +1289,8 @@ export namespace Prisma {
     id?: boolean
     createdAt?: boolean
     phoneNumber?: boolean
-    userId?: boolean
     username?: boolean
+    image?: boolean
     email?: boolean
   }
 
@@ -1309,8 +1309,8 @@ export namespace Prisma {
       id: number
       createdAt: Date
       phoneNumber: string | null
-      userId: string
       username: string | null
+      image: string | null
       email: string
     }, ExtArgs["result"]["user"]>
     composites: {}
@@ -1694,8 +1694,8 @@ export namespace Prisma {
     readonly id: FieldRef<"User", 'Int'>
     readonly createdAt: FieldRef<"User", 'DateTime'>
     readonly phoneNumber: FieldRef<"User", 'String'>
-    readonly userId: FieldRef<"User", 'String'>
     readonly username: FieldRef<"User", 'String'>
+    readonly image: FieldRef<"User", 'String'>
     readonly email: FieldRef<"User", 'String'>
   }
     
@@ -2953,15 +2953,17 @@ export namespace Prisma {
 
   export type AdAvgAggregateOutputType = {
     id: number | null
+    userId: number | null
   }
 
   export type AdSumAggregateOutputType = {
     id: number | null
+    userId: number | null
   }
 
   export type AdMinAggregateOutputType = {
     id: number | null
-    userId: string | null
+    userId: number | null
     createdAt: Date | null
     description: string | null
     brand: string | null
@@ -2984,7 +2986,7 @@ export namespace Prisma {
 
   export type AdMaxAggregateOutputType = {
     id: number | null
-    userId: string | null
+    userId: number | null
     createdAt: Date | null
     description: string | null
     brand: string | null
@@ -3032,10 +3034,12 @@ export namespace Prisma {
 
   export type AdAvgAggregateInputType = {
     id?: true
+    userId?: true
   }
 
   export type AdSumAggregateInputType = {
     id?: true
+    userId?: true
   }
 
   export type AdMinAggregateInputType = {
@@ -3196,7 +3200,7 @@ export namespace Prisma {
 
   export type AdGroupByOutputType = {
     id: number
-    userId: string | null
+    userId: number | null
     createdAt: Date
     description: string | null
     brand: string
@@ -3300,7 +3304,7 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
-      userId: string | null
+      userId: number | null
       createdAt: Date
       description: string | null
       brand: string
@@ -3701,7 +3705,7 @@ export namespace Prisma {
    */ 
   interface AdFieldRefs {
     readonly id: FieldRef<"Ad", 'Int'>
-    readonly userId: FieldRef<"Ad", 'String'>
+    readonly userId: FieldRef<"Ad", 'Int'>
     readonly createdAt: FieldRef<"Ad", 'DateTime'>
     readonly description: FieldRef<"Ad", 'String'>
     readonly brand: FieldRef<"Ad", 'String'>
@@ -4087,8 +4091,8 @@ export namespace Prisma {
     id: 'id',
     createdAt: 'createdAt',
     phoneNumber: 'phoneNumber',
-    userId: 'userId',
     username: 'username',
+    image: 'image',
     email: 'email'
   };
 
@@ -4189,8 +4193,8 @@ export namespace Prisma {
     id?: IntFilter<"User"> | number
     createdAt?: DateTimeFilter<"User"> | Date | string
     phoneNumber?: StringNullableFilter<"User"> | string | null
-    userId?: StringFilter<"User"> | string
     username?: StringNullableFilter<"User"> | string | null
+    image?: StringNullableFilter<"User"> | string | null
     email?: StringFilter<"User"> | string
     ads?: AdListRelationFilter
   }
@@ -4199,15 +4203,14 @@ export namespace Prisma {
     id?: SortOrder
     createdAt?: SortOrder
     phoneNumber?: SortOrderInput | SortOrder
-    userId?: SortOrder
     username?: SortOrderInput | SortOrder
+    image?: SortOrderInput | SortOrder
     email?: SortOrder
     ads?: AdOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
     id?: number
-    userId?: string
     email?: string
     AND?: UserWhereInput | UserWhereInput[]
     OR?: UserWhereInput[]
@@ -4215,15 +4218,16 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"User"> | Date | string
     phoneNumber?: StringNullableFilter<"User"> | string | null
     username?: StringNullableFilter<"User"> | string | null
+    image?: StringNullableFilter<"User"> | string | null
     ads?: AdListRelationFilter
-  }, "id" | "userId" | "email">
+  }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
     id?: SortOrder
     createdAt?: SortOrder
     phoneNumber?: SortOrderInput | SortOrder
-    userId?: SortOrder
     username?: SortOrderInput | SortOrder
+    image?: SortOrderInput | SortOrder
     email?: SortOrder
     _count?: UserCountOrderByAggregateInput
     _avg?: UserAvgOrderByAggregateInput
@@ -4239,8 +4243,8 @@ export namespace Prisma {
     id?: IntWithAggregatesFilter<"User"> | number
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     phoneNumber?: StringNullableWithAggregatesFilter<"User"> | string | null
-    userId?: StringWithAggregatesFilter<"User"> | string
     username?: StringNullableWithAggregatesFilter<"User"> | string | null
+    image?: StringNullableWithAggregatesFilter<"User"> | string | null
     email?: StringWithAggregatesFilter<"User"> | string
   }
 
@@ -4296,7 +4300,7 @@ export namespace Prisma {
     OR?: AdWhereInput[]
     NOT?: AdWhereInput | AdWhereInput[]
     id?: IntFilter<"Ad"> | number
-    userId?: StringNullableFilter<"Ad"> | string | null
+    userId?: IntNullableFilter<"Ad"> | number | null
     createdAt?: DateTimeFilter<"Ad"> | Date | string
     description?: StringNullableFilter<"Ad"> | string | null
     brand?: StringFilter<"Ad"> | string
@@ -4349,7 +4353,7 @@ export namespace Prisma {
     AND?: AdWhereInput | AdWhereInput[]
     OR?: AdWhereInput[]
     NOT?: AdWhereInput | AdWhereInput[]
-    userId?: StringNullableFilter<"Ad"> | string | null
+    userId?: IntNullableFilter<"Ad"> | number | null
     createdAt?: DateTimeFilter<"Ad"> | Date | string
     description?: StringNullableFilter<"Ad"> | string | null
     brand?: StringFilter<"Ad"> | string
@@ -4405,7 +4409,7 @@ export namespace Prisma {
     OR?: AdScalarWhereWithAggregatesInput[]
     NOT?: AdScalarWhereWithAggregatesInput | AdScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"Ad"> | number
-    userId?: StringNullableWithAggregatesFilter<"Ad"> | string | null
+    userId?: IntNullableWithAggregatesFilter<"Ad"> | number | null
     createdAt?: DateTimeWithAggregatesFilter<"Ad"> | Date | string
     description?: StringNullableWithAggregatesFilter<"Ad"> | string | null
     brand?: StringWithAggregatesFilter<"Ad"> | string
@@ -4429,8 +4433,8 @@ export namespace Prisma {
   export type UserCreateInput = {
     createdAt?: Date | string
     phoneNumber?: string | null
-    userId: string
     username?: string | null
+    image?: string | null
     email: string
     ads?: AdCreateNestedManyWithoutUserInput
   }
@@ -4439,8 +4443,8 @@ export namespace Prisma {
     id?: number
     createdAt?: Date | string
     phoneNumber?: string | null
-    userId: string
     username?: string | null
+    image?: string | null
     email: string
     ads?: AdUncheckedCreateNestedManyWithoutUserInput
   }
@@ -4448,8 +4452,8 @@ export namespace Prisma {
   export type UserUpdateInput = {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    userId?: StringFieldUpdateOperationsInput | string
     username?: NullableStringFieldUpdateOperationsInput | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     ads?: AdUpdateManyWithoutUserNestedInput
   }
@@ -4458,8 +4462,8 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    userId?: StringFieldUpdateOperationsInput | string
     username?: NullableStringFieldUpdateOperationsInput | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     ads?: AdUncheckedUpdateManyWithoutUserNestedInput
   }
@@ -4467,8 +4471,8 @@ export namespace Prisma {
   export type UserUpdateManyMutationInput = {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    userId?: StringFieldUpdateOperationsInput | string
     username?: NullableStringFieldUpdateOperationsInput | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
   }
 
@@ -4476,8 +4480,8 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    userId?: StringFieldUpdateOperationsInput | string
     username?: NullableStringFieldUpdateOperationsInput | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
   }
 
@@ -4538,7 +4542,7 @@ export namespace Prisma {
 
   export type AdUncheckedCreateInput = {
     id?: number
-    userId?: string | null
+    userId?: number | null
     createdAt?: Date | string
     description?: string | null
     brand: string
@@ -4585,7 +4589,7 @@ export namespace Prisma {
 
   export type AdUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
-    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    userId?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     brand?: StringFieldUpdateOperationsInput | string
@@ -4630,7 +4634,7 @@ export namespace Prisma {
 
   export type AdUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
-    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    userId?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     brand?: StringFieldUpdateOperationsInput | string
@@ -4720,8 +4724,8 @@ export namespace Prisma {
     id?: SortOrder
     createdAt?: SortOrder
     phoneNumber?: SortOrder
-    userId?: SortOrder
     username?: SortOrder
+    image?: SortOrder
     email?: SortOrder
   }
 
@@ -4733,8 +4737,8 @@ export namespace Prisma {
     id?: SortOrder
     createdAt?: SortOrder
     phoneNumber?: SortOrder
-    userId?: SortOrder
     username?: SortOrder
+    image?: SortOrder
     email?: SortOrder
   }
 
@@ -4742,8 +4746,8 @@ export namespace Prisma {
     id?: SortOrder
     createdAt?: SortOrder
     phoneNumber?: SortOrder
-    userId?: SortOrder
     username?: SortOrder
+    image?: SortOrder
     email?: SortOrder
   }
 
@@ -4848,6 +4852,17 @@ export namespace Prisma {
     adId?: SortOrder
   }
 
+  export type IntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | null
+    notIn?: number[] | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
   export type UserNullableRelationFilter = {
     is?: UserWhereInput | null
     isNot?: UserWhereInput | null
@@ -4888,6 +4903,7 @@ export namespace Prisma {
 
   export type AdAvgOrderByAggregateInput = {
     id?: SortOrder
+    userId?: SortOrder
   }
 
   export type AdMaxOrderByAggregateInput = {
@@ -4938,6 +4954,23 @@ export namespace Prisma {
 
   export type AdSumOrderByAggregateInput = {
     id?: SortOrder
+    userId?: SortOrder
+  }
+
+  export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | null
+    notIn?: number[] | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
   }
 
   export type AdCreateNestedManyWithoutUserInput = {
@@ -5051,6 +5084,14 @@ export namespace Prisma {
     update?: ImageUpdateWithWhereUniqueWithoutAdInput | ImageUpdateWithWhereUniqueWithoutAdInput[]
     updateMany?: ImageUpdateManyWithWhereWithoutAdInput | ImageUpdateManyWithWhereWithoutAdInput[]
     deleteMany?: ImageScalarWhereInput | ImageScalarWhereInput[]
+  }
+
+  export type NullableIntFieldUpdateOperationsInput = {
+    set?: number | null
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
   }
 
   export type ImageUncheckedUpdateManyWithoutAdNestedInput = {
@@ -5202,6 +5243,33 @@ export namespace Prisma {
     _max?: NestedStringFilter<$PrismaModel>
   }
 
+  export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | null
+    notIn?: number[] | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
+  export type NestedFloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | null
+    notIn?: number[] | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+  }
+
   export type AdCreateWithoutUserInput = {
     createdAt?: Date | string
     description?: string | null
@@ -5273,7 +5341,7 @@ export namespace Prisma {
     OR?: AdScalarWhereInput[]
     NOT?: AdScalarWhereInput | AdScalarWhereInput[]
     id?: IntFilter<"Ad"> | number
-    userId?: StringNullableFilter<"Ad"> | string | null
+    userId?: IntNullableFilter<"Ad"> | number | null
     createdAt?: DateTimeFilter<"Ad"> | Date | string
     description?: StringNullableFilter<"Ad"> | string | null
     brand?: StringFilter<"Ad"> | string
@@ -5318,7 +5386,7 @@ export namespace Prisma {
 
   export type AdUncheckedCreateWithoutAdimagesInput = {
     id?: number
-    userId?: string | null
+    userId?: number | null
     createdAt?: Date | string
     description?: string | null
     brand: string
@@ -5379,7 +5447,7 @@ export namespace Prisma {
 
   export type AdUncheckedUpdateWithoutAdimagesInput = {
     id?: IntFieldUpdateOperationsInput | number
-    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    userId?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     brand?: StringFieldUpdateOperationsInput | string
@@ -5403,8 +5471,8 @@ export namespace Prisma {
   export type UserCreateWithoutAdsInput = {
     createdAt?: Date | string
     phoneNumber?: string | null
-    userId: string
     username?: string | null
+    image?: string | null
     email: string
   }
 
@@ -5412,8 +5480,8 @@ export namespace Prisma {
     id?: number
     createdAt?: Date | string
     phoneNumber?: string | null
-    userId: string
     username?: string | null
+    image?: string | null
     email: string
   }
 
@@ -5450,8 +5518,8 @@ export namespace Prisma {
   export type UserUpdateWithoutAdsInput = {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    userId?: StringFieldUpdateOperationsInput | string
     username?: NullableStringFieldUpdateOperationsInput | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
   }
 
@@ -5459,8 +5527,8 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    userId?: StringFieldUpdateOperationsInput | string
     username?: NullableStringFieldUpdateOperationsInput | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
   }
 

@@ -3,10 +3,10 @@
 import { revalidatePath } from "next/cache";
 import prisma from "./client";
 import { getServerSession } from "next-auth";
+import { redirect } from "next/navigation";
 
 
-export async function createAd(data) {
-
+export async function createAd(data , userId) {
   const {
     EnginCapacity,
     paintType,
@@ -25,12 +25,12 @@ export async function createAd(data) {
     transmission,
     fuelType,
     meterRange,
-  } = data; // Destructure all variables individually
+  } = data;
 
   try {
-
     const newAd = await prisma.Ad.create({
       data: {
+        userId,
         EnginCapacity,
         paintType,
         payment,
@@ -47,23 +47,37 @@ export async function createAd(data) {
         transmission,
         fuelType,
         meterRange,
-        adImages: { set: adImages }, // Use set to assign adImages
+        Adimages: {
+          create: adImages.map(image => ({ url: image })),
+        },
       },
     });
 
     revalidatePath('/myAds');
   } catch (error) {
     console.error('Error creating ad:', error);
-  } finally {
-    await prisma.$disconnect();
+  } finally{
+    redirect('/myAds')
   }
 }
 
 export  async function createUserIfNotExists(userData) {
   try {
+    if(!userData?.id){
+      const {email , image , name} = userData.user
+      const newUser = await prisma.User.create({
+        data: {
+          username:name,
+          email:email,
+          image:image,
+        },
+      });
+      console.log('New user created:', newUser);
+      return { success: true, message: 'New user created.' };
+    }
     const existingUser = await prisma.User.findUnique({
       where: {
-        userId:userData.userId,
+        id:userData.id,
       },
     });
 
@@ -85,7 +99,6 @@ export  async function createUserIfNotExists(userData) {
   }
 }
 
-
 export async function getUserByUserId(userId) {
   try {
     const user = await prisma.user.findUnique({
@@ -103,12 +116,11 @@ export async function getUserByUserId(userId) {
   }
 }
 
-export async function updateUserPhoneNumber(newPhoneNumber) {
+export async function updateUserPhoneNumber(newPhoneNumber , email) {
   try {
-    const currentUser = await getServerSession()
     const user = await prisma.User.findUnique({
       where: {
-        email: currentUser.user.email,
+        email: email,
       },
     });
 
@@ -123,9 +135,25 @@ export async function updateUserPhoneNumber(newPhoneNumber) {
         phoneNumber: newPhoneNumber,
       },
     });
-
+    console.log("updated Phone Numbem :"+ updatedUser.phoneNumber);
     return updatedUser;
   } catch (error) {
-    throw new Error(`Failed to update user's phone number: ${error.message}`);
+    console.error(`Failed to update user's phone number: ${error.message}`);
+  }
+}
+
+export async function getUserByEmail(email) {
+  try {
+    const existingUser = await prisma.User.findUnique({
+      where: {
+        email: email,
+      },
+    });
+
+    return existingUser || null;
+  } catch (error) {
+    // Handle any potential errors here
+    console.error("Error fetching user:", error);
+    return null;
   }
 }

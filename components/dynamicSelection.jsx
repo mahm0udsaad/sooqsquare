@@ -22,6 +22,27 @@ export const GenericSelection = ({ title, itemsArray, shouldOpen, handleSelectio
       </Select>
     );
 };
+export const FilterSelection = ({ title, itemsArray, shouldOpen, handleSelection }) => {
+  return (
+    <Select className="flex-grow">
+        <p className="font-semibold">
+        {title}
+        </p>
+      <SelectTrigger className={'text-gray-500'}>
+        select {title}
+        </SelectTrigger>
+      <SelectContent>
+        <SelectGroup>
+          {itemsArray && itemsArray.map((item) => (
+            <SelectItem key={item} onMouseDown={() => handleSelection(item)}>
+              {item}
+            </SelectItem>
+          ))}
+        </SelectGroup>
+      </SelectContent>
+    </Select>
+  );
+};
 export const withGenericSelection = (Component) => {
     return function GenericSelectionWrapper({
       title,

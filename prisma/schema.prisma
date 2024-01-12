@@ -14,8 +14,8 @@ model User {
   id                  Int    @id @default(autoincrement())
   createdAt           DateTime  @default(now())
   phoneNumber         String?
-  userId              String    @unique
   username            String?
+  image               String?
   email               String    @unique
   ads                 Ad[]
 }
@@ -29,8 +29,8 @@ model Image {
 
 model Ad {
   id            Int      @id @default(autoincrement())
-  user          User?       @relation(fields: [userId], references: [userId])
-  userId        String?
+  user          User?       @relation(fields: [userId], references: [id])
+  userId        Int?
   createdAt     DateTime    @default(now())
   Adimages      Image[]
   description   String?

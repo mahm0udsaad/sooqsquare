@@ -6,13 +6,15 @@ import { app } from "../../../lib/fb";
 import { useRouter } from "next/navigation";
 import { updateUserPhoneNumber } from "@/prisma/actions";
 import { useDarkMode } from "@/context/darkModeContext";
-
-export default function LoginWithPhone (){
-    const {phoneNum , setPhoneNum} = useDarkMode()
+import { getSession} from "next-auth/react";
+import {ArabCountries} from '../../../data/staticData'
+export default function LoginWithPhone ({email}){
+    const {phoneNum , setPhoneNum } = useDarkMode()
     const [otp,setOtp] = useState('')
     const [confirmationRes , setConfirmationRes] = useState(null)
     const [otpSent , setOtpSent] = useState(false)
-
+    const [selectedCountry, setSelectedCountry] = useState(ArabCountries[0]);
+    const {setErrorMessage} = useDarkMode()
     const auth = getAuth(app)
     const router = useRouter()
 
@@ -34,31 +36,39 @@ export default function LoginWithPhone (){
     }
     const handleSentOtp = async () =>{
         try{
-            const formattedPhoneNum = `+${phoneNum.replace(/\D/g, '')}`;
+            console.log(`${selectedCountry.code}${phoneNum}`);
+            const formattedPhoneNum = `${selectedCountry.code}${phoneNum.replace(/\D/g, '')}`;
             const confirmation = await signInWithPhoneNumber(auth, formattedPhoneNum, window.RecaptchaVerifier);
             setConfirmationRes(confirmation)
             setOtpSent(true)
-            setPhoneNum('')
+
             alert('OTP has been sent')
+            setPhoneNum(formattedPhoneNum)
         }catch(err){
             console.log(err);
         }
     }
     const handleOtpSubmit = async () =>{
         try{
-            console.log(otp);
+            console.log(phoneNum);
             await confirmationRes.confirm(otp)
-            updateUserPhoneNumber(phoneNum)
+            updateUserPhoneNumber(phoneNum , email)
+            router.push('/sell')
             setOtp('')
         }catch(err){
+            setErrorMessage('OTP Is Wrong')
             console.log(err);
         }
     }
-
+    const handleCountryChange = (e) => {
+        const selectedCode = e.target.value;
+        const country = ArabCountries.find((c) => c.code === selectedCode);
+        setSelectedCountry(country);
+      };
     return(
-        <>
+        <div className="flex flex-col relative">
         {!otpSent ? (
-            <div id="recaptcha-container"></div>
+            <div className="absolute top-0" id="recaptcha-container"></div>
         ):null }
    
          {otpSent ? <input 
@@ -68,16 +78,30 @@ export default function LoginWithPhone (){
          value={otp}
          onChange={handleOtpChange}
          placeholder="Enter OTP"
-          />: <input 
-          className="p-3 border"
-          type="tel"
-          value={phoneNum}
-          onChange={handlePhoneNumChange}
-          placeholder="Enter your Phone number"
-           /> }
+          />:  
+          <div className="flex">
+          <input
+            className="p-3 border"
+            type="tel"
+            value={phoneNum}
+            onChange={handlePhoneNumChange}
+            placeholder="Enter your Phone number"
+          />
+           <select
+            className="p-3 border w-20"
+            value={selectedCountry.code}
+            onChange={handleCountryChange}
+          >
+            {ArabCountries.map((country) => (
+              <option key={country.code} value={country.code}>
+                {country.name} ({country.code})
+              </option>
+            ))}
+          </select>
+        </div>}
           <button className="p-3 border" onClick={otpSent ? handleOtpSubmit : handleSentOtp}>
             {otpSent ? "submit OTP":"Send"}
           </button>
-        </>
+        </div>
     )
 }

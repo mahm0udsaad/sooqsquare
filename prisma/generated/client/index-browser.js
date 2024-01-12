@@ -108,8 +108,8 @@ exports.Prisma.UserScalarFieldEnum = {
   id: 'id',
   createdAt: 'createdAt',
   phoneNumber: 'phoneNumber',
-  userId: 'userId',
   username: 'username',
+  image: 'image',
   email: 'email'
 };
 

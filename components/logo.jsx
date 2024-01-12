@@ -1,8 +1,9 @@
+import Link from 'next/link'
 import {LightEn, LightAr, DarkEn, DarkAr} from '../public/logoCode'
 
 const Logo = ({lng , darkMode}) =>{
         return(
-            <>
+            <Link href={'/'}>
             {lng === "ar" ?
             <>
             {!darkMode && <LightAr />}
@@ -14,7 +15,7 @@ const Logo = ({lng , darkMode}) =>{
             {darkMode && <DarkEn />}
             </>   
             }
-            </>
+            </Link>
         )
 }
 export default Logo

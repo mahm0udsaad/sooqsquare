@@ -27,7 +27,7 @@ const LocationDetails = dynamic(() => import(`./LocationSelector`));
 
 const SelectionComp = withGenericSelection(GenericSelection);
 
-export const CarForSellAd = ({lng}) =>{
+export const CarForSellAd = ({lng , userId}) =>{
   const { t } = useTranslation(lng , "translation")
   const transmission = useSearchParams().get("transmission");
   const RegionalSpecifications = useSearchParams().get("RegionalSpecifications");
@@ -178,7 +178,7 @@ export const CarForSellAd = ({lng}) =>{
 
 return (
   <>
-        <Review  lng={lng} />
+        <Review userId={userId} lng={lng} />
         <CategoriesForm lng={lng} />
         <CarStatusSelection lng={lng} />
         <MultiImageForm lng={lng} />
@@ -444,8 +444,8 @@ export function PriceSelection({lng}) {
   };
   return (
    <div className="w-1/2 mx-auto">
-      <h1 className=" text-center text-xl font-semibold">{t('price')}</h1>
-       <form className="grid w-full  items-center gap-4 pt-4" onSubmit={handleSubmit}>
+      <h1 className=" text-center text-xl pb-4 font-semibold">{t('price')}</h1>
+       <form className="grid w-full  items-center gap-8 pt-4" onSubmit={handleSubmit}>
       <div className="flex items-center gap-2">
         <span className="text-lg w-[20%]">{category == "CarsForRent"  ? `${t('/day')}/` : '$'}</span>
         <Input
@@ -526,13 +526,23 @@ export function Review({lng , userId}) {
     RegionalSpecifications: RegionalSpecifications,
     meterRange: meterRange
   };
-  const handleSave = () =>{
-    setLoading(true)
-    createAd(data , userId).then((res)=>{
-      router.push('/myAds')
-      setSuccessMessage(true)
-    })
-  }
+
+  const handleSave = async () => {
+    setLoading(true);
+  
+    try {
+      const ad = await createAd(data, userId);
+  
+      if (ad) {
+        setSuccessMessage(true);
+      }
+    } catch (error) {
+      console.error('Error creating ad:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const steps = [
     { label: 'Category', value: category },
     { label: 'Car Status', value: carStatus },

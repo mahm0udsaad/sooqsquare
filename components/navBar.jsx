@@ -9,13 +9,9 @@ import { IoLanguageOutline } from 'react-icons/io5';
 import { useRouter } from 'next/navigation';
 import { useTranslation } from "../app/i18n/client"
 import Logo from './logo'
-import { ErrorMessage } from '@/components/messages'
-// import {
-//   SignedIn,
-//   UserButton,
-// } from "@clerk/nextjs";
+import { Avatar } from './ui/avatar';
 
-const NavBar = ({lng })=> { 
+const NavBar = ({lng , userImage})=> { 
   
   const { t } = useTranslation(lng , "translation")
   const [darkMode, setDarkMode] = useState(false);
@@ -43,7 +39,6 @@ const NavBar = ({lng })=> {
       const arabicPath = currentPath.replace('/ar', '/en');
       router.push(arabicPath);
     };
-    
   return (
     <nav className="z-50 fixed py-2 shadow-lg w-full flex items-center justify-between px-6  bg-white dark:bg-zinc-950">
       <Link className="flex items-center" href="#">
@@ -83,6 +78,11 @@ const NavBar = ({lng })=> {
             <DropdownMenuItem onClick={changeToArabic} className="hover:bg-gray-100  px-4 py-2">Arabic</DropdownMenuItem>
         </DropdownMenuContent>
         </DropdownMenu>
+        <div className="userAvatar">
+          {userImage&&<Avatar>
+            <img src={userImage} alt="user" srcset="" />
+          </Avatar>}
+        </div>
         <label htmlFor="darkModeToggle" className="flex items-center cursor-pointer ">
         <div className="relative">
           <input

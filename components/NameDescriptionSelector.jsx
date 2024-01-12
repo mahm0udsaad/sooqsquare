@@ -5,6 +5,7 @@ import { useTranslation } from "../app/i18n/client"
 import { Button } from "@/components/ui/button";
 import React, { useState } from 'react';
 import { Textarea } from "@/components/ui/textarea"
+import { useDarkMode } from '@/context/darkModeContext';
 
 
  const NameDescriptionSelector = ({ lng }) => {
@@ -31,7 +32,7 @@ import { Textarea } from "@/components/ui/textarea"
     const carChassis  = useSearchParams().get("chassisNumber");
     const [nameInput, setName] = useState('');
     const [description, setDescription] = useState('');
-  
+    const { setErrorMessage } = useDarkMode()
     if (!brand || !category || !model || !year || !carType || !carStatus || !transmission || !fuelType || !paintType || !price || !payment || name) return null;
   
       const handleSelectNameDescription = (selectedName, selectedDescription) => {
@@ -40,6 +41,9 @@ import { Textarea } from "@/components/ui/textarea"
   
       const handleSubmit = (e) => {
         e.preventDefault()
+        if(!nameInput){
+            setErrorMessage(t('messages.noValue'))
+        }
         handleSelectNameDescription(nameInput , description)
       };
   
@@ -51,7 +55,7 @@ import { Textarea } from "@/components/ui/textarea"
               <Input
                   className="mb-4"
                   placeholder={t('adNamePlaceHolder')}
-                  value={name}
+                  value={nameInput}
                   onChange={(e) => setName(e.target.value)}
               />
               <Textarea 

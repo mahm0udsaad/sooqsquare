@@ -4,6 +4,7 @@ import GoogleProvider from 'next-auth/providers/google'
 import FacebookProvider from "next-auth/providers/facebook";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { useRouter } from 'next/navigation';
+import { Prisma } from '@prisma/client';
 
 
 const authOption = {
@@ -25,7 +26,32 @@ const authOption = {
         if (!credentials || !credentials.email || !credentials.password)
           return null;
 
+          try {
+            // Check if the user already exists
+            const existingUser = await prisma.User.findUnique({
+              where: {
+                email: credentials.email,
+              },
+            });
+  
+            if (existingUser) {
+              return null;
+            }
+  
+            const newUser = await Prisma.User.create({
+              data: {
+                email: credentials.email,
+                password: credentials.password, 
+              },
+            });
+  
+            return newUser; 
+          } catch (error) {
+            console.error('Error creating user:', error);
+            return null; 
+          }
       },
+      
     }),
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID,
@@ -41,21 +67,6 @@ const authOption = {
       if (!profile?.email) {
         throw new Error('No profile')
       }
-      const user = await prisma.User.findUnique({
-        where: {
-          email: profile.email,
-        },
-      });
-  
-      await prisma.User.upsert({
-        where: {
-          email: profile.email,
-        },
-        create: {
-          email: profile.email,
-          name: profile.name,
-        },
-      })
       return true
     },
   },

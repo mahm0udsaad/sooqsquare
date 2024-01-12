@@ -91,12 +91,12 @@ function TrashIcon(props) {
     if (uploadedImages || !category ) return null;
   
     return (
-      <div className="w-11/12 mx-auto bg-white border rounded p-8 shadow-md  dark:bg-zinc-950">
+      <div className="bg-white border rounded p-8 shadow-md  dark:bg-zinc-950">
         <div className="title relative">
         <div className="absolute  w-8 h-8 border dark:bg-[#0a0a0a] dark:border-white rounded-full flex items-center justify-center">
         <span className="font-semibold text-rose-500 text-lg">{images.length}</span>
         </div>
-        <h1 className="text-3xl font-bold mb-6 text-center">{t('uploadImages')}</h1>
+        <h1 className="text-3xl font-bold pb-6 text-center">{t('uploadImages')}</h1>
         </div>
         <form  className="space-y-4">
             <div className="grid grid-cols-4 gap-3">
