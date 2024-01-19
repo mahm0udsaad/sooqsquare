@@ -14,7 +14,7 @@ const HomePage= async ({ lng })=> {
         <main className='mx-auto w-[95%]'>
         <div className="grid lg:grid-cols-4  grid-cols-2 lg:gap-6 gap-3 w-11/12 mx-auto py-8">
         {categoriesData.map((item, i) => (
-        <CategroyLink key={i} icon={item.icon} text={t(`categories.${item.text}`)} />
+        <CategroyLink key={i} icon={item.icon} link={item.link} text={t(`categories.${item.text}`)} />
         ))}
         </div>
         <div className="gap-5 flex max-md:flex-col max-md:items-stretch max-md:gap-0">
@@ -80,9 +80,9 @@ const HomePage= async ({ lng })=> {
                     <p className="text-white text-sm mb-4">
                       {t('ProvidingCheapCarRentalServices')}
                     </p>
-                    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                    <Link href={'/vehicle'} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                       {t('Buy')}
-                    </button>
+                    </Link>
                     </div>
                     {/* Second image placed absolutely */}
                     <Image

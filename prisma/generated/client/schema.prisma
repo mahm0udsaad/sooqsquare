@@ -50,6 +50,7 @@ model Ad {
   name          String
   RegionalSpecifications String
   location      String
+  extraFeatures String?
 }
 
 

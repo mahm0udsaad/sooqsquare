@@ -7,10 +7,10 @@ import { Label } from "@/components/ui/label"
 import { Button } from "@/components/ui/button"
 import { FilterSelection, withGenericSelection } from "../dynamicSelection"
 import { useTranslation } from "@/app/i18n/client"
-import { differenceInDays, differenceInHours, differenceInMinutes } from 'date-fns';
 import { BsChatLeftDots } from "react-icons/bs";
 import { MdOutlineLocalPhone } from "react-icons/md";
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
+import { timeSince } from "../../helper/timeConversion"
 
 
 const SelectionComp = withGenericSelection(FilterSelection);
@@ -115,26 +115,11 @@ export function Market({lng , ads}) {
     router.push(pathname + '?' + updatedParams);
   };
 
-
-  function timeSince(createdAt) {
-    const now = new Date();
-    const differenceDays = differenceInDays(now, createdAt);
-    const differenceHours = differenceInHours(now, createdAt);
-    const differenceMinutes = differenceInMinutes(now, createdAt);
-  
-    if (differenceDays > 0) {
-      return `${differenceDays} day${differenceDays === 1 ? '' : 's'} ago`;
-    } else if (differenceHours > 0) {
-      return `${differenceHours} hour${differenceHours === 1 ? '' : 's'} ago`;
-    } else {
-      return `${differenceMinutes} minute${differenceMinutes === 1 ? '' : 's'} ago`;
-    }
-  }
   return (
     (<main
       key="1"
       className="container mx-auto px-4 md:px-6 grid md:grid-cols-[240px_1fr] gap-10 items-start">
-      <div className="bg-white shadow rounded p-3 flex flex-col gap-4 items-start py-2">
+      <div className="filters bg-white shadow rounded p-3 flex flex-col gap-4 items-start py-2">
         <h2 className="text-2xl font-bold">Filter Options</h2>
         <div className="grid gap-1">
           <h3 className="font-semibold">Category</h3>
@@ -244,13 +229,12 @@ export function Market({lng , ads}) {
           {levelOneFilters.map((filter , i)=>(
             <Button key={i} onClick={()=> createQueryString('brand' , filter)} className='bg-[#fe26355e] hover:bg-[#fe2635] hover:text-white text-red-800 border border-[#fe2635]'>{filter}</Button>
           ))}
-
           <Button className="bg-[#fe2635]">View More</Button>
         </div>
         <div className="grid sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-3 gap-8">
           {ads.map((ad,i)=>(
             <div className="relative group">
-            <Link className="absolute inset-0 z-10" href="#">
+            <Link className="absolute inset-0 z-10" href={`vehicle/${ad.id}`}>
               <span className="sr-only">View</span>
             </Link>
             <img
@@ -281,11 +265,11 @@ export function Market({lng , ads}) {
               <h4 className="font-semibold">${ad.price}</h4>
             </div>
             <div className="flex justify-between items-center mt-2">
-              <Button className="w-1/2 mr-1 flex items-center justify-center gap-2 inset-0 z-10 bg-[#fe2635] hover:bg-[#fe26355e]">
+              <Button className="w-[40%] mr-1 flex items-center justify-center gap-2 inset-0 z-10 bg-[#fe2635] hover:bg-[#fe26355e]">
                <BsChatLeftDots className='w-4 h-4' />
                 Chat
               </Button>
-              <Button className="w-1/2 ml-1 flex items-center justify-center gap-2">
+              <Button className="w-[40%] ml-1 flex items-center justify-center gap-2">
               <MdOutlineLocalPhone className='h-4 w-4'/>
                 Call
               </Button>

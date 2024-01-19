@@ -296,8 +296,9 @@ export const ExtraFeatures = ({ lng }) =>{
       } else {
         return [...prev, value];
       }
-    });
+    }); 
   };
+
   if (!brand || !category || !model || !year || !carType || !carStatus || !transmission || !fuelType || !paintType || extraFeatures ) return null;
   const handleSubmit = () => {
     router.push(`?category=${category}&carStatus=${carStatus}&uploadedImages=${uploadedImages}&location=${location}&brand=${brand}&carType=${carType}&year=${year}&model=${model}&transmission=${transmission}&RegionalSpecifications=${RegionalSpecifications}&fuelType=${fuelType}&EnginCapacity=${EnginCapacity}&meterRange=${meterRange}&paintType=${paintType}&extraFeatures=${extraFeature.length}`);
@@ -438,7 +439,6 @@ export function PriceSelection({lng}) {
     if(!pricestate){
       setErrorMessage(t('messages.noValue'))
     }else{
-
       router.push(`?category=${category}&carStatus=${carStatus}&uploadedImages=${uploadedImages}&location=${location}&brand=${brand}&carType=${carType}&year=${year}&model=${model}&transmission=${transmission}&RegionalSpecifications=${RegionalSpecifications}&fuelType=${fuelType}&EnginCapacity=${EnginCapacity}&meterRange=${meterRange}&paintType=${paintType}&extraFeatures=${extraFeatures}&carChassis=${carChassis}&price=${pricestate}&payment=${selectedPaymentMethod}`);
     }
   };
@@ -499,11 +499,13 @@ export function Review({lng , userId}) {
   const price = useSearchParams().get("price");
   const name = useSearchParams().get("name");
   const location = useSearchParams().get("location");
-  const extraFeatures = useSearchParams().get("extraFeatures");
+  const {extraFeature , setExtraFeature} = useDarkMode()
   const carChassis = useSearchParams().get("carChassis");
   const {   adImages  ,setSuccessMessage} = useDarkMode()
   const [loading , setLoading] = useState(false)
   const { t } = useTranslation(lng , "translation")
+  const extraFeatures = extraFeature.join(' ')
+  console.log(extraFeatures);
   const router = useRouter()
   const data = {
     name: name,
@@ -522,7 +524,7 @@ export function Review({lng , userId}) {
     fuelType: fuelType,
     CarChassis: carChassis ,
     EnginCapacity: EnginCapacity,
-    ExtraFeatures: extraFeatures ,
+    extraFeatures: extraFeatures ,
     RegionalSpecifications: RegionalSpecifications,
     meterRange: meterRange
   };
@@ -532,7 +534,6 @@ export function Review({lng , userId}) {
   
     try {
       const ad = await createAd(data, userId);
-  
       if (ad) {
         setSuccessMessage(true);
       }
@@ -562,7 +563,7 @@ export function Review({lng , userId}) {
     { label: 'Transmission', value: transmission },
     { label: 'Fuel Type', value: fuelType },
     { label: 'Meter Range', value: meterRange },
-    { label : "Extra Features" ,value:extraFeatures },
+    { label : "Extra Features" ,value:extraFeatures},
   ];
   if (!brand || !category || !model || !year || !carType || !carStatus || !transmission || !fuelType || !paintType || !price || !payment || !name || !extraFeatures) return null;
  

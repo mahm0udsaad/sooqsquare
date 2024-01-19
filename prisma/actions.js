@@ -25,6 +25,7 @@ export async function createAd(data , userId) {
     transmission,
     fuelType,
     meterRange,
+    extraFeatures,
   } = data;
 
   try {
@@ -47,6 +48,7 @@ export async function createAd(data , userId) {
         transmission,
         fuelType,
         meterRange,
+        extraFeatures,
         Adimages: {
           create: adImages.map(image => ({ url: image })),
         },

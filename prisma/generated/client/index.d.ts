@@ -237,8 +237,8 @@ export namespace Prisma {
   export import Exact = $Public.Exact
 
   /**
-   * Prisma Client JS version: 5.8.0
-   * Query Engine version: 0ca5ccbcfa6bdc81c003cf549abe4269f59c41e5
+   * Prisma Client JS version: 5.8.1
+   * Query Engine version: 78caf6feeaed953168c64e15a249c3e9a033ebe2
    */
   export type PrismaVersion = {
     client: string
@@ -2982,6 +2982,7 @@ export namespace Prisma {
     name: string | null
     RegionalSpecifications: string | null
     location: string | null
+    extraFeatures: string | null
   }
 
   export type AdMaxAggregateOutputType = {
@@ -3005,6 +3006,7 @@ export namespace Prisma {
     name: string | null
     RegionalSpecifications: string | null
     location: string | null
+    extraFeatures: string | null
   }
 
   export type AdCountAggregateOutputType = {
@@ -3028,6 +3030,7 @@ export namespace Prisma {
     name: number
     RegionalSpecifications: number
     location: number
+    extraFeatures: number
     _all: number
   }
 
@@ -3063,6 +3066,7 @@ export namespace Prisma {
     name?: true
     RegionalSpecifications?: true
     location?: true
+    extraFeatures?: true
   }
 
   export type AdMaxAggregateInputType = {
@@ -3086,6 +3090,7 @@ export namespace Prisma {
     name?: true
     RegionalSpecifications?: true
     location?: true
+    extraFeatures?: true
   }
 
   export type AdCountAggregateInputType = {
@@ -3109,6 +3114,7 @@ export namespace Prisma {
     name?: true
     RegionalSpecifications?: true
     location?: true
+    extraFeatures?: true
     _all?: true
   }
 
@@ -3219,6 +3225,7 @@ export namespace Prisma {
     name: string
     RegionalSpecifications: string
     location: string
+    extraFeatures: string | null
     _count: AdCountAggregateOutputType | null
     _avg: AdAvgAggregateOutputType | null
     _sum: AdSumAggregateOutputType | null
@@ -3261,6 +3268,7 @@ export namespace Prisma {
     name?: boolean
     RegionalSpecifications?: boolean
     location?: boolean
+    extraFeatures?: boolean
     user?: boolean | Ad$userArgs<ExtArgs>
     Adimages?: boolean | Ad$AdimagesArgs<ExtArgs>
     _count?: boolean | AdCountOutputTypeDefaultArgs<ExtArgs>
@@ -3287,6 +3295,7 @@ export namespace Prisma {
     name?: boolean
     RegionalSpecifications?: boolean
     location?: boolean
+    extraFeatures?: boolean
   }
 
   export type AdInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3323,6 +3332,7 @@ export namespace Prisma {
       name: string
       RegionalSpecifications: string
       location: string
+      extraFeatures: string | null
     }, ExtArgs["result"]["ad"]>
     composites: {}
   }
@@ -3724,6 +3734,7 @@ export namespace Prisma {
     readonly name: FieldRef<"Ad", 'String'>
     readonly RegionalSpecifications: FieldRef<"Ad", 'String'>
     readonly location: FieldRef<"Ad", 'String'>
+    readonly extraFeatures: FieldRef<"Ad", 'String'>
   }
     
 
@@ -4128,7 +4139,8 @@ export namespace Prisma {
     price: 'price',
     name: 'name',
     RegionalSpecifications: 'RegionalSpecifications',
-    location: 'location'
+    location: 'location',
+    extraFeatures: 'extraFeatures'
   };
 
   export type AdScalarFieldEnum = (typeof AdScalarFieldEnum)[keyof typeof AdScalarFieldEnum]
@@ -4319,6 +4331,7 @@ export namespace Prisma {
     name?: StringFilter<"Ad"> | string
     RegionalSpecifications?: StringFilter<"Ad"> | string
     location?: StringFilter<"Ad"> | string
+    extraFeatures?: StringNullableFilter<"Ad"> | string | null
     user?: XOR<UserNullableRelationFilter, UserWhereInput> | null
     Adimages?: ImageListRelationFilter
   }
@@ -4344,6 +4357,7 @@ export namespace Prisma {
     name?: SortOrder
     RegionalSpecifications?: SortOrder
     location?: SortOrder
+    extraFeatures?: SortOrderInput | SortOrder
     user?: UserOrderByWithRelationInput
     Adimages?: ImageOrderByRelationAggregateInput
   }
@@ -4372,6 +4386,7 @@ export namespace Prisma {
     name?: StringFilter<"Ad"> | string
     RegionalSpecifications?: StringFilter<"Ad"> | string
     location?: StringFilter<"Ad"> | string
+    extraFeatures?: StringNullableFilter<"Ad"> | string | null
     user?: XOR<UserNullableRelationFilter, UserWhereInput> | null
     Adimages?: ImageListRelationFilter
   }, "id">
@@ -4397,6 +4412,7 @@ export namespace Prisma {
     name?: SortOrder
     RegionalSpecifications?: SortOrder
     location?: SortOrder
+    extraFeatures?: SortOrderInput | SortOrder
     _count?: AdCountOrderByAggregateInput
     _avg?: AdAvgOrderByAggregateInput
     _max?: AdMaxOrderByAggregateInput
@@ -4428,6 +4444,7 @@ export namespace Prisma {
     name?: StringWithAggregatesFilter<"Ad"> | string
     RegionalSpecifications?: StringWithAggregatesFilter<"Ad"> | string
     location?: StringWithAggregatesFilter<"Ad"> | string
+    extraFeatures?: StringNullableWithAggregatesFilter<"Ad"> | string | null
   }
 
   export type UserCreateInput = {
@@ -4536,6 +4553,7 @@ export namespace Prisma {
     name: string
     RegionalSpecifications: string
     location: string
+    extraFeatures?: string | null
     user?: UserCreateNestedOneWithoutAdsInput
     Adimages?: ImageCreateNestedManyWithoutAdInput
   }
@@ -4561,6 +4579,7 @@ export namespace Prisma {
     name: string
     RegionalSpecifications: string
     location: string
+    extraFeatures?: string | null
     Adimages?: ImageUncheckedCreateNestedManyWithoutAdInput
   }
 
@@ -4583,6 +4602,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     RegionalSpecifications?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
+    extraFeatures?: NullableStringFieldUpdateOperationsInput | string | null
     user?: UserUpdateOneWithoutAdsNestedInput
     Adimages?: ImageUpdateManyWithoutAdNestedInput
   }
@@ -4608,6 +4628,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     RegionalSpecifications?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
+    extraFeatures?: NullableStringFieldUpdateOperationsInput | string | null
     Adimages?: ImageUncheckedUpdateManyWithoutAdNestedInput
   }
 
@@ -4630,6 +4651,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     RegionalSpecifications?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
+    extraFeatures?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type AdUncheckedUpdateManyInput = {
@@ -4653,6 +4675,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     RegionalSpecifications?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
+    extraFeatures?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type IntFilter<$PrismaModel = never> = {
@@ -4899,6 +4922,7 @@ export namespace Prisma {
     name?: SortOrder
     RegionalSpecifications?: SortOrder
     location?: SortOrder
+    extraFeatures?: SortOrder
   }
 
   export type AdAvgOrderByAggregateInput = {
@@ -4927,6 +4951,7 @@ export namespace Prisma {
     name?: SortOrder
     RegionalSpecifications?: SortOrder
     location?: SortOrder
+    extraFeatures?: SortOrder
   }
 
   export type AdMinOrderByAggregateInput = {
@@ -4950,6 +4975,7 @@ export namespace Prisma {
     name?: SortOrder
     RegionalSpecifications?: SortOrder
     location?: SortOrder
+    extraFeatures?: SortOrder
   }
 
   export type AdSumOrderByAggregateInput = {
@@ -5289,6 +5315,7 @@ export namespace Prisma {
     name: string
     RegionalSpecifications: string
     location: string
+    extraFeatures?: string | null
     Adimages?: ImageCreateNestedManyWithoutAdInput
   }
 
@@ -5312,6 +5339,7 @@ export namespace Prisma {
     name: string
     RegionalSpecifications: string
     location: string
+    extraFeatures?: string | null
     Adimages?: ImageUncheckedCreateNestedManyWithoutAdInput
   }
 
@@ -5360,6 +5388,7 @@ export namespace Prisma {
     name?: StringFilter<"Ad"> | string
     RegionalSpecifications?: StringFilter<"Ad"> | string
     location?: StringFilter<"Ad"> | string
+    extraFeatures?: StringNullableFilter<"Ad"> | string | null
   }
 
   export type AdCreateWithoutAdimagesInput = {
@@ -5381,6 +5410,7 @@ export namespace Prisma {
     name: string
     RegionalSpecifications: string
     location: string
+    extraFeatures?: string | null
     user?: UserCreateNestedOneWithoutAdsInput
   }
 
@@ -5405,6 +5435,7 @@ export namespace Prisma {
     name: string
     RegionalSpecifications: string
     location: string
+    extraFeatures?: string | null
   }
 
   export type AdCreateOrConnectWithoutAdimagesInput = {
@@ -5442,6 +5473,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     RegionalSpecifications?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
+    extraFeatures?: NullableStringFieldUpdateOperationsInput | string | null
     user?: UserUpdateOneWithoutAdsNestedInput
   }
 
@@ -5466,6 +5498,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     RegionalSpecifications?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
+    extraFeatures?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type UserCreateWithoutAdsInput = {
@@ -5576,6 +5609,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     RegionalSpecifications?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
+    extraFeatures?: NullableStringFieldUpdateOperationsInput | string | null
     Adimages?: ImageUpdateManyWithoutAdNestedInput
   }
 
@@ -5599,6 +5633,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     RegionalSpecifications?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
+    extraFeatures?: NullableStringFieldUpdateOperationsInput | string | null
     Adimages?: ImageUncheckedUpdateManyWithoutAdNestedInput
   }
 
@@ -5622,6 +5657,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     RegionalSpecifications?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
+    extraFeatures?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type ImageUpdateWithoutAdInput = {

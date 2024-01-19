@@ -1,29 +1,41 @@
-"use server"
-import { writeFile } from 'fs/promises';
-import { join } from 'path';
+import { createClient } from 'webdav';
+import { getCurrentUser } from '@nextcloud/auth';
+import { generateRemoteUrl } from '@nextcloud/router';
 
-export default async function upload(data , lng) {
-  const file = data.get('file');
-  console.log(lng);
+export default async function upload(data) {
+  const imageFile = await data.get('file');
+
+  if (!imageFile) {
+    console.error('No image file provided for upload');
+    return null; // Or handle the error accordingly
+  }
+
+  const username = 'mahm0ud';
+  const password = 'dbEMY-soQg6-JKq4H-4S832-MRSPN';
+  const baseUrl = "https://cloud.elsewedy-automation.com/nextcloud/apps/files/files/214?dir=/upload";
+  const userUrl = `/files/${username}/upload`;
+  const remotePath =`https://cloud.elsewedy-automation.com/nextcloud/remote.php/dav/files/${username}`;
+
+  const client = createClient(remotePath, {
+    username,
+    password,
+  });
+
+  const imageBytes = await imageFile.arrayBuffer();
+  const imageBuffer = Buffer.from(imageBytes);
+  console.log(client);
   try {
-    if (!file) {
-      throw new Error('No file uploaded');
-    }
+    await client.putFileContents("/upload", imageBuffer, {
+      headers: {
+        'Content-Type': imageFile.type,
+      },
+    });
 
-    const bytes = await file.arrayBuffer();
-    const buffer = Buffer.from(bytes);
-    let path = join(process.cwd(), 'public', 'upload', file.name);
-    await writeFile(path, buffer);
-    console.log(`Open ${path} to see the uploaded file`);
-    path = extractFilePath(path);
-    const adImage = `/upload/${path}`;
-    return { adImage };
+    const imageUrl = `${remotePath}/upload/${imageFile.name}`
+    console.log('Image uploaded successfully:', imageUrl);
+    return imageUrl;
   } catch (error) {
-    return { success: false, error: error.message };
+    console.error('Error uploading the image:', error);
+    return "example.com";
   }
 }
-
-function extractFilePath(filePath) {
-    const parts = filePath.split('\\');
-    return parts[parts.length - 1];
-  }

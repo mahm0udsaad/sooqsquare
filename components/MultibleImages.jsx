@@ -57,7 +57,7 @@ function TrashIcon(props) {
           const formData = new FormData();
           formData.append('file', files[i]);
     
-          const uploadPromise = upload(formData, lng);
+          const uploadPromise = upload(formData, lng );
           uploadPromises.push(uploadPromise);
         }
     

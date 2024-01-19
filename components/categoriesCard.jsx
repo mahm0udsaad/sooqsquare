@@ -3,14 +3,14 @@
 import Link from "next/link";
 import { useTranslation } from "../app/i18n/client"
 
-export const CategroyLink = ({ icon, text }) => {
+export const CategroyLink = ({ icon, text ,link}) => {
     return (
-        <div className={`flex items-center justify-center border border-[#F34A62] rounded-full lg:px-2 py-5 hover:dark:bg-zinc-800 hover:bg-gray-200 cursor-pointer transition`}>
+        <Link href={`${link}`} className={`flex items-center justify-center dark:text-white border border-[#F34A62] rounded-full lg:px-2 py-5 hover:dark:bg-zinc-800 hover:bg-gray-200 cursor-pointer transition`}>
         <div className="text-2xl mx-3">
             {icon}
         </div>
         <span className={`ml-2`}>{text}</span>
-        </div>
+        </Link>
      );
     };
 

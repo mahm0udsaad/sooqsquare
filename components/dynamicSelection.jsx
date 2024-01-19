@@ -22,7 +22,7 @@ export const GenericSelection = ({ title, itemsArray, shouldOpen, handleSelectio
       </Select>
     );
 };
-export const FilterSelection = ({ title, itemsArray, shouldOpen, handleSelection }) => {
+export const FilterSelection = ({ title, itemsArray,  handleSelection }) => {
   return (
     <Select className="flex-grow">
         <p className="font-semibold">
