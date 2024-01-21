@@ -5,7 +5,7 @@ import { MdOutlineMarkChatRead } from "react-icons/md";
 import Link from "next/link";
 import { useState } from "react";
 import { FaRegUser } from "react-icons/fa6";
-export function ChatMainPage() {
+export function ChatMainPage({chats}) {
     const [sidebarOpen, setSidebarOpen] = useState(false);
 
     const toggleSidebar = () => {
@@ -14,19 +14,23 @@ export function ChatMainPage() {
   return (
     (<div className="flex pb-8 bg-gray-100 dark:bg-zinc-950">
          <div className={`contact bg-white dark:bg-zinc-950 overflow-y-auto  ${sidebarOpen ? "transition-width w-1/3 ":"transition-width w-[5%] "}`}>
-      <div className="p-4 flex items-center justify-between">
-        <h2 className={`${sidebarOpen ? 'text-lg':"hidden"} font-semibold text-gray-900 dark:text-gray-100`}>Inbox</h2>
-        <Button size="icon" variant="ghost" onClick={toggleSidebar}>
-          <SendToBackIcon className="h-6 w-6" />
-        </Button>
-      </div>
+        <div className="p-4 flex items-center justify-between">
+          <h2 className={`${sidebarOpen ? 'text-lg':"hidden"} font-semibold text-gray-900 dark:text-gray-100`}>Inbox</h2>
+          <Button size="icon" variant="ghost" onClick={toggleSidebar}>
+            <SendToBackIcon className="h-6 w-6" />
+          </Button>
+        </div>
       <div className={`divide-y divide-zinc-200 dark:divide-zinc-700 `}>
-          <Link href={`/chat/`} className="flex cursor-pointer hover:bg-[#fe2635] hover:text-white items-center p-4 space-x-4">
+          {chats.map((chat)=>(
+          <Link href={`/chat/${chat.id}?chat=${chat.id}`} className="flex cursor-pointer hover:bg-[#fe2635] hover:text-white items-center p-4 space-x-4">
             <Avatar>
-            <FaRegUser className="mx-auto my-auto" />
+            <img src={chat.users[0].image} alt="" />
             </Avatar>
-            {sidebarOpen && <div className="font-medium px-4">John Doe</div>}
+            {sidebarOpen && 
+              <div className="font-medium px-4">{chat.users[0].username}</div>
+            }
           </Link>
+          ))}
       </div>
     </div>
       <div className="flex-1 bg-gray-50 pt-4 rounded-lg dark:bg-zinc-800">

@@ -150,6 +150,14 @@ export async function getUserByEmail(email) {
       where: {
         email: email,
       },
+      include: {
+        chats: {
+          select: {
+            id: true,
+            users: true,
+          },
+        },
+      },
     });
 
     return existingUser || null;

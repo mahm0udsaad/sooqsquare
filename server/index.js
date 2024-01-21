@@ -1,28 +1,27 @@
-const Server = require('socket.io');
+// server/index.js
+import express from "express";
+import { createServer } from "node:http";
+import { Server } from "socket.io";
+import cors from "cors";
 
-// Create a socket.io server
-const ioHandler = (req, res) => {
-    if (!res.socket.server.io) {
-        console.log('*First use, starting Socket.IO');
-        const io = new Server(res.socket.server);
+const app = express();
+const server = createServer(app);
+const io = new Server(server);
 
-        // Listen for connection events
-        io.on('connection', (socket) => {
-            console.log(`Socket ${socket.id} connected.`);
+app.use(cors({ origin: "*" }));
 
-            // Listen for incoming messages and broadcast to all clients
-            socket.on('message', (message) => {
-                io.emit('message', message);
-            });
+io.on("connection", (socket) => {
+  console.log("a user connected");
 
-            // Clean up the socket on disconnect
-            socket.on('disconnect', () => {
-                console.log(`Socket ${socket.id} disconnected.`);
-            });
-        });
-        res.socket.server.io = io;
-    }
-    res.end();
-};
+  socket.on("disconnect", () => {
+    console.log("user disconnected");
+  });
 
-module.exports = ioHandler;
+  socket.on("chat message", (msg) => {
+    io.emit("chat message", msg);
+  });
+});
+
+server.listen(8000, () => {
+  console.log("server running at http://localhost:8000");
+});

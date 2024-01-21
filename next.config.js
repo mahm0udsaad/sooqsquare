@@ -1,5 +1,8 @@
 /** @type {import('next').NextConfig} */
 const config = {
+  images: {
+    domains: ['cloud.elsewedy-automation.com'],
+  },
     eslint: {
       // Warning: This allows production builds to successfully complete even if
       // your project has ESLint errors.

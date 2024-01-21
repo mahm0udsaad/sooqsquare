@@ -4,8 +4,8 @@ import Client , { Server } from "nextcloud-node-client";
 // Set up the server configuration using environment variables
 const serverConfig = {
     basicAuth: {
-        password: process.env.NEXTCLOUD_PASSWORD || "",
-        username: process.env.NEXTCLOUD_USERNAME || "",
+        password:"dbEMY-soQg6-JKq4H-4S832-MRSPN",
+        username:"mahm0ud",
     },
     url: process.env.NEXTCLOUD_URL || "",
 };

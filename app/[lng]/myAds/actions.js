@@ -1,6 +1,5 @@
 "use server"
 
-
 export async function getAdsByUserId(userId) {
     try {
       const ads = await prisma.Ad.findMany({
@@ -10,6 +9,9 @@ export async function getAdsByUserId(userId) {
         include: {
           Adimages: true, 
           user: true,    
+        },
+        orderBy: {
+          createdAt: 'desc',
         },
       });
   

@@ -12,9 +12,27 @@ import { MdOutlineLocalPhone } from "react-icons/md";
 import { Badge } from "@/components/ui/badge"
 import { IoLocationOutline } from "react-icons/io5";
 import { useTranslation } from "@/app/i18n/client";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export function AdPage({ad , lng}) {
   const { t } = useTranslation(lng , "tranlsation")
+  const router = useRouter()
+  const linkToChat = () => {
+    // Assuming ad.user.id is the owner's ID
+    const owner = ad.user.id;
+
+    // Make sure 'owner' has a valid value before pushing
+    if (owner) {
+      router.push({
+        pathname: '/chat',
+        query: { owner },
+      });
+    } else {
+      console.error('Invalid owner ID');
+    }
+  };
+
   const extraFeatures = ad.extraFeatures.split(" ")
   return (
     (<div
@@ -26,7 +44,7 @@ export function AdPage({ad , lng}) {
               <CarouselItem key={image.id}>
                 <Image
                   alt={`Ad Image ${image.id}`}
-                  className="aspect-[5/3] object-cover border border-gray-200 mx-auto rounded-lg overflow-hidden dark:border-gray-800"
+                  className=" object-cover border border-gray-200 mx-auto rounded-lg overflow-hidden dark:border-gray-800"
                   src={image.url} 
                   height={300}
                   width={500}
@@ -135,10 +153,13 @@ export function AdPage({ad , lng}) {
             </div>
             <p>Member Since : {memberSince(ad.user.createdAt)}</p>
             <div className="flex justify-between items-center mt-2">
-              <Button className="w-1/2 mr-1 flex items-center justify-center gap-2 inset-0 z-10 bg-[#fe2635] hover:bg-[#fe26355e]">
+              <Link href={{
+                pathname: '/chat',
+                query: { owner: ad.user.id},
+            }} className="w-1/2 mr-1 flex items-center justify-center gap-2 inset-0 z-10 bg-[#fe2635] hover:bg-[#fe26355e]">
                <BsChatLeftDots className='w-4 h-4' />
                 Chat
-              </Button>
+              </Link>
               <Button className="w-1/2 ml-1 flex items-center justify-center gap-2">
               <MdOutlineLocalPhone className='h-4 w-4'/>
                 Call

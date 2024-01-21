@@ -3,7 +3,6 @@ import acceptLanguage from 'accept-language';
 import { fallbackLng, languages, cookieName } from './app/i18n/settings';
 
 const middleware =  (req, res) => {
-
   if (req.nextUrl.pathname.startsWith('/api') || req.nextUrl.pathname.startsWith('/upload') || req.nextUrl.pathname.startsWith('/auth')  || req.nextUrl.pathname.startsWith('/icons')) {
     return;
   }
@@ -18,7 +17,7 @@ const middleware =  (req, res) => {
       !languages.some((loc) => req.nextUrl.pathname.startsWith(`/${loc}`)) &&
       !req.nextUrl.pathname.startsWith('/_next')
     ) {
-      return NextResponse.redirect(new URL(`/${lng}${req.nextUrl.pathname}`, req.url));
+      return NextResponse.redirect(new URL(`/${lng}${req.nextUrl.pathname}${req.nextUrl.search}`, req.url));
     }
 
     if (req.headers.has('referer')) {

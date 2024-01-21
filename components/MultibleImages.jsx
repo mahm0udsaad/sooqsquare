@@ -1,5 +1,6 @@
 "use client"
 import {   useRouter, useSearchParams } from 'next/navigation';
+import Link from 'next/link';
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label"
 import { Badge } from "@/components/ui/badge"
@@ -11,6 +12,7 @@ import { CiImageOn } from "react-icons/ci";
 import { MdOutlineRocketLaunch } from "react-icons/md";
 import { t } from 'i18next';
 import { useTranslation } from '../app/i18n/client';
+
 function TrashIcon(props) {
     return (
       <svg
@@ -57,7 +59,7 @@ function TrashIcon(props) {
           const formData = new FormData();
           formData.append('file', files[i]);
     
-          const uploadPromise = upload(formData, lng );
+          const uploadPromise = await upload(formData, lng );
           uploadPromises.push(uploadPromise);
         }
     
@@ -76,7 +78,6 @@ function TrashIcon(props) {
         setUploading(false);
       }
     };
-    
     const handleImageRemove = (indexToRemove) => {
       setImages((prevImages) => prevImages.filter((_, index) => index !== indexToRemove));
     };
@@ -92,7 +93,7 @@ function TrashIcon(props) {
   
     return (
       <div className="bg-white border rounded p-8 shadow-md  dark:bg-zinc-950">
-        <div className="title relative">
+       <div className="title relative">
         <div className="absolute  w-8 h-8 border dark:bg-[#0a0a0a] dark:border-white rounded-full flex items-center justify-center">
         <span className="font-semibold text-rose-500 text-lg">{images.length}</span>
         </div>
@@ -117,15 +118,14 @@ function TrashIcon(props) {
               />
                 {images[index] && (
                     <div className="flex flex-col items-center gap-6">
-                    <Avatar>
-                        <AvatarImage
-                        alt={`Uploaded image ${index}`}
+                    <div>
+                        <img
+                        alt={`Uploaded image ${index + 1}`}
                         src={`${images[index]}`}
-                        height={120}
-                        width={120}
+                        // height={120}
+                        // width={120}
                         />
-                        <AvatarFallback>Uploaded Image {index}</AvatarFallback>
-                    </Avatar>
+                    </div>
                     <Button
                         onClick={() => handleImageRemove(index)}
                         type="button"

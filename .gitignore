@@ -3,6 +3,7 @@
 *.env
 env
 /prisma
+node_modules
 # dependencies
 /node_modules
 /.pnp
