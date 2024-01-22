@@ -105,13 +105,13 @@ export default function Component() {
       </div>
       <div className="grid gap-6 md:gap-8">
         <div className="flex flex-wrap gap-2 mb-4">
-          <Button>View More</Button>
-          <Button>Skoda</Button>
-          <Button>Fiat</Button>
-          <Button>Nissan</Button>
-          <Button>Toyota</Button>
-          <Button>Kia</Button>
-          <Button>Hyundai</Button>
+          <Button className="dark:text-white">View More</Button>
+          <Button className="dark:text-white">Skoda</Button>
+          <Button className="dark:text-white">Fiat</Button>
+          <Button className="dark:text-white">Nissan</Button>
+          <Button className="dark:text-white">Toyota</Button>
+          <Button className="dark:text-white">Kia</Button>
+          <Button className="dark:text-white">Hyundai</Button>
         </div>
         <div className="grid sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-3 gap-8">
           <div className="relative group">

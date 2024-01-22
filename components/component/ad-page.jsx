@@ -33,7 +33,7 @@ export function AdPage({ad , lng}) {
     }
   };
 
-  const extraFeatures = ad.extraFeatures.split(" ")
+  const extraFeatures = ad.extraFeatures ? ad.extraFeatures.split(" ") : null
   return (
     (<div
       className="flex justify-around lg:gap-12 items-start max-w-5/6 px-4 mx-auto py-6">
@@ -127,6 +127,15 @@ export function AdPage({ad , lng}) {
         </Card>
         <Card>
           <CardHeader>
+          <CardTitle className='text-4xl font-bold main-color'>${ad.price}</CardTitle>
+            <CardDescription>{ad.description}</CardDescription>
+          </CardHeader>
+          <CardContent className="text-2xl font-semibold">
+          {ad.description}
+          </CardContent>
+        </Card>
+        <Card>
+          <CardHeader>
             <CardTitle>{t('features.title')}</CardTitle>
           </CardHeader>
           <CardContent className="flex flex-wrap gap-2">
@@ -144,23 +153,23 @@ export function AdPage({ad , lng}) {
           <CardContent className='flex flex-col gap-4'>
             <div className="flex justify-start gap-4 items-center">
             <Avatar>
-            <AvatarFallback>
-              user
+            <AvatarFallback className="dark:text-black">
+            <FaRegUser className="mx-auto my-auto" />
             </AvatarFallback>
-            {ad.user.image ? <AvatarImage src={ad.user.image} /> : <FaRegUser className="mx-auto my-auto" /> }
+            <AvatarImage src={ad.user?.image} />
           </Avatar>
-            <p>{ad.user.username}</p>
+            <p className="">{ad.user?.username}</p>
             </div>
-            <p>Member Since : {memberSince(ad.user.createdAt)}</p>
+            <p>Member Since : {ad.user?.createdAt && memberSince(ad.user.createdAt)}</p>
             <div className="flex justify-between items-center mt-2">
               <Link href={{
                 pathname: '/chat',
-                query: { owner: ad.user.id},
-            }} className="w-1/2 mr-1 flex items-center justify-center gap-2 inset-0 z-10 bg-[#fe2635] hover:bg-[#fe26355e]">
+                query: { owner: ad.user?.id},
+            }} className="w-1/2 mx-1 rounded text-white p-2  flex items-center justify-center gap-2 inset-0 z-10 bg-[#fe2635] hover:bg-[#fe26355e]">
                <BsChatLeftDots className='w-4 h-4' />
                 Chat
               </Link>
-              <Button className="w-1/2 ml-1 flex items-center justify-center gap-2">
+              <Button className="w-1/2 ml-1 flex items-center justify-center gap-2 dark:bg-white dark:text-black dark:hover:text-white">
               <MdOutlineLocalPhone className='h-4 w-4'/>
                 Call
               </Button>

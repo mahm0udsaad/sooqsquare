@@ -36,9 +36,9 @@ const MyAdsCard = ({lng, ad }) => {
   } = ad;
   return (
     
-     <Card>
+     <Card className="dark:bg-zinc-800 dark:text-white">
       <CardContent>
-      <Carousel style={carouselStyle} className="w-full max-w-xs mx-auto">
+      <Carousel style={carouselStyle} className="w-full max-w-xs mx-auto ">
       <CarouselContent >
         {Adimages.map((image, index) => (
           <CarouselItem key={index}>
@@ -59,88 +59,88 @@ const MyAdsCard = ({lng, ad }) => {
           <div className="grid grid-cols-2 gap-2">
           <h3 className="text-lg font-semibold">{name}</h3>
               <div>
-                  <Badge>Regional Specifications</Badge>
+                  <Badge className={'dark:bg-white dark:text-black mx-3 '}>Regional Specifications</Badge>
                   <span className="ml-2">{RegionalSpecifications}</span>
                 </div>
 
                 <div>
-                  <Badge>Paint Type</Badge>
+                  <Badge className={'dark:bg-white dark:text-black mx-3 '}>Paint Type</Badge>
                   <span className="ml-2">{paintType}</span>
                 </div>
 
                 <div>
-                  <Badge>payment</Badge>
+                  <Badge className={'dark:bg-white dark:text-black mx-3 '}>payment</Badge>
                   <span className="ml-2">{payment}</span>
                 </div>
 
                 <div>
-                  <Badge>price</Badge>
+                  <Badge className={'dark:bg-white dark:text-black mx-3 '}>price</Badge>
                   <span className="ml-2">{price}</span>
                 </div>
 
                 <div>
-                  <Badge>name</Badge>
+                  <Badge className={'dark:bg-white dark:text-black mx-3 '}>name</Badge>
                   <span className="ml-2">{name}</span>
                 </div>
 
                 <div>
-                  <Badge>location</Badge>
+                  <Badge className={'dark:bg-white dark:text-black mx-3 '}>location</Badge>
                   <span className="ml-2">{location}</span>
                 </div>
 
                 <div>
-                  <Badge>brand</Badge>
+                  <Badge className={'dark:bg-white dark:text-black mx-3 '}>brand</Badge>
                   <span className="ml-2">{brand}</span>
                 </div>
 
                 <div>
-                  <Badge>category</Badge>
+                  <Badge className={'dark:bg-white dark:text-black mx-3 '}>category</Badge>
                   <span className="ml-2">{category}</span>
                 </div>
 
                 <div>
-                  <Badge>model</Badge>
+                  <Badge className={'dark:bg-white dark:text-black mx-3 '}>model</Badge>
                   <span className="ml-2">{model}</span>
                 </div>
 
                 <div>
-                  <Badge>year</Badge>
+                  <Badge className={'dark:bg-white dark:text-black mx-3 '}>year</Badge>
                   <span className="ml-2">{year}</span>
                 </div>
 
                 <div>
-                  <Badge>carType</Badge>
+                  <Badge className={'dark:bg-white dark:text-black mx-3 '}>carType</Badge>
                   <span className="ml-2">{carType}</span>
                 </div>
 
                 <div>
-                  <Badge>carStatus</Badge>
+                  <Badge className={'dark:bg-white dark:text-black mx-3 '}>carStatus</Badge>
                   <span className="ml-2">{carStatus}</span>
                 </div>
 
                 <div>
-                  <Badge>transmission</Badge>
+                  <Badge className={'dark:bg-white dark:text-black mx-3 '}>transmission</Badge>
                   <span className="ml-2">{transmission}</span>
                 </div>
 
                 <div>
-                  <Badge>fuelType</Badge>
+                  <Badge className={'dark:bg-white dark:text-black mx-3 '}>fuelType</Badge>
                   <span className="ml-2">{fuelType}</span>
                 </div>
 
                 <div>
-                  <Badge>meterRange</Badge>
+                  <Badge className={'dark:bg-white dark:text-black mx-3 '}>meterRange</Badge>
                   <span className="ml-2">{meterRange}</span>
                   </div>
             </div>
           </div>
         </CardContent>
         <div className="p-4 flex space-x-4">
-          <Button className="w-1/2 flex justify-center items-center space-x-2">
+          <Button className=" dark:bg-white dark:text-black w-1/2 flex justify-center items-center space-x-2">
             <PencilIcon className="w-4 h-4" />
             <span>Edit</span>
           </Button>
-          <Button className="w-1/2 flex justify-center items-center space-x-2">
+          <Button className=" dark:bg-white dark:text-black w-1/2 flex justify-center items-center space-x-2">
             <TrashIcon className="w-4 h-4" />
             <span>Delete</span>
           </Button>

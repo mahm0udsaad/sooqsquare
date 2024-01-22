@@ -23,5 +23,5 @@ io.on("connection", (socket) => {
 });
 
 server.listen(8000, () => {
-  console.log("server running at http://localhost:8000");
+  console.log("server running at :8000");
 });

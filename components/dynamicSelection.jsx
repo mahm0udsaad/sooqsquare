@@ -2,18 +2,18 @@
 import {  SelectTrigger, SelectItem, SelectGroup, SelectContent, Select } from "@/components/ui/select"
 import {  usePathname, useRouter, useSearchParams } from "next/navigation";
 
-export const GenericSelection = ({ title, itemsArray, shouldOpen, handleSelection }) => {
+export const GenericSelection = ({ title, itemsArray, shouldOpen, handleSelection}) => {
     return (
       <Select className="flex-grow" open={shouldOpen}>
         <SelectTrigger>
-          <div className="w-full text-2xl font-semibold flex justify-around items-center">
+          <div className="w-full py-3 text-2xl font-semibold flex justify-around items-center">
           {title}
           </div>
           </SelectTrigger>
         <SelectContent>
           <SelectGroup>
             {itemsArray && itemsArray.map((item) => (
-              <SelectItem key={item} onMouseDown={() => handleSelection(item)}>
+              <SelectItem className="py-3" key={item} onMouseDown={() => handleSelection(item)}>
                 {item}
               </SelectItem>
             ))}
@@ -22,19 +22,21 @@ export const GenericSelection = ({ title, itemsArray, shouldOpen, handleSelectio
       </Select>
     );
 };
-export const FilterSelection = ({ title, itemsArray,  handleSelection }) => {
+export const FilterSelection = ({ title, itemsArray,  handleSelection ,paramNameToSet}) => {
+      const searchParams = useSearchParams();
+      const seletedTitle = searchParams.get(paramNameToSet)
   return (
     <Select className="flex-grow">
         <p className="font-semibold">
         {title}
         </p>
-      <SelectTrigger className={'text-gray-500'}>
-        select {title}
+      <SelectTrigger className={searchParams.has(paramNameToSet) ?" dark:text-white text-black font-semibold":'dark:text-gray-300 text-gray-500'}>
+        {searchParams.has(paramNameToSet) ? seletedTitle : `select ${title}`}
         </SelectTrigger>
       <SelectContent>
         <SelectGroup>
           {itemsArray && itemsArray.map((item) => (
-            <SelectItem key={item} onMouseDown={() => handleSelection(item)}>
+            <SelectItem  key={item} onMouseDown={() => handleSelection(item)}>
               {item}
             </SelectItem>
           ))}
@@ -75,6 +77,7 @@ export const withGenericSelection = (Component) => {
         <div key="1" className="">
           <Component
             title={title}
+            paramNameToSet={paramNameToSet}
             itemsArray={itemsArray}
             shouldOpen={shouldOpen}
             handleSelection={handleSelection}

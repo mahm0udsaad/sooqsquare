@@ -10,7 +10,7 @@ import Link from "next/link";
 export function ChatCom({chat , user}) {
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
-  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(true);
 
   const toggleSidebar = () => {
     setSidebarOpen(!sidebarOpen);
@@ -20,6 +20,7 @@ export function ChatCom({chat , user}) {
   const currentUser = chat.users[1]
   let lastMessage = chat.messages.length - 1 ;
   const reciver = currentUser.email === user.email ? owner.email : currentUser.email;
+
 
   const ref = useRef(null)
   const handleSubmit = async (e) => {
@@ -69,7 +70,7 @@ export function ChatCom({chat , user}) {
     };
   }, [chat, socket]);
   
-  
+  console.log(chat.users);
 
   return (
     (<div className="flex pb-8 bg-gray-100 dark:bg-zinc-950">
@@ -84,10 +85,10 @@ export function ChatCom({chat , user}) {
           {user.chats.map((chat)=>(
           <Link href={`/chat/${chat.id}?chat=${chat.id}`} className="flex cursor-pointer hover:bg-[#fe2635] hover:text-white items-center p-4 space-x-4">
             <Avatar>
-            <img src={chat.users[0].image} alt="" />
+            <img src={user.email === chat.users[0].email ? chat.users[1].image : chat.users[0].image} alt="" />
             </Avatar>
             {sidebarOpen && 
-              <div className="font-medium px-4">{chat.users[0].username}</div>
+              <div className="font-medium px-4">{currentUser.email === chat.users[0].email ? chat.users[1].username : chat.users[0].username}</div>
             }
           </Link>
           ))}

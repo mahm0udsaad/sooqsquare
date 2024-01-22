@@ -11,9 +11,16 @@ export async function getAllads(searchParams){
           createdAt: 'desc',
         },
         where: {
-          AND:searchParams &&  Object.keys(searchParams).map((key) => {
+          AND: searchParams && Object.keys(searchParams).map((key) => {
+            if (key === "carType" && Array.isArray(searchParams["carType"])) {
+              return searchParams["carType"].map((type) => ({
+                carType: {
+                  contains: type,
+                },
+              }));
+            }
             return { [key]: { contains: searchParams[key] } };
-          }),
+          }).flat(),
         },
       });
       return ads

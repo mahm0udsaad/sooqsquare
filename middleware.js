@@ -3,7 +3,7 @@ import acceptLanguage from 'accept-language';
 import { fallbackLng, languages, cookieName } from './app/i18n/settings';
 
 const middleware =  (req, res) => {
-  if (req.nextUrl.pathname.startsWith('/api') || req.nextUrl.pathname.startsWith('/upload') || req.nextUrl.pathname.startsWith('/auth')  || req.nextUrl.pathname.startsWith('/icons')) {
+  if (req.nextUrl.pathname.startsWith('/api') || req.nextUrl.pathname.startsWith('/upload') || req.nextUrl.pathname.startsWith('/site') || req.nextUrl.pathname.startsWith('/auth')  || req.nextUrl.pathname.startsWith('/icons')) {
     return;
   }
 

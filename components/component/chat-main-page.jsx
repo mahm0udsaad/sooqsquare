@@ -6,7 +6,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { FaRegUser } from "react-icons/fa6";
 export function ChatMainPage({chats}) {
-    const [sidebarOpen, setSidebarOpen] = useState(false);
+    const [sidebarOpen, setSidebarOpen] = useState(true);
 
     const toggleSidebar = () => {
       setSidebarOpen(!sidebarOpen);
