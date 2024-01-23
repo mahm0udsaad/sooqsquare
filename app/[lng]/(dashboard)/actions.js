@@ -3,6 +3,7 @@ import { revalidatePath } from "next/cache";
 import prisma from "../../../prisma/client";
 
 export async function getAdsByUserId(userId) {
+  userId = parseInt(userId)
     try {
       const ads = await prisma.Ad.findMany({
         where: {
@@ -24,7 +25,7 @@ export async function getAdsByUserId(userId) {
     } finally {
       await prisma.$disconnect();
     }
-  }
+}
 
 export async function updateAd(adId, updatedData) {
   try {
