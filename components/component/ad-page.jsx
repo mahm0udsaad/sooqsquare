@@ -44,7 +44,7 @@ export function AdPage({ad , lng}) {
               <CarouselItem key={image.id}>
                 <Image
                   alt={`Ad Image ${image.id}`}
-                  className=" object-cover border border-gray-200 mx-auto rounded-lg overflow-hidden dark:border-gray-800"
+                  className=" object-none border border-gray-200 mx-auto rounded-lg overflow-hidden dark:border-gray-800"
                   src={image.url} 
                   height={300}
                   width={500}
@@ -127,8 +127,7 @@ export function AdPage({ad , lng}) {
         </Card>
         <Card>
           <CardHeader>
-          <CardTitle className='text-4xl font-bold main-color'>${ad.price}</CardTitle>
-            <CardDescription>{ad.description}</CardDescription>
+            <CardDescription>Description</CardDescription>
           </CardHeader>
           <CardContent className="text-2xl font-semibold">
           {ad.description}

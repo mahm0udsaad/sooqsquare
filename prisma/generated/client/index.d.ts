@@ -5503,7 +5503,7 @@ export namespace Prisma {
     id: number
     content: string
     senderEmail: string
-    receiverEmail: string
+    receiverEmail: string | null
     createdAt: Date
     chatId: number
     _count: MessageCountAggregateOutputType | null
@@ -5535,7 +5535,7 @@ export namespace Prisma {
     createdAt?: boolean
     chatId?: boolean
     sender?: boolean | UserDefaultArgs<ExtArgs>
-    receiver?: boolean | UserDefaultArgs<ExtArgs>
+    receiver?: boolean | Message$receiverArgs<ExtArgs>
     chat?: boolean | ChatDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["message"]>
 
@@ -5550,7 +5550,7 @@ export namespace Prisma {
 
   export type MessageInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     sender?: boolean | UserDefaultArgs<ExtArgs>
-    receiver?: boolean | UserDefaultArgs<ExtArgs>
+    receiver?: boolean | Message$receiverArgs<ExtArgs>
     chat?: boolean | ChatDefaultArgs<ExtArgs>
   }
 
@@ -5559,14 +5559,14 @@ export namespace Prisma {
     name: "Message"
     objects: {
       sender: Prisma.$UserPayload<ExtArgs>
-      receiver: Prisma.$UserPayload<ExtArgs>
+      receiver: Prisma.$UserPayload<ExtArgs> | null
       chat: Prisma.$ChatPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
       content: string
       senderEmail: string
-      receiverEmail: string
+      receiverEmail: string | null
       createdAt: Date
       chatId: number
     }, ExtArgs["result"]["message"]>
@@ -5920,7 +5920,7 @@ export namespace Prisma {
 
     sender<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, 'findUniqueOrThrow'> | Null, Null, ExtArgs>;
 
-    receiver<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, 'findUniqueOrThrow'> | Null, Null, ExtArgs>;
+    receiver<T extends Message$receiverArgs<ExtArgs> = {}>(args?: Subset<T, Message$receiverArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, 'findUniqueOrThrow'> | null, null, ExtArgs>;
 
     chat<T extends ChatDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ChatDefaultArgs<ExtArgs>>): Prisma__ChatClient<$Result.GetResult<Prisma.$ChatPayload<ExtArgs>, T, 'findUniqueOrThrow'> | Null, Null, ExtArgs>;
 
@@ -6254,6 +6254,22 @@ export namespace Prisma {
      * Filter which Messages to delete
      */
     where?: MessageWhereInput
+  }
+
+
+  /**
+   * Message.receiver
+   */
+  export type Message$receiverArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
   }
 
 
@@ -6708,11 +6724,11 @@ export namespace Prisma {
     id?: IntFilter<"Message"> | number
     content?: StringFilter<"Message"> | string
     senderEmail?: StringFilter<"Message"> | string
-    receiverEmail?: StringFilter<"Message"> | string
+    receiverEmail?: StringNullableFilter<"Message"> | string | null
     createdAt?: DateTimeFilter<"Message"> | Date | string
     chatId?: IntFilter<"Message"> | number
     sender?: XOR<UserRelationFilter, UserWhereInput>
-    receiver?: XOR<UserRelationFilter, UserWhereInput>
+    receiver?: XOR<UserNullableRelationFilter, UserWhereInput> | null
     chat?: XOR<ChatRelationFilter, ChatWhereInput>
   }
 
@@ -6720,7 +6736,7 @@ export namespace Prisma {
     id?: SortOrder
     content?: SortOrder
     senderEmail?: SortOrder
-    receiverEmail?: SortOrder
+    receiverEmail?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     chatId?: SortOrder
     sender?: UserOrderByWithRelationInput
@@ -6735,11 +6751,11 @@ export namespace Prisma {
     NOT?: MessageWhereInput | MessageWhereInput[]
     content?: StringFilter<"Message"> | string
     senderEmail?: StringFilter<"Message"> | string
-    receiverEmail?: StringFilter<"Message"> | string
+    receiverEmail?: StringNullableFilter<"Message"> | string | null
     createdAt?: DateTimeFilter<"Message"> | Date | string
     chatId?: IntFilter<"Message"> | number
     sender?: XOR<UserRelationFilter, UserWhereInput>
-    receiver?: XOR<UserRelationFilter, UserWhereInput>
+    receiver?: XOR<UserNullableRelationFilter, UserWhereInput> | null
     chat?: XOR<ChatRelationFilter, ChatWhereInput>
   }, "id">
 
@@ -6747,7 +6763,7 @@ export namespace Prisma {
     id?: SortOrder
     content?: SortOrder
     senderEmail?: SortOrder
-    receiverEmail?: SortOrder
+    receiverEmail?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     chatId?: SortOrder
     _count?: MessageCountOrderByAggregateInput
@@ -6764,7 +6780,7 @@ export namespace Prisma {
     id?: IntWithAggregatesFilter<"Message"> | number
     content?: StringWithAggregatesFilter<"Message"> | string
     senderEmail?: StringWithAggregatesFilter<"Message"> | string
-    receiverEmail?: StringWithAggregatesFilter<"Message"> | string
+    receiverEmail?: StringNullableWithAggregatesFilter<"Message"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Message"> | Date | string
     chatId?: IntWithAggregatesFilter<"Message"> | number
   }
@@ -7046,7 +7062,7 @@ export namespace Prisma {
     content: string
     createdAt?: Date | string
     sender: UserCreateNestedOneWithoutMessagesSentInput
-    receiver: UserCreateNestedOneWithoutMessagesReceivedInput
+    receiver?: UserCreateNestedOneWithoutMessagesReceivedInput
     chat: ChatCreateNestedOneWithoutMessagesInput
   }
 
@@ -7054,7 +7070,7 @@ export namespace Prisma {
     id?: number
     content: string
     senderEmail: string
-    receiverEmail: string
+    receiverEmail?: string | null
     createdAt?: Date | string
     chatId: number
   }
@@ -7063,7 +7079,7 @@ export namespace Prisma {
     content?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sender?: UserUpdateOneRequiredWithoutMessagesSentNestedInput
-    receiver?: UserUpdateOneRequiredWithoutMessagesReceivedNestedInput
+    receiver?: UserUpdateOneWithoutMessagesReceivedNestedInput
     chat?: ChatUpdateOneRequiredWithoutMessagesNestedInput
   }
 
@@ -7071,7 +7087,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     content?: StringFieldUpdateOperationsInput | string
     senderEmail?: StringFieldUpdateOperationsInput | string
-    receiverEmail?: StringFieldUpdateOperationsInput | string
+    receiverEmail?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     chatId?: IntFieldUpdateOperationsInput | number
   }
@@ -7085,7 +7101,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     content?: StringFieldUpdateOperationsInput | string
     senderEmail?: StringFieldUpdateOperationsInput | string
-    receiverEmail?: StringFieldUpdateOperationsInput | string
+    receiverEmail?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     chatId?: IntFieldUpdateOperationsInput | number
   }
@@ -7858,10 +7874,12 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutMessagesSentInput, UserUpdateWithoutMessagesSentInput>, UserUncheckedUpdateWithoutMessagesSentInput>
   }
 
-  export type UserUpdateOneRequiredWithoutMessagesReceivedNestedInput = {
+  export type UserUpdateOneWithoutMessagesReceivedNestedInput = {
     create?: XOR<UserCreateWithoutMessagesReceivedInput, UserUncheckedCreateWithoutMessagesReceivedInput>
     connectOrCreate?: UserCreateOrConnectWithoutMessagesReceivedInput
     upsert?: UserUpsertWithoutMessagesReceivedInput
+    disconnect?: UserWhereInput | boolean
+    delete?: UserWhereInput | boolean
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutMessagesReceivedInput, UserUpdateWithoutMessagesReceivedInput>, UserUncheckedUpdateWithoutMessagesReceivedInput>
   }
@@ -8106,14 +8124,14 @@ export namespace Prisma {
   export type MessageCreateWithoutSenderInput = {
     content: string
     createdAt?: Date | string
-    receiver: UserCreateNestedOneWithoutMessagesReceivedInput
+    receiver?: UserCreateNestedOneWithoutMessagesReceivedInput
     chat: ChatCreateNestedOneWithoutMessagesInput
   }
 
   export type MessageUncheckedCreateWithoutSenderInput = {
     id?: number
     content: string
-    receiverEmail: string
+    receiverEmail?: string | null
     createdAt?: Date | string
     chatId: number
   }
@@ -8232,7 +8250,7 @@ export namespace Prisma {
     id?: IntFilter<"Message"> | number
     content?: StringFilter<"Message"> | string
     senderEmail?: StringFilter<"Message"> | string
-    receiverEmail?: StringFilter<"Message"> | string
+    receiverEmail?: StringNullableFilter<"Message"> | string | null
     createdAt?: DateTimeFilter<"Message"> | Date | string
     chatId?: IntFilter<"Message"> | number
   }
@@ -8496,14 +8514,14 @@ export namespace Prisma {
     content: string
     createdAt?: Date | string
     sender: UserCreateNestedOneWithoutMessagesSentInput
-    receiver: UserCreateNestedOneWithoutMessagesReceivedInput
+    receiver?: UserCreateNestedOneWithoutMessagesReceivedInput
   }
 
   export type MessageUncheckedCreateWithoutChatInput = {
     id?: number
     content: string
     senderEmail: string
-    receiverEmail: string
+    receiverEmail?: string | null
     createdAt?: Date | string
   }
 
@@ -8800,14 +8818,14 @@ export namespace Prisma {
   export type MessageUpdateWithoutSenderInput = {
     content?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    receiver?: UserUpdateOneRequiredWithoutMessagesReceivedNestedInput
+    receiver?: UserUpdateOneWithoutMessagesReceivedNestedInput
     chat?: ChatUpdateOneRequiredWithoutMessagesNestedInput
   }
 
   export type MessageUncheckedUpdateWithoutSenderInput = {
     id?: IntFieldUpdateOperationsInput | number
     content?: StringFieldUpdateOperationsInput | string
-    receiverEmail?: StringFieldUpdateOperationsInput | string
+    receiverEmail?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     chatId?: IntFieldUpdateOperationsInput | number
   }
@@ -8815,7 +8833,7 @@ export namespace Prisma {
   export type MessageUncheckedUpdateManyWithoutSenderInput = {
     id?: IntFieldUpdateOperationsInput | number
     content?: StringFieldUpdateOperationsInput | string
-    receiverEmail?: StringFieldUpdateOperationsInput | string
+    receiverEmail?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     chatId?: IntFieldUpdateOperationsInput | number
   }
@@ -8893,14 +8911,14 @@ export namespace Prisma {
     content?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sender?: UserUpdateOneRequiredWithoutMessagesSentNestedInput
-    receiver?: UserUpdateOneRequiredWithoutMessagesReceivedNestedInput
+    receiver?: UserUpdateOneWithoutMessagesReceivedNestedInput
   }
 
   export type MessageUncheckedUpdateWithoutChatInput = {
     id?: IntFieldUpdateOperationsInput | number
     content?: StringFieldUpdateOperationsInput | string
     senderEmail?: StringFieldUpdateOperationsInput | string
-    receiverEmail?: StringFieldUpdateOperationsInput | string
+    receiverEmail?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -8908,7 +8926,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     content?: StringFieldUpdateOperationsInput | string
     senderEmail?: StringFieldUpdateOperationsInput | string
-    receiverEmail?: StringFieldUpdateOperationsInput | string
+    receiverEmail?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 

@@ -14,6 +14,7 @@ import { Avatar } from '@/components/ui/avatar';
 import { useDarkMode } from '@/context/darkModeContext';
 import { CiMenuBurger } from "react-icons/ci";
 import { UserButton } from '@/components/component/user-button'
+import { PopoverTrigger, PopoverContent, Popover } from "@/components/ui/popover"
 
 const NavBar = ({lng , userImage})=> { 
   const path = usePathname()
@@ -38,6 +39,7 @@ const NavBar = ({lng , userImage})=> {
       const englishPath = path.replace('/ar', '/en');
       router.push(englishPath);
     };
+
   return (
     <>
     <nav className="hidden lg:flex z-50 fixed py-2 shadow-lg w-full  items-center justify-between px-6  bg-white dark:text-white dark:bg-zinc-950">
@@ -52,36 +54,49 @@ const NavBar = ({lng , userImage})=> {
             type="text"
           />
         </form>
+        
         <div className="flex items-center gap-3 ">
           <Link href={'/sell'} className="border dark:border-zinc-800 px-8 main-bg py-2 rounded-full flex items-center">
               {t("Sell")}
               </Link>
-          <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-              <button className="border dark:border-zinc-800 dark:bg-zinc-900 px-4 py-2 rounded-full flex items-center">
+
+          <Popover>
+          <PopoverTrigger asChild>
+           <button className="border dark:border-zinc-800 dark:bg-zinc-900 px-4 py-2 rounded-full flex items-center">
               <TfiWorld className="text-xl mx-3" />
               {!countryName ? t("country"): countryName }
               <FiChevronDown className="ml-2" />
               </button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent className="dark:bg-zinc-900 bg-white border dark:border-zinc-800 dark:bg-zinc-900 mt-2 py-2 rounded-md shadow-md">
-              <DropdownMenuItem className="hover:bg-gray-100  px-4 py-2">USA</DropdownMenuItem>
-              <DropdownMenuItem className="hover:bg-gray-100  px-4 py-2">UK</DropdownMenuItem>
-              <DropdownMenuItem className="hover:bg-gray-100  px-4 py-2">Germany</DropdownMenuItem>
-          </DropdownMenuContent>
-          </DropdownMenu>
-          <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-              <button className="border dark:border-zinc-800 dark:bg-zinc-900 px-4 py-2 rounded-full flex items-center">
-              <IoLanguageOutline className="text-xl mx-3" />
-              {t("languages")}  <FiChevronDown className="ml-2" />
-              </button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent  className="dark:bg-zinc-900 bg-white border dark:border-zinc-800 border dark:border-zinc-800-gray-300 mt-2 py-2 rounded-md shadow-md">
-              <DropdownMenuItem onClick={changeToEnglish} className="hover:bg-gray-100  px-4 py-2">English</DropdownMenuItem>
-              <DropdownMenuItem onClick={changeToArabic} className="hover:bg-gray-100  px-4 py-2">Arabic</DropdownMenuItem>
-          </DropdownMenuContent>
-          </DropdownMenu>
+          </PopoverTrigger>
+          <PopoverContent className="w-80 dark:bg-zinc-950 dark:text-white">
+            <div className="grid gap-4">
+              <div className="space-y-2">
+              <div className="hover:bg-gray-100  px-4 py-2">USA</div>
+              <div className="hover:bg-gray-100  px-4 py-2">UK</div>
+              <div className="hover:bg-gray-100  px-4 py-2">Germany</div>
+              </div>
+            </div>
+          </PopoverContent>
+        </Popover>
+
+          <Popover>
+          <PopoverTrigger asChild>
+            <button className="border dark:border-zinc-800 dark:bg-zinc-900 px-4 py-2 rounded-full flex items-center">
+                  <IoLanguageOutline className="text-xl mx-3" />
+                    {t("languages")}  <FiChevronDown className="ml-2" />
+                  </button>
+          </PopoverTrigger>
+          <PopoverContent className="w-80 dark:bg-zinc-950 dark:text-white">
+            <div className="grid gap-4">
+              <div className="space-y-2">
+                  <div onClick={changeToEnglish} className="hover:bg-gray-100  px-4 py-2">
+                  English
+                  </div>
+                  <div onClick={changeToArabic} className="hover:bg-gray-100  px-4 py-2">Arabic</div>
+              </div>
+            </div>
+          </PopoverContent>
+        </Popover>
           <Link href={'/chat'} className="chat dark:bg-zinc-900 hover:opacity-50 bg-white border dark:border-zinc-800 p-2 rounded-md">
           <BsChatLeftDots className="text-xl"/>
           </Link>
@@ -106,6 +121,7 @@ const NavBar = ({lng , userImage})=> {
         </label>
         </div>
     </nav>
+    {/* Mobile NavBar */}
     <nav className="flex flex-col lg:hidden z-50 fixed py-2 shadow-lg w-full  px-6  bg-white dark:bg-zinc-950">
       <div className="flex  items-center justify-between">
       <Link className="flex items-center" href="#">
@@ -154,12 +170,16 @@ const NavBar = ({lng , userImage})=> {
               <DropdownMenuItem onClick={changeToArabic} className="hover:bg-gray-100  px-4 py-2">Arabic</DropdownMenuItem>
           </DropdownMenuContent>
           </DropdownMenu>
+   \
+              
           <div className="flex items-center justify-around">
+          
           <Link href={'/chat'} className="chat dark:bg-zinc-900 hover:opacity-50 bg-white border dark:border-zinc-800 p-2 rounded-md">
           <BsChatLeftDots className="text-xl"/>
           </Link>
           <div className="userAvatar">
-            {userImage&&<Avatar>
+            {userImage &&
+            <Avatar>
               <img src={userImage} alt="user" srcset="" />
             </Avatar>}
           </div>

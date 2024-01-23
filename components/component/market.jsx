@@ -326,12 +326,15 @@ console.log(ads);
             <Link className="absolute inset-0 z-10" href={`vehicle/${ad.id}`}>
               <span className="sr-only">View</span>
             </Link>
-            <img
+
+              <img
               alt="Ad image"
-              className="rounded-lg object-cover w-full aspect-square group-hover:opacity-50 transition-opacity"
-              height={200}
+              className="rounded-lg object-none aspect-square w-full h-[15rem] group-hover:opacity-50 transition-opacity"
               src={ad.Adimages[0].url}
-              width={200} />
+            />
+
+
+
             <Button className="absolute top-2 right-2 bg-transparent rounded-full p-1">
               <svg
                 className="h-6 w-6 text-red-500"

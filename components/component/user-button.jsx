@@ -6,7 +6,8 @@ import Link from "next/link"
 
 export function UserButton({ userImage }) {
   return (
-    (<Popover>
+    (
+    <Popover>
       <PopoverTrigger asChild>
         <Button className="rounded-full" size="icon" variant="outline">
            <Avatar>
@@ -36,7 +37,8 @@ export function UserButton({ userImage }) {
           </div>
         </div>
       </PopoverContent>
-    </Popover>)
+    </Popover>
+    )
   );
 }
 

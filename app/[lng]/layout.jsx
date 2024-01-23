@@ -7,6 +7,7 @@ import { Footer } from '@/components/component/footer'
 import { dir } from 'i18next'
 import { getServerSession } from 'next-auth'
 import { getUserByEmail } from '@/prisma/actions'
+import { Toaster } from "@/components/ui/sonner"
 
 export async function generateStaticParams() {
   return languages.map((lng) => ({ lng }))
@@ -26,6 +27,7 @@ export default async function RootLayout({ children, params: { lng }}) {
           <SonnerDemo />
            <ErrorMessage />
           {children}
+          <Toaster />
           </div>
           <Footer />
           </body>

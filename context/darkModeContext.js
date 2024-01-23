@@ -11,8 +11,9 @@ export const DarkModeProvider = ({ children }) => {
   const [phoneNum , setPhoneNum] =useState('')
   const [extraFeature, setExtraFeature] = useState([]);
   const [errorMessage, setErrorMessage] = useState(null);
-  const [successMessage, setSuccessMessage] = useState(false);
+  const [successMessage, setSuccessMessage] = useState(null);
   const [countryName , setCountryName] = useState(null)
+  
   const [darkMode, setDarkMode] = useState(() => {
     return isLocalStorageAvailable
       ? JSON.parse(localStorage.getItem('darkMode')) || false

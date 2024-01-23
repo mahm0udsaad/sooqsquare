@@ -1,9 +1,8 @@
 
 import { getServerSession } from 'next-auth';
-import DynamicCard from '../../../components/adCard'
-import prisma from "../../../prisma/client";
+import DynamicCard from '../../../../components/adCard'
 import { getUserByEmail } from '@/prisma/actions';
-import {getAdsByUserId} from './actions'
+import {getAdsByUserId} from '../actions'
 import Dashboard from '@/components/component/dashboard'
 
 export default async function MyAds({params:{lng}}) {
