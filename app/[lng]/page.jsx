@@ -5,8 +5,8 @@ const HomePage = dynamic(() => import(`../../components/home-page`));
 
 export default async function Home({ params : { lng }  }) {
 const user = await getServerSession()
-console.log(user);
-  return (
+
+return (
     <>
     <HomePage lng={lng}/>
     </>
