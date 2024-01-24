@@ -16,19 +16,19 @@ export default async function SginIn() {
   const user = await getUserByEmail(logedUser?.user?.email);
 
   if (logedUser) {
-    console.log(logedUser);
   
     const existingUser = await getUserByEmail(logedUser?.email);
   
     if (!existingUser) {
       await createUserIfNotExists(logedUser);
     } 
-    console.log(existingUser);
   }
 
-  // if(user?.phoneNumber){
-  //   redirect('/sell')
-  // }
+  console.log(user);
+
+  if(user?.phoneNumber){
+    redirect('/sell')
+  }
 
   return (
     <div className="w-full min-h-screen lg:flex">

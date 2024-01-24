@@ -90,8 +90,8 @@ export  async function createUserIfNotExists(userData) {
       const {email , image , name} = userData.user
       const newUser = await prisma.User.create({
         data: {
-          username:name,
           email:email,
+          username:name,
           image:image,
         },
       });
@@ -99,7 +99,7 @@ export  async function createUserIfNotExists(userData) {
       console.log('New user created:', newUser);
       return newUser;
   } catch (error) {
-    console.error('Error creating user:', error);
+    console.error('Error creating user if Not Exists:', error);
     return null;
   }
 }

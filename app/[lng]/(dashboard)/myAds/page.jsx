@@ -1,15 +1,13 @@
 import { getServerSession } from 'next-auth';
-import DynamicCard from '../../../../components/adCard'
-import { getUserByEmail } from '@/prisma/actions';
-import {getAdsByUserId} from '../actions';
+import { getUserByEmail } from '@/prisma/actions'
+import { getAdsByUserId } from '../actions';
 import { AdCard } from '@/components/component/dashboard-ad-card';
-import { redirectFunc } from '../../../../prisma/actions';
 
 export default async function MyAds({params:{lng}}) {
 
     const logedUser = await getServerSession() 
     const user = await getUserByEmail(logedUser?.user.email) 
-    const ads = await getAdsByUserId(user?.id)
+    const ads = await getAdsByUserId(user.id)
 
     return (
        <div className='flex w-11/12 mx-auto flex-col gap-3'>
