@@ -7,7 +7,8 @@ import { redirect } from 'next/navigation'
 export default async function DashboardLayout({ children , params: { lng }}) {
   
   const logedUser = await getServerSession()
-  const user = await getUserByEmail(logedUser?.user?.email) || null
+  const user = await getUserByEmail(logedUser?.user.email)
+
   if (!user){
     redirect('/sign-in')
   }
