@@ -27,7 +27,7 @@ export default async function SginIn() {
   console.log(user);
 
   if(user?.phoneNumber){
-    redirect('/sell')
+    redirect('/myAds')
   }
 
   return (
