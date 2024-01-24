@@ -11,8 +11,9 @@ import { createUserIfNotExists, getUserByEmail } from "../../../prisma/actions"
 import Image from "next/image"
 
 export default async function SginIn() {
+
   const logedUser = await getServerSession();
-  const user = await getUserByEmail(logedUser?.user?.email) || null ;
+  const user = await getUserByEmail(logedUser?.user?.email);
 
   if (logedUser) {
     console.log(logedUser);
@@ -22,10 +23,13 @@ export default async function SginIn() {
     if (!existingUser) {
       await createUserIfNotExists(logedUser);
     } 
+    console.log(existingUser);
   }
-  if(user?.phoneNumber){
-    redirect('/sell')
-  }
+
+  // if(user?.phoneNumber){
+  //   redirect('/sell')
+  // }
+
   return (
     <div className="w-full min-h-screen lg:flex">
       <div className="lg:w-1/2 p-6 lg:p-10 bg-gradient-to-r from-purple-700 via-pink-700 to-red-700 lg:flex lg:items-center lg:justify-center">
@@ -35,7 +39,8 @@ export default async function SginIn() {
         </div>
       </div>
       <div className="lg:w-1/2 p-6 lg:p-10 flex items-center justify-center">
-        {!logedUser?<Card className="max-w-lg w-full">
+        {!logedUser?
+        <Card className="max-w-lg w-full">
           <CardHeader>
             <CardTitle className="text-2xl text-center font-bold">Sign In</CardTitle>
           </CardHeader>
@@ -57,10 +62,10 @@ export default async function SginIn() {
             We will not reveal your email to anyone else or use it to send you unsolicited messages.
             </p>
           </CardFooter>
-        </Card>:null}
-        {!user?.phoneNumber && user?
-        <LoginWithPhone email={logedUser.user.email}/>
-        :null}
+        </Card>:
+        !user?.phoneNumber &&
+        <LoginWithPhone email={logedUser?.user.email}/>
+        }
       </div>
     </div>
   )

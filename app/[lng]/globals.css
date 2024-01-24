@@ -109,6 +109,9 @@ display: none !important;
 .main-bg:hover{
   background-color: rgb(37, 37, 37)
 }
+.force-flex{
+  display: flex !important;
+}
 .gt-text{
   /* background-clip: text; */
   background: linear-gradient(90deg, #fa5b5e, #009A8F, #a71086bb);

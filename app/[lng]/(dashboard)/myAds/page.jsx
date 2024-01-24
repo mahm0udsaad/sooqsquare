@@ -3,6 +3,7 @@ import DynamicCard from '../../../../components/adCard'
 import { getUserByEmail } from '@/prisma/actions';
 import {getAdsByUserId} from '../actions';
 import { AdCard } from '@/components/component/dashboard-ad-card';
+import { redirectFunc } from '../../../../prisma/actions';
 
 export default async function MyAds({params:{lng}}) {
 

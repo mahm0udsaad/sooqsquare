@@ -119,7 +119,6 @@ const features = [
 const ArabCountries = [
   { code: '+20', name: 'Egypt' },
   { code: '+966', name: 'Saudi Arabia' },
-  { code: '+961', name: 'Lebanon' },
   { code: '+971', name: 'United Arab Emirates' },
   { code: '+962', name: 'Jordan' },
   { code: '+965', name: 'Kuwait' },
@@ -127,7 +126,5 @@ const ArabCountries = [
   { code: '+968', name: 'Oman' },
   { code: '+974', name: 'Qatar' },
   { code: '+961', name: 'Lebanon' },
-  { code: '+961', name: 'Lebanon' },
-  // Add more Arab countries as needed
 ];
   export {ArabCountries, features,cities,categoriesData ,carBrands ,yearsArray ,carTypesArray , carBrandsWithLogos}

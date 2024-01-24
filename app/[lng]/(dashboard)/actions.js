@@ -20,8 +20,8 @@ export async function getAdsByUserId(userId) {
   
       return ads;
     } catch (error) {
+      return null
       console.error('Error fetching ads by user:', error);
-      throw error;
     } finally {
       await prisma.$disconnect();
     }

@@ -2,7 +2,7 @@ import { languages } from '../i18n/settings'
 import './globals.css'
 import NavBar from '@/components/navBar'
 import { DarkModeProvider } from '../../context/darkModeContext'
-import { ErrorMessage, SonnerDemo } from '@/components/messages'
+import { ErrorMessage} from '@/components/messages'
 import { Footer } from '@/components/component/footer'
 import { dir } from 'i18next'
 import { getServerSession } from 'next-auth'
@@ -24,12 +24,11 @@ export default async function RootLayout({ children, params: { lng }}) {
         <body className='bg-gray-100 dark:bg-zinc-900 dark:text-white' >
         <NavBar userImage={user?.image}  lng={lng}/>
           <div dir={dir(lng)} className="pt-16 w-full relative">
-          <SonnerDemo />
            <ErrorMessage />
-          {children}
-          <Toaster />
+           {children}
+            <Toaster />
           </div>
-          <Footer />
+           <Footer />
           </body>
       </DarkModeProvider>
       </html>

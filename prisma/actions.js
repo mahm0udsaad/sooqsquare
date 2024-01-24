@@ -2,8 +2,28 @@
 
 import { revalidatePath } from "next/cache";
 import prisma from "./client";
-import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
+import { getServerSession } from "next-auth";
+
+export const redirectFunc = async () => {
+  try {
+    const loggedInUser = await getServerSession();
+    const user = await getUserByEmail(loggedInUser?.user.email);
+
+    if (!user) {
+      // Assuming redirect is a function that handles redirection in your application
+      redirect('/sign-in');
+    } 
+  } catch (error) {
+    console.error('An error occurred in redirectFunc:', error);
+  }finally{
+    
+    if (!user) {
+      // Assuming redirect is a function that handles redirection in your application
+      redirect('/sign-in');
+    } 
+  }
+};
 
 
 export async function createAd(data , userId) {
@@ -57,15 +77,16 @@ export async function createAd(data , userId) {
 
     revalidatePath('/myAds');
   } catch (error) {
+    return null ;
     console.error('Error creating ad:', error);
   } finally{
+    revalidatePath('/myAds')
     redirect('/myAds')
   }
 }
 
 export  async function createUserIfNotExists(userData) {
   try {
-    if(!userData?.id){
       const {email , image , name} = userData.user
       const newUser = await prisma.User.create({
         data: {
@@ -74,30 +95,12 @@ export  async function createUserIfNotExists(userData) {
           image:image,
         },
       });
-      console.log('New user created:', newUser);
-      return { success: true, message: 'New user created.' };
-    }
-    const existingUser = await prisma.User.findUnique({
-      where: {
-        id:userData.id,
-      },
-    });
-
-    if (!existingUser) {
-      const newUser = await prisma.User.create({
-        data: {
-          ...userData,
-        },
-      });
 
       console.log('New user created:', newUser);
-      return { success: true, message: 'New user created.' };
-    } else {
-      return { success: false, message: 'User already exists.' };
-    }
+      return newUser;
   } catch (error) {
     console.error('Error creating user:', error);
-    return { success: false, message: 'Error creating user.' };
+    return null;
   }
 }
 
@@ -160,7 +163,7 @@ export async function getUserByEmail(email) {
       },
     });
 
-    return existingUser || null;
+    return existingUser;
   } catch (error) {
     // Handle any potential errors here
     console.error("Error fetching user:", error);
