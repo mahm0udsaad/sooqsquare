@@ -41,15 +41,17 @@ export function AdPage({ad , lng}) {
         <Carousel style={{ direction: 'ltr' }} className="w-full max-w-xl mx-auto">
           <CarouselContent>
           {ad.Adimages.map((image) => (
-              <CarouselItem key={image.id}>
-                <Image
-                  alt={`Ad Image ${image.id}`}
-                  className=" object-none border border-gray-200 mx-auto rounded-lg overflow-hidden dark:border-gray-800"
-                  src={image.url} 
-                  height={300}
-                  width={500}
-                />
-              </CarouselItem>
+          <CarouselItem key={image.id} className="h-[15rem] w-full">
+            <div className="relative h-full w-full">
+              <Image
+                alt={`Ad Image ${image.id}`}
+                className="object-cover w-full h-full rounded-lg overflow-hidden"
+                src={image.url}
+                layout="fill"  // Use layout="fill" to fill the parent container
+                objectFit="contain"  // Use objectFit="contain" to ensure the entire image is visible
+              />
+            </div>
+        </CarouselItem>
             ))}
           </CarouselContent>
           <CarouselPrevious />

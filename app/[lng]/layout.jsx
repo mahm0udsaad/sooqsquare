@@ -17,6 +17,7 @@ export default async function RootLayout({ children, params: { lng }}) {
   
   const logedUser = await getServerSession()
   const user = await getUserByEmail(logedUser?.user?.email)
+  
   return (
     <html lang={lng}>
       <link rel="shortcut icon" href="/icons/favicon.png" />

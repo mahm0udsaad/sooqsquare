@@ -26,7 +26,6 @@ export async function getAdsByUserId(userId) {
       await prisma.$disconnect();
     }
 }
-
 export async function updateAd(adId, updatedData) {
   try {
     adId = parseInt(adId)

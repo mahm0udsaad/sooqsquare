@@ -13,6 +13,7 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation"
 import { timeSince } from "../../helper/timeConversion"
 import { carBrands } from '../../data/staticData'
 import { useEffect, useState } from "react"
+import Image from "next/image"
 
 const SelectionComp = withGenericSelection(FilterSelection);
 
@@ -327,12 +328,13 @@ console.log(ads);
               <span className="sr-only">View</span>
             </Link>
 
-              <img
+              <Image
               alt="Ad image"
               className="rounded-lg object-none aspect-square w-full h-[15rem] group-hover:opacity-50 transition-opacity"
               src={ad.Adimages[0].url}
+              width={250}
+              height={250}
             />
-
 
 
             <Button className="absolute top-2 right-2 bg-transparent rounded-full p-1">

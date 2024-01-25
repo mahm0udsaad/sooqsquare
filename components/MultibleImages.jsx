@@ -12,6 +12,7 @@ import { CiImageOn } from "react-icons/ci";
 import { MdOutlineRocketLaunch } from "react-icons/md";
 import { t } from 'i18next';
 import { useTranslation } from '../app/i18n/client';
+import Image from 'next/image';
 
 function TrashIcon(props) {
     return (
@@ -35,7 +36,7 @@ function TrashIcon(props) {
   }
 
  const MultiImageForm = ({lng}) => {
-    const { setAdImages ,adImages,setErrorMessage } = useDarkMode()
+    const { setAdImages , adImages ,setErrorMessage } = useDarkMode()
     const [images, setImages] = useState([]);
     const [uploading, setUploading] = useState(false);
     const uploadedImages = useSearchParams().get('uploadedImages')
@@ -78,6 +79,7 @@ function TrashIcon(props) {
         setUploading(false);
       }
     };
+
     const handleImageRemove = (indexToRemove) => {
       setImages((prevImages) => prevImages.filter((_, index) => index !== indexToRemove));
     };
@@ -117,19 +119,20 @@ function TrashIcon(props) {
                 multiple={true}
               />
                 {images[index] && (
-                    <div className="flex flex-col items-center gap-6">
-                    <div>
-                        <img
+                    <div className="flex flex-col items-center justify-center gap-6">
+                    <div className='flex items-center justify-center h-[6rem]'>
+                        <Image
                         alt={`Uploaded image ${index + 1}`}
+                        className='aspect-auto'
                         src={`${images[index]}`}
-                        // height={120}
-                        // width={120}
+                        height={120}
+                        width={120}
                         />
                     </div>
                     <Button
                         onClick={() => handleImageRemove(index)}
                         type="button"
-                        className="w-full justify-around text-center font-normal"
+                        className="w-full text-black justify-around text-center font-normal"
                         variant="outline"
                     >
                         <TrashIcon className="w-4 h-4" />

@@ -1,30 +1,7 @@
 "use server"
-
 import { revalidatePath } from "next/cache";
 import prisma from "./client";
 import { redirect } from "next/navigation";
-import { getServerSession } from "next-auth";
-
-export const redirectFunc = async () => {
-  try {
-    const loggedInUser = await getServerSession();
-    const user = await getUserByEmail(loggedInUser?.user.email);
-
-    if (!user) {
-      // Assuming redirect is a function that handles redirection in your application
-      redirect('/sign-in');
-    } 
-  } catch (error) {
-    console.error('An error occurred in redirectFunc:', error);
-  }finally{
-    
-    if (!user) {
-      // Assuming redirect is a function that handles redirection in your application
-      redirect('/sign-in');
-    } 
-  }
-};
-
 
 export async function createAd(data , userId) {
   const {
@@ -96,8 +73,10 @@ export  async function createUserIfNotExists(userData) {
         },
       });
 
+      console.log('New user created:', newUser);
       return newUser;
   } catch (error) {
+    console.error('Error creating user if Not Exists:', error);
     return null;
   }
 }
