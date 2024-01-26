@@ -6,6 +6,7 @@ export async function getAllads(searchParams){
         include: {
           Adimages: true,
           user: true,
+          shop: true,
         },
         orderBy: {
           createdAt: 'desc',
@@ -35,6 +36,7 @@ export async function getAdById(adId) {
         include: {
           Adimages: true,
           user: true,
+          shop: true,
         },
       });
   

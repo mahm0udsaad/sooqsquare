@@ -1,5 +1,5 @@
 "use client"
-import { useState, useEffect } from 'react';
+import { useState} from 'react';
 import Link from 'next/link';
 import {  BiSearch } from 'react-icons/bi';
 import { FiChevronDown } from 'react-icons/fi';
@@ -16,7 +16,7 @@ import { CiMenuBurger } from "react-icons/ci";
 import { UserButton } from '@/components/component/user-button'
 import { PopoverTrigger, PopoverContent, Popover } from "@/components/ui/popover"
 
-const NavBar = ({lng , userImage})=> { 
+const NavBar = ({lng , user})=> { 
   const path = usePathname()
   const { countryName ,  darkMode, setDarkMode} = useDarkMode()
   const { t } = useTranslation(lng , "translation")
@@ -77,7 +77,7 @@ const NavBar = ({lng , userImage})=> {
               </div>
             </div>
           </PopoverContent>
-        </Popover>
+         </Popover>
 
           <Popover>
           <PopoverTrigger asChild>
@@ -96,15 +96,18 @@ const NavBar = ({lng , userImage})=> {
               </div>
             </div>
           </PopoverContent>
-        </Popover>
+           </Popover>
+         
           <Link href={'/chat'} className="chat dark:bg-zinc-900 hover:opacity-50 bg-white border dark:border-zinc-800 p-2 rounded-md">
           <BsChatLeftDots className="text-xl"/>
           </Link>
+         
           <div className="userAvatar">
-            {userImage&&
-            <UserButton userImage={userImage} />
+          {user &&
+               <UserButton  user={user}/>
             }
           </div>
+         
           <label htmlFor="darkModeToggle" className="flex items-center cursor-pointer ">
           <div className="relative">
             <input
@@ -119,6 +122,7 @@ const NavBar = ({lng , userImage})=> {
           </div>
           <span className="ml-2 text-gray-700 dark:text-gray-200">{t('darkMode')}</span>
         </label>
+      
         </div>
     </nav>
     {/* Mobile NavBar */}
@@ -178,10 +182,9 @@ const NavBar = ({lng , userImage})=> {
           <BsChatLeftDots className="text-xl"/>
           </Link>
           <div className="userAvatar">
-            {userImage &&
-            <Avatar>
-              <img src={userImage} alt="user" srcset="" />
-            </Avatar>}
+            {user &&
+               <UserButton  user={user}/>
+            }
           </div>
           <label htmlFor="darkModeToggle" className="flex items-center cursor-pointer ">
           <div className="relative">

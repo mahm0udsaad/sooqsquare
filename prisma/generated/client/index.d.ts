@@ -19,6 +19,11 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
  */
 export type User = $Result.DefaultSelection<Prisma.$UserPayload>
 /**
+ * Model Shop
+ * 
+ */
+export type Shop = $Result.DefaultSelection<Prisma.$ShopPayload>
+/**
  * Model Image
  * 
  */
@@ -28,6 +33,11 @@ export type Image = $Result.DefaultSelection<Prisma.$ImagePayload>
  * 
  */
 export type Ad = $Result.DefaultSelection<Prisma.$AdPayload>
+/**
+ * Model FavoriteAd
+ * 
+ */
+export type FavoriteAd = $Result.DefaultSelection<Prisma.$FavoriteAdPayload>
 /**
  * Model Chat
  * 
@@ -172,6 +182,16 @@ export class PrismaClient<
   get user(): Prisma.UserDelegate<ExtArgs>;
 
   /**
+   * `prisma.shop`: Exposes CRUD operations for the **Shop** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Shops
+    * const shops = await prisma.shop.findMany()
+    * ```
+    */
+  get shop(): Prisma.ShopDelegate<ExtArgs>;
+
+  /**
    * `prisma.image`: Exposes CRUD operations for the **Image** model.
     * Example usage:
     * ```ts
@@ -190,6 +210,16 @@ export class PrismaClient<
     * ```
     */
   get ad(): Prisma.AdDelegate<ExtArgs>;
+
+  /**
+   * `prisma.favoriteAd`: Exposes CRUD operations for the **FavoriteAd** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more FavoriteAds
+    * const favoriteAds = await prisma.favoriteAd.findMany()
+    * ```
+    */
+  get favoriteAd(): Prisma.FavoriteAdDelegate<ExtArgs>;
 
   /**
    * `prisma.chat`: Exposes CRUD operations for the **Chat** model.
@@ -268,7 +298,7 @@ export namespace Prisma {
 
   /**
    * Prisma Client JS version: 5.8.1
-   * Query Engine version: 0ca5ccbcfa6bdc81c003cf549abe4269f59c41e5
+   * Query Engine version: 78caf6feeaed953168c64e15a249c3e9a033ebe2
    */
   export type PrismaVersion = {
     client: string
@@ -681,8 +711,10 @@ export namespace Prisma {
 
   export const ModelName: {
     User: 'User',
+    Shop: 'Shop',
     Image: 'Image',
     Ad: 'Ad',
+    FavoriteAd: 'FavoriteAd',
     Chat: 'Chat',
     Message: 'Message'
   };
@@ -701,7 +733,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     meta: {
-      modelProps: 'user' | 'image' | 'ad' | 'chat' | 'message'
+      modelProps: 'user' | 'shop' | 'image' | 'ad' | 'favoriteAd' | 'chat' | 'message'
       txIsolationLevel: Prisma.TransactionIsolationLevel
     },
     model: {
@@ -764,6 +796,68 @@ export namespace Prisma {
           count: {
             args: Prisma.UserCountArgs<ExtArgs>,
             result: $Utils.Optional<UserCountAggregateOutputType> | number
+          }
+        }
+      }
+      Shop: {
+        payload: Prisma.$ShopPayload<ExtArgs>
+        fields: Prisma.ShopFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ShopFindUniqueArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$ShopPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ShopFindUniqueOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$ShopPayload>
+          }
+          findFirst: {
+            args: Prisma.ShopFindFirstArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$ShopPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ShopFindFirstOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$ShopPayload>
+          }
+          findMany: {
+            args: Prisma.ShopFindManyArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$ShopPayload>[]
+          }
+          create: {
+            args: Prisma.ShopCreateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$ShopPayload>
+          }
+          delete: {
+            args: Prisma.ShopDeleteArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$ShopPayload>
+          }
+          update: {
+            args: Prisma.ShopUpdateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$ShopPayload>
+          }
+          deleteMany: {
+            args: Prisma.ShopDeleteManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ShopUpdateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          upsert: {
+            args: Prisma.ShopUpsertArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$ShopPayload>
+          }
+          aggregate: {
+            args: Prisma.ShopAggregateArgs<ExtArgs>,
+            result: $Utils.Optional<AggregateShop>
+          }
+          groupBy: {
+            args: Prisma.ShopGroupByArgs<ExtArgs>,
+            result: $Utils.Optional<ShopGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ShopCountArgs<ExtArgs>,
+            result: $Utils.Optional<ShopCountAggregateOutputType> | number
           }
         }
       }
@@ -888,6 +982,68 @@ export namespace Prisma {
           count: {
             args: Prisma.AdCountArgs<ExtArgs>,
             result: $Utils.Optional<AdCountAggregateOutputType> | number
+          }
+        }
+      }
+      FavoriteAd: {
+        payload: Prisma.$FavoriteAdPayload<ExtArgs>
+        fields: Prisma.FavoriteAdFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.FavoriteAdFindUniqueArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$FavoriteAdPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.FavoriteAdFindUniqueOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$FavoriteAdPayload>
+          }
+          findFirst: {
+            args: Prisma.FavoriteAdFindFirstArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$FavoriteAdPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.FavoriteAdFindFirstOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$FavoriteAdPayload>
+          }
+          findMany: {
+            args: Prisma.FavoriteAdFindManyArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$FavoriteAdPayload>[]
+          }
+          create: {
+            args: Prisma.FavoriteAdCreateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$FavoriteAdPayload>
+          }
+          delete: {
+            args: Prisma.FavoriteAdDeleteArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$FavoriteAdPayload>
+          }
+          update: {
+            args: Prisma.FavoriteAdUpdateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$FavoriteAdPayload>
+          }
+          deleteMany: {
+            args: Prisma.FavoriteAdDeleteManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          updateMany: {
+            args: Prisma.FavoriteAdUpdateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          upsert: {
+            args: Prisma.FavoriteAdUpsertArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$FavoriteAdPayload>
+          }
+          aggregate: {
+            args: Prisma.FavoriteAdAggregateArgs<ExtArgs>,
+            result: $Utils.Optional<AggregateFavoriteAd>
+          }
+          groupBy: {
+            args: Prisma.FavoriteAdGroupByArgs<ExtArgs>,
+            result: $Utils.Optional<FavoriteAdGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.FavoriteAdCountArgs<ExtArgs>,
+            result: $Utils.Optional<FavoriteAdCountAggregateOutputType> | number
           }
         }
       }
@@ -1168,6 +1324,7 @@ export namespace Prisma {
     chats: number
     messagesSent: number
     messagesReceived: number
+    favoriteAds: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -1175,6 +1332,7 @@ export namespace Prisma {
     chats?: boolean | UserCountOutputTypeCountChatsArgs
     messagesSent?: boolean | UserCountOutputTypeCountMessagesSentArgs
     messagesReceived?: boolean | UserCountOutputTypeCountMessagesReceivedArgs
+    favoriteAds?: boolean | UserCountOutputTypeCountFavoriteAdsArgs
   }
 
   // Custom InputTypes
@@ -1222,6 +1380,48 @@ export namespace Prisma {
   }
 
 
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountFavoriteAdsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: FavoriteAdWhereInput
+  }
+
+
+
+  /**
+   * Count Type ShopCountOutputType
+   */
+
+  export type ShopCountOutputType = {
+    ads: number
+  }
+
+  export type ShopCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    ads?: boolean | ShopCountOutputTypeCountAdsArgs
+  }
+
+  // Custom InputTypes
+
+  /**
+   * ShopCountOutputType without action
+   */
+  export type ShopCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ShopCountOutputType
+     */
+    select?: ShopCountOutputTypeSelect<ExtArgs> | null
+  }
+
+
+  /**
+   * ShopCountOutputType without action
+   */
+  export type ShopCountOutputTypeCountAdsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AdWhereInput
+  }
+
+
 
   /**
    * Count Type AdCountOutputType
@@ -1229,10 +1429,12 @@ export namespace Prisma {
 
   export type AdCountOutputType = {
     Adimages: number
+    favoritedBy: number
   }
 
   export type AdCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     Adimages?: boolean | AdCountOutputTypeCountAdimagesArgs
+    favoritedBy?: boolean | AdCountOutputTypeCountFavoritedByArgs
   }
 
   // Custom InputTypes
@@ -1253,6 +1455,14 @@ export namespace Prisma {
    */
   export type AdCountOutputTypeCountAdimagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: ImageWhereInput
+  }
+
+
+  /**
+   * AdCountOutputType without action
+   */
+  export type AdCountOutputTypeCountFavoritedByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: FavoriteAdWhereInput
   }
 
 
@@ -1515,6 +1725,8 @@ export namespace Prisma {
     chats?: boolean | User$chatsArgs<ExtArgs>
     messagesSent?: boolean | User$messagesSentArgs<ExtArgs>
     messagesReceived?: boolean | User$messagesReceivedArgs<ExtArgs>
+    favoriteAds?: boolean | User$favoriteAdsArgs<ExtArgs>
+    shop?: boolean | User$shopArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -1532,6 +1744,8 @@ export namespace Prisma {
     chats?: boolean | User$chatsArgs<ExtArgs>
     messagesSent?: boolean | User$messagesSentArgs<ExtArgs>
     messagesReceived?: boolean | User$messagesReceivedArgs<ExtArgs>
+    favoriteAds?: boolean | User$favoriteAdsArgs<ExtArgs>
+    shop?: boolean | User$shopArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
 
@@ -1543,6 +1757,8 @@ export namespace Prisma {
       chats: Prisma.$ChatPayload<ExtArgs>[]
       messagesSent: Prisma.$MessagePayload<ExtArgs>[]
       messagesReceived: Prisma.$MessagePayload<ExtArgs>[]
+      favoriteAds: Prisma.$FavoriteAdPayload<ExtArgs>[]
+      shop: Prisma.$ShopPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -1907,6 +2123,10 @@ export namespace Prisma {
     messagesSent<T extends User$messagesSentArgs<ExtArgs> = {}>(args?: Subset<T, User$messagesSentArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MessagePayload<ExtArgs>, T, 'findMany'> | Null>;
 
     messagesReceived<T extends User$messagesReceivedArgs<ExtArgs> = {}>(args?: Subset<T, User$messagesReceivedArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MessagePayload<ExtArgs>, T, 'findMany'> | Null>;
+
+    favoriteAds<T extends User$favoriteAdsArgs<ExtArgs> = {}>(args?: Subset<T, User$favoriteAdsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FavoriteAdPayload<ExtArgs>, T, 'findMany'> | Null>;
+
+    shop<T extends User$shopArgs<ExtArgs> = {}>(args?: Subset<T, User$shopArgs<ExtArgs>>): Prisma__ShopClient<$Result.GetResult<Prisma.$ShopPayload<ExtArgs>, T, 'findUniqueOrThrow'> | null, null, ExtArgs>;
 
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -2326,6 +2546,43 @@ export namespace Prisma {
 
 
   /**
+   * User.favoriteAds
+   */
+  export type User$favoriteAdsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FavoriteAd
+     */
+    select?: FavoriteAdSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: FavoriteAdInclude<ExtArgs> | null
+    where?: FavoriteAdWhereInput
+    orderBy?: FavoriteAdOrderByWithRelationInput | FavoriteAdOrderByWithRelationInput[]
+    cursor?: FavoriteAdWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: FavoriteAdScalarFieldEnum | FavoriteAdScalarFieldEnum[]
+  }
+
+
+  /**
+   * User.shop
+   */
+  export type User$shopArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Shop
+     */
+    select?: ShopSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ShopInclude<ExtArgs> | null
+    where?: ShopWhereInput
+  }
+
+
+  /**
    * User without action
    */
   export type UserDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2337,6 +2594,984 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well.
      */
     include?: UserInclude<ExtArgs> | null
+  }
+
+
+
+  /**
+   * Model Shop
+   */
+
+  export type AggregateShop = {
+    _count: ShopCountAggregateOutputType | null
+    _avg: ShopAvgAggregateOutputType | null
+    _sum: ShopSumAggregateOutputType | null
+    _min: ShopMinAggregateOutputType | null
+    _max: ShopMaxAggregateOutputType | null
+  }
+
+  export type ShopAvgAggregateOutputType = {
+    id: number | null
+    userId: number | null
+  }
+
+  export type ShopSumAggregateOutputType = {
+    id: number | null
+    userId: number | null
+  }
+
+  export type ShopMinAggregateOutputType = {
+    id: number | null
+    userId: number | null
+    shopName: string | null
+    location: string | null
+    bgImage: string | null
+    shopImage: string | null
+    description: string | null
+  }
+
+  export type ShopMaxAggregateOutputType = {
+    id: number | null
+    userId: number | null
+    shopName: string | null
+    location: string | null
+    bgImage: string | null
+    shopImage: string | null
+    description: string | null
+  }
+
+  export type ShopCountAggregateOutputType = {
+    id: number
+    userId: number
+    shopName: number
+    location: number
+    bgImage: number
+    shopImage: number
+    description: number
+    _all: number
+  }
+
+
+  export type ShopAvgAggregateInputType = {
+    id?: true
+    userId?: true
+  }
+
+  export type ShopSumAggregateInputType = {
+    id?: true
+    userId?: true
+  }
+
+  export type ShopMinAggregateInputType = {
+    id?: true
+    userId?: true
+    shopName?: true
+    location?: true
+    bgImage?: true
+    shopImage?: true
+    description?: true
+  }
+
+  export type ShopMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    shopName?: true
+    location?: true
+    bgImage?: true
+    shopImage?: true
+    description?: true
+  }
+
+  export type ShopCountAggregateInputType = {
+    id?: true
+    userId?: true
+    shopName?: true
+    location?: true
+    bgImage?: true
+    shopImage?: true
+    description?: true
+    _all?: true
+  }
+
+  export type ShopAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Shop to aggregate.
+     */
+    where?: ShopWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Shops to fetch.
+     */
+    orderBy?: ShopOrderByWithRelationInput | ShopOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ShopWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Shops from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Shops.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Shops
+    **/
+    _count?: true | ShopCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: ShopAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: ShopSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ShopMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ShopMaxAggregateInputType
+  }
+
+  export type GetShopAggregateType<T extends ShopAggregateArgs> = {
+        [P in keyof T & keyof AggregateShop]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateShop[P]>
+      : GetScalarType<T[P], AggregateShop[P]>
+  }
+
+
+
+
+  export type ShopGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ShopWhereInput
+    orderBy?: ShopOrderByWithAggregationInput | ShopOrderByWithAggregationInput[]
+    by: ShopScalarFieldEnum[] | ShopScalarFieldEnum
+    having?: ShopScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ShopCountAggregateInputType | true
+    _avg?: ShopAvgAggregateInputType
+    _sum?: ShopSumAggregateInputType
+    _min?: ShopMinAggregateInputType
+    _max?: ShopMaxAggregateInputType
+  }
+
+  export type ShopGroupByOutputType = {
+    id: number
+    userId: number
+    shopName: string
+    location: string
+    bgImage: string | null
+    shopImage: string | null
+    description: string | null
+    _count: ShopCountAggregateOutputType | null
+    _avg: ShopAvgAggregateOutputType | null
+    _sum: ShopSumAggregateOutputType | null
+    _min: ShopMinAggregateOutputType | null
+    _max: ShopMaxAggregateOutputType | null
+  }
+
+  type GetShopGroupByPayload<T extends ShopGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ShopGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ShopGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ShopGroupByOutputType[P]>
+            : GetScalarType<T[P], ShopGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ShopSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    shopName?: boolean
+    location?: boolean
+    bgImage?: boolean
+    shopImage?: boolean
+    description?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    ads?: boolean | Shop$adsArgs<ExtArgs>
+    _count?: boolean | ShopCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["shop"]>
+
+  export type ShopSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    shopName?: boolean
+    location?: boolean
+    bgImage?: boolean
+    shopImage?: boolean
+    description?: boolean
+  }
+
+  export type ShopInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    ads?: boolean | Shop$adsArgs<ExtArgs>
+    _count?: boolean | ShopCountOutputTypeDefaultArgs<ExtArgs>
+  }
+
+
+  export type $ShopPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Shop"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+      ads: Prisma.$AdPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      userId: number
+      shopName: string
+      location: string
+      bgImage: string | null
+      shopImage: string | null
+      description: string | null
+    }, ExtArgs["result"]["shop"]>
+    composites: {}
+  }
+
+
+  type ShopGetPayload<S extends boolean | null | undefined | ShopDefaultArgs> = $Result.GetResult<Prisma.$ShopPayload, S>
+
+  type ShopCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<ShopFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: ShopCountAggregateInputType | true
+    }
+
+  export interface ShopDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Shop'], meta: { name: 'Shop' } }
+    /**
+     * Find zero or one Shop that matches the filter.
+     * @param {ShopFindUniqueArgs} args - Arguments to find a Shop
+     * @example
+     * // Get one Shop
+     * const shop = await prisma.shop.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUnique<T extends ShopFindUniqueArgs<ExtArgs>>(
+      args: SelectSubset<T, ShopFindUniqueArgs<ExtArgs>>
+    ): Prisma__ShopClient<$Result.GetResult<Prisma.$ShopPayload<ExtArgs>, T, 'findUnique'> | null, null, ExtArgs>
+
+    /**
+     * Find one Shop that matches the filter or throw an error  with `error.code='P2025'` 
+     *     if no matches were found.
+     * @param {ShopFindUniqueOrThrowArgs} args - Arguments to find a Shop
+     * @example
+     * // Get one Shop
+     * const shop = await prisma.shop.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUniqueOrThrow<T extends ShopFindUniqueOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, ShopFindUniqueOrThrowArgs<ExtArgs>>
+    ): Prisma__ShopClient<$Result.GetResult<Prisma.$ShopPayload<ExtArgs>, T, 'findUniqueOrThrow'>, never, ExtArgs>
+
+    /**
+     * Find the first Shop that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ShopFindFirstArgs} args - Arguments to find a Shop
+     * @example
+     * // Get one Shop
+     * const shop = await prisma.shop.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirst<T extends ShopFindFirstArgs<ExtArgs>>(
+      args?: SelectSubset<T, ShopFindFirstArgs<ExtArgs>>
+    ): Prisma__ShopClient<$Result.GetResult<Prisma.$ShopPayload<ExtArgs>, T, 'findFirst'> | null, null, ExtArgs>
+
+    /**
+     * Find the first Shop that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ShopFindFirstOrThrowArgs} args - Arguments to find a Shop
+     * @example
+     * // Get one Shop
+     * const shop = await prisma.shop.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirstOrThrow<T extends ShopFindFirstOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, ShopFindFirstOrThrowArgs<ExtArgs>>
+    ): Prisma__ShopClient<$Result.GetResult<Prisma.$ShopPayload<ExtArgs>, T, 'findFirstOrThrow'>, never, ExtArgs>
+
+    /**
+     * Find zero or more Shops that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ShopFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Shops
+     * const shops = await prisma.shop.findMany()
+     * 
+     * // Get first 10 Shops
+     * const shops = await prisma.shop.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const shopWithIdOnly = await prisma.shop.findMany({ select: { id: true } })
+     * 
+    **/
+    findMany<T extends ShopFindManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, ShopFindManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ShopPayload<ExtArgs>, T, 'findMany'>>
+
+    /**
+     * Create a Shop.
+     * @param {ShopCreateArgs} args - Arguments to create a Shop.
+     * @example
+     * // Create one Shop
+     * const Shop = await prisma.shop.create({
+     *   data: {
+     *     // ... data to create a Shop
+     *   }
+     * })
+     * 
+    **/
+    create<T extends ShopCreateArgs<ExtArgs>>(
+      args: SelectSubset<T, ShopCreateArgs<ExtArgs>>
+    ): Prisma__ShopClient<$Result.GetResult<Prisma.$ShopPayload<ExtArgs>, T, 'create'>, never, ExtArgs>
+
+    /**
+     * Delete a Shop.
+     * @param {ShopDeleteArgs} args - Arguments to delete one Shop.
+     * @example
+     * // Delete one Shop
+     * const Shop = await prisma.shop.delete({
+     *   where: {
+     *     // ... filter to delete one Shop
+     *   }
+     * })
+     * 
+    **/
+    delete<T extends ShopDeleteArgs<ExtArgs>>(
+      args: SelectSubset<T, ShopDeleteArgs<ExtArgs>>
+    ): Prisma__ShopClient<$Result.GetResult<Prisma.$ShopPayload<ExtArgs>, T, 'delete'>, never, ExtArgs>
+
+    /**
+     * Update one Shop.
+     * @param {ShopUpdateArgs} args - Arguments to update one Shop.
+     * @example
+     * // Update one Shop
+     * const shop = await prisma.shop.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    update<T extends ShopUpdateArgs<ExtArgs>>(
+      args: SelectSubset<T, ShopUpdateArgs<ExtArgs>>
+    ): Prisma__ShopClient<$Result.GetResult<Prisma.$ShopPayload<ExtArgs>, T, 'update'>, never, ExtArgs>
+
+    /**
+     * Delete zero or more Shops.
+     * @param {ShopDeleteManyArgs} args - Arguments to filter Shops to delete.
+     * @example
+     * // Delete a few Shops
+     * const { count } = await prisma.shop.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+    **/
+    deleteMany<T extends ShopDeleteManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, ShopDeleteManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Shops.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ShopUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Shops
+     * const shop = await prisma.shop.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    updateMany<T extends ShopUpdateManyArgs<ExtArgs>>(
+      args: SelectSubset<T, ShopUpdateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Shop.
+     * @param {ShopUpsertArgs} args - Arguments to update or create a Shop.
+     * @example
+     * // Update or create a Shop
+     * const shop = await prisma.shop.upsert({
+     *   create: {
+     *     // ... data to create a Shop
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Shop we want to update
+     *   }
+     * })
+    **/
+    upsert<T extends ShopUpsertArgs<ExtArgs>>(
+      args: SelectSubset<T, ShopUpsertArgs<ExtArgs>>
+    ): Prisma__ShopClient<$Result.GetResult<Prisma.$ShopPayload<ExtArgs>, T, 'upsert'>, never, ExtArgs>
+
+    /**
+     * Count the number of Shops.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ShopCountArgs} args - Arguments to filter Shops to count.
+     * @example
+     * // Count the number of Shops
+     * const count = await prisma.shop.count({
+     *   where: {
+     *     // ... the filter for the Shops we want to count
+     *   }
+     * })
+    **/
+    count<T extends ShopCountArgs>(
+      args?: Subset<T, ShopCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ShopCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Shop.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ShopAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ShopAggregateArgs>(args: Subset<T, ShopAggregateArgs>): Prisma.PrismaPromise<GetShopAggregateType<T>>
+
+    /**
+     * Group by Shop.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ShopGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ShopGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ShopGroupByArgs['orderBy'] }
+        : { orderBy?: ShopGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ShopGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetShopGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Shop model
+   */
+  readonly fields: ShopFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Shop.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ShopClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: 'PrismaPromise';
+
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, 'findUniqueOrThrow'> | Null, Null, ExtArgs>;
+
+    ads<T extends Shop$adsArgs<ExtArgs> = {}>(args?: Subset<T, Shop$adsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AdPayload<ExtArgs>, T, 'findMany'> | Null>;
+
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>;
+  }
+
+
+
+  /**
+   * Fields of the Shop model
+   */ 
+  interface ShopFieldRefs {
+    readonly id: FieldRef<"Shop", 'Int'>
+    readonly userId: FieldRef<"Shop", 'Int'>
+    readonly shopName: FieldRef<"Shop", 'String'>
+    readonly location: FieldRef<"Shop", 'String'>
+    readonly bgImage: FieldRef<"Shop", 'String'>
+    readonly shopImage: FieldRef<"Shop", 'String'>
+    readonly description: FieldRef<"Shop", 'String'>
+  }
+    
+
+  // Custom InputTypes
+
+  /**
+   * Shop findUnique
+   */
+  export type ShopFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Shop
+     */
+    select?: ShopSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ShopInclude<ExtArgs> | null
+    /**
+     * Filter, which Shop to fetch.
+     */
+    where: ShopWhereUniqueInput
+  }
+
+
+  /**
+   * Shop findUniqueOrThrow
+   */
+  export type ShopFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Shop
+     */
+    select?: ShopSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ShopInclude<ExtArgs> | null
+    /**
+     * Filter, which Shop to fetch.
+     */
+    where: ShopWhereUniqueInput
+  }
+
+
+  /**
+   * Shop findFirst
+   */
+  export type ShopFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Shop
+     */
+    select?: ShopSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ShopInclude<ExtArgs> | null
+    /**
+     * Filter, which Shop to fetch.
+     */
+    where?: ShopWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Shops to fetch.
+     */
+    orderBy?: ShopOrderByWithRelationInput | ShopOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Shops.
+     */
+    cursor?: ShopWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Shops from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Shops.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Shops.
+     */
+    distinct?: ShopScalarFieldEnum | ShopScalarFieldEnum[]
+  }
+
+
+  /**
+   * Shop findFirstOrThrow
+   */
+  export type ShopFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Shop
+     */
+    select?: ShopSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ShopInclude<ExtArgs> | null
+    /**
+     * Filter, which Shop to fetch.
+     */
+    where?: ShopWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Shops to fetch.
+     */
+    orderBy?: ShopOrderByWithRelationInput | ShopOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Shops.
+     */
+    cursor?: ShopWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Shops from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Shops.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Shops.
+     */
+    distinct?: ShopScalarFieldEnum | ShopScalarFieldEnum[]
+  }
+
+
+  /**
+   * Shop findMany
+   */
+  export type ShopFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Shop
+     */
+    select?: ShopSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ShopInclude<ExtArgs> | null
+    /**
+     * Filter, which Shops to fetch.
+     */
+    where?: ShopWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Shops to fetch.
+     */
+    orderBy?: ShopOrderByWithRelationInput | ShopOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Shops.
+     */
+    cursor?: ShopWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Shops from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Shops.
+     */
+    skip?: number
+    distinct?: ShopScalarFieldEnum | ShopScalarFieldEnum[]
+  }
+
+
+  /**
+   * Shop create
+   */
+  export type ShopCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Shop
+     */
+    select?: ShopSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ShopInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Shop.
+     */
+    data: XOR<ShopCreateInput, ShopUncheckedCreateInput>
+  }
+
+
+  /**
+   * Shop update
+   */
+  export type ShopUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Shop
+     */
+    select?: ShopSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ShopInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Shop.
+     */
+    data: XOR<ShopUpdateInput, ShopUncheckedUpdateInput>
+    /**
+     * Choose, which Shop to update.
+     */
+    where: ShopWhereUniqueInput
+  }
+
+
+  /**
+   * Shop updateMany
+   */
+  export type ShopUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Shops.
+     */
+    data: XOR<ShopUpdateManyMutationInput, ShopUncheckedUpdateManyInput>
+    /**
+     * Filter which Shops to update
+     */
+    where?: ShopWhereInput
+  }
+
+
+  /**
+   * Shop upsert
+   */
+  export type ShopUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Shop
+     */
+    select?: ShopSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ShopInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Shop to update in case it exists.
+     */
+    where: ShopWhereUniqueInput
+    /**
+     * In case the Shop found by the `where` argument doesn't exist, create a new Shop with this data.
+     */
+    create: XOR<ShopCreateInput, ShopUncheckedCreateInput>
+    /**
+     * In case the Shop was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ShopUpdateInput, ShopUncheckedUpdateInput>
+  }
+
+
+  /**
+   * Shop delete
+   */
+  export type ShopDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Shop
+     */
+    select?: ShopSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ShopInclude<ExtArgs> | null
+    /**
+     * Filter which Shop to delete.
+     */
+    where: ShopWhereUniqueInput
+  }
+
+
+  /**
+   * Shop deleteMany
+   */
+  export type ShopDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Shops to delete
+     */
+    where?: ShopWhereInput
+  }
+
+
+  /**
+   * Shop.ads
+   */
+  export type Shop$adsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Ad
+     */
+    select?: AdSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AdInclude<ExtArgs> | null
+    where?: AdWhereInput
+    orderBy?: AdOrderByWithRelationInput | AdOrderByWithRelationInput[]
+    cursor?: AdWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AdScalarFieldEnum | AdScalarFieldEnum[]
+  }
+
+
+  /**
+   * Shop without action
+   */
+  export type ShopDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Shop
+     */
+    select?: ShopSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ShopInclude<ExtArgs> | null
   }
 
 
@@ -3262,16 +4497,23 @@ export namespace Prisma {
   export type AdAvgAggregateOutputType = {
     id: number | null
     userId: number | null
+    shopId: number | null
+    views: number | null
+    clicks: number | null
   }
 
   export type AdSumAggregateOutputType = {
     id: number | null
     userId: number | null
+    shopId: number | null
+    views: number | null
+    clicks: number | null
   }
 
   export type AdMinAggregateOutputType = {
     id: number | null
     userId: number | null
+    shopId: number | null
     createdAt: Date | null
     description: string | null
     brand: string | null
@@ -3291,11 +4533,15 @@ export namespace Prisma {
     RegionalSpecifications: string | null
     location: string | null
     extraFeatures: string | null
+    adStatus: string | null
+    views: number | null
+    clicks: number | null
   }
 
   export type AdMaxAggregateOutputType = {
     id: number | null
     userId: number | null
+    shopId: number | null
     createdAt: Date | null
     description: string | null
     brand: string | null
@@ -3315,11 +4561,15 @@ export namespace Prisma {
     RegionalSpecifications: string | null
     location: string | null
     extraFeatures: string | null
+    adStatus: string | null
+    views: number | null
+    clicks: number | null
   }
 
   export type AdCountAggregateOutputType = {
     id: number
     userId: number
+    shopId: number
     createdAt: number
     description: number
     brand: number
@@ -3339,6 +4589,9 @@ export namespace Prisma {
     RegionalSpecifications: number
     location: number
     extraFeatures: number
+    adStatus: number
+    views: number
+    clicks: number
     _all: number
   }
 
@@ -3346,16 +4599,23 @@ export namespace Prisma {
   export type AdAvgAggregateInputType = {
     id?: true
     userId?: true
+    shopId?: true
+    views?: true
+    clicks?: true
   }
 
   export type AdSumAggregateInputType = {
     id?: true
     userId?: true
+    shopId?: true
+    views?: true
+    clicks?: true
   }
 
   export type AdMinAggregateInputType = {
     id?: true
     userId?: true
+    shopId?: true
     createdAt?: true
     description?: true
     brand?: true
@@ -3375,11 +4635,15 @@ export namespace Prisma {
     RegionalSpecifications?: true
     location?: true
     extraFeatures?: true
+    adStatus?: true
+    views?: true
+    clicks?: true
   }
 
   export type AdMaxAggregateInputType = {
     id?: true
     userId?: true
+    shopId?: true
     createdAt?: true
     description?: true
     brand?: true
@@ -3399,11 +4663,15 @@ export namespace Prisma {
     RegionalSpecifications?: true
     location?: true
     extraFeatures?: true
+    adStatus?: true
+    views?: true
+    clicks?: true
   }
 
   export type AdCountAggregateInputType = {
     id?: true
     userId?: true
+    shopId?: true
     createdAt?: true
     description?: true
     brand?: true
@@ -3423,6 +4691,9 @@ export namespace Prisma {
     RegionalSpecifications?: true
     location?: true
     extraFeatures?: true
+    adStatus?: true
+    views?: true
+    clicks?: true
     _all?: true
   }
 
@@ -3515,6 +4786,7 @@ export namespace Prisma {
   export type AdGroupByOutputType = {
     id: number
     userId: number | null
+    shopId: number | null
     createdAt: Date
     description: string | null
     brand: string
@@ -3534,6 +4806,9 @@ export namespace Prisma {
     RegionalSpecifications: string
     location: string
     extraFeatures: string | null
+    adStatus: string
+    views: number
+    clicks: number
     _count: AdCountAggregateOutputType | null
     _avg: AdAvgAggregateOutputType | null
     _sum: AdSumAggregateOutputType | null
@@ -3558,6 +4833,7 @@ export namespace Prisma {
   export type AdSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     userId?: boolean
+    shopId?: boolean
     createdAt?: boolean
     description?: boolean
     brand?: boolean
@@ -3577,14 +4853,20 @@ export namespace Prisma {
     RegionalSpecifications?: boolean
     location?: boolean
     extraFeatures?: boolean
+    adStatus?: boolean
+    views?: boolean
+    clicks?: boolean
     user?: boolean | Ad$userArgs<ExtArgs>
+    shop?: boolean | Ad$shopArgs<ExtArgs>
     Adimages?: boolean | Ad$AdimagesArgs<ExtArgs>
+    favoritedBy?: boolean | Ad$favoritedByArgs<ExtArgs>
     _count?: boolean | AdCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["ad"]>
 
   export type AdSelectScalar = {
     id?: boolean
     userId?: boolean
+    shopId?: boolean
     createdAt?: boolean
     description?: boolean
     brand?: boolean
@@ -3604,11 +4886,16 @@ export namespace Prisma {
     RegionalSpecifications?: boolean
     location?: boolean
     extraFeatures?: boolean
+    adStatus?: boolean
+    views?: boolean
+    clicks?: boolean
   }
 
   export type AdInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | Ad$userArgs<ExtArgs>
+    shop?: boolean | Ad$shopArgs<ExtArgs>
     Adimages?: boolean | Ad$AdimagesArgs<ExtArgs>
+    favoritedBy?: boolean | Ad$favoritedByArgs<ExtArgs>
     _count?: boolean | AdCountOutputTypeDefaultArgs<ExtArgs>
   }
 
@@ -3617,11 +4904,14 @@ export namespace Prisma {
     name: "Ad"
     objects: {
       user: Prisma.$UserPayload<ExtArgs> | null
+      shop: Prisma.$ShopPayload<ExtArgs> | null
       Adimages: Prisma.$ImagePayload<ExtArgs>[]
+      favoritedBy: Prisma.$FavoriteAdPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
       userId: number | null
+      shopId: number | null
       createdAt: Date
       description: string | null
       brand: string
@@ -3641,6 +4931,9 @@ export namespace Prisma {
       RegionalSpecifications: string
       location: string
       extraFeatures: string | null
+      adStatus: string
+      views: number
+      clicks: number
     }, ExtArgs["result"]["ad"]>
     composites: {}
   }
@@ -3992,7 +5285,11 @@ export namespace Prisma {
 
     user<T extends Ad$userArgs<ExtArgs> = {}>(args?: Subset<T, Ad$userArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, 'findUniqueOrThrow'> | null, null, ExtArgs>;
 
+    shop<T extends Ad$shopArgs<ExtArgs> = {}>(args?: Subset<T, Ad$shopArgs<ExtArgs>>): Prisma__ShopClient<$Result.GetResult<Prisma.$ShopPayload<ExtArgs>, T, 'findUniqueOrThrow'> | null, null, ExtArgs>;
+
     Adimages<T extends Ad$AdimagesArgs<ExtArgs> = {}>(args?: Subset<T, Ad$AdimagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ImagePayload<ExtArgs>, T, 'findMany'> | Null>;
+
+    favoritedBy<T extends Ad$favoritedByArgs<ExtArgs> = {}>(args?: Subset<T, Ad$favoritedByArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FavoriteAdPayload<ExtArgs>, T, 'findMany'> | Null>;
 
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -4024,6 +5321,7 @@ export namespace Prisma {
   interface AdFieldRefs {
     readonly id: FieldRef<"Ad", 'Int'>
     readonly userId: FieldRef<"Ad", 'Int'>
+    readonly shopId: FieldRef<"Ad", 'Int'>
     readonly createdAt: FieldRef<"Ad", 'DateTime'>
     readonly description: FieldRef<"Ad", 'String'>
     readonly brand: FieldRef<"Ad", 'String'>
@@ -4043,6 +5341,9 @@ export namespace Prisma {
     readonly RegionalSpecifications: FieldRef<"Ad", 'String'>
     readonly location: FieldRef<"Ad", 'String'>
     readonly extraFeatures: FieldRef<"Ad", 'String'>
+    readonly adStatus: FieldRef<"Ad", 'String'>
+    readonly views: FieldRef<"Ad", 'Int'>
+    readonly clicks: FieldRef<"Ad", 'Int'>
   }
     
 
@@ -4359,6 +5660,22 @@ export namespace Prisma {
 
 
   /**
+   * Ad.shop
+   */
+  export type Ad$shopArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Shop
+     */
+    select?: ShopSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ShopInclude<ExtArgs> | null
+    where?: ShopWhereInput
+  }
+
+
+  /**
    * Ad.Adimages
    */
   export type Ad$AdimagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4380,6 +5697,27 @@ export namespace Prisma {
 
 
   /**
+   * Ad.favoritedBy
+   */
+  export type Ad$favoritedByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FavoriteAd
+     */
+    select?: FavoriteAdSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: FavoriteAdInclude<ExtArgs> | null
+    where?: FavoriteAdWhereInput
+    orderBy?: FavoriteAdOrderByWithRelationInput | FavoriteAdOrderByWithRelationInput[]
+    cursor?: FavoriteAdWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: FavoriteAdScalarFieldEnum | FavoriteAdScalarFieldEnum[]
+  }
+
+
+  /**
    * Ad without action
    */
   export type AdDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4391,6 +5729,932 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well.
      */
     include?: AdInclude<ExtArgs> | null
+  }
+
+
+
+  /**
+   * Model FavoriteAd
+   */
+
+  export type AggregateFavoriteAd = {
+    _count: FavoriteAdCountAggregateOutputType | null
+    _avg: FavoriteAdAvgAggregateOutputType | null
+    _sum: FavoriteAdSumAggregateOutputType | null
+    _min: FavoriteAdMinAggregateOutputType | null
+    _max: FavoriteAdMaxAggregateOutputType | null
+  }
+
+  export type FavoriteAdAvgAggregateOutputType = {
+    id: number | null
+    userId: number | null
+    adId: number | null
+  }
+
+  export type FavoriteAdSumAggregateOutputType = {
+    id: number | null
+    userId: number | null
+    adId: number | null
+  }
+
+  export type FavoriteAdMinAggregateOutputType = {
+    id: number | null
+    userId: number | null
+    adId: number | null
+    createdAt: Date | null
+  }
+
+  export type FavoriteAdMaxAggregateOutputType = {
+    id: number | null
+    userId: number | null
+    adId: number | null
+    createdAt: Date | null
+  }
+
+  export type FavoriteAdCountAggregateOutputType = {
+    id: number
+    userId: number
+    adId: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type FavoriteAdAvgAggregateInputType = {
+    id?: true
+    userId?: true
+    adId?: true
+  }
+
+  export type FavoriteAdSumAggregateInputType = {
+    id?: true
+    userId?: true
+    adId?: true
+  }
+
+  export type FavoriteAdMinAggregateInputType = {
+    id?: true
+    userId?: true
+    adId?: true
+    createdAt?: true
+  }
+
+  export type FavoriteAdMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    adId?: true
+    createdAt?: true
+  }
+
+  export type FavoriteAdCountAggregateInputType = {
+    id?: true
+    userId?: true
+    adId?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type FavoriteAdAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which FavoriteAd to aggregate.
+     */
+    where?: FavoriteAdWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of FavoriteAds to fetch.
+     */
+    orderBy?: FavoriteAdOrderByWithRelationInput | FavoriteAdOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: FavoriteAdWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` FavoriteAds from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` FavoriteAds.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned FavoriteAds
+    **/
+    _count?: true | FavoriteAdCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: FavoriteAdAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: FavoriteAdSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: FavoriteAdMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: FavoriteAdMaxAggregateInputType
+  }
+
+  export type GetFavoriteAdAggregateType<T extends FavoriteAdAggregateArgs> = {
+        [P in keyof T & keyof AggregateFavoriteAd]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateFavoriteAd[P]>
+      : GetScalarType<T[P], AggregateFavoriteAd[P]>
+  }
+
+
+
+
+  export type FavoriteAdGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: FavoriteAdWhereInput
+    orderBy?: FavoriteAdOrderByWithAggregationInput | FavoriteAdOrderByWithAggregationInput[]
+    by: FavoriteAdScalarFieldEnum[] | FavoriteAdScalarFieldEnum
+    having?: FavoriteAdScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: FavoriteAdCountAggregateInputType | true
+    _avg?: FavoriteAdAvgAggregateInputType
+    _sum?: FavoriteAdSumAggregateInputType
+    _min?: FavoriteAdMinAggregateInputType
+    _max?: FavoriteAdMaxAggregateInputType
+  }
+
+  export type FavoriteAdGroupByOutputType = {
+    id: number
+    userId: number
+    adId: number
+    createdAt: Date
+    _count: FavoriteAdCountAggregateOutputType | null
+    _avg: FavoriteAdAvgAggregateOutputType | null
+    _sum: FavoriteAdSumAggregateOutputType | null
+    _min: FavoriteAdMinAggregateOutputType | null
+    _max: FavoriteAdMaxAggregateOutputType | null
+  }
+
+  type GetFavoriteAdGroupByPayload<T extends FavoriteAdGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<FavoriteAdGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof FavoriteAdGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], FavoriteAdGroupByOutputType[P]>
+            : GetScalarType<T[P], FavoriteAdGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type FavoriteAdSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    adId?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    ad?: boolean | AdDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["favoriteAd"]>
+
+  export type FavoriteAdSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    adId?: boolean
+    createdAt?: boolean
+  }
+
+  export type FavoriteAdInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    ad?: boolean | AdDefaultArgs<ExtArgs>
+  }
+
+
+  export type $FavoriteAdPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "FavoriteAd"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+      ad: Prisma.$AdPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      userId: number
+      adId: number
+      createdAt: Date
+    }, ExtArgs["result"]["favoriteAd"]>
+    composites: {}
+  }
+
+
+  type FavoriteAdGetPayload<S extends boolean | null | undefined | FavoriteAdDefaultArgs> = $Result.GetResult<Prisma.$FavoriteAdPayload, S>
+
+  type FavoriteAdCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<FavoriteAdFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: FavoriteAdCountAggregateInputType | true
+    }
+
+  export interface FavoriteAdDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['FavoriteAd'], meta: { name: 'FavoriteAd' } }
+    /**
+     * Find zero or one FavoriteAd that matches the filter.
+     * @param {FavoriteAdFindUniqueArgs} args - Arguments to find a FavoriteAd
+     * @example
+     * // Get one FavoriteAd
+     * const favoriteAd = await prisma.favoriteAd.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUnique<T extends FavoriteAdFindUniqueArgs<ExtArgs>>(
+      args: SelectSubset<T, FavoriteAdFindUniqueArgs<ExtArgs>>
+    ): Prisma__FavoriteAdClient<$Result.GetResult<Prisma.$FavoriteAdPayload<ExtArgs>, T, 'findUnique'> | null, null, ExtArgs>
+
+    /**
+     * Find one FavoriteAd that matches the filter or throw an error  with `error.code='P2025'` 
+     *     if no matches were found.
+     * @param {FavoriteAdFindUniqueOrThrowArgs} args - Arguments to find a FavoriteAd
+     * @example
+     * // Get one FavoriteAd
+     * const favoriteAd = await prisma.favoriteAd.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUniqueOrThrow<T extends FavoriteAdFindUniqueOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, FavoriteAdFindUniqueOrThrowArgs<ExtArgs>>
+    ): Prisma__FavoriteAdClient<$Result.GetResult<Prisma.$FavoriteAdPayload<ExtArgs>, T, 'findUniqueOrThrow'>, never, ExtArgs>
+
+    /**
+     * Find the first FavoriteAd that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FavoriteAdFindFirstArgs} args - Arguments to find a FavoriteAd
+     * @example
+     * // Get one FavoriteAd
+     * const favoriteAd = await prisma.favoriteAd.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirst<T extends FavoriteAdFindFirstArgs<ExtArgs>>(
+      args?: SelectSubset<T, FavoriteAdFindFirstArgs<ExtArgs>>
+    ): Prisma__FavoriteAdClient<$Result.GetResult<Prisma.$FavoriteAdPayload<ExtArgs>, T, 'findFirst'> | null, null, ExtArgs>
+
+    /**
+     * Find the first FavoriteAd that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FavoriteAdFindFirstOrThrowArgs} args - Arguments to find a FavoriteAd
+     * @example
+     * // Get one FavoriteAd
+     * const favoriteAd = await prisma.favoriteAd.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirstOrThrow<T extends FavoriteAdFindFirstOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, FavoriteAdFindFirstOrThrowArgs<ExtArgs>>
+    ): Prisma__FavoriteAdClient<$Result.GetResult<Prisma.$FavoriteAdPayload<ExtArgs>, T, 'findFirstOrThrow'>, never, ExtArgs>
+
+    /**
+     * Find zero or more FavoriteAds that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FavoriteAdFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all FavoriteAds
+     * const favoriteAds = await prisma.favoriteAd.findMany()
+     * 
+     * // Get first 10 FavoriteAds
+     * const favoriteAds = await prisma.favoriteAd.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const favoriteAdWithIdOnly = await prisma.favoriteAd.findMany({ select: { id: true } })
+     * 
+    **/
+    findMany<T extends FavoriteAdFindManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, FavoriteAdFindManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FavoriteAdPayload<ExtArgs>, T, 'findMany'>>
+
+    /**
+     * Create a FavoriteAd.
+     * @param {FavoriteAdCreateArgs} args - Arguments to create a FavoriteAd.
+     * @example
+     * // Create one FavoriteAd
+     * const FavoriteAd = await prisma.favoriteAd.create({
+     *   data: {
+     *     // ... data to create a FavoriteAd
+     *   }
+     * })
+     * 
+    **/
+    create<T extends FavoriteAdCreateArgs<ExtArgs>>(
+      args: SelectSubset<T, FavoriteAdCreateArgs<ExtArgs>>
+    ): Prisma__FavoriteAdClient<$Result.GetResult<Prisma.$FavoriteAdPayload<ExtArgs>, T, 'create'>, never, ExtArgs>
+
+    /**
+     * Delete a FavoriteAd.
+     * @param {FavoriteAdDeleteArgs} args - Arguments to delete one FavoriteAd.
+     * @example
+     * // Delete one FavoriteAd
+     * const FavoriteAd = await prisma.favoriteAd.delete({
+     *   where: {
+     *     // ... filter to delete one FavoriteAd
+     *   }
+     * })
+     * 
+    **/
+    delete<T extends FavoriteAdDeleteArgs<ExtArgs>>(
+      args: SelectSubset<T, FavoriteAdDeleteArgs<ExtArgs>>
+    ): Prisma__FavoriteAdClient<$Result.GetResult<Prisma.$FavoriteAdPayload<ExtArgs>, T, 'delete'>, never, ExtArgs>
+
+    /**
+     * Update one FavoriteAd.
+     * @param {FavoriteAdUpdateArgs} args - Arguments to update one FavoriteAd.
+     * @example
+     * // Update one FavoriteAd
+     * const favoriteAd = await prisma.favoriteAd.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    update<T extends FavoriteAdUpdateArgs<ExtArgs>>(
+      args: SelectSubset<T, FavoriteAdUpdateArgs<ExtArgs>>
+    ): Prisma__FavoriteAdClient<$Result.GetResult<Prisma.$FavoriteAdPayload<ExtArgs>, T, 'update'>, never, ExtArgs>
+
+    /**
+     * Delete zero or more FavoriteAds.
+     * @param {FavoriteAdDeleteManyArgs} args - Arguments to filter FavoriteAds to delete.
+     * @example
+     * // Delete a few FavoriteAds
+     * const { count } = await prisma.favoriteAd.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+    **/
+    deleteMany<T extends FavoriteAdDeleteManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, FavoriteAdDeleteManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more FavoriteAds.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FavoriteAdUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many FavoriteAds
+     * const favoriteAd = await prisma.favoriteAd.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    updateMany<T extends FavoriteAdUpdateManyArgs<ExtArgs>>(
+      args: SelectSubset<T, FavoriteAdUpdateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one FavoriteAd.
+     * @param {FavoriteAdUpsertArgs} args - Arguments to update or create a FavoriteAd.
+     * @example
+     * // Update or create a FavoriteAd
+     * const favoriteAd = await prisma.favoriteAd.upsert({
+     *   create: {
+     *     // ... data to create a FavoriteAd
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the FavoriteAd we want to update
+     *   }
+     * })
+    **/
+    upsert<T extends FavoriteAdUpsertArgs<ExtArgs>>(
+      args: SelectSubset<T, FavoriteAdUpsertArgs<ExtArgs>>
+    ): Prisma__FavoriteAdClient<$Result.GetResult<Prisma.$FavoriteAdPayload<ExtArgs>, T, 'upsert'>, never, ExtArgs>
+
+    /**
+     * Count the number of FavoriteAds.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FavoriteAdCountArgs} args - Arguments to filter FavoriteAds to count.
+     * @example
+     * // Count the number of FavoriteAds
+     * const count = await prisma.favoriteAd.count({
+     *   where: {
+     *     // ... the filter for the FavoriteAds we want to count
+     *   }
+     * })
+    **/
+    count<T extends FavoriteAdCountArgs>(
+      args?: Subset<T, FavoriteAdCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], FavoriteAdCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a FavoriteAd.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FavoriteAdAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends FavoriteAdAggregateArgs>(args: Subset<T, FavoriteAdAggregateArgs>): Prisma.PrismaPromise<GetFavoriteAdAggregateType<T>>
+
+    /**
+     * Group by FavoriteAd.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FavoriteAdGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends FavoriteAdGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: FavoriteAdGroupByArgs['orderBy'] }
+        : { orderBy?: FavoriteAdGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, FavoriteAdGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetFavoriteAdGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the FavoriteAd model
+   */
+  readonly fields: FavoriteAdFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for FavoriteAd.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__FavoriteAdClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: 'PrismaPromise';
+
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, 'findUniqueOrThrow'> | Null, Null, ExtArgs>;
+
+    ad<T extends AdDefaultArgs<ExtArgs> = {}>(args?: Subset<T, AdDefaultArgs<ExtArgs>>): Prisma__AdClient<$Result.GetResult<Prisma.$AdPayload<ExtArgs>, T, 'findUniqueOrThrow'> | Null, Null, ExtArgs>;
+
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>;
+  }
+
+
+
+  /**
+   * Fields of the FavoriteAd model
+   */ 
+  interface FavoriteAdFieldRefs {
+    readonly id: FieldRef<"FavoriteAd", 'Int'>
+    readonly userId: FieldRef<"FavoriteAd", 'Int'>
+    readonly adId: FieldRef<"FavoriteAd", 'Int'>
+    readonly createdAt: FieldRef<"FavoriteAd", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+
+  /**
+   * FavoriteAd findUnique
+   */
+  export type FavoriteAdFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FavoriteAd
+     */
+    select?: FavoriteAdSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: FavoriteAdInclude<ExtArgs> | null
+    /**
+     * Filter, which FavoriteAd to fetch.
+     */
+    where: FavoriteAdWhereUniqueInput
+  }
+
+
+  /**
+   * FavoriteAd findUniqueOrThrow
+   */
+  export type FavoriteAdFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FavoriteAd
+     */
+    select?: FavoriteAdSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: FavoriteAdInclude<ExtArgs> | null
+    /**
+     * Filter, which FavoriteAd to fetch.
+     */
+    where: FavoriteAdWhereUniqueInput
+  }
+
+
+  /**
+   * FavoriteAd findFirst
+   */
+  export type FavoriteAdFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FavoriteAd
+     */
+    select?: FavoriteAdSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: FavoriteAdInclude<ExtArgs> | null
+    /**
+     * Filter, which FavoriteAd to fetch.
+     */
+    where?: FavoriteAdWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of FavoriteAds to fetch.
+     */
+    orderBy?: FavoriteAdOrderByWithRelationInput | FavoriteAdOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for FavoriteAds.
+     */
+    cursor?: FavoriteAdWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` FavoriteAds from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` FavoriteAds.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of FavoriteAds.
+     */
+    distinct?: FavoriteAdScalarFieldEnum | FavoriteAdScalarFieldEnum[]
+  }
+
+
+  /**
+   * FavoriteAd findFirstOrThrow
+   */
+  export type FavoriteAdFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FavoriteAd
+     */
+    select?: FavoriteAdSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: FavoriteAdInclude<ExtArgs> | null
+    /**
+     * Filter, which FavoriteAd to fetch.
+     */
+    where?: FavoriteAdWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of FavoriteAds to fetch.
+     */
+    orderBy?: FavoriteAdOrderByWithRelationInput | FavoriteAdOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for FavoriteAds.
+     */
+    cursor?: FavoriteAdWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` FavoriteAds from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` FavoriteAds.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of FavoriteAds.
+     */
+    distinct?: FavoriteAdScalarFieldEnum | FavoriteAdScalarFieldEnum[]
+  }
+
+
+  /**
+   * FavoriteAd findMany
+   */
+  export type FavoriteAdFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FavoriteAd
+     */
+    select?: FavoriteAdSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: FavoriteAdInclude<ExtArgs> | null
+    /**
+     * Filter, which FavoriteAds to fetch.
+     */
+    where?: FavoriteAdWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of FavoriteAds to fetch.
+     */
+    orderBy?: FavoriteAdOrderByWithRelationInput | FavoriteAdOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing FavoriteAds.
+     */
+    cursor?: FavoriteAdWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` FavoriteAds from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` FavoriteAds.
+     */
+    skip?: number
+    distinct?: FavoriteAdScalarFieldEnum | FavoriteAdScalarFieldEnum[]
+  }
+
+
+  /**
+   * FavoriteAd create
+   */
+  export type FavoriteAdCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FavoriteAd
+     */
+    select?: FavoriteAdSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: FavoriteAdInclude<ExtArgs> | null
+    /**
+     * The data needed to create a FavoriteAd.
+     */
+    data: XOR<FavoriteAdCreateInput, FavoriteAdUncheckedCreateInput>
+  }
+
+
+  /**
+   * FavoriteAd update
+   */
+  export type FavoriteAdUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FavoriteAd
+     */
+    select?: FavoriteAdSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: FavoriteAdInclude<ExtArgs> | null
+    /**
+     * The data needed to update a FavoriteAd.
+     */
+    data: XOR<FavoriteAdUpdateInput, FavoriteAdUncheckedUpdateInput>
+    /**
+     * Choose, which FavoriteAd to update.
+     */
+    where: FavoriteAdWhereUniqueInput
+  }
+
+
+  /**
+   * FavoriteAd updateMany
+   */
+  export type FavoriteAdUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update FavoriteAds.
+     */
+    data: XOR<FavoriteAdUpdateManyMutationInput, FavoriteAdUncheckedUpdateManyInput>
+    /**
+     * Filter which FavoriteAds to update
+     */
+    where?: FavoriteAdWhereInput
+  }
+
+
+  /**
+   * FavoriteAd upsert
+   */
+  export type FavoriteAdUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FavoriteAd
+     */
+    select?: FavoriteAdSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: FavoriteAdInclude<ExtArgs> | null
+    /**
+     * The filter to search for the FavoriteAd to update in case it exists.
+     */
+    where: FavoriteAdWhereUniqueInput
+    /**
+     * In case the FavoriteAd found by the `where` argument doesn't exist, create a new FavoriteAd with this data.
+     */
+    create: XOR<FavoriteAdCreateInput, FavoriteAdUncheckedCreateInput>
+    /**
+     * In case the FavoriteAd was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<FavoriteAdUpdateInput, FavoriteAdUncheckedUpdateInput>
+  }
+
+
+  /**
+   * FavoriteAd delete
+   */
+  export type FavoriteAdDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FavoriteAd
+     */
+    select?: FavoriteAdSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: FavoriteAdInclude<ExtArgs> | null
+    /**
+     * Filter which FavoriteAd to delete.
+     */
+    where: FavoriteAdWhereUniqueInput
+  }
+
+
+  /**
+   * FavoriteAd deleteMany
+   */
+  export type FavoriteAdDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which FavoriteAds to delete
+     */
+    where?: FavoriteAdWhereInput
+  }
+
+
+  /**
+   * FavoriteAd without action
+   */
+  export type FavoriteAdDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FavoriteAd
+     */
+    select?: FavoriteAdSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: FavoriteAdInclude<ExtArgs> | null
   }
 
 
@@ -6312,6 +8576,19 @@ export namespace Prisma {
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
 
 
+  export const ShopScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    shopName: 'shopName',
+    location: 'location',
+    bgImage: 'bgImage',
+    shopImage: 'shopImage',
+    description: 'description'
+  };
+
+  export type ShopScalarFieldEnum = (typeof ShopScalarFieldEnum)[keyof typeof ShopScalarFieldEnum]
+
+
   export const ImageScalarFieldEnum: {
     id: 'id',
     url: 'url',
@@ -6324,6 +8601,7 @@ export namespace Prisma {
   export const AdScalarFieldEnum: {
     id: 'id',
     userId: 'userId',
+    shopId: 'shopId',
     createdAt: 'createdAt',
     description: 'description',
     brand: 'brand',
@@ -6342,10 +8620,23 @@ export namespace Prisma {
     name: 'name',
     RegionalSpecifications: 'RegionalSpecifications',
     location: 'location',
-    extraFeatures: 'extraFeatures'
+    extraFeatures: 'extraFeatures',
+    adStatus: 'adStatus',
+    views: 'views',
+    clicks: 'clicks'
   };
 
   export type AdScalarFieldEnum = (typeof AdScalarFieldEnum)[keyof typeof AdScalarFieldEnum]
+
+
+  export const FavoriteAdScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    adId: 'adId',
+    createdAt: 'createdAt'
+  };
+
+  export type FavoriteAdScalarFieldEnum = (typeof FavoriteAdScalarFieldEnum)[keyof typeof FavoriteAdScalarFieldEnum]
 
 
   export const ChatScalarFieldEnum: {
@@ -6433,6 +8724,8 @@ export namespace Prisma {
     chats?: ChatListRelationFilter
     messagesSent?: MessageListRelationFilter
     messagesReceived?: MessageListRelationFilter
+    favoriteAds?: FavoriteAdListRelationFilter
+    shop?: XOR<ShopNullableRelationFilter, ShopWhereInput> | null
   }
 
   export type UserOrderByWithRelationInput = {
@@ -6446,6 +8739,8 @@ export namespace Prisma {
     chats?: ChatOrderByRelationAggregateInput
     messagesSent?: MessageOrderByRelationAggregateInput
     messagesReceived?: MessageOrderByRelationAggregateInput
+    favoriteAds?: FavoriteAdOrderByRelationAggregateInput
+    shop?: ShopOrderByWithRelationInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -6462,6 +8757,8 @@ export namespace Prisma {
     chats?: ChatListRelationFilter
     messagesSent?: MessageListRelationFilter
     messagesReceived?: MessageListRelationFilter
+    favoriteAds?: FavoriteAdListRelationFilter
+    shop?: XOR<ShopNullableRelationFilter, ShopWhereInput> | null
   }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -6488,6 +8785,76 @@ export namespace Prisma {
     username?: StringNullableWithAggregatesFilter<"User"> | string | null
     image?: StringNullableWithAggregatesFilter<"User"> | string | null
     email?: StringWithAggregatesFilter<"User"> | string
+  }
+
+  export type ShopWhereInput = {
+    AND?: ShopWhereInput | ShopWhereInput[]
+    OR?: ShopWhereInput[]
+    NOT?: ShopWhereInput | ShopWhereInput[]
+    id?: IntFilter<"Shop"> | number
+    userId?: IntFilter<"Shop"> | number
+    shopName?: StringFilter<"Shop"> | string
+    location?: StringFilter<"Shop"> | string
+    bgImage?: StringNullableFilter<"Shop"> | string | null
+    shopImage?: StringNullableFilter<"Shop"> | string | null
+    description?: StringNullableFilter<"Shop"> | string | null
+    user?: XOR<UserRelationFilter, UserWhereInput>
+    ads?: AdListRelationFilter
+  }
+
+  export type ShopOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    shopName?: SortOrder
+    location?: SortOrder
+    bgImage?: SortOrderInput | SortOrder
+    shopImage?: SortOrderInput | SortOrder
+    description?: SortOrderInput | SortOrder
+    user?: UserOrderByWithRelationInput
+    ads?: AdOrderByRelationAggregateInput
+  }
+
+  export type ShopWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    userId?: number
+    AND?: ShopWhereInput | ShopWhereInput[]
+    OR?: ShopWhereInput[]
+    NOT?: ShopWhereInput | ShopWhereInput[]
+    shopName?: StringFilter<"Shop"> | string
+    location?: StringFilter<"Shop"> | string
+    bgImage?: StringNullableFilter<"Shop"> | string | null
+    shopImage?: StringNullableFilter<"Shop"> | string | null
+    description?: StringNullableFilter<"Shop"> | string | null
+    user?: XOR<UserRelationFilter, UserWhereInput>
+    ads?: AdListRelationFilter
+  }, "id" | "userId">
+
+  export type ShopOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    shopName?: SortOrder
+    location?: SortOrder
+    bgImage?: SortOrderInput | SortOrder
+    shopImage?: SortOrderInput | SortOrder
+    description?: SortOrderInput | SortOrder
+    _count?: ShopCountOrderByAggregateInput
+    _avg?: ShopAvgOrderByAggregateInput
+    _max?: ShopMaxOrderByAggregateInput
+    _min?: ShopMinOrderByAggregateInput
+    _sum?: ShopSumOrderByAggregateInput
+  }
+
+  export type ShopScalarWhereWithAggregatesInput = {
+    AND?: ShopScalarWhereWithAggregatesInput | ShopScalarWhereWithAggregatesInput[]
+    OR?: ShopScalarWhereWithAggregatesInput[]
+    NOT?: ShopScalarWhereWithAggregatesInput | ShopScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"Shop"> | number
+    userId?: IntWithAggregatesFilter<"Shop"> | number
+    shopName?: StringWithAggregatesFilter<"Shop"> | string
+    location?: StringWithAggregatesFilter<"Shop"> | string
+    bgImage?: StringNullableWithAggregatesFilter<"Shop"> | string | null
+    shopImage?: StringNullableWithAggregatesFilter<"Shop"> | string | null
+    description?: StringNullableWithAggregatesFilter<"Shop"> | string | null
   }
 
   export type ImageWhereInput = {
@@ -6543,6 +8910,7 @@ export namespace Prisma {
     NOT?: AdWhereInput | AdWhereInput[]
     id?: IntFilter<"Ad"> | number
     userId?: IntNullableFilter<"Ad"> | number | null
+    shopId?: IntNullableFilter<"Ad"> | number | null
     createdAt?: DateTimeFilter<"Ad"> | Date | string
     description?: StringNullableFilter<"Ad"> | string | null
     brand?: StringFilter<"Ad"> | string
@@ -6562,13 +8930,19 @@ export namespace Prisma {
     RegionalSpecifications?: StringFilter<"Ad"> | string
     location?: StringFilter<"Ad"> | string
     extraFeatures?: StringNullableFilter<"Ad"> | string | null
+    adStatus?: StringFilter<"Ad"> | string
+    views?: IntFilter<"Ad"> | number
+    clicks?: IntFilter<"Ad"> | number
     user?: XOR<UserNullableRelationFilter, UserWhereInput> | null
+    shop?: XOR<ShopNullableRelationFilter, ShopWhereInput> | null
     Adimages?: ImageListRelationFilter
+    favoritedBy?: FavoriteAdListRelationFilter
   }
 
   export type AdOrderByWithRelationInput = {
     id?: SortOrder
     userId?: SortOrderInput | SortOrder
+    shopId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     description?: SortOrderInput | SortOrder
     brand?: SortOrder
@@ -6588,8 +8962,13 @@ export namespace Prisma {
     RegionalSpecifications?: SortOrder
     location?: SortOrder
     extraFeatures?: SortOrderInput | SortOrder
+    adStatus?: SortOrder
+    views?: SortOrder
+    clicks?: SortOrder
     user?: UserOrderByWithRelationInput
+    shop?: ShopOrderByWithRelationInput
     Adimages?: ImageOrderByRelationAggregateInput
+    favoritedBy?: FavoriteAdOrderByRelationAggregateInput
   }
 
   export type AdWhereUniqueInput = Prisma.AtLeast<{
@@ -6598,6 +8977,7 @@ export namespace Prisma {
     OR?: AdWhereInput[]
     NOT?: AdWhereInput | AdWhereInput[]
     userId?: IntNullableFilter<"Ad"> | number | null
+    shopId?: IntNullableFilter<"Ad"> | number | null
     createdAt?: DateTimeFilter<"Ad"> | Date | string
     description?: StringNullableFilter<"Ad"> | string | null
     brand?: StringFilter<"Ad"> | string
@@ -6617,13 +8997,19 @@ export namespace Prisma {
     RegionalSpecifications?: StringFilter<"Ad"> | string
     location?: StringFilter<"Ad"> | string
     extraFeatures?: StringNullableFilter<"Ad"> | string | null
+    adStatus?: StringFilter<"Ad"> | string
+    views?: IntFilter<"Ad"> | number
+    clicks?: IntFilter<"Ad"> | number
     user?: XOR<UserNullableRelationFilter, UserWhereInput> | null
+    shop?: XOR<ShopNullableRelationFilter, ShopWhereInput> | null
     Adimages?: ImageListRelationFilter
+    favoritedBy?: FavoriteAdListRelationFilter
   }, "id">
 
   export type AdOrderByWithAggregationInput = {
     id?: SortOrder
     userId?: SortOrderInput | SortOrder
+    shopId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     description?: SortOrderInput | SortOrder
     brand?: SortOrder
@@ -6643,6 +9029,9 @@ export namespace Prisma {
     RegionalSpecifications?: SortOrder
     location?: SortOrder
     extraFeatures?: SortOrderInput | SortOrder
+    adStatus?: SortOrder
+    views?: SortOrder
+    clicks?: SortOrder
     _count?: AdCountOrderByAggregateInput
     _avg?: AdAvgOrderByAggregateInput
     _max?: AdMaxOrderByAggregateInput
@@ -6656,6 +9045,7 @@ export namespace Prisma {
     NOT?: AdScalarWhereWithAggregatesInput | AdScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"Ad"> | number
     userId?: IntNullableWithAggregatesFilter<"Ad"> | number | null
+    shopId?: IntNullableWithAggregatesFilter<"Ad"> | number | null
     createdAt?: DateTimeWithAggregatesFilter<"Ad"> | Date | string
     description?: StringNullableWithAggregatesFilter<"Ad"> | string | null
     brand?: StringWithAggregatesFilter<"Ad"> | string
@@ -6675,6 +9065,64 @@ export namespace Prisma {
     RegionalSpecifications?: StringWithAggregatesFilter<"Ad"> | string
     location?: StringWithAggregatesFilter<"Ad"> | string
     extraFeatures?: StringNullableWithAggregatesFilter<"Ad"> | string | null
+    adStatus?: StringWithAggregatesFilter<"Ad"> | string
+    views?: IntWithAggregatesFilter<"Ad"> | number
+    clicks?: IntWithAggregatesFilter<"Ad"> | number
+  }
+
+  export type FavoriteAdWhereInput = {
+    AND?: FavoriteAdWhereInput | FavoriteAdWhereInput[]
+    OR?: FavoriteAdWhereInput[]
+    NOT?: FavoriteAdWhereInput | FavoriteAdWhereInput[]
+    id?: IntFilter<"FavoriteAd"> | number
+    userId?: IntFilter<"FavoriteAd"> | number
+    adId?: IntFilter<"FavoriteAd"> | number
+    createdAt?: DateTimeFilter<"FavoriteAd"> | Date | string
+    user?: XOR<UserRelationFilter, UserWhereInput>
+    ad?: XOR<AdRelationFilter, AdWhereInput>
+  }
+
+  export type FavoriteAdOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    adId?: SortOrder
+    createdAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+    ad?: AdOrderByWithRelationInput
+  }
+
+  export type FavoriteAdWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: FavoriteAdWhereInput | FavoriteAdWhereInput[]
+    OR?: FavoriteAdWhereInput[]
+    NOT?: FavoriteAdWhereInput | FavoriteAdWhereInput[]
+    userId?: IntFilter<"FavoriteAd"> | number
+    adId?: IntFilter<"FavoriteAd"> | number
+    createdAt?: DateTimeFilter<"FavoriteAd"> | Date | string
+    user?: XOR<UserRelationFilter, UserWhereInput>
+    ad?: XOR<AdRelationFilter, AdWhereInput>
+  }, "id">
+
+  export type FavoriteAdOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    adId?: SortOrder
+    createdAt?: SortOrder
+    _count?: FavoriteAdCountOrderByAggregateInput
+    _avg?: FavoriteAdAvgOrderByAggregateInput
+    _max?: FavoriteAdMaxOrderByAggregateInput
+    _min?: FavoriteAdMinOrderByAggregateInput
+    _sum?: FavoriteAdSumOrderByAggregateInput
+  }
+
+  export type FavoriteAdScalarWhereWithAggregatesInput = {
+    AND?: FavoriteAdScalarWhereWithAggregatesInput | FavoriteAdScalarWhereWithAggregatesInput[]
+    OR?: FavoriteAdScalarWhereWithAggregatesInput[]
+    NOT?: FavoriteAdScalarWhereWithAggregatesInput | FavoriteAdScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"FavoriteAd"> | number
+    userId?: IntWithAggregatesFilter<"FavoriteAd"> | number
+    adId?: IntWithAggregatesFilter<"FavoriteAd"> | number
+    createdAt?: DateTimeWithAggregatesFilter<"FavoriteAd"> | Date | string
   }
 
   export type ChatWhereInput = {
@@ -6795,6 +9243,8 @@ export namespace Prisma {
     chats?: ChatCreateNestedManyWithoutUsersInput
     messagesSent?: MessageCreateNestedManyWithoutSenderInput
     messagesReceived?: MessageCreateNestedManyWithoutReceiverInput
+    favoriteAds?: FavoriteAdCreateNestedManyWithoutUserInput
+    shop?: ShopCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -6808,6 +9258,8 @@ export namespace Prisma {
     chats?: ChatUncheckedCreateNestedManyWithoutUsersInput
     messagesSent?: MessageUncheckedCreateNestedManyWithoutSenderInput
     messagesReceived?: MessageUncheckedCreateNestedManyWithoutReceiverInput
+    favoriteAds?: FavoriteAdUncheckedCreateNestedManyWithoutUserInput
+    shop?: ShopUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -6820,6 +9272,8 @@ export namespace Prisma {
     chats?: ChatUpdateManyWithoutUsersNestedInput
     messagesSent?: MessageUpdateManyWithoutSenderNestedInput
     messagesReceived?: MessageUpdateManyWithoutReceiverNestedInput
+    favoriteAds?: FavoriteAdUpdateManyWithoutUserNestedInput
+    shop?: ShopUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -6833,6 +9287,8 @@ export namespace Prisma {
     chats?: ChatUncheckedUpdateManyWithoutUsersNestedInput
     messagesSent?: MessageUncheckedUpdateManyWithoutSenderNestedInput
     messagesReceived?: MessageUncheckedUpdateManyWithoutReceiverNestedInput
+    favoriteAds?: FavoriteAdUncheckedUpdateManyWithoutUserNestedInput
+    shop?: ShopUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type UserUpdateManyMutationInput = {
@@ -6850,6 +9306,66 @@ export namespace Prisma {
     username?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type ShopCreateInput = {
+    shopName: string
+    location: string
+    bgImage?: string | null
+    shopImage?: string | null
+    description?: string | null
+    user: UserCreateNestedOneWithoutShopInput
+    ads?: AdCreateNestedManyWithoutShopInput
+  }
+
+  export type ShopUncheckedCreateInput = {
+    id?: number
+    userId: number
+    shopName: string
+    location: string
+    bgImage?: string | null
+    shopImage?: string | null
+    description?: string | null
+    ads?: AdUncheckedCreateNestedManyWithoutShopInput
+  }
+
+  export type ShopUpdateInput = {
+    shopName?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
+    bgImage?: NullableStringFieldUpdateOperationsInput | string | null
+    shopImage?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    user?: UserUpdateOneRequiredWithoutShopNestedInput
+    ads?: AdUpdateManyWithoutShopNestedInput
+  }
+
+  export type ShopUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    shopName?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
+    bgImage?: NullableStringFieldUpdateOperationsInput | string | null
+    shopImage?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    ads?: AdUncheckedUpdateManyWithoutShopNestedInput
+  }
+
+  export type ShopUpdateManyMutationInput = {
+    shopName?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
+    bgImage?: NullableStringFieldUpdateOperationsInput | string | null
+    shopImage?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type ShopUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    shopName?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
+    bgImage?: NullableStringFieldUpdateOperationsInput | string | null
+    shopImage?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type ImageCreateInput = {
@@ -6904,13 +9420,19 @@ export namespace Prisma {
     RegionalSpecifications: string
     location: string
     extraFeatures?: string | null
+    adStatus?: string
+    views?: number
+    clicks?: number
     user?: UserCreateNestedOneWithoutAdsInput
+    shop?: ShopCreateNestedOneWithoutAdsInput
     Adimages?: ImageCreateNestedManyWithoutAdInput
+    favoritedBy?: FavoriteAdCreateNestedManyWithoutAdInput
   }
 
   export type AdUncheckedCreateInput = {
     id?: number
     userId?: number | null
+    shopId?: number | null
     createdAt?: Date | string
     description?: string | null
     brand: string
@@ -6930,7 +9452,11 @@ export namespace Prisma {
     RegionalSpecifications: string
     location: string
     extraFeatures?: string | null
+    adStatus?: string
+    views?: number
+    clicks?: number
     Adimages?: ImageUncheckedCreateNestedManyWithoutAdInput
+    favoritedBy?: FavoriteAdUncheckedCreateNestedManyWithoutAdInput
   }
 
   export type AdUpdateInput = {
@@ -6953,13 +9479,19 @@ export namespace Prisma {
     RegionalSpecifications?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
     extraFeatures?: NullableStringFieldUpdateOperationsInput | string | null
+    adStatus?: StringFieldUpdateOperationsInput | string
+    views?: IntFieldUpdateOperationsInput | number
+    clicks?: IntFieldUpdateOperationsInput | number
     user?: UserUpdateOneWithoutAdsNestedInput
+    shop?: ShopUpdateOneWithoutAdsNestedInput
     Adimages?: ImageUpdateManyWithoutAdNestedInput
+    favoritedBy?: FavoriteAdUpdateManyWithoutAdNestedInput
   }
 
   export type AdUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     userId?: NullableIntFieldUpdateOperationsInput | number | null
+    shopId?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     brand?: StringFieldUpdateOperationsInput | string
@@ -6979,7 +9511,11 @@ export namespace Prisma {
     RegionalSpecifications?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
     extraFeatures?: NullableStringFieldUpdateOperationsInput | string | null
+    adStatus?: StringFieldUpdateOperationsInput | string
+    views?: IntFieldUpdateOperationsInput | number
+    clicks?: IntFieldUpdateOperationsInput | number
     Adimages?: ImageUncheckedUpdateManyWithoutAdNestedInput
+    favoritedBy?: FavoriteAdUncheckedUpdateManyWithoutAdNestedInput
   }
 
   export type AdUpdateManyMutationInput = {
@@ -7002,11 +9538,15 @@ export namespace Prisma {
     RegionalSpecifications?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
     extraFeatures?: NullableStringFieldUpdateOperationsInput | string | null
+    adStatus?: StringFieldUpdateOperationsInput | string
+    views?: IntFieldUpdateOperationsInput | number
+    clicks?: IntFieldUpdateOperationsInput | number
   }
 
   export type AdUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     userId?: NullableIntFieldUpdateOperationsInput | number | null
+    shopId?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     brand?: StringFieldUpdateOperationsInput | string
@@ -7026,6 +9566,46 @@ export namespace Prisma {
     RegionalSpecifications?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
     extraFeatures?: NullableStringFieldUpdateOperationsInput | string | null
+    adStatus?: StringFieldUpdateOperationsInput | string
+    views?: IntFieldUpdateOperationsInput | number
+    clicks?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type FavoriteAdCreateInput = {
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutFavoriteAdsInput
+    ad: AdCreateNestedOneWithoutFavoritedByInput
+  }
+
+  export type FavoriteAdUncheckedCreateInput = {
+    id?: number
+    userId: number
+    adId: number
+    createdAt?: Date | string
+  }
+
+  export type FavoriteAdUpdateInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutFavoriteAdsNestedInput
+    ad?: AdUpdateOneRequiredWithoutFavoritedByNestedInput
+  }
+
+  export type FavoriteAdUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    adId?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FavoriteAdUpdateManyMutationInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FavoriteAdUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    adId?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ChatCreateInput = {
@@ -7174,6 +9754,17 @@ export namespace Prisma {
     none?: MessageWhereInput
   }
 
+  export type FavoriteAdListRelationFilter = {
+    every?: FavoriteAdWhereInput
+    some?: FavoriteAdWhereInput
+    none?: FavoriteAdWhereInput
+  }
+
+  export type ShopNullableRelationFilter = {
+    is?: ShopWhereInput | null
+    isNot?: ShopWhereInput | null
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -7188,6 +9779,10 @@ export namespace Prisma {
   }
 
   export type MessageOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type FavoriteAdOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -7290,6 +9885,51 @@ export namespace Prisma {
     _max?: NestedStringFilter<$PrismaModel>
   }
 
+  export type UserRelationFilter = {
+    is?: UserWhereInput
+    isNot?: UserWhereInput
+  }
+
+  export type ShopCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    shopName?: SortOrder
+    location?: SortOrder
+    bgImage?: SortOrder
+    shopImage?: SortOrder
+    description?: SortOrder
+  }
+
+  export type ShopAvgOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+  }
+
+  export type ShopMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    shopName?: SortOrder
+    location?: SortOrder
+    bgImage?: SortOrder
+    shopImage?: SortOrder
+    description?: SortOrder
+  }
+
+  export type ShopMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    shopName?: SortOrder
+    location?: SortOrder
+    bgImage?: SortOrder
+    shopImage?: SortOrder
+    description?: SortOrder
+  }
+
+  export type ShopSumOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+  }
+
   export type AdRelationFilter = {
     is?: AdWhereInput
     isNot?: AdWhereInput
@@ -7352,6 +9992,7 @@ export namespace Prisma {
   export type AdCountOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
+    shopId?: SortOrder
     createdAt?: SortOrder
     description?: SortOrder
     brand?: SortOrder
@@ -7371,16 +10012,23 @@ export namespace Prisma {
     RegionalSpecifications?: SortOrder
     location?: SortOrder
     extraFeatures?: SortOrder
+    adStatus?: SortOrder
+    views?: SortOrder
+    clicks?: SortOrder
   }
 
   export type AdAvgOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
+    shopId?: SortOrder
+    views?: SortOrder
+    clicks?: SortOrder
   }
 
   export type AdMaxOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
+    shopId?: SortOrder
     createdAt?: SortOrder
     description?: SortOrder
     brand?: SortOrder
@@ -7400,11 +10048,15 @@ export namespace Prisma {
     RegionalSpecifications?: SortOrder
     location?: SortOrder
     extraFeatures?: SortOrder
+    adStatus?: SortOrder
+    views?: SortOrder
+    clicks?: SortOrder
   }
 
   export type AdMinOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
+    shopId?: SortOrder
     createdAt?: SortOrder
     description?: SortOrder
     brand?: SortOrder
@@ -7424,11 +10076,17 @@ export namespace Prisma {
     RegionalSpecifications?: SortOrder
     location?: SortOrder
     extraFeatures?: SortOrder
+    adStatus?: SortOrder
+    views?: SortOrder
+    clicks?: SortOrder
   }
 
   export type AdSumOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
+    shopId?: SortOrder
+    views?: SortOrder
+    clicks?: SortOrder
   }
 
   export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -7445,6 +10103,39 @@ export namespace Prisma {
     _sum?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedIntNullableFilter<$PrismaModel>
     _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
+  export type FavoriteAdCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    adId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type FavoriteAdAvgOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    adId?: SortOrder
+  }
+
+  export type FavoriteAdMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    adId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type FavoriteAdMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    adId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type FavoriteAdSumOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    adId?: SortOrder
   }
 
   export type UserListRelationFilter = {
@@ -7475,11 +10166,6 @@ export namespace Prisma {
 
   export type ChatSumOrderByAggregateInput = {
     id?: SortOrder
-  }
-
-  export type UserRelationFilter = {
-    is?: UserWhereInput
-    isNot?: UserWhereInput
   }
 
   export type ChatRelationFilter = {
@@ -7548,6 +10234,18 @@ export namespace Prisma {
     connect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
   }
 
+  export type FavoriteAdCreateNestedManyWithoutUserInput = {
+    create?: XOR<FavoriteAdCreateWithoutUserInput, FavoriteAdUncheckedCreateWithoutUserInput> | FavoriteAdCreateWithoutUserInput[] | FavoriteAdUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: FavoriteAdCreateOrConnectWithoutUserInput | FavoriteAdCreateOrConnectWithoutUserInput[]
+    connect?: FavoriteAdWhereUniqueInput | FavoriteAdWhereUniqueInput[]
+  }
+
+  export type ShopCreateNestedOneWithoutUserInput = {
+    create?: XOR<ShopCreateWithoutUserInput, ShopUncheckedCreateWithoutUserInput>
+    connectOrCreate?: ShopCreateOrConnectWithoutUserInput
+    connect?: ShopWhereUniqueInput
+  }
+
   export type AdUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<AdCreateWithoutUserInput, AdUncheckedCreateWithoutUserInput> | AdCreateWithoutUserInput[] | AdUncheckedCreateWithoutUserInput[]
     connectOrCreate?: AdCreateOrConnectWithoutUserInput | AdCreateOrConnectWithoutUserInput[]
@@ -7570,6 +10268,18 @@ export namespace Prisma {
     create?: XOR<MessageCreateWithoutReceiverInput, MessageUncheckedCreateWithoutReceiverInput> | MessageCreateWithoutReceiverInput[] | MessageUncheckedCreateWithoutReceiverInput[]
     connectOrCreate?: MessageCreateOrConnectWithoutReceiverInput | MessageCreateOrConnectWithoutReceiverInput[]
     connect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+  }
+
+  export type FavoriteAdUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<FavoriteAdCreateWithoutUserInput, FavoriteAdUncheckedCreateWithoutUserInput> | FavoriteAdCreateWithoutUserInput[] | FavoriteAdUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: FavoriteAdCreateOrConnectWithoutUserInput | FavoriteAdCreateOrConnectWithoutUserInput[]
+    connect?: FavoriteAdWhereUniqueInput | FavoriteAdWhereUniqueInput[]
+  }
+
+  export type ShopUncheckedCreateNestedOneWithoutUserInput = {
+    create?: XOR<ShopCreateWithoutUserInput, ShopUncheckedCreateWithoutUserInput>
+    connectOrCreate?: ShopCreateOrConnectWithoutUserInput
+    connect?: ShopWhereUniqueInput
   }
 
   export type DateTimeFieldUpdateOperationsInput = {
@@ -7636,6 +10346,29 @@ export namespace Prisma {
     deleteMany?: MessageScalarWhereInput | MessageScalarWhereInput[]
   }
 
+  export type FavoriteAdUpdateManyWithoutUserNestedInput = {
+    create?: XOR<FavoriteAdCreateWithoutUserInput, FavoriteAdUncheckedCreateWithoutUserInput> | FavoriteAdCreateWithoutUserInput[] | FavoriteAdUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: FavoriteAdCreateOrConnectWithoutUserInput | FavoriteAdCreateOrConnectWithoutUserInput[]
+    upsert?: FavoriteAdUpsertWithWhereUniqueWithoutUserInput | FavoriteAdUpsertWithWhereUniqueWithoutUserInput[]
+    set?: FavoriteAdWhereUniqueInput | FavoriteAdWhereUniqueInput[]
+    disconnect?: FavoriteAdWhereUniqueInput | FavoriteAdWhereUniqueInput[]
+    delete?: FavoriteAdWhereUniqueInput | FavoriteAdWhereUniqueInput[]
+    connect?: FavoriteAdWhereUniqueInput | FavoriteAdWhereUniqueInput[]
+    update?: FavoriteAdUpdateWithWhereUniqueWithoutUserInput | FavoriteAdUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: FavoriteAdUpdateManyWithWhereWithoutUserInput | FavoriteAdUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: FavoriteAdScalarWhereInput | FavoriteAdScalarWhereInput[]
+  }
+
+  export type ShopUpdateOneWithoutUserNestedInput = {
+    create?: XOR<ShopCreateWithoutUserInput, ShopUncheckedCreateWithoutUserInput>
+    connectOrCreate?: ShopCreateOrConnectWithoutUserInput
+    upsert?: ShopUpsertWithoutUserInput
+    disconnect?: ShopWhereInput | boolean
+    delete?: ShopWhereInput | boolean
+    connect?: ShopWhereUniqueInput
+    update?: XOR<XOR<ShopUpdateToOneWithWhereWithoutUserInput, ShopUpdateWithoutUserInput>, ShopUncheckedUpdateWithoutUserInput>
+  }
+
   export type IntFieldUpdateOperationsInput = {
     set?: number
     increment?: number
@@ -7696,6 +10429,81 @@ export namespace Prisma {
     deleteMany?: MessageScalarWhereInput | MessageScalarWhereInput[]
   }
 
+  export type FavoriteAdUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<FavoriteAdCreateWithoutUserInput, FavoriteAdUncheckedCreateWithoutUserInput> | FavoriteAdCreateWithoutUserInput[] | FavoriteAdUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: FavoriteAdCreateOrConnectWithoutUserInput | FavoriteAdCreateOrConnectWithoutUserInput[]
+    upsert?: FavoriteAdUpsertWithWhereUniqueWithoutUserInput | FavoriteAdUpsertWithWhereUniqueWithoutUserInput[]
+    set?: FavoriteAdWhereUniqueInput | FavoriteAdWhereUniqueInput[]
+    disconnect?: FavoriteAdWhereUniqueInput | FavoriteAdWhereUniqueInput[]
+    delete?: FavoriteAdWhereUniqueInput | FavoriteAdWhereUniqueInput[]
+    connect?: FavoriteAdWhereUniqueInput | FavoriteAdWhereUniqueInput[]
+    update?: FavoriteAdUpdateWithWhereUniqueWithoutUserInput | FavoriteAdUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: FavoriteAdUpdateManyWithWhereWithoutUserInput | FavoriteAdUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: FavoriteAdScalarWhereInput | FavoriteAdScalarWhereInput[]
+  }
+
+  export type ShopUncheckedUpdateOneWithoutUserNestedInput = {
+    create?: XOR<ShopCreateWithoutUserInput, ShopUncheckedCreateWithoutUserInput>
+    connectOrCreate?: ShopCreateOrConnectWithoutUserInput
+    upsert?: ShopUpsertWithoutUserInput
+    disconnect?: ShopWhereInput | boolean
+    delete?: ShopWhereInput | boolean
+    connect?: ShopWhereUniqueInput
+    update?: XOR<XOR<ShopUpdateToOneWithWhereWithoutUserInput, ShopUpdateWithoutUserInput>, ShopUncheckedUpdateWithoutUserInput>
+  }
+
+  export type UserCreateNestedOneWithoutShopInput = {
+    create?: XOR<UserCreateWithoutShopInput, UserUncheckedCreateWithoutShopInput>
+    connectOrCreate?: UserCreateOrConnectWithoutShopInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type AdCreateNestedManyWithoutShopInput = {
+    create?: XOR<AdCreateWithoutShopInput, AdUncheckedCreateWithoutShopInput> | AdCreateWithoutShopInput[] | AdUncheckedCreateWithoutShopInput[]
+    connectOrCreate?: AdCreateOrConnectWithoutShopInput | AdCreateOrConnectWithoutShopInput[]
+    connect?: AdWhereUniqueInput | AdWhereUniqueInput[]
+  }
+
+  export type AdUncheckedCreateNestedManyWithoutShopInput = {
+    create?: XOR<AdCreateWithoutShopInput, AdUncheckedCreateWithoutShopInput> | AdCreateWithoutShopInput[] | AdUncheckedCreateWithoutShopInput[]
+    connectOrCreate?: AdCreateOrConnectWithoutShopInput | AdCreateOrConnectWithoutShopInput[]
+    connect?: AdWhereUniqueInput | AdWhereUniqueInput[]
+  }
+
+  export type UserUpdateOneRequiredWithoutShopNestedInput = {
+    create?: XOR<UserCreateWithoutShopInput, UserUncheckedCreateWithoutShopInput>
+    connectOrCreate?: UserCreateOrConnectWithoutShopInput
+    upsert?: UserUpsertWithoutShopInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutShopInput, UserUpdateWithoutShopInput>, UserUncheckedUpdateWithoutShopInput>
+  }
+
+  export type AdUpdateManyWithoutShopNestedInput = {
+    create?: XOR<AdCreateWithoutShopInput, AdUncheckedCreateWithoutShopInput> | AdCreateWithoutShopInput[] | AdUncheckedCreateWithoutShopInput[]
+    connectOrCreate?: AdCreateOrConnectWithoutShopInput | AdCreateOrConnectWithoutShopInput[]
+    upsert?: AdUpsertWithWhereUniqueWithoutShopInput | AdUpsertWithWhereUniqueWithoutShopInput[]
+    set?: AdWhereUniqueInput | AdWhereUniqueInput[]
+    disconnect?: AdWhereUniqueInput | AdWhereUniqueInput[]
+    delete?: AdWhereUniqueInput | AdWhereUniqueInput[]
+    connect?: AdWhereUniqueInput | AdWhereUniqueInput[]
+    update?: AdUpdateWithWhereUniqueWithoutShopInput | AdUpdateWithWhereUniqueWithoutShopInput[]
+    updateMany?: AdUpdateManyWithWhereWithoutShopInput | AdUpdateManyWithWhereWithoutShopInput[]
+    deleteMany?: AdScalarWhereInput | AdScalarWhereInput[]
+  }
+
+  export type AdUncheckedUpdateManyWithoutShopNestedInput = {
+    create?: XOR<AdCreateWithoutShopInput, AdUncheckedCreateWithoutShopInput> | AdCreateWithoutShopInput[] | AdUncheckedCreateWithoutShopInput[]
+    connectOrCreate?: AdCreateOrConnectWithoutShopInput | AdCreateOrConnectWithoutShopInput[]
+    upsert?: AdUpsertWithWhereUniqueWithoutShopInput | AdUpsertWithWhereUniqueWithoutShopInput[]
+    set?: AdWhereUniqueInput | AdWhereUniqueInput[]
+    disconnect?: AdWhereUniqueInput | AdWhereUniqueInput[]
+    delete?: AdWhereUniqueInput | AdWhereUniqueInput[]
+    connect?: AdWhereUniqueInput | AdWhereUniqueInput[]
+    update?: AdUpdateWithWhereUniqueWithoutShopInput | AdUpdateWithWhereUniqueWithoutShopInput[]
+    updateMany?: AdUpdateManyWithWhereWithoutShopInput | AdUpdateManyWithWhereWithoutShopInput[]
+    deleteMany?: AdScalarWhereInput | AdScalarWhereInput[]
+  }
+
   export type AdCreateNestedOneWithoutAdimagesInput = {
     create?: XOR<AdCreateWithoutAdimagesInput, AdUncheckedCreateWithoutAdimagesInput>
     connectOrCreate?: AdCreateOrConnectWithoutAdimagesInput
@@ -7716,16 +10524,34 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput
   }
 
+  export type ShopCreateNestedOneWithoutAdsInput = {
+    create?: XOR<ShopCreateWithoutAdsInput, ShopUncheckedCreateWithoutAdsInput>
+    connectOrCreate?: ShopCreateOrConnectWithoutAdsInput
+    connect?: ShopWhereUniqueInput
+  }
+
   export type ImageCreateNestedManyWithoutAdInput = {
     create?: XOR<ImageCreateWithoutAdInput, ImageUncheckedCreateWithoutAdInput> | ImageCreateWithoutAdInput[] | ImageUncheckedCreateWithoutAdInput[]
     connectOrCreate?: ImageCreateOrConnectWithoutAdInput | ImageCreateOrConnectWithoutAdInput[]
     connect?: ImageWhereUniqueInput | ImageWhereUniqueInput[]
   }
 
+  export type FavoriteAdCreateNestedManyWithoutAdInput = {
+    create?: XOR<FavoriteAdCreateWithoutAdInput, FavoriteAdUncheckedCreateWithoutAdInput> | FavoriteAdCreateWithoutAdInput[] | FavoriteAdUncheckedCreateWithoutAdInput[]
+    connectOrCreate?: FavoriteAdCreateOrConnectWithoutAdInput | FavoriteAdCreateOrConnectWithoutAdInput[]
+    connect?: FavoriteAdWhereUniqueInput | FavoriteAdWhereUniqueInput[]
+  }
+
   export type ImageUncheckedCreateNestedManyWithoutAdInput = {
     create?: XOR<ImageCreateWithoutAdInput, ImageUncheckedCreateWithoutAdInput> | ImageCreateWithoutAdInput[] | ImageUncheckedCreateWithoutAdInput[]
     connectOrCreate?: ImageCreateOrConnectWithoutAdInput | ImageCreateOrConnectWithoutAdInput[]
     connect?: ImageWhereUniqueInput | ImageWhereUniqueInput[]
+  }
+
+  export type FavoriteAdUncheckedCreateNestedManyWithoutAdInput = {
+    create?: XOR<FavoriteAdCreateWithoutAdInput, FavoriteAdUncheckedCreateWithoutAdInput> | FavoriteAdCreateWithoutAdInput[] | FavoriteAdUncheckedCreateWithoutAdInput[]
+    connectOrCreate?: FavoriteAdCreateOrConnectWithoutAdInput | FavoriteAdCreateOrConnectWithoutAdInput[]
+    connect?: FavoriteAdWhereUniqueInput | FavoriteAdWhereUniqueInput[]
   }
 
   export type UserUpdateOneWithoutAdsNestedInput = {
@@ -7736,6 +10562,16 @@ export namespace Prisma {
     delete?: UserWhereInput | boolean
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutAdsInput, UserUpdateWithoutAdsInput>, UserUncheckedUpdateWithoutAdsInput>
+  }
+
+  export type ShopUpdateOneWithoutAdsNestedInput = {
+    create?: XOR<ShopCreateWithoutAdsInput, ShopUncheckedCreateWithoutAdsInput>
+    connectOrCreate?: ShopCreateOrConnectWithoutAdsInput
+    upsert?: ShopUpsertWithoutAdsInput
+    disconnect?: ShopWhereInput | boolean
+    delete?: ShopWhereInput | boolean
+    connect?: ShopWhereUniqueInput
+    update?: XOR<XOR<ShopUpdateToOneWithWhereWithoutAdsInput, ShopUpdateWithoutAdsInput>, ShopUncheckedUpdateWithoutAdsInput>
   }
 
   export type ImageUpdateManyWithoutAdNestedInput = {
@@ -7749,6 +10585,19 @@ export namespace Prisma {
     update?: ImageUpdateWithWhereUniqueWithoutAdInput | ImageUpdateWithWhereUniqueWithoutAdInput[]
     updateMany?: ImageUpdateManyWithWhereWithoutAdInput | ImageUpdateManyWithWhereWithoutAdInput[]
     deleteMany?: ImageScalarWhereInput | ImageScalarWhereInput[]
+  }
+
+  export type FavoriteAdUpdateManyWithoutAdNestedInput = {
+    create?: XOR<FavoriteAdCreateWithoutAdInput, FavoriteAdUncheckedCreateWithoutAdInput> | FavoriteAdCreateWithoutAdInput[] | FavoriteAdUncheckedCreateWithoutAdInput[]
+    connectOrCreate?: FavoriteAdCreateOrConnectWithoutAdInput | FavoriteAdCreateOrConnectWithoutAdInput[]
+    upsert?: FavoriteAdUpsertWithWhereUniqueWithoutAdInput | FavoriteAdUpsertWithWhereUniqueWithoutAdInput[]
+    set?: FavoriteAdWhereUniqueInput | FavoriteAdWhereUniqueInput[]
+    disconnect?: FavoriteAdWhereUniqueInput | FavoriteAdWhereUniqueInput[]
+    delete?: FavoriteAdWhereUniqueInput | FavoriteAdWhereUniqueInput[]
+    connect?: FavoriteAdWhereUniqueInput | FavoriteAdWhereUniqueInput[]
+    update?: FavoriteAdUpdateWithWhereUniqueWithoutAdInput | FavoriteAdUpdateWithWhereUniqueWithoutAdInput[]
+    updateMany?: FavoriteAdUpdateManyWithWhereWithoutAdInput | FavoriteAdUpdateManyWithWhereWithoutAdInput[]
+    deleteMany?: FavoriteAdScalarWhereInput | FavoriteAdScalarWhereInput[]
   }
 
   export type NullableIntFieldUpdateOperationsInput = {
@@ -7770,6 +10619,47 @@ export namespace Prisma {
     update?: ImageUpdateWithWhereUniqueWithoutAdInput | ImageUpdateWithWhereUniqueWithoutAdInput[]
     updateMany?: ImageUpdateManyWithWhereWithoutAdInput | ImageUpdateManyWithWhereWithoutAdInput[]
     deleteMany?: ImageScalarWhereInput | ImageScalarWhereInput[]
+  }
+
+  export type FavoriteAdUncheckedUpdateManyWithoutAdNestedInput = {
+    create?: XOR<FavoriteAdCreateWithoutAdInput, FavoriteAdUncheckedCreateWithoutAdInput> | FavoriteAdCreateWithoutAdInput[] | FavoriteAdUncheckedCreateWithoutAdInput[]
+    connectOrCreate?: FavoriteAdCreateOrConnectWithoutAdInput | FavoriteAdCreateOrConnectWithoutAdInput[]
+    upsert?: FavoriteAdUpsertWithWhereUniqueWithoutAdInput | FavoriteAdUpsertWithWhereUniqueWithoutAdInput[]
+    set?: FavoriteAdWhereUniqueInput | FavoriteAdWhereUniqueInput[]
+    disconnect?: FavoriteAdWhereUniqueInput | FavoriteAdWhereUniqueInput[]
+    delete?: FavoriteAdWhereUniqueInput | FavoriteAdWhereUniqueInput[]
+    connect?: FavoriteAdWhereUniqueInput | FavoriteAdWhereUniqueInput[]
+    update?: FavoriteAdUpdateWithWhereUniqueWithoutAdInput | FavoriteAdUpdateWithWhereUniqueWithoutAdInput[]
+    updateMany?: FavoriteAdUpdateManyWithWhereWithoutAdInput | FavoriteAdUpdateManyWithWhereWithoutAdInput[]
+    deleteMany?: FavoriteAdScalarWhereInput | FavoriteAdScalarWhereInput[]
+  }
+
+  export type UserCreateNestedOneWithoutFavoriteAdsInput = {
+    create?: XOR<UserCreateWithoutFavoriteAdsInput, UserUncheckedCreateWithoutFavoriteAdsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutFavoriteAdsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type AdCreateNestedOneWithoutFavoritedByInput = {
+    create?: XOR<AdCreateWithoutFavoritedByInput, AdUncheckedCreateWithoutFavoritedByInput>
+    connectOrCreate?: AdCreateOrConnectWithoutFavoritedByInput
+    connect?: AdWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutFavoriteAdsNestedInput = {
+    create?: XOR<UserCreateWithoutFavoriteAdsInput, UserUncheckedCreateWithoutFavoriteAdsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutFavoriteAdsInput
+    upsert?: UserUpsertWithoutFavoriteAdsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutFavoriteAdsInput, UserUpdateWithoutFavoriteAdsInput>, UserUncheckedUpdateWithoutFavoriteAdsInput>
+  }
+
+  export type AdUpdateOneRequiredWithoutFavoritedByNestedInput = {
+    create?: XOR<AdCreateWithoutFavoritedByInput, AdUncheckedCreateWithoutFavoritedByInput>
+    connectOrCreate?: AdCreateOrConnectWithoutFavoritedByInput
+    upsert?: AdUpsertWithoutFavoritedByInput
+    connect?: AdWhereUniqueInput
+    update?: XOR<XOR<AdUpdateToOneWithWhereWithoutFavoritedByInput, AdUpdateWithoutFavoritedByInput>, AdUncheckedUpdateWithoutFavoritedByInput>
   }
 
   export type UserCreateNestedManyWithoutChatsInput = {
@@ -8075,11 +10965,17 @@ export namespace Prisma {
     RegionalSpecifications: string
     location: string
     extraFeatures?: string | null
+    adStatus?: string
+    views?: number
+    clicks?: number
+    shop?: ShopCreateNestedOneWithoutAdsInput
     Adimages?: ImageCreateNestedManyWithoutAdInput
+    favoritedBy?: FavoriteAdCreateNestedManyWithoutAdInput
   }
 
   export type AdUncheckedCreateWithoutUserInput = {
     id?: number
+    shopId?: number | null
     createdAt?: Date | string
     description?: string | null
     brand: string
@@ -8099,7 +10995,11 @@ export namespace Prisma {
     RegionalSpecifications: string
     location: string
     extraFeatures?: string | null
+    adStatus?: string
+    views?: number
+    clicks?: number
     Adimages?: ImageUncheckedCreateNestedManyWithoutAdInput
+    favoritedBy?: FavoriteAdUncheckedCreateNestedManyWithoutAdInput
   }
 
   export type AdCreateOrConnectWithoutUserInput = {
@@ -8161,6 +11061,46 @@ export namespace Prisma {
     create: XOR<MessageCreateWithoutReceiverInput, MessageUncheckedCreateWithoutReceiverInput>
   }
 
+  export type FavoriteAdCreateWithoutUserInput = {
+    createdAt?: Date | string
+    ad: AdCreateNestedOneWithoutFavoritedByInput
+  }
+
+  export type FavoriteAdUncheckedCreateWithoutUserInput = {
+    id?: number
+    adId: number
+    createdAt?: Date | string
+  }
+
+  export type FavoriteAdCreateOrConnectWithoutUserInput = {
+    where: FavoriteAdWhereUniqueInput
+    create: XOR<FavoriteAdCreateWithoutUserInput, FavoriteAdUncheckedCreateWithoutUserInput>
+  }
+
+  export type ShopCreateWithoutUserInput = {
+    shopName: string
+    location: string
+    bgImage?: string | null
+    shopImage?: string | null
+    description?: string | null
+    ads?: AdCreateNestedManyWithoutShopInput
+  }
+
+  export type ShopUncheckedCreateWithoutUserInput = {
+    id?: number
+    shopName: string
+    location: string
+    bgImage?: string | null
+    shopImage?: string | null
+    description?: string | null
+    ads?: AdUncheckedCreateNestedManyWithoutShopInput
+  }
+
+  export type ShopCreateOrConnectWithoutUserInput = {
+    where: ShopWhereUniqueInput
+    create: XOR<ShopCreateWithoutUserInput, ShopUncheckedCreateWithoutUserInput>
+  }
+
   export type AdUpsertWithWhereUniqueWithoutUserInput = {
     where: AdWhereUniqueInput
     update: XOR<AdUpdateWithoutUserInput, AdUncheckedUpdateWithoutUserInput>
@@ -8183,6 +11123,7 @@ export namespace Prisma {
     NOT?: AdScalarWhereInput | AdScalarWhereInput[]
     id?: IntFilter<"Ad"> | number
     userId?: IntNullableFilter<"Ad"> | number | null
+    shopId?: IntNullableFilter<"Ad"> | number | null
     createdAt?: DateTimeFilter<"Ad"> | Date | string
     description?: StringNullableFilter<"Ad"> | string | null
     brand?: StringFilter<"Ad"> | string
@@ -8202,6 +11143,9 @@ export namespace Prisma {
     RegionalSpecifications?: StringFilter<"Ad"> | string
     location?: StringFilter<"Ad"> | string
     extraFeatures?: StringNullableFilter<"Ad"> | string | null
+    adStatus?: StringFilter<"Ad"> | string
+    views?: IntFilter<"Ad"> | number
+    clicks?: IntFilter<"Ad"> | number
   }
 
   export type ChatUpsertWithWhereUniqueWithoutUsersInput = {
@@ -8271,7 +11215,95 @@ export namespace Prisma {
     data: XOR<MessageUpdateManyMutationInput, MessageUncheckedUpdateManyWithoutReceiverInput>
   }
 
-  export type AdCreateWithoutAdimagesInput = {
+  export type FavoriteAdUpsertWithWhereUniqueWithoutUserInput = {
+    where: FavoriteAdWhereUniqueInput
+    update: XOR<FavoriteAdUpdateWithoutUserInput, FavoriteAdUncheckedUpdateWithoutUserInput>
+    create: XOR<FavoriteAdCreateWithoutUserInput, FavoriteAdUncheckedCreateWithoutUserInput>
+  }
+
+  export type FavoriteAdUpdateWithWhereUniqueWithoutUserInput = {
+    where: FavoriteAdWhereUniqueInput
+    data: XOR<FavoriteAdUpdateWithoutUserInput, FavoriteAdUncheckedUpdateWithoutUserInput>
+  }
+
+  export type FavoriteAdUpdateManyWithWhereWithoutUserInput = {
+    where: FavoriteAdScalarWhereInput
+    data: XOR<FavoriteAdUpdateManyMutationInput, FavoriteAdUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type FavoriteAdScalarWhereInput = {
+    AND?: FavoriteAdScalarWhereInput | FavoriteAdScalarWhereInput[]
+    OR?: FavoriteAdScalarWhereInput[]
+    NOT?: FavoriteAdScalarWhereInput | FavoriteAdScalarWhereInput[]
+    id?: IntFilter<"FavoriteAd"> | number
+    userId?: IntFilter<"FavoriteAd"> | number
+    adId?: IntFilter<"FavoriteAd"> | number
+    createdAt?: DateTimeFilter<"FavoriteAd"> | Date | string
+  }
+
+  export type ShopUpsertWithoutUserInput = {
+    update: XOR<ShopUpdateWithoutUserInput, ShopUncheckedUpdateWithoutUserInput>
+    create: XOR<ShopCreateWithoutUserInput, ShopUncheckedCreateWithoutUserInput>
+    where?: ShopWhereInput
+  }
+
+  export type ShopUpdateToOneWithWhereWithoutUserInput = {
+    where?: ShopWhereInput
+    data: XOR<ShopUpdateWithoutUserInput, ShopUncheckedUpdateWithoutUserInput>
+  }
+
+  export type ShopUpdateWithoutUserInput = {
+    shopName?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
+    bgImage?: NullableStringFieldUpdateOperationsInput | string | null
+    shopImage?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    ads?: AdUpdateManyWithoutShopNestedInput
+  }
+
+  export type ShopUncheckedUpdateWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    shopName?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
+    bgImage?: NullableStringFieldUpdateOperationsInput | string | null
+    shopImage?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    ads?: AdUncheckedUpdateManyWithoutShopNestedInput
+  }
+
+  export type UserCreateWithoutShopInput = {
+    createdAt?: Date | string
+    phoneNumber?: string | null
+    username?: string | null
+    image?: string | null
+    email: string
+    ads?: AdCreateNestedManyWithoutUserInput
+    chats?: ChatCreateNestedManyWithoutUsersInput
+    messagesSent?: MessageCreateNestedManyWithoutSenderInput
+    messagesReceived?: MessageCreateNestedManyWithoutReceiverInput
+    favoriteAds?: FavoriteAdCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutShopInput = {
+    id?: number
+    createdAt?: Date | string
+    phoneNumber?: string | null
+    username?: string | null
+    image?: string | null
+    email: string
+    ads?: AdUncheckedCreateNestedManyWithoutUserInput
+    chats?: ChatUncheckedCreateNestedManyWithoutUsersInput
+    messagesSent?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    messagesReceived?: MessageUncheckedCreateNestedManyWithoutReceiverInput
+    favoriteAds?: FavoriteAdUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutShopInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutShopInput, UserUncheckedCreateWithoutShopInput>
+  }
+
+  export type AdCreateWithoutShopInput = {
     createdAt?: Date | string
     description?: string | null
     brand: string
@@ -8291,10 +11323,15 @@ export namespace Prisma {
     RegionalSpecifications: string
     location: string
     extraFeatures?: string | null
+    adStatus?: string
+    views?: number
+    clicks?: number
     user?: UserCreateNestedOneWithoutAdsInput
+    Adimages?: ImageCreateNestedManyWithoutAdInput
+    favoritedBy?: FavoriteAdCreateNestedManyWithoutAdInput
   }
 
-  export type AdUncheckedCreateWithoutAdimagesInput = {
+  export type AdUncheckedCreateWithoutShopInput = {
     id?: number
     userId?: number | null
     createdAt?: Date | string
@@ -8316,6 +11353,127 @@ export namespace Prisma {
     RegionalSpecifications: string
     location: string
     extraFeatures?: string | null
+    adStatus?: string
+    views?: number
+    clicks?: number
+    Adimages?: ImageUncheckedCreateNestedManyWithoutAdInput
+    favoritedBy?: FavoriteAdUncheckedCreateNestedManyWithoutAdInput
+  }
+
+  export type AdCreateOrConnectWithoutShopInput = {
+    where: AdWhereUniqueInput
+    create: XOR<AdCreateWithoutShopInput, AdUncheckedCreateWithoutShopInput>
+  }
+
+  export type UserUpsertWithoutShopInput = {
+    update: XOR<UserUpdateWithoutShopInput, UserUncheckedUpdateWithoutShopInput>
+    create: XOR<UserCreateWithoutShopInput, UserUncheckedCreateWithoutShopInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutShopInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutShopInput, UserUncheckedUpdateWithoutShopInput>
+  }
+
+  export type UserUpdateWithoutShopInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: NullableStringFieldUpdateOperationsInput | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
+    ads?: AdUpdateManyWithoutUserNestedInput
+    chats?: ChatUpdateManyWithoutUsersNestedInput
+    messagesSent?: MessageUpdateManyWithoutSenderNestedInput
+    messagesReceived?: MessageUpdateManyWithoutReceiverNestedInput
+    favoriteAds?: FavoriteAdUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutShopInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: NullableStringFieldUpdateOperationsInput | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
+    ads?: AdUncheckedUpdateManyWithoutUserNestedInput
+    chats?: ChatUncheckedUpdateManyWithoutUsersNestedInput
+    messagesSent?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    messagesReceived?: MessageUncheckedUpdateManyWithoutReceiverNestedInput
+    favoriteAds?: FavoriteAdUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type AdUpsertWithWhereUniqueWithoutShopInput = {
+    where: AdWhereUniqueInput
+    update: XOR<AdUpdateWithoutShopInput, AdUncheckedUpdateWithoutShopInput>
+    create: XOR<AdCreateWithoutShopInput, AdUncheckedCreateWithoutShopInput>
+  }
+
+  export type AdUpdateWithWhereUniqueWithoutShopInput = {
+    where: AdWhereUniqueInput
+    data: XOR<AdUpdateWithoutShopInput, AdUncheckedUpdateWithoutShopInput>
+  }
+
+  export type AdUpdateManyWithWhereWithoutShopInput = {
+    where: AdScalarWhereInput
+    data: XOR<AdUpdateManyMutationInput, AdUncheckedUpdateManyWithoutShopInput>
+  }
+
+  export type AdCreateWithoutAdimagesInput = {
+    createdAt?: Date | string
+    description?: string | null
+    brand: string
+    EnginCapacity: string
+    category: string
+    carType: string
+    model: string
+    year: string
+    carStatus: string
+    transmission: string
+    fuelType: string
+    meterRange: string
+    paintType: string
+    payment: string
+    price: string
+    name: string
+    RegionalSpecifications: string
+    location: string
+    extraFeatures?: string | null
+    adStatus?: string
+    views?: number
+    clicks?: number
+    user?: UserCreateNestedOneWithoutAdsInput
+    shop?: ShopCreateNestedOneWithoutAdsInput
+    favoritedBy?: FavoriteAdCreateNestedManyWithoutAdInput
+  }
+
+  export type AdUncheckedCreateWithoutAdimagesInput = {
+    id?: number
+    userId?: number | null
+    shopId?: number | null
+    createdAt?: Date | string
+    description?: string | null
+    brand: string
+    EnginCapacity: string
+    category: string
+    carType: string
+    model: string
+    year: string
+    carStatus: string
+    transmission: string
+    fuelType: string
+    meterRange: string
+    paintType: string
+    payment: string
+    price: string
+    name: string
+    RegionalSpecifications: string
+    location: string
+    extraFeatures?: string | null
+    adStatus?: string
+    views?: number
+    clicks?: number
+    favoritedBy?: FavoriteAdUncheckedCreateNestedManyWithoutAdInput
   }
 
   export type AdCreateOrConnectWithoutAdimagesInput = {
@@ -8354,12 +11512,18 @@ export namespace Prisma {
     RegionalSpecifications?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
     extraFeatures?: NullableStringFieldUpdateOperationsInput | string | null
+    adStatus?: StringFieldUpdateOperationsInput | string
+    views?: IntFieldUpdateOperationsInput | number
+    clicks?: IntFieldUpdateOperationsInput | number
     user?: UserUpdateOneWithoutAdsNestedInput
+    shop?: ShopUpdateOneWithoutAdsNestedInput
+    favoritedBy?: FavoriteAdUpdateManyWithoutAdNestedInput
   }
 
   export type AdUncheckedUpdateWithoutAdimagesInput = {
     id?: IntFieldUpdateOperationsInput | number
     userId?: NullableIntFieldUpdateOperationsInput | number | null
+    shopId?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     brand?: StringFieldUpdateOperationsInput | string
@@ -8379,6 +11543,10 @@ export namespace Prisma {
     RegionalSpecifications?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
     extraFeatures?: NullableStringFieldUpdateOperationsInput | string | null
+    adStatus?: StringFieldUpdateOperationsInput | string
+    views?: IntFieldUpdateOperationsInput | number
+    clicks?: IntFieldUpdateOperationsInput | number
+    favoritedBy?: FavoriteAdUncheckedUpdateManyWithoutAdNestedInput
   }
 
   export type UserCreateWithoutAdsInput = {
@@ -8390,6 +11558,8 @@ export namespace Prisma {
     chats?: ChatCreateNestedManyWithoutUsersInput
     messagesSent?: MessageCreateNestedManyWithoutSenderInput
     messagesReceived?: MessageCreateNestedManyWithoutReceiverInput
+    favoriteAds?: FavoriteAdCreateNestedManyWithoutUserInput
+    shop?: ShopCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutAdsInput = {
@@ -8402,11 +11572,37 @@ export namespace Prisma {
     chats?: ChatUncheckedCreateNestedManyWithoutUsersInput
     messagesSent?: MessageUncheckedCreateNestedManyWithoutSenderInput
     messagesReceived?: MessageUncheckedCreateNestedManyWithoutReceiverInput
+    favoriteAds?: FavoriteAdUncheckedCreateNestedManyWithoutUserInput
+    shop?: ShopUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutAdsInput = {
     where: UserWhereUniqueInput
     create: XOR<UserCreateWithoutAdsInput, UserUncheckedCreateWithoutAdsInput>
+  }
+
+  export type ShopCreateWithoutAdsInput = {
+    shopName: string
+    location: string
+    bgImage?: string | null
+    shopImage?: string | null
+    description?: string | null
+    user: UserCreateNestedOneWithoutShopInput
+  }
+
+  export type ShopUncheckedCreateWithoutAdsInput = {
+    id?: number
+    userId: number
+    shopName: string
+    location: string
+    bgImage?: string | null
+    shopImage?: string | null
+    description?: string | null
+  }
+
+  export type ShopCreateOrConnectWithoutAdsInput = {
+    where: ShopWhereUniqueInput
+    create: XOR<ShopCreateWithoutAdsInput, ShopUncheckedCreateWithoutAdsInput>
   }
 
   export type ImageCreateWithoutAdInput = {
@@ -8421,6 +11617,22 @@ export namespace Prisma {
   export type ImageCreateOrConnectWithoutAdInput = {
     where: ImageWhereUniqueInput
     create: XOR<ImageCreateWithoutAdInput, ImageUncheckedCreateWithoutAdInput>
+  }
+
+  export type FavoriteAdCreateWithoutAdInput = {
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutFavoriteAdsInput
+  }
+
+  export type FavoriteAdUncheckedCreateWithoutAdInput = {
+    id?: number
+    userId: number
+    createdAt?: Date | string
+  }
+
+  export type FavoriteAdCreateOrConnectWithoutAdInput = {
+    where: FavoriteAdWhereUniqueInput
+    create: XOR<FavoriteAdCreateWithoutAdInput, FavoriteAdUncheckedCreateWithoutAdInput>
   }
 
   export type UserUpsertWithoutAdsInput = {
@@ -8443,6 +11655,8 @@ export namespace Prisma {
     chats?: ChatUpdateManyWithoutUsersNestedInput
     messagesSent?: MessageUpdateManyWithoutSenderNestedInput
     messagesReceived?: MessageUpdateManyWithoutReceiverNestedInput
+    favoriteAds?: FavoriteAdUpdateManyWithoutUserNestedInput
+    shop?: ShopUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAdsInput = {
@@ -8455,6 +11669,38 @@ export namespace Prisma {
     chats?: ChatUncheckedUpdateManyWithoutUsersNestedInput
     messagesSent?: MessageUncheckedUpdateManyWithoutSenderNestedInput
     messagesReceived?: MessageUncheckedUpdateManyWithoutReceiverNestedInput
+    favoriteAds?: FavoriteAdUncheckedUpdateManyWithoutUserNestedInput
+    shop?: ShopUncheckedUpdateOneWithoutUserNestedInput
+  }
+
+  export type ShopUpsertWithoutAdsInput = {
+    update: XOR<ShopUpdateWithoutAdsInput, ShopUncheckedUpdateWithoutAdsInput>
+    create: XOR<ShopCreateWithoutAdsInput, ShopUncheckedCreateWithoutAdsInput>
+    where?: ShopWhereInput
+  }
+
+  export type ShopUpdateToOneWithWhereWithoutAdsInput = {
+    where?: ShopWhereInput
+    data: XOR<ShopUpdateWithoutAdsInput, ShopUncheckedUpdateWithoutAdsInput>
+  }
+
+  export type ShopUpdateWithoutAdsInput = {
+    shopName?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
+    bgImage?: NullableStringFieldUpdateOperationsInput | string | null
+    shopImage?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    user?: UserUpdateOneRequiredWithoutShopNestedInput
+  }
+
+  export type ShopUncheckedUpdateWithoutAdsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    shopName?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
+    bgImage?: NullableStringFieldUpdateOperationsInput | string | null
+    shopImage?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type ImageUpsertWithWhereUniqueWithoutAdInput = {
@@ -8482,6 +11728,222 @@ export namespace Prisma {
     adId?: IntFilter<"Image"> | number
   }
 
+  export type FavoriteAdUpsertWithWhereUniqueWithoutAdInput = {
+    where: FavoriteAdWhereUniqueInput
+    update: XOR<FavoriteAdUpdateWithoutAdInput, FavoriteAdUncheckedUpdateWithoutAdInput>
+    create: XOR<FavoriteAdCreateWithoutAdInput, FavoriteAdUncheckedCreateWithoutAdInput>
+  }
+
+  export type FavoriteAdUpdateWithWhereUniqueWithoutAdInput = {
+    where: FavoriteAdWhereUniqueInput
+    data: XOR<FavoriteAdUpdateWithoutAdInput, FavoriteAdUncheckedUpdateWithoutAdInput>
+  }
+
+  export type FavoriteAdUpdateManyWithWhereWithoutAdInput = {
+    where: FavoriteAdScalarWhereInput
+    data: XOR<FavoriteAdUpdateManyMutationInput, FavoriteAdUncheckedUpdateManyWithoutAdInput>
+  }
+
+  export type UserCreateWithoutFavoriteAdsInput = {
+    createdAt?: Date | string
+    phoneNumber?: string | null
+    username?: string | null
+    image?: string | null
+    email: string
+    ads?: AdCreateNestedManyWithoutUserInput
+    chats?: ChatCreateNestedManyWithoutUsersInput
+    messagesSent?: MessageCreateNestedManyWithoutSenderInput
+    messagesReceived?: MessageCreateNestedManyWithoutReceiverInput
+    shop?: ShopCreateNestedOneWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutFavoriteAdsInput = {
+    id?: number
+    createdAt?: Date | string
+    phoneNumber?: string | null
+    username?: string | null
+    image?: string | null
+    email: string
+    ads?: AdUncheckedCreateNestedManyWithoutUserInput
+    chats?: ChatUncheckedCreateNestedManyWithoutUsersInput
+    messagesSent?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    messagesReceived?: MessageUncheckedCreateNestedManyWithoutReceiverInput
+    shop?: ShopUncheckedCreateNestedOneWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutFavoriteAdsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutFavoriteAdsInput, UserUncheckedCreateWithoutFavoriteAdsInput>
+  }
+
+  export type AdCreateWithoutFavoritedByInput = {
+    createdAt?: Date | string
+    description?: string | null
+    brand: string
+    EnginCapacity: string
+    category: string
+    carType: string
+    model: string
+    year: string
+    carStatus: string
+    transmission: string
+    fuelType: string
+    meterRange: string
+    paintType: string
+    payment: string
+    price: string
+    name: string
+    RegionalSpecifications: string
+    location: string
+    extraFeatures?: string | null
+    adStatus?: string
+    views?: number
+    clicks?: number
+    user?: UserCreateNestedOneWithoutAdsInput
+    shop?: ShopCreateNestedOneWithoutAdsInput
+    Adimages?: ImageCreateNestedManyWithoutAdInput
+  }
+
+  export type AdUncheckedCreateWithoutFavoritedByInput = {
+    id?: number
+    userId?: number | null
+    shopId?: number | null
+    createdAt?: Date | string
+    description?: string | null
+    brand: string
+    EnginCapacity: string
+    category: string
+    carType: string
+    model: string
+    year: string
+    carStatus: string
+    transmission: string
+    fuelType: string
+    meterRange: string
+    paintType: string
+    payment: string
+    price: string
+    name: string
+    RegionalSpecifications: string
+    location: string
+    extraFeatures?: string | null
+    adStatus?: string
+    views?: number
+    clicks?: number
+    Adimages?: ImageUncheckedCreateNestedManyWithoutAdInput
+  }
+
+  export type AdCreateOrConnectWithoutFavoritedByInput = {
+    where: AdWhereUniqueInput
+    create: XOR<AdCreateWithoutFavoritedByInput, AdUncheckedCreateWithoutFavoritedByInput>
+  }
+
+  export type UserUpsertWithoutFavoriteAdsInput = {
+    update: XOR<UserUpdateWithoutFavoriteAdsInput, UserUncheckedUpdateWithoutFavoriteAdsInput>
+    create: XOR<UserCreateWithoutFavoriteAdsInput, UserUncheckedCreateWithoutFavoriteAdsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutFavoriteAdsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutFavoriteAdsInput, UserUncheckedUpdateWithoutFavoriteAdsInput>
+  }
+
+  export type UserUpdateWithoutFavoriteAdsInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: NullableStringFieldUpdateOperationsInput | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
+    ads?: AdUpdateManyWithoutUserNestedInput
+    chats?: ChatUpdateManyWithoutUsersNestedInput
+    messagesSent?: MessageUpdateManyWithoutSenderNestedInput
+    messagesReceived?: MessageUpdateManyWithoutReceiverNestedInput
+    shop?: ShopUpdateOneWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutFavoriteAdsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: NullableStringFieldUpdateOperationsInput | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
+    ads?: AdUncheckedUpdateManyWithoutUserNestedInput
+    chats?: ChatUncheckedUpdateManyWithoutUsersNestedInput
+    messagesSent?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    messagesReceived?: MessageUncheckedUpdateManyWithoutReceiverNestedInput
+    shop?: ShopUncheckedUpdateOneWithoutUserNestedInput
+  }
+
+  export type AdUpsertWithoutFavoritedByInput = {
+    update: XOR<AdUpdateWithoutFavoritedByInput, AdUncheckedUpdateWithoutFavoritedByInput>
+    create: XOR<AdCreateWithoutFavoritedByInput, AdUncheckedCreateWithoutFavoritedByInput>
+    where?: AdWhereInput
+  }
+
+  export type AdUpdateToOneWithWhereWithoutFavoritedByInput = {
+    where?: AdWhereInput
+    data: XOR<AdUpdateWithoutFavoritedByInput, AdUncheckedUpdateWithoutFavoritedByInput>
+  }
+
+  export type AdUpdateWithoutFavoritedByInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    brand?: StringFieldUpdateOperationsInput | string
+    EnginCapacity?: StringFieldUpdateOperationsInput | string
+    category?: StringFieldUpdateOperationsInput | string
+    carType?: StringFieldUpdateOperationsInput | string
+    model?: StringFieldUpdateOperationsInput | string
+    year?: StringFieldUpdateOperationsInput | string
+    carStatus?: StringFieldUpdateOperationsInput | string
+    transmission?: StringFieldUpdateOperationsInput | string
+    fuelType?: StringFieldUpdateOperationsInput | string
+    meterRange?: StringFieldUpdateOperationsInput | string
+    paintType?: StringFieldUpdateOperationsInput | string
+    payment?: StringFieldUpdateOperationsInput | string
+    price?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    RegionalSpecifications?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
+    extraFeatures?: NullableStringFieldUpdateOperationsInput | string | null
+    adStatus?: StringFieldUpdateOperationsInput | string
+    views?: IntFieldUpdateOperationsInput | number
+    clicks?: IntFieldUpdateOperationsInput | number
+    user?: UserUpdateOneWithoutAdsNestedInput
+    shop?: ShopUpdateOneWithoutAdsNestedInput
+    Adimages?: ImageUpdateManyWithoutAdNestedInput
+  }
+
+  export type AdUncheckedUpdateWithoutFavoritedByInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: NullableIntFieldUpdateOperationsInput | number | null
+    shopId?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    brand?: StringFieldUpdateOperationsInput | string
+    EnginCapacity?: StringFieldUpdateOperationsInput | string
+    category?: StringFieldUpdateOperationsInput | string
+    carType?: StringFieldUpdateOperationsInput | string
+    model?: StringFieldUpdateOperationsInput | string
+    year?: StringFieldUpdateOperationsInput | string
+    carStatus?: StringFieldUpdateOperationsInput | string
+    transmission?: StringFieldUpdateOperationsInput | string
+    fuelType?: StringFieldUpdateOperationsInput | string
+    meterRange?: StringFieldUpdateOperationsInput | string
+    paintType?: StringFieldUpdateOperationsInput | string
+    payment?: StringFieldUpdateOperationsInput | string
+    price?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    RegionalSpecifications?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
+    extraFeatures?: NullableStringFieldUpdateOperationsInput | string | null
+    adStatus?: StringFieldUpdateOperationsInput | string
+    views?: IntFieldUpdateOperationsInput | number
+    clicks?: IntFieldUpdateOperationsInput | number
+    Adimages?: ImageUncheckedUpdateManyWithoutAdNestedInput
+  }
+
   export type UserCreateWithoutChatsInput = {
     createdAt?: Date | string
     phoneNumber?: string | null
@@ -8491,6 +11953,8 @@ export namespace Prisma {
     ads?: AdCreateNestedManyWithoutUserInput
     messagesSent?: MessageCreateNestedManyWithoutSenderInput
     messagesReceived?: MessageCreateNestedManyWithoutReceiverInput
+    favoriteAds?: FavoriteAdCreateNestedManyWithoutUserInput
+    shop?: ShopCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutChatsInput = {
@@ -8503,6 +11967,8 @@ export namespace Prisma {
     ads?: AdUncheckedCreateNestedManyWithoutUserInput
     messagesSent?: MessageUncheckedCreateNestedManyWithoutSenderInput
     messagesReceived?: MessageUncheckedCreateNestedManyWithoutReceiverInput
+    favoriteAds?: FavoriteAdUncheckedCreateNestedManyWithoutUserInput
+    shop?: ShopUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutChatsInput = {
@@ -8583,6 +12049,8 @@ export namespace Prisma {
     ads?: AdCreateNestedManyWithoutUserInput
     chats?: ChatCreateNestedManyWithoutUsersInput
     messagesReceived?: MessageCreateNestedManyWithoutReceiverInput
+    favoriteAds?: FavoriteAdCreateNestedManyWithoutUserInput
+    shop?: ShopCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutMessagesSentInput = {
@@ -8595,6 +12063,8 @@ export namespace Prisma {
     ads?: AdUncheckedCreateNestedManyWithoutUserInput
     chats?: ChatUncheckedCreateNestedManyWithoutUsersInput
     messagesReceived?: MessageUncheckedCreateNestedManyWithoutReceiverInput
+    favoriteAds?: FavoriteAdUncheckedCreateNestedManyWithoutUserInput
+    shop?: ShopUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutMessagesSentInput = {
@@ -8611,6 +12081,8 @@ export namespace Prisma {
     ads?: AdCreateNestedManyWithoutUserInput
     chats?: ChatCreateNestedManyWithoutUsersInput
     messagesSent?: MessageCreateNestedManyWithoutSenderInput
+    favoriteAds?: FavoriteAdCreateNestedManyWithoutUserInput
+    shop?: ShopCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutMessagesReceivedInput = {
@@ -8623,6 +12095,8 @@ export namespace Prisma {
     ads?: AdUncheckedCreateNestedManyWithoutUserInput
     chats?: ChatUncheckedCreateNestedManyWithoutUsersInput
     messagesSent?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    favoriteAds?: FavoriteAdUncheckedCreateNestedManyWithoutUserInput
+    shop?: ShopUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutMessagesReceivedInput = {
@@ -8664,6 +12138,8 @@ export namespace Prisma {
     ads?: AdUpdateManyWithoutUserNestedInput
     chats?: ChatUpdateManyWithoutUsersNestedInput
     messagesReceived?: MessageUpdateManyWithoutReceiverNestedInput
+    favoriteAds?: FavoriteAdUpdateManyWithoutUserNestedInput
+    shop?: ShopUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutMessagesSentInput = {
@@ -8676,6 +12152,8 @@ export namespace Prisma {
     ads?: AdUncheckedUpdateManyWithoutUserNestedInput
     chats?: ChatUncheckedUpdateManyWithoutUsersNestedInput
     messagesReceived?: MessageUncheckedUpdateManyWithoutReceiverNestedInput
+    favoriteAds?: FavoriteAdUncheckedUpdateManyWithoutUserNestedInput
+    shop?: ShopUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type UserUpsertWithoutMessagesReceivedInput = {
@@ -8698,6 +12176,8 @@ export namespace Prisma {
     ads?: AdUpdateManyWithoutUserNestedInput
     chats?: ChatUpdateManyWithoutUsersNestedInput
     messagesSent?: MessageUpdateManyWithoutSenderNestedInput
+    favoriteAds?: FavoriteAdUpdateManyWithoutUserNestedInput
+    shop?: ShopUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutMessagesReceivedInput = {
@@ -8710,6 +12190,8 @@ export namespace Prisma {
     ads?: AdUncheckedUpdateManyWithoutUserNestedInput
     chats?: ChatUncheckedUpdateManyWithoutUsersNestedInput
     messagesSent?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    favoriteAds?: FavoriteAdUncheckedUpdateManyWithoutUserNestedInput
+    shop?: ShopUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type ChatUpsertWithoutMessagesInput = {
@@ -8752,11 +12234,17 @@ export namespace Prisma {
     RegionalSpecifications?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
     extraFeatures?: NullableStringFieldUpdateOperationsInput | string | null
+    adStatus?: StringFieldUpdateOperationsInput | string
+    views?: IntFieldUpdateOperationsInput | number
+    clicks?: IntFieldUpdateOperationsInput | number
+    shop?: ShopUpdateOneWithoutAdsNestedInput
     Adimages?: ImageUpdateManyWithoutAdNestedInput
+    favoritedBy?: FavoriteAdUpdateManyWithoutAdNestedInput
   }
 
   export type AdUncheckedUpdateWithoutUserInput = {
     id?: IntFieldUpdateOperationsInput | number
+    shopId?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     brand?: StringFieldUpdateOperationsInput | string
@@ -8776,11 +12264,16 @@ export namespace Prisma {
     RegionalSpecifications?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
     extraFeatures?: NullableStringFieldUpdateOperationsInput | string | null
+    adStatus?: StringFieldUpdateOperationsInput | string
+    views?: IntFieldUpdateOperationsInput | number
+    clicks?: IntFieldUpdateOperationsInput | number
     Adimages?: ImageUncheckedUpdateManyWithoutAdNestedInput
+    favoritedBy?: FavoriteAdUncheckedUpdateManyWithoutAdNestedInput
   }
 
   export type AdUncheckedUpdateManyWithoutUserInput = {
     id?: IntFieldUpdateOperationsInput | number
+    shopId?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     brand?: StringFieldUpdateOperationsInput | string
@@ -8800,6 +12293,9 @@ export namespace Prisma {
     RegionalSpecifications?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
     extraFeatures?: NullableStringFieldUpdateOperationsInput | string | null
+    adStatus?: StringFieldUpdateOperationsInput | string
+    views?: IntFieldUpdateOperationsInput | number
+    clicks?: IntFieldUpdateOperationsInput | number
   }
 
   export type ChatUpdateWithoutUsersInput = {
@@ -8861,6 +12357,107 @@ export namespace Prisma {
     chatId?: IntFieldUpdateOperationsInput | number
   }
 
+  export type FavoriteAdUpdateWithoutUserInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    ad?: AdUpdateOneRequiredWithoutFavoritedByNestedInput
+  }
+
+  export type FavoriteAdUncheckedUpdateWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    adId?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FavoriteAdUncheckedUpdateManyWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    adId?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AdUpdateWithoutShopInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    brand?: StringFieldUpdateOperationsInput | string
+    EnginCapacity?: StringFieldUpdateOperationsInput | string
+    category?: StringFieldUpdateOperationsInput | string
+    carType?: StringFieldUpdateOperationsInput | string
+    model?: StringFieldUpdateOperationsInput | string
+    year?: StringFieldUpdateOperationsInput | string
+    carStatus?: StringFieldUpdateOperationsInput | string
+    transmission?: StringFieldUpdateOperationsInput | string
+    fuelType?: StringFieldUpdateOperationsInput | string
+    meterRange?: StringFieldUpdateOperationsInput | string
+    paintType?: StringFieldUpdateOperationsInput | string
+    payment?: StringFieldUpdateOperationsInput | string
+    price?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    RegionalSpecifications?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
+    extraFeatures?: NullableStringFieldUpdateOperationsInput | string | null
+    adStatus?: StringFieldUpdateOperationsInput | string
+    views?: IntFieldUpdateOperationsInput | number
+    clicks?: IntFieldUpdateOperationsInput | number
+    user?: UserUpdateOneWithoutAdsNestedInput
+    Adimages?: ImageUpdateManyWithoutAdNestedInput
+    favoritedBy?: FavoriteAdUpdateManyWithoutAdNestedInput
+  }
+
+  export type AdUncheckedUpdateWithoutShopInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    brand?: StringFieldUpdateOperationsInput | string
+    EnginCapacity?: StringFieldUpdateOperationsInput | string
+    category?: StringFieldUpdateOperationsInput | string
+    carType?: StringFieldUpdateOperationsInput | string
+    model?: StringFieldUpdateOperationsInput | string
+    year?: StringFieldUpdateOperationsInput | string
+    carStatus?: StringFieldUpdateOperationsInput | string
+    transmission?: StringFieldUpdateOperationsInput | string
+    fuelType?: StringFieldUpdateOperationsInput | string
+    meterRange?: StringFieldUpdateOperationsInput | string
+    paintType?: StringFieldUpdateOperationsInput | string
+    payment?: StringFieldUpdateOperationsInput | string
+    price?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    RegionalSpecifications?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
+    extraFeatures?: NullableStringFieldUpdateOperationsInput | string | null
+    adStatus?: StringFieldUpdateOperationsInput | string
+    views?: IntFieldUpdateOperationsInput | number
+    clicks?: IntFieldUpdateOperationsInput | number
+    Adimages?: ImageUncheckedUpdateManyWithoutAdNestedInput
+    favoritedBy?: FavoriteAdUncheckedUpdateManyWithoutAdNestedInput
+  }
+
+  export type AdUncheckedUpdateManyWithoutShopInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    brand?: StringFieldUpdateOperationsInput | string
+    EnginCapacity?: StringFieldUpdateOperationsInput | string
+    category?: StringFieldUpdateOperationsInput | string
+    carType?: StringFieldUpdateOperationsInput | string
+    model?: StringFieldUpdateOperationsInput | string
+    year?: StringFieldUpdateOperationsInput | string
+    carStatus?: StringFieldUpdateOperationsInput | string
+    transmission?: StringFieldUpdateOperationsInput | string
+    fuelType?: StringFieldUpdateOperationsInput | string
+    meterRange?: StringFieldUpdateOperationsInput | string
+    paintType?: StringFieldUpdateOperationsInput | string
+    payment?: StringFieldUpdateOperationsInput | string
+    price?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    RegionalSpecifications?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
+    extraFeatures?: NullableStringFieldUpdateOperationsInput | string | null
+    adStatus?: StringFieldUpdateOperationsInput | string
+    views?: IntFieldUpdateOperationsInput | number
+    clicks?: IntFieldUpdateOperationsInput | number
+  }
+
   export type ImageUpdateWithoutAdInput = {
     url?: StringFieldUpdateOperationsInput | string
   }
@@ -8875,6 +12472,23 @@ export namespace Prisma {
     url?: StringFieldUpdateOperationsInput | string
   }
 
+  export type FavoriteAdUpdateWithoutAdInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutFavoriteAdsNestedInput
+  }
+
+  export type FavoriteAdUncheckedUpdateWithoutAdInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FavoriteAdUncheckedUpdateManyWithoutAdInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type UserUpdateWithoutChatsInput = {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
@@ -8884,6 +12498,8 @@ export namespace Prisma {
     ads?: AdUpdateManyWithoutUserNestedInput
     messagesSent?: MessageUpdateManyWithoutSenderNestedInput
     messagesReceived?: MessageUpdateManyWithoutReceiverNestedInput
+    favoriteAds?: FavoriteAdUpdateManyWithoutUserNestedInput
+    shop?: ShopUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutChatsInput = {
@@ -8896,6 +12512,8 @@ export namespace Prisma {
     ads?: AdUncheckedUpdateManyWithoutUserNestedInput
     messagesSent?: MessageUncheckedUpdateManyWithoutSenderNestedInput
     messagesReceived?: MessageUncheckedUpdateManyWithoutReceiverNestedInput
+    favoriteAds?: FavoriteAdUncheckedUpdateManyWithoutUserNestedInput
+    shop?: ShopUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateManyWithoutChatsInput = {
@@ -8940,6 +12558,10 @@ export namespace Prisma {
      */
     export type UserCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = UserCountOutputTypeDefaultArgs<ExtArgs>
     /**
+     * @deprecated Use ShopCountOutputTypeDefaultArgs instead
+     */
+    export type ShopCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = ShopCountOutputTypeDefaultArgs<ExtArgs>
+    /**
      * @deprecated Use AdCountOutputTypeDefaultArgs instead
      */
     export type AdCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = AdCountOutputTypeDefaultArgs<ExtArgs>
@@ -8952,6 +12574,10 @@ export namespace Prisma {
      */
     export type UserArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = UserDefaultArgs<ExtArgs>
     /**
+     * @deprecated Use ShopDefaultArgs instead
+     */
+    export type ShopArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = ShopDefaultArgs<ExtArgs>
+    /**
      * @deprecated Use ImageDefaultArgs instead
      */
     export type ImageArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = ImageDefaultArgs<ExtArgs>
@@ -8959,6 +12585,10 @@ export namespace Prisma {
      * @deprecated Use AdDefaultArgs instead
      */
     export type AdArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = AdDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use FavoriteAdDefaultArgs instead
+     */
+    export type FavoriteAdArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = FavoriteAdDefaultArgs<ExtArgs>
     /**
      * @deprecated Use ChatDefaultArgs instead
      */

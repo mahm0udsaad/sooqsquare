@@ -18,20 +18,26 @@ import Link from "next/link";
 export function AdPage({ad , lng}) {
   const { t } = useTranslation(lng , "tranlsation")
   const router = useRouter()
-  const linkToChat = () => {
-    // Assuming ad.user.id is the owner's ID
-    const owner = ad.user.id;
 
-    // Make sure 'owner' has a valid value before pushing
-    if (owner) {
+  const getOwnerInfo = () => {
+    const ownerInfo = ad.shop || ad.user;
+    return ownerInfo;
+  };
+  const linkToChat = () => {
+    const owner = getOwnerInfo();
+
+    if (owner && owner.id) {
       router.push({
-        pathname: '/chat',
-        query: { owner },
+        pathname: "/chat",
+        query: { owner: owner.id },
       });
     } else {
-      console.error('Invalid owner ID');
+      console.error("Invalid owner ID");
     }
   };
+  console.log(ad , ad.shop );
+
+  const owner = getOwnerInfo();
 
   const extraFeatures = ad.extraFeatures ? ad.extraFeatures.split(" ") : null
   return (
@@ -157,15 +163,15 @@ export function AdPage({ad , lng}) {
             <AvatarFallback className="dark:text-black">
             <FaRegUser className="mx-auto my-auto" />
             </AvatarFallback>
-            <AvatarImage src={ad.user?.image} />
+            <AvatarImage src={ad.userId ? ad.user?.image : ad.shop.shopImage  } />
           </Avatar>
-            <p className="">{ad.user?.username}</p>
+            <p className="">{ad.userId ? ad.user?.username : ad.shop.shopName}</p>
             </div>
-            <p>Member Since : {ad.user?.createdAt && memberSince(ad.user.createdAt)}</p>
+            <p>Member Since : {ad.userId ? ad.user?.createdAt && memberSince(ad.user.createdAt) : ad.shop?.createdAt && memberSince(ad.shop.createdAt)}</p>
             <div className="flex justify-between items-center mt-2">
               <Link href={{
                 pathname: '/chat',
-                query: { owner: ad.user?.id},
+                query: { owner: ad.userId ? ad.user?.id : ad.shop.id },
             }} className="w-1/2 mx-1 rounded text-white p-2  flex items-center justify-center gap-2 inset-0 z-10 bg-[#fe2635] hover:bg-[#fe26355e]">
                <BsChatLeftDots className='w-4 h-4' />
                 Chat

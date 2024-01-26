@@ -17,11 +17,11 @@ exports.$Enums = {}
 
 /**
  * Prisma Client JS version: 5.8.1
- * Query Engine version: 0ca5ccbcfa6bdc81c003cf549abe4269f59c41e5
+ * Query Engine version: 78caf6feeaed953168c64e15a249c3e9a033ebe2
  */
 Prisma.prismaVersion = {
   client: "5.8.1",
-  engine: "0ca5ccbcfa6bdc81c003cf549abe4269f59c41e5"
+  engine: "78caf6feeaed953168c64e15a249c3e9a033ebe2"
 }
 
 Prisma.PrismaClientKnownRequestError = () => {
@@ -113,6 +113,16 @@ exports.Prisma.UserScalarFieldEnum = {
   email: 'email'
 };
 
+exports.Prisma.ShopScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  shopName: 'shopName',
+  location: 'location',
+  bgImage: 'bgImage',
+  shopImage: 'shopImage',
+  description: 'description'
+};
+
 exports.Prisma.ImageScalarFieldEnum = {
   id: 'id',
   url: 'url',
@@ -122,6 +132,7 @@ exports.Prisma.ImageScalarFieldEnum = {
 exports.Prisma.AdScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
+  shopId: 'shopId',
   createdAt: 'createdAt',
   description: 'description',
   brand: 'brand',
@@ -140,7 +151,17 @@ exports.Prisma.AdScalarFieldEnum = {
   name: 'name',
   RegionalSpecifications: 'RegionalSpecifications',
   location: 'location',
-  extraFeatures: 'extraFeatures'
+  extraFeatures: 'extraFeatures',
+  adStatus: 'adStatus',
+  views: 'views',
+  clicks: 'clicks'
+};
+
+exports.Prisma.FavoriteAdScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  adId: 'adId',
+  createdAt: 'createdAt'
 };
 
 exports.Prisma.ChatScalarFieldEnum = {
@@ -169,8 +190,10 @@ exports.Prisma.NullsOrder = {
 
 exports.Prisma.ModelName = {
   User: 'User',
+  Shop: 'Shop',
   Image: 'Image',
   Ad: 'Ad',
+  FavoriteAd: 'FavoriteAd',
   Chat: 'Chat',
   Message: 'Message'
 };

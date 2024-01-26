@@ -126,7 +126,7 @@ export async function updateUserPhoneNumber(newPhoneNumber , email) {
 
 export async function getUserByEmail(email) {
   try {
-    const existingUser = await prisma.User.findUnique({
+    const existingUser = await prisma.user.findUnique({
       where: {
         email: email,
       },
@@ -142,6 +142,39 @@ export async function getUserByEmail(email) {
             id: true,
           },
         },
+        ads: true, 
+        shop:  {
+          include: {
+          ads:{
+            select: {
+            id: true,
+            createdAt: true,
+            Adimages:true,
+            description: true,
+            brand: true,
+            EnginCapacity: true,
+            category: true,
+            carType: true,
+            model: true,
+            year: true,
+            carStatus: true,
+            transmission: true,
+            fuelType: true,
+            meterRange: true,
+            paintType: true,
+            payment: true,
+            price: true,
+            name: true,
+            RegionalSpecifications: true,
+            location: true,
+            extraFeatures: true,
+            adStatus: true,
+            views: true,
+            clicks: true,
+          },
+        }
+         }
+        }
       },
     });
 

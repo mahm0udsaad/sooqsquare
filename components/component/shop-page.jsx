@@ -1,9 +1,13 @@
 "use client"
 import { AvatarImage, AvatarFallback, Avatar } from "@/components/ui/avatar"
+import { timeSince } from "@/helper/timeConversion"
 import Image from "next/image"
 import Link from "next/link"
+import { CardContent, Card } from "@/components/ui/card"
+import { Button } from "@/components/ui/button"
+import { FaEye, FaHeart, FaMapMarkerAlt } from 'react-icons/fa';
 
-export default function ShopPage() {
+export default function ShopPage({ shop }) {
   return (
     <>
       <section className="relative w-full h-[50dvh] overflow-hidden">
@@ -12,7 +16,7 @@ export default function ShopPage() {
           className="absolute inset-0 w-full h-full object-cover"
           height={1080}
           width={1920}
-          src="/placeholder.svg"
+          src={shop.bgImage}
           style={{
             aspectRatio: "1920/1080",
             objectFit: "cover",
@@ -21,18 +25,17 @@ export default function ShopPage() {
         <div className="absolute inset-0 bg-black/40" />
         <div className="relative h-full flex items-end justify-end pb-8 pr-8">
           <Avatar className="w-32 h-32 border-4 border-white">
-            <AvatarImage alt="Shop owner" src="/placeholder-avatar.jpg" />
+            <AvatarImage alt="Shop owner" src={shop.shopImage} />
             <AvatarFallback>SO</AvatarFallback>
           </Avatar>
         </div>
       </section>
       <main className="container mx-auto px-4 py-8 space-y-4">
-        <h1 className="text-4xl font-bold">The Cozy Corner</h1>
+        <h1 className="text-4xl font-bold">{shop.shopName}</h1>
         <p className="text-lg text-gray-500 dark:text-gray-400">
-          A quaint little shop nestled in the heart of the city, offering a collection of handcrafted goods and vintage
-          finds.
+        {shop.description}
         </p>
-        <div className="flex space-x-4">
+        <div className="flex gap-4">
           <Link className="text-blue-500" href="#">
             <TwitterIcon className="h-6 w-6" />
             <span className="sr-only">Twitter</span>
@@ -46,6 +49,39 @@ export default function ShopPage() {
             <span className="sr-only">Facebook</span>
           </Link>
         </div>
+        <section className="container mx-auto px-4 py-8 space-y-4">
+        <h2 className="text-2xl font-bold">Featured Ads</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        {shop.ads.map((ad)=>(
+          <Card key={ad.id} className="bg-white dark:bg-gray-800 shadow rounded-lg overflow-hidden">
+            <Image
+              alt="Ad image"
+              className="rounded-lg object-cover aspect-[200/200] aspect-square w-full h-[15rem] group-hover:opacity-50 transition-opacity"
+              src={ad.Adimages[0].url}
+              width={250}
+              height={250}
+            />
+            <CardContent className="p-4">
+              <h3 className="text-lg font-semibold mb-2">{ad.name}</h3>
+              <p className="text-gray-500 dark:text-gray-400 mb-2">
+                <FaMapMarkerAlt className="inline text-gray-400 mx-1" />
+                {ad.location}
+              </p>
+              <p className="text-sm text-gray-400">Created at: {timeSince(ad.createdAt)}</p>
+              <p className="text-sm text-gray-400">
+                <FaEye className="inline text-gray-400 mx-1" />
+                Views: {ad.views}
+              </p>
+              <p className="text-sm text-gray-400">
+                <FaHeart className="inline text-gray-400 mx-1" />
+                Favorites: {ad.FavoriteAd?.length || 0}
+              </p>
+              <Button className="mt-2">View Ad</Button>
+            </CardContent>
+          </Card>
+          ))}
+        </div>
+        </section>
       </main>
     </>
   )

@@ -32,13 +32,7 @@ export default function UserProfile({user}) {
           <h1 className="text-xl font-bold p-4">0</h1>
           <CardContent className="text-gray-500 text-sm text-center dark:text-gray-400">Your favorite items will appear here.</CardContent>
         </Card>
-        <Card className="shadow dark:bg-zinc-800 dark:text-white flex flex-col items-center justify-center p-6">
-          <CardHeader className="flex  gap-4 items-center justify-center text-xl font-bold">
-          <RiEyeLine className="h-6 w-6 dark:text-white text-gray-800"/>
-            Profile Views</CardHeader> 
-          <h1 className="text-xl font-bold p-4">0</h1>
-          <CardContent className="text-gray-500 text-sm text-center dark:text-gray-400">Your Profile Views number will appear here.</CardContent>
-        </Card>
+        
         <Card className="shadow dark:bg-zinc-800 dark:text-white flex flex-col items-center justify-center p-6">
           <CardHeader className="flex  gap-4 items-center justify-center text-xl font-bold">
           <BsThreads className="h-6 w-6  text-sky-800"/>
@@ -46,6 +40,15 @@ export default function UserProfile({user}) {
           <h1 className="text-xl font-bold p-4">{user.ads.length}</h1>
           <CardContent className="text-gray-500 text-sm text-center dark:text-gray-400">Your posted ads will appear here.</CardContent>
         </Card>
+
+        <Card className="shadow dark:bg-zinc-800 dark:text-white flex flex-col items-center justify-center p-6">
+          <CardHeader className="flex  gap-4 items-center justify-center text-xl font-bold">
+          <RiEyeLine className="h-6 w-6 text-yellow-800"/>
+            Profile Views</CardHeader> 
+          <h1 className="text-xl font-bold p-4">0</h1>
+          <CardContent className="text-gray-500 text-sm text-center dark:text-gray-400">Your Profile Views number will appear here.</CardContent>
+        </Card>
+       
       </div>
       <div className="flex flex-col w-full mt-6">
         <label className="text-gray-700 dark:text-gray-300">Gender</label>

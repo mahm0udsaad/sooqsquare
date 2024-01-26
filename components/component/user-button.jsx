@@ -1,22 +1,47 @@
 
 import { Button } from "@/components/ui/button"
 import { PopoverTrigger, PopoverContent, Popover } from "@/components/ui/popover"
-import { Avatar , AvatarImage } from '@/components/ui/avatar';
 import Link from "next/link"
+import { FaRegEdit } from "react-icons/fa";
+import { TbReportAnalytics } from "react-icons/tb";
+import { BsThreads } from "react-icons/bs";
+import { FaShop } from "react-icons/fa6";
+import { AvatarImage, AvatarFallback, Avatar } from "@/components/ui/avatar"
 
-export function UserButton({ userImage }) {
+
+export function UserButton({ user }) {
   return (
     (
     <Popover>
       <PopoverTrigger asChild>
         <Button className="rounded-full" size="icon" variant="outline">
            <Avatar>
-              <AvatarImage src={userImage} alt="user"/>
+              <AvatarImage src={user.image} alt="user"/>
             </Avatar>
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-80 dark:bg-zinc-950 dark:text-white">
         <div className="grid gap-4">
+          {user.shop ? 
+          <div className="space-y-2">
+          <Link className="py-3 flex items-center gap-2 flex gap-3 items-center text-gray-700 dark:text-gray-200 hover:dark:text-white hover:text-zinc-900" href="/myShopView">
+            <FaShop className="w-6 h-6" />
+            <span className="mx-3">My Shop</span>
+            </Link>
+            <Link className="py-3 flex items-center gap-2 flex gap-3 items-center text-gray-700 dark:text-gray-200 hover:dark:text-white hover:text-zinc-900" href="/myShop">
+                <FaRegEdit className="w-6 h-6" />
+                <span className="mx-3">Shop Details</span>
+            </Link>
+            <Link className="py-3 flex items-center gap-2 flex gap-3 items-center text-gray-700 dark:text-gray-200 hover:dark:text-white hover:text-zinc-900" href="/reports">
+                <TbReportAnalytics className="w-6 h-6 text-orange-600" />
+                <span className="mx-3">Shop Reports</span>
+            </Link>
+            <Link className="py-3 flex items-center gap-2 flex gap-3 items-center text-gray-700 dark:text-gray-200 hover:dark:text-white hover:text-zinc-900" href="/shopAds">
+                <BsThreads className="w-6 h-6 text-sky-600" />
+                <span className="mx-3">Shop Ads</span>
+            </Link>
+          </div>
+          :
           <div className="space-y-2">
             <Link className="py-3 flex items-center gap-2" href="/myProfile">
               <UserIcon className="w-4 h-4" />
@@ -35,6 +60,7 @@ export function UserButton({ userImage }) {
               Logout
             </Link>
           </div>
+          }
         </div>
       </PopoverContent>
     </Popover>

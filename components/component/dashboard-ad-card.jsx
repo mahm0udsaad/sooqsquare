@@ -106,12 +106,12 @@ export const AdCard = ({lng, ad }) => {
   return (
       <div className="flex flex-col md:flex-row items-center justify-between w-11/12 mx-auto p-8 rounded-lg shadow-md bg-white dark:bg-zinc-800">
       <Carousel style={carouselStyle} className="w-full max-w-xs mx-auto ">
-      <CarouselContent >
+      <CarouselContent className="dark:bg-zinc-800">
         {Adimages.map((image, index) => (
           <CarouselItem key={index}>
             <div className="p-1">
-              <Card>
-                <CardContent className="flex aspect-square items-center justify-center p-6">
+              <Card> 
+                <CardContent className="flex dark:bg-zinc-800 aspect-square items-center justify-center p-6">
                   <img className="w-48" src={image.url} alt="adImage"  />
                 </CardContent>
               </Card>

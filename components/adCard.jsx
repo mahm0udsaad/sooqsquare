@@ -35,7 +35,6 @@ const MyAdsCard = ({lng, ad }) => {
     meterRange,
   } = ad;
   return (
-    
      <Card className="dark:bg-zinc-800 dark:text-white">
       <CardContent>
       <Carousel style={carouselStyle} className="w-full max-w-xs mx-auto ">
