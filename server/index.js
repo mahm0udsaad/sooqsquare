@@ -8,7 +8,7 @@ const app = express();
 const server = createServer(app);
 const io = new Server(server);
 
-app.use(cors({ origin: "*" }));
+app.use(cors({ origin: "https://sooqsquare.com" }));
 
 io.on("connection", (socket) => {
   console.log("a user connected");
@@ -22,6 +22,6 @@ io.on("connection", (socket) => {
   });
 });
 
-server.listen(8001, () => {
+server.listen(8001, '::', () => {
   console.log("server running at :8001");
 });

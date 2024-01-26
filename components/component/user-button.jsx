@@ -18,7 +18,7 @@ export function UserButton({ userImage }) {
       <PopoverContent className="w-80 dark:bg-zinc-950 dark:text-white">
         <div className="grid gap-4">
           <div className="space-y-2">
-            <Link className="py-3 flex items-center gap-2" href="#">
+            <Link className="py-3 flex items-center gap-2" href="/myProfile">
               <UserIcon className="w-4 h-4" />
               Profile
             </Link>
@@ -30,7 +30,7 @@ export function UserButton({ userImage }) {
               <HeartIcon className="w-4 h-4" />
               Favorites
             </Link>
-            <Link className="py-3 flex items-center gap-2" href="#">
+            <Link className="py-3 flex items-center gap-2 text-rose-600" href="#">
               <LogOutIcon className="w-4 h-4" />
               Logout
             </Link>

@@ -10,7 +10,7 @@ export function SonnerDemo() {
   useEffect(() => {
     if (successMessage) {
       setShowToast(true);
-
+      console.log('truee');
       const timer = setTimeout(() => {
         setShowToast(false);
       }, 5000); // 5 seconds in milliseconds
@@ -21,9 +21,7 @@ export function SonnerDemo() {
     }
   }, [successMessage]);
 
-  return showToast ? (
-     toast(successMessage ? successMessage :"Event has been created.")
-  ) : null;
+  return !showToast ? null :  (toast(successMessage ? successMessage :"Event has been created."))
 }
 
 export function ErrorMessage() {

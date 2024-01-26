@@ -35,6 +35,7 @@ import {
 import { Input } from "../ui/input"
 import { Label } from "../ui/label"
 import { useTranslation } from "@/app/i18n/client"
+import { toast } from "sonner"
 
 export const AdCard = ({lng, ad }) => {
     const { t } = useTranslation(lng ,"translation")
@@ -73,7 +74,6 @@ export const AdCard = ({lng, ad }) => {
       return adData;
     }
     const updatedAd = extractAdDataViewMore(ad)
-    const { setSuccessMessage} = useDarkMode()
 
     const handleInputChange = (e) => {
       const { id, value } = e.target;
@@ -88,24 +88,23 @@ export const AdCard = ({lng, ad }) => {
         const deletedAd = await deleteAd(adId)
         if(deletedAd){
             setDeleteLoading(false)
-             setSuccessMessage('Deleted Successfully')
+            toast("Ad Deleted Successfuly")
         }
     }
 
     const handleEdit = async (e) =>{
       e.preventDefault()
-      console.log("formData.name");
-   
       const data = extractAdData(formData)
 
       const updatedAd = await updateAd(ad.id,data)
       if(updatedAd){
-      setSuccessMessage("ad Updated Successfuly")
+      toast("ad Updated Successfuly")
+      console.log("success");
       }
     }
 
   return (
-      <div className="flex flex-col md:flex-row items-center justify-between w-full p-8 rounded-lg shadow-md bg-white dark:bg-zinc-800">
+      <div className="flex flex-col md:flex-row items-center justify-between w-11/12 mx-auto p-8 rounded-lg shadow-md bg-white dark:bg-zinc-800">
       <Carousel style={carouselStyle} className="w-full max-w-xs mx-auto ">
       <CarouselContent >
         {Adimages.map((image, index) => (
@@ -131,23 +130,12 @@ export const AdCard = ({lng, ad }) => {
               </p>
           <h3 className="text-xl font-semibold">Specifications:</h3>
           <ul className="list-disc list-inside space-y-2 text-gray-500 dark:text-gray-400">
-          <div className="grid w-full gap-2">
-              <div>
-                  <Badge className={'dark:bg-white dark:text-black mx-3 '}>Regional Specifications</Badge>
-                  <span className="dark:text-gray-300 ml-2">{RegionalSpecifications}</span>
-                </div>
-
-         
-                <div>
-                  <Badge className={'dark:bg-white dark:text-black mx-3 '}>payment</Badge>
-                  <span className="dark:text-gray-300 ml-2">{payment}</span>
-                </div>
+          <div className="grid grid-cols-2  w-full gap-2">
 
                 <div>
                   <Badge className={'dark:bg-white dark:text-black mx-3 '}>price</Badge>
                   <span className="dark:text-gray-300 ml-2">{price}</span>
                 </div>
-
 
                 <div>
                   <Badge className={'dark:bg-white dark:text-black mx-3 '}>brand</Badge>
@@ -178,21 +166,6 @@ export const AdCard = ({lng, ad }) => {
                   <Badge className={'dark:bg-white dark:text-black mx-3 '}>carStatus</Badge>
                   <span className="dark:text-gray-300 ml-2">{carStatus}</span>
                 </div>
-
-                <div>
-                  <Badge className={'dark:bg-white dark:text-black mx-3 '}>transmission</Badge>
-                  <span className="dark:text-gray-300 ml-2">{transmission}</span>
-                </div>
-
-                <div>
-                  <Badge className={'dark:bg-white dark:text-black mx-3 '}>fuelType</Badge>
-                  <span className="dark:text-gray-300 ml-2">{fuelType}</span>
-                </div>
-
-                <div>
-                  <Badge className={'dark:bg-white dark:text-black mx-3 '}>meterRange</Badge>
-                  <span className="dark:text-gray-300 ml-2">{meterRange}</span>
-                  </div>
             </div>
           </ul>
           {/* Show More Dialoag */}
@@ -235,7 +208,7 @@ export const AdCard = ({lng, ad }) => {
               <DrawerTitle>Are you absolutely sure?</DrawerTitle>
               <DrawerDescription>This action cannot be undone.</DrawerDescription>
             </DrawerHeader>
-            <form  className="grid grid-cols-3 gap-x-4 ">
+            <form  className="grid grid-cols-3 gap-x-4 w-11/12 mx-auto">
             {Object.keys(formData).map((key) => (
                 <div key={key} className={`flex justify-between items-center ${key === 'id' || key === 'createdAt' || key === 'userId' || key == 'Adimages' || key === 'user' ? "hidden" : ""}`}>
                   <Label className="block text-sm font-bold w-1/2" htmlFor={key}>

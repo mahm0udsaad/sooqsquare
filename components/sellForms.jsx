@@ -18,6 +18,7 @@ import {
   ToggleGroup,
   ToggleGroupItem,
 } from "@/components/ui/toggle-group"
+import { toast } from 'sonner';
 const NameDescriptionSelector = dynamic(() => import(`./NameDescriptionSelector`));
 const CarBrandSelector = dynamic(() => import(`./carBrandSelection`));
 const CarStatusSelection = dynamic(() => import(`./carStatusSelection`));
@@ -535,7 +536,7 @@ export function Review({lng , userId}) {
     try {
       const ad = await createAd(data, userId);
       if (ad) {
-        setSuccessMessage(true);
+        toast("Ad Created Successfuly")
       }
     } catch (error) {
       console.error('Error creating ad:', error);

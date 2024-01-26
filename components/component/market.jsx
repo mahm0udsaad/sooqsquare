@@ -335,8 +335,6 @@ console.log(ads);
               width={250}
               height={250}
             />
-
-
             <Button className="absolute top-2 right-2 bg-transparent rounded-full p-1">
               <svg
                 className="h-6 w-6 text-red-500"

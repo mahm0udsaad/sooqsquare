@@ -1,7 +1,6 @@
 "use server"
 import sharp from "sharp";
 import { createAdapter  } from "webdav-fs";
-
 const username = 'mahm0ud';
 const password = 'dbEMY-soQg6-JKq4H-4S832-MRSPN';
 const remotePath = `https://cloud.elsewedy-automation.com/nextcloud/remote.php/dav/files/${username}`;

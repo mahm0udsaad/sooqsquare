@@ -137,6 +137,11 @@ export async function getUserByEmail(email) {
             users: true,
           },
         },
+        ads: {
+          select: {
+            id: true,
+          },
+        },
       },
     });
 
