@@ -12,7 +12,6 @@ export default async function upload(data) {
     return null;
   }
 
-  // Sharp functionality
   const imageBytes = await imageFile.arrayBuffer();
   const imageBuffer = Buffer.from(imageBytes);
 

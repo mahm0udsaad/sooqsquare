@@ -21,13 +21,10 @@ export default function MyShopPage({shop}) {
 
   const handleBgImageChange = async (e) => {
     const file = e.target.files[0];
-    console.log(file);
     try {
       if (!file) {
         throw new Error('No file uploaded');
       }
-
-      setUploading(true);
 
       const formData = new FormData();
       formData.append('file', file);
@@ -38,10 +35,8 @@ export default function MyShopPage({shop}) {
         addBgImageToShop(shop.id , uploadResult.adImage)
       }
       toast("Image Uploaded Successfully " )
-      setUploading(false);
     } catch (error) {
       console.error(error.message);
-      setUploading(false);
     }
   };
   const handleShopImageChange = async (e) => {
@@ -52,8 +47,6 @@ export default function MyShopPage({shop}) {
         throw new Error('No file uploaded');
       }
 
-      setUploading(true);
-
       const formData = new FormData();
       formData.append('file', file);
 
@@ -63,10 +56,8 @@ export default function MyShopPage({shop}) {
         addImageToShop(shop.id , uploadResult.adImage)
       }
       toast("Image Uploaded Successfully " )
-      setUploading(false);
     } catch (error) {
       console.error(error.message);
-      setUploading(false);
     }
   };
   const handleUpdateShop = async (event) => {
@@ -88,7 +79,7 @@ export default function MyShopPage({shop}) {
               alt="Background"
               className="absolute inset-0 w-full h-full object-cover"
               height="1080"
-              src={shop.bgImage ? shop.bgImage : 'https://cloud.elsewedy-automation.com/nextcloud/apps/sharingpath/mahm0ud/upload/Hero%20(1).png'}
+              src={shop.bgImage ? shop.bgImage : 'https://cloud.elsewedy-automation.com/nextcloud/apps/sharingpath/mahm0ud/upload/Rectangle%2023787.png'}
               style={{
                 aspectRatio: "1920/1080",
                 objectFit: "cover",
