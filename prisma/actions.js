@@ -178,16 +178,8 @@ export async function getUserByEmail(email) {
         ads: {
           select: {
             id: true,
-          },
-        },
-        ads: true, 
-        shop:  {
-          include: {
-          ads:{
-            select: {
-            id: true,
             createdAt: true,
-            Adimages:true,
+            Adimages: true,
             description: true,
             brand: true,
             EnginCapacity: true,
@@ -210,9 +202,45 @@ export async function getUserByEmail(email) {
             views: true,
             clicks: true,
           },
-        }
-         }
-        }
+          orderBy: {
+            createdAt: 'desc', // Order by createdAt in descending order (newest first)
+          },
+        },
+        shop: {
+          include: {
+            ads: {
+              select: {
+                id: true,
+                createdAt: true,
+                Adimages: true,
+                description: true,
+                brand: true,
+                EnginCapacity: true,
+                category: true,
+                carType: true,
+                model: true,
+                year: true,
+                carStatus: true,
+                transmission: true,
+                fuelType: true,
+                meterRange: true,
+                paintType: true,
+                payment: true,
+                price: true,
+                name: true,
+                RegionalSpecifications: true,
+                location: true,
+                extraFeatures: true,
+                adStatus: true,
+                views: true,
+                clicks: true,
+              },
+              orderBy: {
+                createdAt: 'desc', // Order by createdAt in descending order (newest first)
+              },
+            },
+          },
+        },
       },
     });
 

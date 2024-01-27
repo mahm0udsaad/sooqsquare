@@ -618,7 +618,7 @@ export function Review({lng , userId}) {
             <DialogFooter className="flex justify-center space-x-4 p-6 sm:p-8">
               <Link
                 className="inline-flex h-10 items-center justify-center rounded-md bg-green-500 px-8 text-sm font-medium text-white shadow transition-colors hover:bg-green-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-700 disabled:pointer-events-none disabled:opacity-50"
-                href={`${ad?.shop ? '/shopAds' : '/myAds'}`}
+                href={`${ad?.user ? '/myAds' : '/shopAds'}`}
               >
                 <BsThreads className="h-5 w-5 mr-2" />
                 My Ads
