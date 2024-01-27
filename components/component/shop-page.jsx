@@ -32,7 +32,7 @@ export default function ShopPage({ shop }) {
       </section>
       <main className="container mx-auto px-4 py-8 space-y-4">
         <h1 className="text-4xl font-bold">{shop.shopName}</h1>
-        <p className="text-lg text-gray-500 dark:text-gray-400">
+        <p className="text-lg text-gray-500 dark:text-gray-400 dark:text-gray-200">
         {shop.description}
         </p>
         <div className="flex gap-4">
@@ -56,27 +56,27 @@ export default function ShopPage({ shop }) {
           <Card key={ad.id} className="bg-white dark:bg-gray-800 shadow rounded-lg overflow-hidden">
             <Image
               alt="Ad image"
-              className="rounded-lg object-cover aspect-[200/200] aspect-square w-full h-[15rem] group-hover:opacity-50 transition-opacity"
+              className="rounded-lg object-none aspect-square w-full h-[15rem] group-hover:opacity-50 transition-opacity"
               src={ad.Adimages[0].url}
-              width={250}
-              height={250}
+              width={200}
+              height={200}
             />
             <CardContent className="p-4">
               <h3 className="text-lg font-semibold mb-2">{ad.name}</h3>
-              <p className="text-gray-500 dark:text-gray-400 mb-2">
-                <FaMapMarkerAlt className="inline text-gray-400 mx-1" />
+              <p className="text-gray-500 dark:text-gray-200 mb-2">
+                <FaMapMarkerAlt className="inline dark:text-gray200 text-gray-400 dark:text-gray-200 mx-1" />
                 {ad.location}
               </p>
-              <p className="text-sm text-gray-400">Created at: {timeSince(ad.createdAt)}</p>
-              <p className="text-sm text-gray-400">
-                <FaEye className="inline text-gray-400 mx-1" />
+              <p className="text-sm text-gray-400 dark:text-gray-200">Created at: {timeSince(ad.createdAt)}</p>
+              <p className="text-sm text-gray-400 dark:text-gray-200">
+                <FaEye className="inline text-gray-400 dark:text-gray-200 mx-1" />
                 Views: {ad.views}
               </p>
-              <p className="text-sm text-gray-400">
-                <FaHeart className="inline text-gray-400 mx-1" />
+              <p className="text-sm text-gray-400 dark:text-gray-200">
+                <FaHeart className="inline text-gray-400 dark:text-gray-200 mx-1" />
                 Favorites: {ad.FavoriteAd?.length || 0}
               </p>
-              <Button className="mt-2">View Ad</Button>
+              <Link href={`/vehicle/${ad.id}`} className="mt-2 py-3 px-4 bg-black text-white dark:bg-white dark:text-black hover:text-black hover:bg-white hover:dark:text-white hover:dark:bg-black">View Ad</Link>
             </CardContent>
           </Card>
           ))}

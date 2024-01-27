@@ -109,7 +109,7 @@ export default function MyShopPage({shop}) {
           <Label className="cursor-pointer" htmlFor="avatar-image">
             <span className="sr-only">Upload an avatar</span>
             <Input onChange={handleShopImageChange} accept="image/*" className="hidden" id="avatar-image" name="avatar-image" type="file" />
-            <Avatar className="w-32 h-32 border-4 border-white">
+            <Avatar className="w-32 h-32 border-4 border-white hover:opacity-50">
               <AvatarImage className='aspect-square' alt="Shop owner" src={shop.shopImage} />
               <AvatarFallback>SO</AvatarFallback>
             </Avatar>

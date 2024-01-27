@@ -2,13 +2,17 @@ import { getServerSession } from 'next-auth';
 import { getUserByEmail } from '@/prisma/actions'
 import { getAdsByUserId } from '../actions';
 import { AdCard } from '@/components/component/dashboard-ad-card';
+import { redirect } from 'next/navigation'
 
 export default async function MyAds({params:{lng}}) {
 
     const logedUser = await getServerSession() 
     const user = await getUserByEmail(logedUser?.user.email) 
     const ads = await getAdsByUserId(user.id)
-
+    if(user.shop){
+      redirect('/shopAds')
+    }
+    
     return (
        <div className='flex w-11/12  mx-auto flex-col gap-3'>
           {
