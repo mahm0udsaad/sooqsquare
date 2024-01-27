@@ -20,7 +20,7 @@ export default async function upload(data) {
   const mainImage = sharp(imageBuffer);
 
   // Add a watermark to the image
-  const watermarkPath = './public/logo.png';
+  const watermarkPath = './public/Logo.png';
   const watermark = sharp(watermarkPath);
 
   // Resize the watermark image to fit within the main image dimensions

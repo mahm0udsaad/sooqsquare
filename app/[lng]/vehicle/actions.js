@@ -33,7 +33,6 @@ export async function getAllads(searchParams){
       });
       return ads
 }
-
 export async function getAdById(adId) {
     try {
       const ad = await prisma.Ad.findUnique({
@@ -54,4 +53,4 @@ export async function getAdById(adId) {
     } finally {
       await prisma.$disconnect();
     }
-  }
+}

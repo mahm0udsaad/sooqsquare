@@ -15,6 +15,7 @@ import { BsThreads } from "react-icons/bs";
 import { Label } from "@/components/ui/label"
 import { Badge } from "@/components/ui/badge"
 import React, { useState, useRef, useEffect } from 'react';
+
 import { useDarkMode } from '@/context/darkModeContext';
 import { createAd } from '../prisma/actions';
 import { RiTimerFlashLine } from "react-icons/ri";
@@ -486,6 +487,8 @@ export function PriceSelection({lng}) {
    </div>
   );
 }
+
+
 export function Review({lng , userId}) {
   const brand = useSearchParams().get("brand");
   const category = useSearchParams().get("category");
@@ -513,7 +516,9 @@ export function Review({lng , userId}) {
   const [ad, setAd] = useState(null);
   const { t } = useTranslation(lng , "translation")
   const extraFeatures = extraFeature.join(' ')
-  console.log(extraFeatures);
+  const {isConfettiActive, setConfettiActive} = useDarkMode();
+
+
   const router = useRouter()
   const data = {
     name: name,
@@ -545,6 +550,11 @@ export function Review({lng , userId}) {
       if (ad) {
         toast("Ad Created Successfuly")
         setShowDialog(true)
+        setConfettiActive(true);
+        // Reset the confetti after a short delay
+        setTimeout(() => {
+            setConfettiActive(false);
+        }, 4000);
       }
     } catch (error) {
       console.error('Error creating ad:', error);
@@ -561,6 +571,11 @@ export function Review({lng , userId}) {
         setAd(ad)
         toast("Ad Published Successfuly")
         setShowDialog(true)
+        setConfettiActive(true);
+        // Reset the confetti after a short delay
+        setTimeout(() => {
+            setConfettiActive(false);
+        }, 4000);
       }
     } catch (error) {
       console.error('Error creating ad:', error);
@@ -568,6 +583,7 @@ export function Review({lng , userId}) {
       setPublishIsLoading(false);
     }
   };
+
   const steps = [
     { label: 'Category', value: category },
     { label: 'Car Status', value: carStatus },
@@ -591,6 +607,7 @@ export function Review({lng , userId}) {
   ];
   if (!brand || !category || !model || !year || !carType || !carStatus || !transmission || !fuelType || !paintType || !price || !payment || !name || !extraFeatures) return null;
  
+  
   return (
     <main className="">
       <div className="grid mx-8 grid-cols-1 md:grid-cols-3 gap-x-3 gap-y-2 pb-4">

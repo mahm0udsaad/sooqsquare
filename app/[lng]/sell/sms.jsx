@@ -24,6 +24,7 @@ export default function LoginWithPhone ({email}){
     const router = useRouter()
     const inputRefs = useRef([...Array(6)].map(() => React.createRef()));
 
+
     useEffect(() => {
       if(!otpSent){
         return ;

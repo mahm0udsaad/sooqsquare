@@ -7,7 +7,6 @@ export default async function MyAds({params:{lng}}) {
 
     const logedUser = await getServerSession() 
     const user = await getUserByEmail(logedUser?.user.email) 
-    console.log(user.shop.ads);
     return (
        <div className='flex w-11/12 mx-auto flex-col gap-3'>
           {
