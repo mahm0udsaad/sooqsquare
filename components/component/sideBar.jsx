@@ -148,7 +148,7 @@ const ShopSideBar = ({ shop }) =>{
         <AvatarImage alt="Shop owner" src={shop.shopImage} />
             <AvatarFallback>SO</AvatarFallback>
           </Avatar>
-          <h2 className="text-2xl font-semibold text-gray-800 dark:text-gray-200">{shop.shopName}</h2>
+          <h2 className="text-xl font-semibold text-gray-800 dark:text-gray-200">{`${shop.shopName.split(' ')[0]}'s Shop`}</h2>
         </div>
         <div className="flex flex-col gap-4 px-4 py-2 mt-5">
         <Link className="flex gap-3 items-center text-gray-700 dark:text-gray-200 hover:dark:text-white hover:text-zinc-900" href="/myShopView">

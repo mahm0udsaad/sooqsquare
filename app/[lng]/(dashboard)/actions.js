@@ -1,6 +1,7 @@
 "use server"
 import { revalidatePath } from "next/cache";
 import prisma from "../../../prisma/client";
+import { redirect } from "next/dist/server/api-utils";
 
 export async function getAdsByUserId(userId) {
   userId = parseInt(userId)
@@ -119,6 +120,7 @@ export async function createShop(userId, shopName, location,  shopImage) {
     throw error; // Rethrow the error for handling at a higher level
   } finally {
     // Close the Prisma client connection
+    redirect('/myShopView')
     await prisma.$disconnect();
   }
 }

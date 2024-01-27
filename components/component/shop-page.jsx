@@ -16,7 +16,7 @@ export default function ShopPage({ shop }) {
           className="absolute inset-0 w-full h-full object-cover"
           height={1080}
           width={1920}
-          src={shop.bgImage}
+          src={shop.bgImage || '/placeholder.com'}
           style={{
             aspectRatio: "1920/1080",
             objectFit: "cover",
