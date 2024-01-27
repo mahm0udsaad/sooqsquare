@@ -27,16 +27,16 @@ export const FilterSelection = ({ title, itemsArray,  handleSelection ,paramName
       const seletedTitle = searchParams.get(paramNameToSet)
   return (
     <Select className="flex-grow">
-        <p className="font-semibold">
+        <p className="py-4 font-semibold">
         {title}
         </p>
-      <SelectTrigger className={searchParams.has(paramNameToSet) ?" dark:text-white text-black font-semibold":'dark:text-gray-300 text-gray-500'}>
+      <SelectTrigger className={` ${searchParams.has(paramNameToSet) ?" dark:text-white text-black font-semibold":'dark:text-gray-300 text-gray-500'}`}>
         {searchParams.has(paramNameToSet) ? seletedTitle : `select ${title}`}
         </SelectTrigger>
       <SelectContent>
         <SelectGroup>
           {itemsArray && itemsArray.map((item) => (
-            <SelectItem  key={item} onMouseDown={() => handleSelection(item)}>
+            <SelectItem className="pt-3"  key={item} onMouseDown={() => handleSelection(item)}>
               {item}
             </SelectItem>
           ))}

@@ -7,7 +7,11 @@ import { AdCategroy } from './categoriesCard';
 import { MdOutlineRocketLaunch } from "react-icons/md";
 import { categoriesData ,carBrands ,yearsArray ,carTypesArray, features} from "./../data/staticData"
 import { useTranslation } from "../app/i18n/client"
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/button"
+import { FaStoreAlt } from "react-icons/fa";
+import {  DialogTitle, DialogDescription, DialogHeader, DialogFooter, DialogContent, Dialog } from "@/components/ui/dialog"
+import Link from "next/link"
+import { BsThreads } from "react-icons/bs";
 import { Label } from "@/components/ui/label"
 import { Badge } from "@/components/ui/badge"
 import React, { useState, useRef, useEffect } from 'react';
@@ -504,6 +508,9 @@ export function Review({lng , userId}) {
   const carChassis = useSearchParams().get("carChassis");
   const {   adImages  ,setSuccessMessage} = useDarkMode()
   const [loading , setLoading] = useState(false)
+  const [PublishIsLoading , setPublishIsLoading] = useState(false)
+  const [showDialog, setShowDialog] = useState(false);
+  const [ad, setAd] = useState(null);
   const { t } = useTranslation(lng , "translation")
   const extraFeatures = extraFeature.join(' ')
   console.log(extraFeatures);
@@ -534,9 +541,10 @@ export function Review({lng , userId}) {
     setLoading(true);
   
     try {
-      const ad = await createAd(data, userId);
+      const ad = await createAd(data, userId , "inActive");
       if (ad) {
         toast("Ad Created Successfuly")
+        setShowDialog(true)
       }
     } catch (error) {
       console.error('Error creating ad:', error);
@@ -544,7 +552,22 @@ export function Review({lng , userId}) {
       setLoading(false);
     }
   };
-
+  const handlePublish = async () => {
+    setPublishIsLoading(true);
+  
+    try {
+      const ad = await createAd(data, userId , "Active");
+      if (ad) {
+        setAd(ad)
+        toast("Ad Published Successfuly")
+        setShowDialog(true)
+      }
+    } catch (error) {
+      console.error('Error creating ad:', error);
+    } finally {
+      setPublishIsLoading(false);
+    }
+  };
   const steps = [
     { label: 'Category', value: category },
     { label: 'Car Status', value: carStatus },
@@ -571,26 +594,46 @@ export function Review({lng , userId}) {
   return (
     <main className="">
       <div className="grid mx-8 grid-cols-1 md:grid-cols-3 gap-x-3 gap-y-2 pb-4">
-      {steps.map((step, i) => (
-        step.value !== 'null' && 
-        <div key={i}>
-          <Label htmlFor={`step-${i}`}>{step.label}</Label>
-          <Input id={`step-${i}`} type="text" value={step.value || ''} />
-        </div>
-
-      ))}
+        {steps.map((step, i) => (
+          step.value !== 'null' && 
+          <div key={i}>
+            <Label htmlFor={`step-${i}`}>{step.label}</Label>
+            <Input id={`step-${i}`} type="text" value={step.value || ''} />
+          </div>
+           ))}
           <Button onClick={handleSave} disabled={loading} className="flex h-14 w-full rounded-md self-end justify-around rounded-md bg-gray-900  text-sm font-medium text-gray-50 shadow transition-colors hover:bg-gray-900/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-950 disabled:pointer-events-none disabled:opacity-50 dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-50/90 dark:focus-visible:ring-gray-300">
             {loading ? 'saving...' :  t('saveAd')}
             <HardDriveIcon className="ml-2 h-4 w-4 mx-3" />
           </Button>
-          <Button className="flex h-14 w-full rounded-md self-end rounded-md bg-green-500   text-sm font-medium text-gray-50 shadow transition-colors hover:bg-green-600 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-green-600 disabled:pointer-events-none disabled:opacity-50 dark:bg-green-500 dark:text-white dark:hover:bg-gray-50/90 dark:focus-visible:ring-gray-300">
-            {t('publishAd')}
+          <Button onClick={handlePublish} className="flex h-14 w-full rounded-md self-end rounded-md bg-green-500   text-sm font-medium text-gray-50 shadow transition-colors hover:bg-green-600 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-green-600 disabled:pointer-events-none disabled:opacity-50 dark:bg-green-500 dark:text-white dark:hover:bg-gray-50/90 dark:focus-visible:ring-gray-300">
+          {PublishIsLoading ? 'Publishing...' : t('publishAd')}
             <PlaneIcon className="ml-2 h-4 w-4 mx-3" />
           </Button>
+        <Dialog open={showDialog}>
+          <DialogContent className="bg-gradient-to-r from-green-400 to-blue-500 shadow-2xl max-w-md mx-auto bg-white dark:bg-gray-800 rounded-lg overflow-hidden">
+            <DialogHeader className=" p-6 sm:p-8">
+              <DialogTitle className="text-white text-2xl font-semibold">Congratulations!</DialogTitle>
+              <DialogDescription className="text-white text-lg mt-2">Your ad is created successfully!</DialogDescription>
+            </DialogHeader>
+            <DialogFooter className="flex justify-center space-x-4 p-6 sm:p-8">
+              <Link
+                className="inline-flex h-10 items-center justify-center rounded-md bg-green-500 px-8 text-sm font-medium text-white shadow transition-colors hover:bg-green-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-700 disabled:pointer-events-none disabled:opacity-50"
+                href={`${ad?.shop ? '/shopAds' : '/myAds'}`}
+              >
+                <BsThreads className="h-5 w-5 mr-2" />
+                My Ads
+              </Link>
+              <Link
+                className="inline-flex h-10 items-center justify-center rounded-md bg-blue-500 px-8 text-sm font-medium text-white shadow transition-colors hover:bg-blue-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-700 disabled:pointer-events-none disabled:opacity-50"
+                href="/vehicle"
+              >
+                <FaStoreAlt className="h-5 w-5 mr-2" />
+                Market
+              </Link>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
       </div>
-      <div className="w-full grid gap-4 px-8">
-     
-        </div>
     </main>
   );
 }

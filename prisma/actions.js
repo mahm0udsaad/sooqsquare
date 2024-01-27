@@ -3,7 +3,7 @@ import { revalidatePath } from "next/cache";
 import prisma from "./client";
 import { redirect } from "next/navigation";
 
-export async function createAd(data , userId) {
+export async function createAd(data, userId, adStatus) {
   const {
     EnginCapacity,
     paintType,
@@ -26,41 +26,79 @@ export async function createAd(data , userId) {
   } = data;
 
   try {
-    const newAd = await prisma.Ad.create({
-      data: {
-        userId,
-        EnginCapacity,
-        paintType,
-        payment,
-        price,
-        name,
-        RegionalSpecifications,
-        location,
-        brand,
-        category,
-        model,
-        year,
-        carType,
-        carStatus,
-        transmission,
-        fuelType,
-        meterRange,
-        extraFeatures,
-        Adimages: {
-          create: adImages.map(image => ({ url: image })),
-        },
+    const user = await prisma.user.findUnique({
+      where: {
+        id: userId,
+      },
+      include: {
+        shop: true,
       },
     });
 
-    revalidatePath('/myAds');
+    if (!user) {
+      console.error('User not found');
+      return null;
+    }
+
+    const newAdData = {
+      EnginCapacity,
+      paintType,
+      payment,
+      price,
+      name,
+      RegionalSpecifications,
+      location,
+      brand,
+      category,
+      model,
+      year,
+      carType,
+      carStatus,
+      transmission,
+      fuelType,
+      meterRange,
+      extraFeatures,
+      adStatus,
+      Adimages: {
+        create: adImages.map((image) => ({ url: image })),
+      },
+    };
+
+    // If the user has a shop, associate the ad with that shop
+    if (user.shop) {
+      newAdData.shop = {
+        connect: {
+          id: user.shop.id,
+        },
+      };
+    } else {
+      // If the user doesn't have a shop, connect the ad to the user's profile
+      newAdData.user = {
+        connect: {
+          id: userId,
+        },
+      };
+    }
+
+    const newAd = await prisma.ad.create({
+      data: newAdData,
+      include: {
+        user: true,
+        shop: true,
+      },
+    });
+    console.log(newAd);
+    return newAd;
   } catch (error) {
-    return null ;
     console.error('Error creating ad:', error);
-  } finally{
-    revalidatePath('/myAds')
-    redirect('/myAds')
+    return null;
+  } finally {
+    revalidatePath('/myAds');
+    revalidatePath('/shopAds');
+    revalidatePath('/vehicle');
   }
 }
+
 
 export  async function createUserIfNotExists(userData) {
   try {

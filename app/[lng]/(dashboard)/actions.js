@@ -120,27 +120,11 @@ export async function createShop(userId, shopName, location,  shopImage) {
     throw error; // Rethrow the error for handling at a higher level
   } finally {
     // Close the Prisma client connection
-    redirect('/myShopView')
+    redirect('/myShopView') 
     await prisma.$disconnect();
   }
 }
-export async function deleteAllShops() {
-  try {
-    // Use Prisma to delete all shops in the database
-    const deletedShops = await prisma.shop.deleteMany();
 
-    // Handle the result
-    console.log('Deleted Shops:', deletedShops);
-
-    // ... other logic
-  } catch (error) {
-    console.error('Error deleting shops:', error);
-    // Handle the error
-  } finally {
-    // Close the Prisma client connection when done
-    await prisma.$disconnect();
-  }
-}
 export async function addBgImageToShop(shopId, bgImage) {
   try {
     // Use Prisma to update the shop's bgImage
@@ -280,5 +264,22 @@ export async function updateShopInfo(shopId, name, description) {
     revalidatePath('/myShop')
     revalidatePath('/myShopView')
     await prisma.$disconnect();
+  }
+}
+export async function changeAdStatus(adId , adStatus) {
+  try {
+    const updatedAd = await prisma.ad.update({
+      where: { id: adId },
+      data: { adStatus: adStatus },
+    });
+
+    return updatedAd;
+  } catch (error) {
+    console.error(`Error deactivating ad with adId ${adId}:`, error);
+    throw new Error('Failed to deactivate ad');
+  }finally{
+    revalidatePath('/myAds')
+    revalidatePath('/vehicle')
+    revalidatePath('/shopAds')
   }
 }

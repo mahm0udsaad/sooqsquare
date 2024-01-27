@@ -1,28 +1,6 @@
 "use client"
 import { useDarkMode } from '@/context/darkModeContext';
 import React, { useState, useEffect } from 'react';
-import { toast } from "sonner"
-
-export function SonnerDemo() {
-   const { successMessage } = useDarkMode()
-  const [showToast, setShowToast] = useState(false);
-
-  useEffect(() => {
-    if (successMessage) {
-      setShowToast(true);
-      console.log('truee');
-      const timer = setTimeout(() => {
-        setShowToast(false);
-      }, 5000); // 5 seconds in milliseconds
-
-      return () => {
-        clearTimeout(timer);
-      };
-    }
-  }, [successMessage]);
-
-  return !showToast ? null :  (toast(successMessage ? successMessage :"Event has been created."))
-}
 
 export function ErrorMessage() {
   const { errorMessage , setErrorMessage} = useDarkMode()

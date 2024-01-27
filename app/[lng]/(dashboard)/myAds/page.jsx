@@ -10,7 +10,7 @@ export default async function MyAds({params:{lng}}) {
     const ads = await getAdsByUserId(user.id)
 
     return (
-       <div className='flex w-11/12 mx-auto flex-col gap-3'>
+       <div className='flex w-11/12  mx-auto flex-col gap-3'>
           {
             ads ? ads.map((ad)=>(
               <AdCard key={ad.id} lng={lng} ad={ad} />
