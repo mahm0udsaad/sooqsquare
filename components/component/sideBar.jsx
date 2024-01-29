@@ -28,13 +28,16 @@ import { toast } from "sonner";
 const UserSideBar = ({ user }) =>{
   const [shopImage, setShopImage] = useState(null);
   const [Loading, setLoading] = useState(false);
-  const [shopName, setShopName] = useState('');
-  const [shopDescription, setShopDescription] = useState('');
-  const [shopLocation, setShopLocation] = useState('');
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    control,
+    formState: { errors },
+  } = useForm();
 
   const handleImageChange = async (e) => {
     const file = e.target.files[0];
-    console.log(file);
     try {
       if (!file) {
         throw new Error('No file uploaded');
@@ -47,6 +50,7 @@ const UserSideBar = ({ user }) =>{
       
       if (uploadResult && uploadResult.adImage) {
         setShopImage(uploadResult.adImage);
+        setValue('shopImage' , uploadResult.adImage);
       }
       toast("Image Uploaded Successfully " )
     } catch (error) {
@@ -54,10 +58,9 @@ const UserSideBar = ({ user }) =>{
     }
   };
 
-   const handleCreateShop = async (event) => {
-    event.preventDefault(); // Prevents the default form submission
+  const onSubmit = async (data) => {
     setLoading(true)
-    const newShop = await createShop(user.id, shopName, shopLocation,  shopImage)
+    const newShop = await createShop(user.id, data.shopName, data.shopLocation, data.shopImage , data.description)
     if(newShop){
       toast("Shop Created Successfully")
       setLoading(false)
@@ -86,57 +89,72 @@ const UserSideBar = ({ user }) =>{
               <HeartIcon className="w-6 h-6 text-rose-600" />
               Favorites
             </Link>
-          <Drawer>
+            <Drawer>
           <DrawerTrigger asChild>
           <Button className="inline-flex items-center justify-center px-6 py-3 border border-transparent font-medium rounded-full text-white bg-gradient-to-r from-green-400 to-blue-500 hover:from-green-500 hover:to-blue-600 hover:scale-105 transition-all duration-200">
-            Upgrade to Shop
+           Create a Shop
           </Button>         
            </DrawerTrigger>
           <DrawerContent>
             <DrawerHeader>
               <DrawerTitle className="flex tracking-tighter bg-clip-text text-transparent bg-gradient-to-r from-green-400 to-sky-500">
-                  Upgrade to a Shop
+                  Create a Shop
                   <GiDrippingStar className="w-6 h-6 mx-4 text-green-500"/>
               </DrawerTitle>
               <DrawerDescription>Enter your shop details below to upgrade.</DrawerDescription>
             </DrawerHeader>
             <div className="px-4">
-              <form onSubmit={handleCreateShop} className="space-y-4">
+              <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
               <div className="space-y-1 w-1/2">
-              <Label className="cursor-pointer" htmlFor="avatar-image">
-                <span className="sr-only">Upload an avatar</span>
-                <Input onChange={handleImageChange} accept="image/*" className="hidden" id="avatar-image" name="avatar-image" type="file" />
-                <Input onChange={handleImageChange}  className="hidden" id="shopImage" name="shopImage" value={shopImage} type="text" />
-                <Avatar className="w-32 h-32 border-4 border-white">
-                  <AvatarImage alt="Shop owner" src={shopImage || "/new-placeholder-avatar.jpg"} />
-                  <AvatarFallback>SO</AvatarFallback>
-                </Avatar>
-              </Label>
+                <Label className="cursor-pointer" htmlFor="avatar-image">
+                  <span className="sr-only">Upload an avatar</span>
+                  <Input onChange={handleImageChange} accept="image/*" className="hidden" id="avatar-image" name="avatar-image" type="file" />
+                  <Input onChange={handleImageChange}  className="hidden" id="shopImage" name="shopImage" value={shopImage} type="text" />
+                  <Avatar className="w-32 h-32 border-4 border-white">
+                    <AvatarImage alt="Shop owner" src={shopImage || "/new-placeholder-avatar.jpg"} />
+                    <AvatarFallback>SO</AvatarFallback>
+                  </Avatar>
+                </Label>
                   </div>
-                <div className="space-y-1">
-                  <Label htmlFor="shop-name">Shop Name</Label>
-                  <Input
-                  onChange={(e) => setShopName(e.target.value)}
-                  id="shop-name" placeholder="Enter your shop name" />
+                  <div className="space-y-1">
+                      <Label htmlFor="shop-category">Shop Category</Label>
+                      <Controller
+                        name="shopCategory"
+                        control={control}
+                        render={({ field }) => (
+                          <Select>
+                            <SelectTrigger>
+                              {field.value || "Select Category"}
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem onMouseDown={() => setValue("shopCategory", "Cars")}>Cars</SelectItem>
+                              <SelectItem onMouseDown={() => setValue("shopCategory", "Appartment")}>Appartment</SelectItem>
+                            </SelectContent>
+                          </Select>
+                        )}
+                      />
+                    </div>
+                    <div className="space-y-1">
+                      <Label htmlFor="shop-name">Shop Name</Label>
+                      <Input {...register("shopName", { required: "Shop Name is required" })} placeholder="Enter your shop name" />
+                      {errors.shopName && <span>{errors.shopName.message}</span>}
+                    </div>
+                    <div className="space-y-1">
+                      <Label htmlFor="shop-description">Shop Description</Label>
+                      <Textarea {...register("shopDescription")} className="min-h-[100px]" placeholder="Describe your shop" />
+                    </div>
+                    <div className="space-y-1">
+                      <Label htmlFor="shop-address">Shop Address</Label>
+                      <Input {...register("shopLocation")} placeholder="Enter your shop Address" />
+                    </div>
+                    <Button
+                      type="submit"
+                      className="inline-flex items-center justify-center px-6 py-3 border border-transparent font-medium rounded text-white bg-gradient-to-r from-green-400 to-blue-500 hover:from-green-500 hover:to-blue-600 hover:scale-105 transition-all duration-200"
+                    >
+                      Upgrade
+                    </Button>
+                  </form>
                 </div>
-                <div className="space-y-1">
-                  <Label htmlFor="shop-description">Shop Description</Label>
-                  <Textarea
-                  onChange={(e) => setShopDescription(e.target.value)}
-                  className="min-h-[100px]" id="shop-description" placeholder="Describe your shop" />
-                </div>
-                <div className="space-y-1">
-                  <Label htmlFor="shop-address">Shop Adress</Label>
-                  <Input
-                  onChange={(e) => setShopLocation(e.target.value)}
-                  id="shop-address" placeholder="Enter your shop Address" />
-                </div>
-                <Button type="submit" className="inline-flex items-center justify-center px-6 py-3 border border-transparent font-medium rounded text-white bg-gradient-to-r from-green-400 to-blue-500 hover:from-green-500 hover:to-blue-600 hover:scale-105 transition-all duration-200">
-                  {Loading && <LoadingSpinner />}
-                  Upgrade
-                </Button>
-              </form>
-            </div>
           </DrawerContent>
         </Drawer>
         </div>

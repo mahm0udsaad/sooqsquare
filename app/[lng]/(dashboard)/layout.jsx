@@ -16,7 +16,7 @@ export default async function DashboardLayout({ children , params: { lng }}) {
   return (
        <>
       <div className="flex w-full min-h-screen justify-between bg-gray-100 dark:bg-zinc-950">
-       {user.shop ?  <ShopSideBar user={user} /> :  <UserSideBar user={user}/>}
+       {user.shop.length > 0 ?  <ShopSideBar user={user} /> :  <UserSideBar user={user}/>}
           {children}
           </div>
        </>

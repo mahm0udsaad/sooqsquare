@@ -9,7 +9,7 @@ export default async function MyAds({params:{lng}}) {
     const logedUser = await getServerSession() 
     const user = await getUserByEmail(logedUser?.user.email) 
     const ads = await getAdsByUserId(user.id)
-    if(user.shop){
+    if(user.shop.length > 0){
       redirect('/shopAds')
     }
     

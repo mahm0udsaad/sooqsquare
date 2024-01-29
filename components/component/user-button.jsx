@@ -10,6 +10,7 @@ import { AvatarImage, AvatarFallback, Avatar } from "@/components/ui/avatar"
 
 
 export function UserButton({ user }) {
+  console.log(user.shop);
   return (
     (
     <Popover>
@@ -22,17 +23,17 @@ export function UserButton({ user }) {
       </PopoverTrigger>
       <PopoverContent className="w-80 dark:bg-zinc-950 dark:text-white">
         <div className="grid gap-4">
-          {user.shop ? 
+          {user.shop.length > 0 ? 
           <div className="space-y-2">
              <Link className="py-3  items-center flex  gap-3  hover:dark:text-white hover:text-zinc-900" href="#">
               <HeartIcon className="w-6 h-6 text-rose-700 dark:text-rose-200" />
               <span className="mx-3">Favorites</span>
             </Link>
-          <Link className="py-3  items-center  flex gap-3  text-gray-700 dark:text-gray-200 hover:dark:text-white hover:text-zinc-900" href={`/myShopView/${user.shop[0].id}`}>
+          <Link className="py-3  items-center  flex gap-3  text-gray-700 dark:text-gray-200 hover:dark:text-white hover:text-zinc-900" href={`/myShopView/${user.shop[0]?.id}`}>
             <FaShop className="w-6 h-6" />
             <span className="mx-3">My Shop</span>
             </Link>
-            <Link className="py-3  items-center  flex gap-3  text-gray-700 dark:text-gray-200 hover:dark:text-white hover:text-zinc-900" href={`/myShop/${user.shop[0].id}`}>
+            <Link className="py-3  items-center  flex gap-3  text-gray-700 dark:text-gray-200 hover:dark:text-white hover:text-zinc-900" href={`/myShop/${user.shop[0]?.id}`}>
                 <FaRegEdit className="w-6 h-6" />
                 <span className="mx-3">Shop Details</span>
             </Link>
@@ -51,21 +52,29 @@ export function UserButton({ user }) {
           </div>
           :
           <div className="space-y-2">
-            <Link className="py-3  items-center " href="/myProfile">
+            <Link className="flex py-3  items-center " href="/myProfile">
               <UserIcon className="w-6 h-6" />
-              Profile
+             <span className="mx-3">
+               Profile
+             </span>
             </Link>
-            <Link className="py-3  items-center " href="/myAds">
+            <Link className="flex py-3  items-center " href="/myAds">
               <AtSignIcon className="w-6 h-6" />
-              My Ads
+             <span className="mx-3">
+               My Ads
+             </span>
             </Link>
-            <Link className="py-3  items-center " href="#">
+            <Link className="flex py-3  items-center " href="#">
               <HeartIcon className="w-6 h-6" />
-              Favorites
+             <span className="mx-3">
+               Favorites
+             </span>
             </Link>
-            <Link className="py-3  items-center  text-rose-600" href="#">
+            <Link className="flex py-3  items-center  text-rose-600" href="#">
               <LogOutIcon className="w-6 h-6" />
-              Logout
+             <span className="mx-3">
+               Logout
+             </span>
             </Link>
           </div>
           }

@@ -7,7 +7,7 @@ export default async function MyProfile({params:{lng}}) {
 
     const logedUser = await getServerSession() 
     const user = await getUserByEmail(logedUser?.user.email) 
-    if(user.shop){
+    if(user.shop.length > 0){
       redirect('/myShop')
     }
     console.log(user.shop);
