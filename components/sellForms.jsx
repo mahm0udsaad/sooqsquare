@@ -24,11 +24,21 @@ import {
   ToggleGroupItem,
 } from "@/components/ui/toggle-group"
 import { toast } from 'sonner';
-const NameDescriptionSelector = dynamic(() => import(`./NameDescriptionSelector`));
-const CarBrandSelector = dynamic(() => import(`./carBrandSelection`));
-const CarStatusSelection = dynamic(() => import(`./carStatusSelection`));
-const MultiImageForm = dynamic(() => import(`./MultibleImages`));
-const LocationDetails = dynamic(() => import(`./LocationSelector`));
+const NameDescriptionSelector = dynamic(() => import(`./NameDescriptionSelector`) ,{
+  ssr: false,
+});
+const CarBrandSelector = dynamic(() => import(`./carBrandSelection`),{
+  ssr: false,
+});
+const CarStatusSelection = dynamic(() => import(`./carStatusSelection`),{
+  ssr: false,
+});
+const MultiImageForm = dynamic(() => import(`./MultibleImages`),{
+  ssr: false,
+});
+const LocationDetails = dynamic(() => import(`./LocationSelector`),{
+  ssr: false,
+});
 
 
 const SelectionComp = withGenericSelection(GenericSelection);

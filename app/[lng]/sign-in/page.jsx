@@ -1,14 +1,21 @@
 
-import { CardTitle, CardHeader, CardContent, CardFooter, Card } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
 import { getServerSession } from "next-auth"
-import LoginWithPhone from "../sell/sms"
-import { Fbtn, Gbtn, SginInBtn } from '../../../components/btns'
 import { redirect } from "next/navigation"
 import { createUserIfNotExists, getUserByEmail } from "../../../prisma/actions"
 import Image from "next/image"
+import dynamic from "next/dynamic"
+
+const Fbtn = dynamic(()=> import('../../../components/btns').then(mod => mod.Fbtn) , { ssr: false})
+const Gbtn = dynamic(()=> import('../../../components/btns').then(mod => mod.Gbtn) , { ssr: false})
+const SginInBtn = dynamic(()=> import('../../../components/btns').then(mod => mod.SginInBtn))
+const Card = dynamic(()=> import('@/components/ui/card').then(mod => mod.Card) , { ssr: false})
+const CardTitle = dynamic(()=> import('@/components/ui/card').then(mod => mod.CardTitle) , { ssr: false})
+const CardFooter = dynamic(()=> import('@/components/ui/card').then(mod => mod.CardFooter) , { ssr: false})
+const CardHeader = dynamic(()=> import('@/components/ui/card').then(mod => mod.CardHeader) , { ssr: false})
+const CardContent = dynamic(()=> import('@/components/ui/card').then(mod => mod.CardContent) , { ssr: false})
+const DynamicLoginWithPhone = dynamic(()=> import('../sell/sms') , { ssr:false })
 
 export default async function SginIn() {
 
@@ -64,7 +71,7 @@ export default async function SginIn() {
           </CardFooter>
         </Card>:
         !user?.phoneNumber &&
-        <LoginWithPhone email={logedUser?.user.email}/>
+        <DynamicLoginWithPhone email={logedUser?.user.email}/>
         }
       </div>
     </div>

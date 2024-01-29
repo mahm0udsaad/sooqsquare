@@ -30,7 +30,7 @@ model Shop {
   userId              Int      @unique
   shopName            String  
   location            String  
-  bgImage             String?  @default("https://cloud.elsewedy-automation.com/nextcloud/apps/sharingpath/mahm0ud/upload/Rectangle%2023787.png")
+  bgImage             String  @default("https://cloud.elsewedy-automation.com/nextcloud/apps/sharingpath/mahm0ud/upload/Rectangle%2023787.png")
   shopImage           String?  
   description         String?  
   ads              Ad[]
