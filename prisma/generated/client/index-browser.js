@@ -116,6 +116,7 @@ exports.Prisma.UserScalarFieldEnum = {
 exports.Prisma.ShopScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
+  shopCategory: 'shopCategory',
   shopName: 'shopName',
   location: 'location',
   bgImage: 'bgImage',

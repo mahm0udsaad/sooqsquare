@@ -1,5 +1,5 @@
 "use client"
-import {   useRouter, useSearchParams } from 'next/navigation';
+import {   usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useTranslation } from "../app/i18n/client"
 import { Button } from "@/components/ui/button";
 import React, { useState } from 'react';
@@ -8,15 +8,25 @@ import {getLocation} from '../helper/location'
 import { cities} from "./../data/staticData"
 
 
-export default function LocationDetails({lng}) {
+export default function LocationDetails({lng , locationGiven}) {
     const { t } = useTranslation(lng,"translation");
     const [loading , setLoading] = useState(false)
     const router = useRouter();
     const category = useSearchParams().get("category");
     const uploadedImages = useSearchParams().get("uploadedImages");
     const location = useSearchParams().get("location");
- 
-  
+    const searchParams = useSearchParams();
+    const pathname= usePathname()
+    
+    const createQueryString = (name, value) => {
+      const params = new URLSearchParams(searchParams);
+      params.set(name, value);
+      const updatedParams = params.toString();
+      router.push(pathname + '?' + updatedParams);
+    };
+    if(locationGiven && !location){
+      createQueryString('location' , locationGiven)
+    }
     const handleButtonClick = async () => {
       try {
         setLoading(true)
@@ -28,10 +38,9 @@ export default function LocationDetails({lng}) {
         // Handle error, show a message to the user, etc.
       }
     };
-    if (location  || !category || !uploadedImages ) return null;
+    if ( location  || !category || !uploadedImages ) return null;
     function handleLocationSelection(location) {
-      console.log(location);
-      router.push(`?category=${category}&uploadedImages=${uploadedImages}&location=${location}`);
+      createQueryString('location' , location)
     }
     return (
       <>

@@ -10,7 +10,7 @@ export default async function MyAds({params:{lng}}) {
     return (
        <div className='flex w-11/12 mx-auto flex-col gap-3'>
           {
-            user.shop ? user.shop.ads.map((ad)=>(
+            user.shop ? user.shop[0].ads.map((ad)=>(
               <AdCard key={ad.id} lng={lng} ad={ad} />
             )):
              <h1 className='pt-20 text-center'>

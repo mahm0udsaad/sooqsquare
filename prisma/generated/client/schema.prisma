@@ -21,20 +21,20 @@ model User {
   messagesSent     Message[]    @relation("sentMessages")
   messagesReceived Message[]    @relation("receivedMessages")
   favoriteAds      FavoriteAd[]
-  shop               Shop?    
+  shop               Shop[]   
 }
 
 model Shop {
   id                  Int      @id @default(autoincrement())
   user                User     @relation(fields: [userId], references: [id])
-  userId              Int      @unique
+  userId              Int      
+  shopCategory        String   @default("cars")
   shopName            String  
   location            String  
-  bgImage             String?  
+  bgImage             String  @default("https://cloud.elsewedy-automation.com/nextcloud/apps/sharingpath/mahm0ud/upload/Rectangle%2023787.png")
   shopImage           String?  
   description         String?  
-  ads              Ad[]
-
+  ads                 Ad[]
 }
 
 model Image {
@@ -75,7 +75,6 @@ model Ad {
   views                  Int          @default(0)
   clicks                 Int          @default(0)
 }
-
 
 model FavoriteAd {
   id        Int      @id @default(autoincrement())

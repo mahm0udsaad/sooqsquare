@@ -84,6 +84,7 @@ export const AdCard = ({lng, ad }) => {
     };
     const handleDelete = async (adId) =>{
         setDeleteLoading(true)
+        adId = parseInt(adId)
         const deletedAd = await deleteAd(adId)
         if(deletedAd){
             setDeleteLoading(false)
@@ -109,7 +110,7 @@ export const AdCard = ({lng, ad }) => {
       }
     }
   return (
-      <div className="flex flex-col md:flex-row items-center justify-between w-11/12 mx-auto p-8 rounded-lg shadow-md bg-white dark:bg-zinc-800">
+      <div className="flex flex-col md:flex-row items-center justify-between lg:w-11/12 w-full lg:mx-auto mx-3 p-8 rounded-lg shadow-md bg-white dark:bg-zinc-800">
       <Carousel style={carouselStyle} className="w-full max-w-xs mx-auto ">
       <CarouselContent className="dark:bg-zinc-800">
         {Adimages.map((image, index) => (
@@ -236,7 +237,7 @@ export const AdCard = ({lng, ad }) => {
             </DrawerFooter>
           </DrawerContent>
         </Drawer>
-          <Button onClick={()=> handleDelete(id)} className="bg-transparent border border-rose-600 text-rose-600 hover:bg-rose-600 hover:text-white w-1/2 flex justify-center items-center space-x-2">
+          <Button onClick={()=> handleDelete(ad.id)} className="bg-transparent border border-rose-600 text-rose-600 hover:bg-rose-600 hover:text-white w-1/2 flex justify-center items-center space-x-2">
             <TrashIcon className="w-4 h-4 mx-2" />
             {deleteLoading ?
                 <svg

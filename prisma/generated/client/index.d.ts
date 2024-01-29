@@ -1325,6 +1325,7 @@ export namespace Prisma {
     messagesSent: number
     messagesReceived: number
     favoriteAds: number
+    shop: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -1333,6 +1334,7 @@ export namespace Prisma {
     messagesSent?: boolean | UserCountOutputTypeCountMessagesSentArgs
     messagesReceived?: boolean | UserCountOutputTypeCountMessagesReceivedArgs
     favoriteAds?: boolean | UserCountOutputTypeCountFavoriteAdsArgs
+    shop?: boolean | UserCountOutputTypeCountShopArgs
   }
 
   // Custom InputTypes
@@ -1385,6 +1387,14 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountFavoriteAdsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: FavoriteAdWhereInput
+  }
+
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountShopArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ShopWhereInput
   }
 
 
@@ -1758,7 +1768,7 @@ export namespace Prisma {
       messagesSent: Prisma.$MessagePayload<ExtArgs>[]
       messagesReceived: Prisma.$MessagePayload<ExtArgs>[]
       favoriteAds: Prisma.$FavoriteAdPayload<ExtArgs>[]
-      shop: Prisma.$ShopPayload<ExtArgs> | null
+      shop: Prisma.$ShopPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -2126,7 +2136,7 @@ export namespace Prisma {
 
     favoriteAds<T extends User$favoriteAdsArgs<ExtArgs> = {}>(args?: Subset<T, User$favoriteAdsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FavoriteAdPayload<ExtArgs>, T, 'findMany'> | Null>;
 
-    shop<T extends User$shopArgs<ExtArgs> = {}>(args?: Subset<T, User$shopArgs<ExtArgs>>): Prisma__ShopClient<$Result.GetResult<Prisma.$ShopPayload<ExtArgs>, T, 'findUniqueOrThrow'> | null, null, ExtArgs>;
+    shop<T extends User$shopArgs<ExtArgs> = {}>(args?: Subset<T, User$shopArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ShopPayload<ExtArgs>, T, 'findMany'> | Null>;
 
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -2579,6 +2589,11 @@ export namespace Prisma {
      */
     include?: ShopInclude<ExtArgs> | null
     where?: ShopWhereInput
+    orderBy?: ShopOrderByWithRelationInput | ShopOrderByWithRelationInput[]
+    cursor?: ShopWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ShopScalarFieldEnum | ShopScalarFieldEnum[]
   }
 
 
@@ -2623,6 +2638,7 @@ export namespace Prisma {
   export type ShopMinAggregateOutputType = {
     id: number | null
     userId: number | null
+    shopCategory: string | null
     shopName: string | null
     location: string | null
     bgImage: string | null
@@ -2633,6 +2649,7 @@ export namespace Prisma {
   export type ShopMaxAggregateOutputType = {
     id: number | null
     userId: number | null
+    shopCategory: string | null
     shopName: string | null
     location: string | null
     bgImage: string | null
@@ -2643,6 +2660,7 @@ export namespace Prisma {
   export type ShopCountAggregateOutputType = {
     id: number
     userId: number
+    shopCategory: number
     shopName: number
     location: number
     bgImage: number
@@ -2665,6 +2683,7 @@ export namespace Prisma {
   export type ShopMinAggregateInputType = {
     id?: true
     userId?: true
+    shopCategory?: true
     shopName?: true
     location?: true
     bgImage?: true
@@ -2675,6 +2694,7 @@ export namespace Prisma {
   export type ShopMaxAggregateInputType = {
     id?: true
     userId?: true
+    shopCategory?: true
     shopName?: true
     location?: true
     bgImage?: true
@@ -2685,6 +2705,7 @@ export namespace Prisma {
   export type ShopCountAggregateInputType = {
     id?: true
     userId?: true
+    shopCategory?: true
     shopName?: true
     location?: true
     bgImage?: true
@@ -2782,9 +2803,10 @@ export namespace Prisma {
   export type ShopGroupByOutputType = {
     id: number
     userId: number
+    shopCategory: string
     shopName: string
     location: string
-    bgImage: string | null
+    bgImage: string
     shopImage: string | null
     description: string | null
     _count: ShopCountAggregateOutputType | null
@@ -2811,6 +2833,7 @@ export namespace Prisma {
   export type ShopSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     userId?: boolean
+    shopCategory?: boolean
     shopName?: boolean
     location?: boolean
     bgImage?: boolean
@@ -2824,6 +2847,7 @@ export namespace Prisma {
   export type ShopSelectScalar = {
     id?: boolean
     userId?: boolean
+    shopCategory?: boolean
     shopName?: boolean
     location?: boolean
     bgImage?: boolean
@@ -2847,9 +2871,10 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: number
       userId: number
+      shopCategory: string
       shopName: string
       location: string
-      bgImage: string | null
+      bgImage: string
       shopImage: string | null
       description: string | null
     }, ExtArgs["result"]["shop"]>
@@ -3235,6 +3260,7 @@ export namespace Prisma {
   interface ShopFieldRefs {
     readonly id: FieldRef<"Shop", 'Int'>
     readonly userId: FieldRef<"Shop", 'Int'>
+    readonly shopCategory: FieldRef<"Shop", 'String'>
     readonly shopName: FieldRef<"Shop", 'String'>
     readonly location: FieldRef<"Shop", 'String'>
     readonly bgImage: FieldRef<"Shop", 'String'>
@@ -8579,6 +8605,7 @@ export namespace Prisma {
   export const ShopScalarFieldEnum: {
     id: 'id',
     userId: 'userId',
+    shopCategory: 'shopCategory',
     shopName: 'shopName',
     location: 'location',
     bgImage: 'bgImage',
@@ -8725,7 +8752,7 @@ export namespace Prisma {
     messagesSent?: MessageListRelationFilter
     messagesReceived?: MessageListRelationFilter
     favoriteAds?: FavoriteAdListRelationFilter
-    shop?: XOR<ShopNullableRelationFilter, ShopWhereInput> | null
+    shop?: ShopListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -8740,7 +8767,7 @@ export namespace Prisma {
     messagesSent?: MessageOrderByRelationAggregateInput
     messagesReceived?: MessageOrderByRelationAggregateInput
     favoriteAds?: FavoriteAdOrderByRelationAggregateInput
-    shop?: ShopOrderByWithRelationInput
+    shop?: ShopOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -8758,7 +8785,7 @@ export namespace Prisma {
     messagesSent?: MessageListRelationFilter
     messagesReceived?: MessageListRelationFilter
     favoriteAds?: FavoriteAdListRelationFilter
-    shop?: XOR<ShopNullableRelationFilter, ShopWhereInput> | null
+    shop?: ShopListRelationFilter
   }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -8793,9 +8820,10 @@ export namespace Prisma {
     NOT?: ShopWhereInput | ShopWhereInput[]
     id?: IntFilter<"Shop"> | number
     userId?: IntFilter<"Shop"> | number
+    shopCategory?: StringFilter<"Shop"> | string
     shopName?: StringFilter<"Shop"> | string
     location?: StringFilter<"Shop"> | string
-    bgImage?: StringNullableFilter<"Shop"> | string | null
+    bgImage?: StringFilter<"Shop"> | string
     shopImage?: StringNullableFilter<"Shop"> | string | null
     description?: StringNullableFilter<"Shop"> | string | null
     user?: XOR<UserRelationFilter, UserWhereInput>
@@ -8805,9 +8833,10 @@ export namespace Prisma {
   export type ShopOrderByWithRelationInput = {
     id?: SortOrder
     userId?: SortOrder
+    shopCategory?: SortOrder
     shopName?: SortOrder
     location?: SortOrder
-    bgImage?: SortOrderInput | SortOrder
+    bgImage?: SortOrder
     shopImage?: SortOrderInput | SortOrder
     description?: SortOrderInput | SortOrder
     user?: UserOrderByWithRelationInput
@@ -8816,25 +8845,27 @@ export namespace Prisma {
 
   export type ShopWhereUniqueInput = Prisma.AtLeast<{
     id?: number
-    userId?: number
     AND?: ShopWhereInput | ShopWhereInput[]
     OR?: ShopWhereInput[]
     NOT?: ShopWhereInput | ShopWhereInput[]
+    userId?: IntFilter<"Shop"> | number
+    shopCategory?: StringFilter<"Shop"> | string
     shopName?: StringFilter<"Shop"> | string
     location?: StringFilter<"Shop"> | string
-    bgImage?: StringNullableFilter<"Shop"> | string | null
+    bgImage?: StringFilter<"Shop"> | string
     shopImage?: StringNullableFilter<"Shop"> | string | null
     description?: StringNullableFilter<"Shop"> | string | null
     user?: XOR<UserRelationFilter, UserWhereInput>
     ads?: AdListRelationFilter
-  }, "id" | "userId">
+  }, "id">
 
   export type ShopOrderByWithAggregationInput = {
     id?: SortOrder
     userId?: SortOrder
+    shopCategory?: SortOrder
     shopName?: SortOrder
     location?: SortOrder
-    bgImage?: SortOrderInput | SortOrder
+    bgImage?: SortOrder
     shopImage?: SortOrderInput | SortOrder
     description?: SortOrderInput | SortOrder
     _count?: ShopCountOrderByAggregateInput
@@ -8850,9 +8881,10 @@ export namespace Prisma {
     NOT?: ShopScalarWhereWithAggregatesInput | ShopScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"Shop"> | number
     userId?: IntWithAggregatesFilter<"Shop"> | number
+    shopCategory?: StringWithAggregatesFilter<"Shop"> | string
     shopName?: StringWithAggregatesFilter<"Shop"> | string
     location?: StringWithAggregatesFilter<"Shop"> | string
-    bgImage?: StringNullableWithAggregatesFilter<"Shop"> | string | null
+    bgImage?: StringWithAggregatesFilter<"Shop"> | string
     shopImage?: StringNullableWithAggregatesFilter<"Shop"> | string | null
     description?: StringNullableWithAggregatesFilter<"Shop"> | string | null
   }
@@ -9244,7 +9276,7 @@ export namespace Prisma {
     messagesSent?: MessageCreateNestedManyWithoutSenderInput
     messagesReceived?: MessageCreateNestedManyWithoutReceiverInput
     favoriteAds?: FavoriteAdCreateNestedManyWithoutUserInput
-    shop?: ShopCreateNestedOneWithoutUserInput
+    shop?: ShopCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -9259,7 +9291,7 @@ export namespace Prisma {
     messagesSent?: MessageUncheckedCreateNestedManyWithoutSenderInput
     messagesReceived?: MessageUncheckedCreateNestedManyWithoutReceiverInput
     favoriteAds?: FavoriteAdUncheckedCreateNestedManyWithoutUserInput
-    shop?: ShopUncheckedCreateNestedOneWithoutUserInput
+    shop?: ShopUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -9273,7 +9305,7 @@ export namespace Prisma {
     messagesSent?: MessageUpdateManyWithoutSenderNestedInput
     messagesReceived?: MessageUpdateManyWithoutReceiverNestedInput
     favoriteAds?: FavoriteAdUpdateManyWithoutUserNestedInput
-    shop?: ShopUpdateOneWithoutUserNestedInput
+    shop?: ShopUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -9288,7 +9320,7 @@ export namespace Prisma {
     messagesSent?: MessageUncheckedUpdateManyWithoutSenderNestedInput
     messagesReceived?: MessageUncheckedUpdateManyWithoutReceiverNestedInput
     favoriteAds?: FavoriteAdUncheckedUpdateManyWithoutUserNestedInput
-    shop?: ShopUncheckedUpdateOneWithoutUserNestedInput
+    shop?: ShopUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserUpdateManyMutationInput = {
@@ -9309,9 +9341,10 @@ export namespace Prisma {
   }
 
   export type ShopCreateInput = {
+    shopCategory?: string
     shopName: string
     location: string
-    bgImage?: string | null
+    bgImage?: string
     shopImage?: string | null
     description?: string | null
     user: UserCreateNestedOneWithoutShopInput
@@ -9321,18 +9354,20 @@ export namespace Prisma {
   export type ShopUncheckedCreateInput = {
     id?: number
     userId: number
+    shopCategory?: string
     shopName: string
     location: string
-    bgImage?: string | null
+    bgImage?: string
     shopImage?: string | null
     description?: string | null
     ads?: AdUncheckedCreateNestedManyWithoutShopInput
   }
 
   export type ShopUpdateInput = {
+    shopCategory?: StringFieldUpdateOperationsInput | string
     shopName?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
-    bgImage?: NullableStringFieldUpdateOperationsInput | string | null
+    bgImage?: StringFieldUpdateOperationsInput | string
     shopImage?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
     user?: UserUpdateOneRequiredWithoutShopNestedInput
@@ -9342,18 +9377,20 @@ export namespace Prisma {
   export type ShopUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     userId?: IntFieldUpdateOperationsInput | number
+    shopCategory?: StringFieldUpdateOperationsInput | string
     shopName?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
-    bgImage?: NullableStringFieldUpdateOperationsInput | string | null
+    bgImage?: StringFieldUpdateOperationsInput | string
     shopImage?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
     ads?: AdUncheckedUpdateManyWithoutShopNestedInput
   }
 
   export type ShopUpdateManyMutationInput = {
+    shopCategory?: StringFieldUpdateOperationsInput | string
     shopName?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
-    bgImage?: NullableStringFieldUpdateOperationsInput | string | null
+    bgImage?: StringFieldUpdateOperationsInput | string
     shopImage?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
   }
@@ -9361,9 +9398,10 @@ export namespace Prisma {
   export type ShopUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     userId?: IntFieldUpdateOperationsInput | number
+    shopCategory?: StringFieldUpdateOperationsInput | string
     shopName?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
-    bgImage?: NullableStringFieldUpdateOperationsInput | string | null
+    bgImage?: StringFieldUpdateOperationsInput | string
     shopImage?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
   }
@@ -9760,9 +9798,10 @@ export namespace Prisma {
     none?: FavoriteAdWhereInput
   }
 
-  export type ShopNullableRelationFilter = {
-    is?: ShopWhereInput | null
-    isNot?: ShopWhereInput | null
+  export type ShopListRelationFilter = {
+    every?: ShopWhereInput
+    some?: ShopWhereInput
+    none?: ShopWhereInput
   }
 
   export type SortOrderInput = {
@@ -9783,6 +9822,10 @@ export namespace Prisma {
   }
 
   export type FavoriteAdOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type ShopOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -9893,6 +9936,7 @@ export namespace Prisma {
   export type ShopCountOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
+    shopCategory?: SortOrder
     shopName?: SortOrder
     location?: SortOrder
     bgImage?: SortOrder
@@ -9908,6 +9952,7 @@ export namespace Prisma {
   export type ShopMaxOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
+    shopCategory?: SortOrder
     shopName?: SortOrder
     location?: SortOrder
     bgImage?: SortOrder
@@ -9918,6 +9963,7 @@ export namespace Prisma {
   export type ShopMinOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
+    shopCategory?: SortOrder
     shopName?: SortOrder
     location?: SortOrder
     bgImage?: SortOrder
@@ -9977,6 +10023,11 @@ export namespace Prisma {
   export type UserNullableRelationFilter = {
     is?: UserWhereInput | null
     isNot?: UserWhereInput | null
+  }
+
+  export type ShopNullableRelationFilter = {
+    is?: ShopWhereInput | null
+    isNot?: ShopWhereInput | null
   }
 
   export type ImageListRelationFilter = {
@@ -10240,10 +10291,10 @@ export namespace Prisma {
     connect?: FavoriteAdWhereUniqueInput | FavoriteAdWhereUniqueInput[]
   }
 
-  export type ShopCreateNestedOneWithoutUserInput = {
-    create?: XOR<ShopCreateWithoutUserInput, ShopUncheckedCreateWithoutUserInput>
-    connectOrCreate?: ShopCreateOrConnectWithoutUserInput
-    connect?: ShopWhereUniqueInput
+  export type ShopCreateNestedManyWithoutUserInput = {
+    create?: XOR<ShopCreateWithoutUserInput, ShopUncheckedCreateWithoutUserInput> | ShopCreateWithoutUserInput[] | ShopUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ShopCreateOrConnectWithoutUserInput | ShopCreateOrConnectWithoutUserInput[]
+    connect?: ShopWhereUniqueInput | ShopWhereUniqueInput[]
   }
 
   export type AdUncheckedCreateNestedManyWithoutUserInput = {
@@ -10276,10 +10327,10 @@ export namespace Prisma {
     connect?: FavoriteAdWhereUniqueInput | FavoriteAdWhereUniqueInput[]
   }
 
-  export type ShopUncheckedCreateNestedOneWithoutUserInput = {
-    create?: XOR<ShopCreateWithoutUserInput, ShopUncheckedCreateWithoutUserInput>
-    connectOrCreate?: ShopCreateOrConnectWithoutUserInput
-    connect?: ShopWhereUniqueInput
+  export type ShopUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<ShopCreateWithoutUserInput, ShopUncheckedCreateWithoutUserInput> | ShopCreateWithoutUserInput[] | ShopUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ShopCreateOrConnectWithoutUserInput | ShopCreateOrConnectWithoutUserInput[]
+    connect?: ShopWhereUniqueInput | ShopWhereUniqueInput[]
   }
 
   export type DateTimeFieldUpdateOperationsInput = {
@@ -10359,14 +10410,17 @@ export namespace Prisma {
     deleteMany?: FavoriteAdScalarWhereInput | FavoriteAdScalarWhereInput[]
   }
 
-  export type ShopUpdateOneWithoutUserNestedInput = {
-    create?: XOR<ShopCreateWithoutUserInput, ShopUncheckedCreateWithoutUserInput>
-    connectOrCreate?: ShopCreateOrConnectWithoutUserInput
-    upsert?: ShopUpsertWithoutUserInput
-    disconnect?: ShopWhereInput | boolean
-    delete?: ShopWhereInput | boolean
-    connect?: ShopWhereUniqueInput
-    update?: XOR<XOR<ShopUpdateToOneWithWhereWithoutUserInput, ShopUpdateWithoutUserInput>, ShopUncheckedUpdateWithoutUserInput>
+  export type ShopUpdateManyWithoutUserNestedInput = {
+    create?: XOR<ShopCreateWithoutUserInput, ShopUncheckedCreateWithoutUserInput> | ShopCreateWithoutUserInput[] | ShopUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ShopCreateOrConnectWithoutUserInput | ShopCreateOrConnectWithoutUserInput[]
+    upsert?: ShopUpsertWithWhereUniqueWithoutUserInput | ShopUpsertWithWhereUniqueWithoutUserInput[]
+    set?: ShopWhereUniqueInput | ShopWhereUniqueInput[]
+    disconnect?: ShopWhereUniqueInput | ShopWhereUniqueInput[]
+    delete?: ShopWhereUniqueInput | ShopWhereUniqueInput[]
+    connect?: ShopWhereUniqueInput | ShopWhereUniqueInput[]
+    update?: ShopUpdateWithWhereUniqueWithoutUserInput | ShopUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: ShopUpdateManyWithWhereWithoutUserInput | ShopUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: ShopScalarWhereInput | ShopScalarWhereInput[]
   }
 
   export type IntFieldUpdateOperationsInput = {
@@ -10442,14 +10496,17 @@ export namespace Prisma {
     deleteMany?: FavoriteAdScalarWhereInput | FavoriteAdScalarWhereInput[]
   }
 
-  export type ShopUncheckedUpdateOneWithoutUserNestedInput = {
-    create?: XOR<ShopCreateWithoutUserInput, ShopUncheckedCreateWithoutUserInput>
-    connectOrCreate?: ShopCreateOrConnectWithoutUserInput
-    upsert?: ShopUpsertWithoutUserInput
-    disconnect?: ShopWhereInput | boolean
-    delete?: ShopWhereInput | boolean
-    connect?: ShopWhereUniqueInput
-    update?: XOR<XOR<ShopUpdateToOneWithWhereWithoutUserInput, ShopUpdateWithoutUserInput>, ShopUncheckedUpdateWithoutUserInput>
+  export type ShopUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<ShopCreateWithoutUserInput, ShopUncheckedCreateWithoutUserInput> | ShopCreateWithoutUserInput[] | ShopUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ShopCreateOrConnectWithoutUserInput | ShopCreateOrConnectWithoutUserInput[]
+    upsert?: ShopUpsertWithWhereUniqueWithoutUserInput | ShopUpsertWithWhereUniqueWithoutUserInput[]
+    set?: ShopWhereUniqueInput | ShopWhereUniqueInput[]
+    disconnect?: ShopWhereUniqueInput | ShopWhereUniqueInput[]
+    delete?: ShopWhereUniqueInput | ShopWhereUniqueInput[]
+    connect?: ShopWhereUniqueInput | ShopWhereUniqueInput[]
+    update?: ShopUpdateWithWhereUniqueWithoutUserInput | ShopUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: ShopUpdateManyWithWhereWithoutUserInput | ShopUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: ShopScalarWhereInput | ShopScalarWhereInput[]
   }
 
   export type UserCreateNestedOneWithoutShopInput = {
@@ -11078,9 +11135,10 @@ export namespace Prisma {
   }
 
   export type ShopCreateWithoutUserInput = {
+    shopCategory?: string
     shopName: string
     location: string
-    bgImage?: string | null
+    bgImage?: string
     shopImage?: string | null
     description?: string | null
     ads?: AdCreateNestedManyWithoutShopInput
@@ -11088,9 +11146,10 @@ export namespace Prisma {
 
   export type ShopUncheckedCreateWithoutUserInput = {
     id?: number
+    shopCategory?: string
     shopName: string
     location: string
-    bgImage?: string | null
+    bgImage?: string
     shopImage?: string | null
     description?: string | null
     ads?: AdUncheckedCreateNestedManyWithoutShopInput
@@ -11241,34 +11300,34 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"FavoriteAd"> | Date | string
   }
 
-  export type ShopUpsertWithoutUserInput = {
+  export type ShopUpsertWithWhereUniqueWithoutUserInput = {
+    where: ShopWhereUniqueInput
     update: XOR<ShopUpdateWithoutUserInput, ShopUncheckedUpdateWithoutUserInput>
     create: XOR<ShopCreateWithoutUserInput, ShopUncheckedCreateWithoutUserInput>
-    where?: ShopWhereInput
   }
 
-  export type ShopUpdateToOneWithWhereWithoutUserInput = {
-    where?: ShopWhereInput
+  export type ShopUpdateWithWhereUniqueWithoutUserInput = {
+    where: ShopWhereUniqueInput
     data: XOR<ShopUpdateWithoutUserInput, ShopUncheckedUpdateWithoutUserInput>
   }
 
-  export type ShopUpdateWithoutUserInput = {
-    shopName?: StringFieldUpdateOperationsInput | string
-    location?: StringFieldUpdateOperationsInput | string
-    bgImage?: NullableStringFieldUpdateOperationsInput | string | null
-    shopImage?: NullableStringFieldUpdateOperationsInput | string | null
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    ads?: AdUpdateManyWithoutShopNestedInput
+  export type ShopUpdateManyWithWhereWithoutUserInput = {
+    where: ShopScalarWhereInput
+    data: XOR<ShopUpdateManyMutationInput, ShopUncheckedUpdateManyWithoutUserInput>
   }
 
-  export type ShopUncheckedUpdateWithoutUserInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    shopName?: StringFieldUpdateOperationsInput | string
-    location?: StringFieldUpdateOperationsInput | string
-    bgImage?: NullableStringFieldUpdateOperationsInput | string | null
-    shopImage?: NullableStringFieldUpdateOperationsInput | string | null
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    ads?: AdUncheckedUpdateManyWithoutShopNestedInput
+  export type ShopScalarWhereInput = {
+    AND?: ShopScalarWhereInput | ShopScalarWhereInput[]
+    OR?: ShopScalarWhereInput[]
+    NOT?: ShopScalarWhereInput | ShopScalarWhereInput[]
+    id?: IntFilter<"Shop"> | number
+    userId?: IntFilter<"Shop"> | number
+    shopCategory?: StringFilter<"Shop"> | string
+    shopName?: StringFilter<"Shop"> | string
+    location?: StringFilter<"Shop"> | string
+    bgImage?: StringFilter<"Shop"> | string
+    shopImage?: StringNullableFilter<"Shop"> | string | null
+    description?: StringNullableFilter<"Shop"> | string | null
   }
 
   export type UserCreateWithoutShopInput = {
@@ -11559,7 +11618,7 @@ export namespace Prisma {
     messagesSent?: MessageCreateNestedManyWithoutSenderInput
     messagesReceived?: MessageCreateNestedManyWithoutReceiverInput
     favoriteAds?: FavoriteAdCreateNestedManyWithoutUserInput
-    shop?: ShopCreateNestedOneWithoutUserInput
+    shop?: ShopCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutAdsInput = {
@@ -11573,7 +11632,7 @@ export namespace Prisma {
     messagesSent?: MessageUncheckedCreateNestedManyWithoutSenderInput
     messagesReceived?: MessageUncheckedCreateNestedManyWithoutReceiverInput
     favoriteAds?: FavoriteAdUncheckedCreateNestedManyWithoutUserInput
-    shop?: ShopUncheckedCreateNestedOneWithoutUserInput
+    shop?: ShopUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutAdsInput = {
@@ -11582,9 +11641,10 @@ export namespace Prisma {
   }
 
   export type ShopCreateWithoutAdsInput = {
+    shopCategory?: string
     shopName: string
     location: string
-    bgImage?: string | null
+    bgImage?: string
     shopImage?: string | null
     description?: string | null
     user: UserCreateNestedOneWithoutShopInput
@@ -11593,9 +11653,10 @@ export namespace Prisma {
   export type ShopUncheckedCreateWithoutAdsInput = {
     id?: number
     userId: number
+    shopCategory?: string
     shopName: string
     location: string
-    bgImage?: string | null
+    bgImage?: string
     shopImage?: string | null
     description?: string | null
   }
@@ -11656,7 +11717,7 @@ export namespace Prisma {
     messagesSent?: MessageUpdateManyWithoutSenderNestedInput
     messagesReceived?: MessageUpdateManyWithoutReceiverNestedInput
     favoriteAds?: FavoriteAdUpdateManyWithoutUserNestedInput
-    shop?: ShopUpdateOneWithoutUserNestedInput
+    shop?: ShopUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAdsInput = {
@@ -11670,7 +11731,7 @@ export namespace Prisma {
     messagesSent?: MessageUncheckedUpdateManyWithoutSenderNestedInput
     messagesReceived?: MessageUncheckedUpdateManyWithoutReceiverNestedInput
     favoriteAds?: FavoriteAdUncheckedUpdateManyWithoutUserNestedInput
-    shop?: ShopUncheckedUpdateOneWithoutUserNestedInput
+    shop?: ShopUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type ShopUpsertWithoutAdsInput = {
@@ -11685,9 +11746,10 @@ export namespace Prisma {
   }
 
   export type ShopUpdateWithoutAdsInput = {
+    shopCategory?: StringFieldUpdateOperationsInput | string
     shopName?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
-    bgImage?: NullableStringFieldUpdateOperationsInput | string | null
+    bgImage?: StringFieldUpdateOperationsInput | string
     shopImage?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
     user?: UserUpdateOneRequiredWithoutShopNestedInput
@@ -11696,9 +11758,10 @@ export namespace Prisma {
   export type ShopUncheckedUpdateWithoutAdsInput = {
     id?: IntFieldUpdateOperationsInput | number
     userId?: IntFieldUpdateOperationsInput | number
+    shopCategory?: StringFieldUpdateOperationsInput | string
     shopName?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
-    bgImage?: NullableStringFieldUpdateOperationsInput | string | null
+    bgImage?: StringFieldUpdateOperationsInput | string
     shopImage?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
   }
@@ -11754,7 +11817,7 @@ export namespace Prisma {
     chats?: ChatCreateNestedManyWithoutUsersInput
     messagesSent?: MessageCreateNestedManyWithoutSenderInput
     messagesReceived?: MessageCreateNestedManyWithoutReceiverInput
-    shop?: ShopCreateNestedOneWithoutUserInput
+    shop?: ShopCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutFavoriteAdsInput = {
@@ -11768,7 +11831,7 @@ export namespace Prisma {
     chats?: ChatUncheckedCreateNestedManyWithoutUsersInput
     messagesSent?: MessageUncheckedCreateNestedManyWithoutSenderInput
     messagesReceived?: MessageUncheckedCreateNestedManyWithoutReceiverInput
-    shop?: ShopUncheckedCreateNestedOneWithoutUserInput
+    shop?: ShopUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutFavoriteAdsInput = {
@@ -11859,7 +11922,7 @@ export namespace Prisma {
     chats?: ChatUpdateManyWithoutUsersNestedInput
     messagesSent?: MessageUpdateManyWithoutSenderNestedInput
     messagesReceived?: MessageUpdateManyWithoutReceiverNestedInput
-    shop?: ShopUpdateOneWithoutUserNestedInput
+    shop?: ShopUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutFavoriteAdsInput = {
@@ -11873,7 +11936,7 @@ export namespace Prisma {
     chats?: ChatUncheckedUpdateManyWithoutUsersNestedInput
     messagesSent?: MessageUncheckedUpdateManyWithoutSenderNestedInput
     messagesReceived?: MessageUncheckedUpdateManyWithoutReceiverNestedInput
-    shop?: ShopUncheckedUpdateOneWithoutUserNestedInput
+    shop?: ShopUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type AdUpsertWithoutFavoritedByInput = {
@@ -11954,7 +12017,7 @@ export namespace Prisma {
     messagesSent?: MessageCreateNestedManyWithoutSenderInput
     messagesReceived?: MessageCreateNestedManyWithoutReceiverInput
     favoriteAds?: FavoriteAdCreateNestedManyWithoutUserInput
-    shop?: ShopCreateNestedOneWithoutUserInput
+    shop?: ShopCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutChatsInput = {
@@ -11968,7 +12031,7 @@ export namespace Prisma {
     messagesSent?: MessageUncheckedCreateNestedManyWithoutSenderInput
     messagesReceived?: MessageUncheckedCreateNestedManyWithoutReceiverInput
     favoriteAds?: FavoriteAdUncheckedCreateNestedManyWithoutUserInput
-    shop?: ShopUncheckedCreateNestedOneWithoutUserInput
+    shop?: ShopUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutChatsInput = {
@@ -12050,7 +12113,7 @@ export namespace Prisma {
     chats?: ChatCreateNestedManyWithoutUsersInput
     messagesReceived?: MessageCreateNestedManyWithoutReceiverInput
     favoriteAds?: FavoriteAdCreateNestedManyWithoutUserInput
-    shop?: ShopCreateNestedOneWithoutUserInput
+    shop?: ShopCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutMessagesSentInput = {
@@ -12064,7 +12127,7 @@ export namespace Prisma {
     chats?: ChatUncheckedCreateNestedManyWithoutUsersInput
     messagesReceived?: MessageUncheckedCreateNestedManyWithoutReceiverInput
     favoriteAds?: FavoriteAdUncheckedCreateNestedManyWithoutUserInput
-    shop?: ShopUncheckedCreateNestedOneWithoutUserInput
+    shop?: ShopUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutMessagesSentInput = {
@@ -12082,7 +12145,7 @@ export namespace Prisma {
     chats?: ChatCreateNestedManyWithoutUsersInput
     messagesSent?: MessageCreateNestedManyWithoutSenderInput
     favoriteAds?: FavoriteAdCreateNestedManyWithoutUserInput
-    shop?: ShopCreateNestedOneWithoutUserInput
+    shop?: ShopCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutMessagesReceivedInput = {
@@ -12096,7 +12159,7 @@ export namespace Prisma {
     chats?: ChatUncheckedCreateNestedManyWithoutUsersInput
     messagesSent?: MessageUncheckedCreateNestedManyWithoutSenderInput
     favoriteAds?: FavoriteAdUncheckedCreateNestedManyWithoutUserInput
-    shop?: ShopUncheckedCreateNestedOneWithoutUserInput
+    shop?: ShopUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutMessagesReceivedInput = {
@@ -12139,7 +12202,7 @@ export namespace Prisma {
     chats?: ChatUpdateManyWithoutUsersNestedInput
     messagesReceived?: MessageUpdateManyWithoutReceiverNestedInput
     favoriteAds?: FavoriteAdUpdateManyWithoutUserNestedInput
-    shop?: ShopUpdateOneWithoutUserNestedInput
+    shop?: ShopUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutMessagesSentInput = {
@@ -12153,7 +12216,7 @@ export namespace Prisma {
     chats?: ChatUncheckedUpdateManyWithoutUsersNestedInput
     messagesReceived?: MessageUncheckedUpdateManyWithoutReceiverNestedInput
     favoriteAds?: FavoriteAdUncheckedUpdateManyWithoutUserNestedInput
-    shop?: ShopUncheckedUpdateOneWithoutUserNestedInput
+    shop?: ShopUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserUpsertWithoutMessagesReceivedInput = {
@@ -12177,7 +12240,7 @@ export namespace Prisma {
     chats?: ChatUpdateManyWithoutUsersNestedInput
     messagesSent?: MessageUpdateManyWithoutSenderNestedInput
     favoriteAds?: FavoriteAdUpdateManyWithoutUserNestedInput
-    shop?: ShopUpdateOneWithoutUserNestedInput
+    shop?: ShopUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutMessagesReceivedInput = {
@@ -12191,7 +12254,7 @@ export namespace Prisma {
     chats?: ChatUncheckedUpdateManyWithoutUsersNestedInput
     messagesSent?: MessageUncheckedUpdateManyWithoutSenderNestedInput
     favoriteAds?: FavoriteAdUncheckedUpdateManyWithoutUserNestedInput
-    shop?: ShopUncheckedUpdateOneWithoutUserNestedInput
+    shop?: ShopUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type ChatUpsertWithoutMessagesInput = {
@@ -12374,6 +12437,37 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type ShopUpdateWithoutUserInput = {
+    shopCategory?: StringFieldUpdateOperationsInput | string
+    shopName?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
+    bgImage?: StringFieldUpdateOperationsInput | string
+    shopImage?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    ads?: AdUpdateManyWithoutShopNestedInput
+  }
+
+  export type ShopUncheckedUpdateWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    shopCategory?: StringFieldUpdateOperationsInput | string
+    shopName?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
+    bgImage?: StringFieldUpdateOperationsInput | string
+    shopImage?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    ads?: AdUncheckedUpdateManyWithoutShopNestedInput
+  }
+
+  export type ShopUncheckedUpdateManyWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    shopCategory?: StringFieldUpdateOperationsInput | string
+    shopName?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
+    bgImage?: StringFieldUpdateOperationsInput | string
+    shopImage?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
   export type AdUpdateWithoutShopInput = {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
@@ -12499,7 +12593,7 @@ export namespace Prisma {
     messagesSent?: MessageUpdateManyWithoutSenderNestedInput
     messagesReceived?: MessageUpdateManyWithoutReceiverNestedInput
     favoriteAds?: FavoriteAdUpdateManyWithoutUserNestedInput
-    shop?: ShopUpdateOneWithoutUserNestedInput
+    shop?: ShopUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutChatsInput = {
@@ -12513,7 +12607,7 @@ export namespace Prisma {
     messagesSent?: MessageUncheckedUpdateManyWithoutSenderNestedInput
     messagesReceived?: MessageUncheckedUpdateManyWithoutReceiverNestedInput
     favoriteAds?: FavoriteAdUncheckedUpdateManyWithoutUserNestedInput
-    shop?: ShopUncheckedUpdateOneWithoutUserNestedInput
+    shop?: ShopUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateManyWithoutChatsInput = {

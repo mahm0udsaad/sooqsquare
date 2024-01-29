@@ -24,39 +24,47 @@ export function UserButton({ user }) {
         <div className="grid gap-4">
           {user.shop ? 
           <div className="space-y-2">
-          <Link className="py-3 flex items-center gap-2 flex gap-3 items-center text-gray-700 dark:text-gray-200 hover:dark:text-white hover:text-zinc-900" href="/myShopView">
+             <Link className="py-3  items-center flex  gap-3  hover:dark:text-white hover:text-zinc-900" href="#">
+              <HeartIcon className="w-6 h-6 text-rose-700 dark:text-rose-200" />
+              <span className="mx-3">Favorites</span>
+            </Link>
+          <Link className="py-3  items-center  flex gap-3  text-gray-700 dark:text-gray-200 hover:dark:text-white hover:text-zinc-900" href="/myShopView">
             <FaShop className="w-6 h-6" />
             <span className="mx-3">My Shop</span>
             </Link>
-            <Link className="py-3 flex items-center gap-2 flex gap-3 items-center text-gray-700 dark:text-gray-200 hover:dark:text-white hover:text-zinc-900" href="/myShop">
+            <Link className="py-3  items-center  flex gap-3  text-gray-700 dark:text-gray-200 hover:dark:text-white hover:text-zinc-900" href="/myShop">
                 <FaRegEdit className="w-6 h-6" />
                 <span className="mx-3">Shop Details</span>
             </Link>
-            <Link className="py-3 flex items-center gap-2 flex gap-3 items-center text-gray-700 dark:text-gray-200 hover:dark:text-white hover:text-zinc-900" href="/reports">
+            <Link className="py-3  items-center  flex gap-3  text-gray-700 dark:text-gray-200 hover:dark:text-white hover:text-zinc-900" href="/reports">
                 <TbReportAnalytics className="w-6 h-6 text-orange-600" />
                 <span className="mx-3">Shop Reports</span>
             </Link>
-            <Link className="py-3 flex items-center gap-2 flex gap-3 items-center text-gray-700 dark:text-gray-200 hover:dark:text-white hover:text-zinc-900" href="/shopAds">
+            <Link className="py-3  items-center  flex gap-3  text-gray-700 dark:text-gray-200 hover:dark:text-white hover:text-zinc-900" href="/shopAds">
                 <BsThreads className="w-6 h-6 text-sky-600" />
                 <span className="mx-3">Shop Ads</span>
+            </Link>
+            <Link className="py-3 flex items-center  gap-3 text-rose-600" href="#">
+              <LogOutIcon className="w-6 h-6 " />
+              <span className="mx-3">Logout</span>
             </Link>
           </div>
           :
           <div className="space-y-2">
-            <Link className="py-3 flex items-center gap-2" href="/myProfile">
-              <UserIcon className="w-4 h-4" />
+            <Link className="py-3  items-center " href="/myProfile">
+              <UserIcon className="w-6 h-6" />
               Profile
             </Link>
-            <Link className="py-3 flex items-center gap-2" href="/myAds">
-              <AtSignIcon className="w-4 h-4" />
+            <Link className="py-3  items-center " href="/myAds">
+              <AtSignIcon className="w-6 h-6" />
               My Ads
             </Link>
-            <Link className="py-3 flex items-center gap-2" href="#">
-              <HeartIcon className="w-4 h-4" />
+            <Link className="py-3  items-center " href="#">
+              <HeartIcon className="w-6 h-6" />
               Favorites
             </Link>
-            <Link className="py-3 flex items-center gap-2 text-rose-600" href="#">
-              <LogOutIcon className="w-4 h-4" />
+            <Link className="py-3  items-center  text-rose-600" href="#">
+              <LogOutIcon className="w-6 h-6" />
               Logout
             </Link>
           </div>

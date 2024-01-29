@@ -13,11 +13,10 @@ export default async function DashboardLayout({ children , params: { lng }}) {
   if (!user){
     redirect('/sign-in')
   }
-
   return (
        <>
       <div className="flex w-full min-h-screen justify-between bg-gray-100 dark:bg-zinc-950">
-       {user.shop ?  <ShopSideBar shop={user.shop} /> :  <UserSideBar user={user}/>}
+       {user.shop ?  <ShopSideBar user={user} /> :  <UserSideBar user={user}/>}
           {children}
           </div>
        </>

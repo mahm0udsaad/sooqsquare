@@ -1,5 +1,5 @@
 "use client"
-import {   useRouter, useSearchParams } from 'next/navigation';
+import {   usePathname, useRouter, useSearchParams } from 'next/navigation';
 import {carBrands , carBrandsWithLogos} from "../data/staticData"
 import { useTranslation } from "../app/i18n/client"
 import Image from 'next/image';
@@ -12,12 +12,20 @@ const CarBrandSelector = ({lng}) => {
   const uploadedImages = useSearchParams().get("uploadedImages");
   const carStatus = useSearchParams().get("carStatus");
   const location = useSearchParams().get("location");
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+
+  const createQueryString = (name, value) => {
+    const params = new URLSearchParams(searchParams);
+    params.set(name, value);
+    const updatedParams = params.toString();
+    router.push(pathname + '?' + updatedParams);
+  };
   
-  
-  if (brand || !category || !carStatus ||!location ) return null;
+  if (!category || !carStatus ||!location ) return null;
   
   function handleSelectBrand(selectedBrand) {
-     router.push(`?category=${category}&carStatus=${carStatus}&uploadedImages=${uploadedImages}&location=${location}&brand=${selectedBrand}`);
+    createQueryString('brand' , selectedBrand)
   }
   
   return (

@@ -9,7 +9,7 @@ export default async function MyShop({params:{lng}}) {
     
     return (
        <div className='flex w-11/12 mx-auto flex-col gap-3'>
-          <ShopPage shop={user.shop} />
+          <ShopPage shop={user.shop[0]} />
        </div>
   )
 }

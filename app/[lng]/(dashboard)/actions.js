@@ -61,7 +61,7 @@ export async function updateAd(adId, updatedData) {
   }
 }
 export async function deleteAd(adId) {
-  adId = parseInt(adId)
+  console.log(adId);
   try {
     // Check if the ad with the given ID exists
     const existingAd = await prisma.Ad.findUnique({
@@ -99,15 +99,15 @@ export async function deleteAd(adId) {
   }
 }
 
-export async function createShop(userId, shopName, location,  shopImage) {
+export async function createShop(userId, shopName, location,  shopImage ,description) {
   try {
-    // Use Prisma to create a new shop in the database
     const newShop = await prisma.Shop.create({
       data: {
         user: { connect: { id: userId } }, 
         shopName,
         location,
         shopImage,
+        description,
       },
     });
     
@@ -117,11 +117,46 @@ export async function createShop(userId, shopName, location,  shopImage) {
     return newShop;
   } catch (error) {
     console.error('Error creating shop:', error);
-    throw error; // Rethrow the error for handling at a higher level
+    throw error; 
   } finally {
-    // Close the Prisma client connection
     redirect('/myShopView') 
-    await prisma.$disconnect();
+  }
+}
+export async function getAllShops() {
+  try {
+      const shops = await prisma.shop.findMany();
+      return shops;
+  } catch (error) {
+      console.error('Error fetching all shops:', error);
+      throw error; // Rethrow the error for handling at a higher level if needed
+  }
+}
+export async function getShopById(shopId) {
+  try {
+    const parsedShopId = parseInt(shopId, 10);
+
+    if (isNaN(parsedShopId)) {
+      throw new Error('Invalid shopId');
+    }
+
+    const shop = await prisma.shop.findUnique({
+      where: {
+        id: parsedShopId,
+      },
+      include: {
+        ads: {
+          select: {
+            id:true,
+            Adimages: true,
+          },
+        },
+      },
+    });
+
+    return shop;
+  } catch (error) {
+    console.error('Error in getShopById:', error);
+    throw new Error('Error fetching shop by ID');
   }
 }
 

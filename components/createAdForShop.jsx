@@ -23,6 +23,7 @@ import {
   ToggleGroupItem,
 } from "@/components/ui/toggle-group"
 import { toast } from 'sonner';
+
 const NameDescriptionSelector = dynamic(() => import(`./NameDescriptionSelector`) ,{
   ssr: false,
 });
@@ -35,14 +36,11 @@ const CarStatusSelection = dynamic(() => import(`./carStatusSelection`),{
 const MultiImageForm = dynamic(() => import(`./MultibleImages`),{
   ssr: false,
 });
-const LocationDetails = dynamic(() => import(`./LocationSelector`),{
-  ssr: false,
-});
 
 
 const SelectionComp = withGenericSelection(GenericSelection);
 
-export const CarForSellAd = ({lng , userId}) =>{
+export const CarForSellAd = ({lng ,location, shopId}) =>{
   const { t } = useTranslation(lng , "translation")
   const transmission = useSearchParams().get("transmission");
   const RegionalSpecifications = useSearchParams().get("RegionalSpecifications");
@@ -193,12 +191,9 @@ export const CarForSellAd = ({lng , userId}) =>{
 
 return (
   <>
-        <Review userId={userId} lng={lng} />
-        <CategoriesForm lng={lng} />
+        <Review shopId={shopId} lng={lng} />
         <CarStatusSelection lng={lng} />
-        <MultiImageForm lng={lng} />
         <NameDescriptionSelector lng={lng} />
-        <LocationDetails lng={lng} />
         <CarBrandSelector lng={lng} />
 
         {!transmission && <SelectionComp {...transmissionProps} />}
@@ -266,24 +261,7 @@ export const ModelSelection = ({lng}) => {
    </div>
    )
 }
-const CategoriesForm = ({lng}) =>{
-  const { t } = useTranslation(lng , "translation")
- const  category  = useSearchParams().get("category");
 
- if ( category ) return ; 
- return (
-     <div className=' '>
-     <h1 className="text-center text-2xl font-semibold sm:py-8">
-         {t("sellTitle")}
-     </h1>
-     <div className="grid  grid-cols-2  gap-8  py-4">
-     {categoriesData.map((item, i) => (
-     <AdCategroy lng={lng} key={i} icon={item.icon} text={item.text} />
-     ))}
-     </div>
-     </div>
- )
-}
 export const ExtraFeatures = ({ lng }) =>{
   const router = useRouter()
   const brand = useSearchParams().get("brand");
@@ -498,7 +476,7 @@ export function PriceSelection({lng}) {
 }
 
 
-export function Review({lng , userId}) {
+export function Review({lng , shopId}) {
   const brand = useSearchParams().get("brand");
   const category = useSearchParams().get("category");
   const model = useSearchParams().get("model");
@@ -555,7 +533,7 @@ export function Review({lng , userId}) {
     setLoading(true);
   
     try {
-      const ad = await createAd(data, userId , "inActive");
+      const ad = await createAd(data, shopId , "inActive");
       if (ad) {
         toast("Ad Created Successfuly")
         setShowDialog(true)
@@ -575,7 +553,7 @@ export function Review({lng , userId}) {
     setPublishIsLoading(true);
   
     try {
-      const ad = await createAd(data, userId , "Active");
+      const ad = await createAdForShop(data, shopId , "Active");
       if (ad) {
         setAd(ad)
         toast("Ad Published Successfuly")

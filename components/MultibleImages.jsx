@@ -1,16 +1,13 @@
 "use client"
-import {   useRouter, useSearchParams } from 'next/navigation';
-import Link from 'next/link';
+import {   usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label"
 import { Badge } from "@/components/ui/badge"
 import React, { useState } from 'react';
 import { useDarkMode } from '@/context/darkModeContext';
 import  upload  from '../app/[lng]/sell/imageUploadAction'
-import { AvatarImage, AvatarFallback, Avatar } from "@/components/ui/avatar"
 import { CiImageOn } from "react-icons/ci";
 import { MdOutlineRocketLaunch } from "react-icons/md";
-import { t } from 'i18next';
 import { useTranslation } from '../app/i18n/client';
 import Image from 'next/image';
 
@@ -41,7 +38,6 @@ function TrashIcon(props) {
     const [uploading, setUploading] = useState(false);
     const uploadedImages = useSearchParams().get('uploadedImages')
     const category = useSearchParams().get('category')
-    const router = useRouter();
     const { t } = useTranslation(lng , "translation")
 
     const handleImageChange = async (e, index) => {
@@ -80,6 +76,17 @@ function TrashIcon(props) {
       }
     };
 
+    const searchParams = useSearchParams();
+    const router = useRouter()
+    const pathname= usePathname()
+    
+    const createQueryString = (name, value) => {
+      const params = new URLSearchParams(searchParams);
+      params.set(name, value);
+      const updatedParams = params.toString();
+      router.push(pathname + '?' + updatedParams);
+    };
+
     const handleImageRemove = (indexToRemove) => {
       setImages((prevImages) => prevImages.filter((_, index) => index !== indexToRemove));
     };
@@ -87,11 +94,9 @@ function TrashIcon(props) {
     const handleSubmit = (e) => {
       e.preventDefault();
       setAdImages(images)
-      router.push(`?category=${category}&uploadedImages=${images.length}`);
+      createQueryString('uploadedImages',images.length)
     };
   
-  
-    if (uploadedImages || !category ) return null;
   
     return (
       <div className="bg-white border rounded p-8 shadow-md  dark:bg-zinc-950">

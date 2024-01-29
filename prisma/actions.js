@@ -98,6 +98,88 @@ export async function createAd(data, userId, adStatus) {
     revalidatePath('/vehicle');
   }
 }
+export async function createAdForShop(data, shopId, adStatus) {
+  const {
+    EnginCapacity,
+    paintType,
+    payment,
+    price,
+    name,
+    RegionalSpecifications,
+    location,
+    adImages,
+    brand,
+    category,
+    model,
+    year,
+    carType,
+    carStatus,
+    transmission,
+    fuelType,
+    meterRange,
+    extraFeatures,
+  } = data;
+
+  try {
+    const shop = await prisma.shop.findUnique({
+      where: {
+        id: shopId,
+      },
+    });
+
+    if (!shop) {
+      console.error('Shop not found');
+      return null;
+    }
+
+    const newAdData = {
+      EnginCapacity,
+      paintType,
+      payment,
+      price,
+      name,
+      RegionalSpecifications,
+      location,
+      brand,
+      category,
+      model,
+      year,
+      carType,
+      carStatus,
+      transmission,
+      fuelType,
+      meterRange,
+      extraFeatures,
+      adStatus,
+      Adimages: {
+        create: adImages.map((image) => ({ url: image })),
+      },
+      shop: {
+        connect: {
+          id: shopId,
+        },
+      },
+    };
+
+    const newAd = await prisma.ad.create({
+      data: newAdData,
+      include: {
+        user: true,
+        shop: true,
+      },
+    });
+    
+    console.log(newAd);
+    return newAd;
+  } catch (error) {
+    console.error('Error creating ad:', error);
+    return null;
+  } finally {
+    revalidatePath('/myAds');
+    revalidatePath('/shopAds');
+    revalidatePath('/vehicle');
+  }
+}
 
 
 export  async function createUserIfNotExists(userData) {
