@@ -3,7 +3,7 @@ import { AdCard } from '@/components/component/dashboard-ad-card';
 
 export const dynamic = "force-dynamic"
 
-export async function generateStaticParamsForShops() {
+export async function generateStaticParams() {
     const shops = await getAllShops();
     const shopIds = shops.map(shop => shop.id);
 

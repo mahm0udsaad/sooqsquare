@@ -6,7 +6,7 @@ import { getAllShops, getShopById } from '../../actions'
 
 export const dynamic = "force-dynamic"
 
-export async function generateStaticParamsForShops() {
+export async function generateStaticParams() {
     const shops = await getAllShops();
     const shopIds = shops.map(shop => shop.id);
 
