@@ -28,11 +28,11 @@ export function UserButton({ user }) {
               <HeartIcon className="w-6 h-6 text-rose-700 dark:text-rose-200" />
               <span className="mx-3">Favorites</span>
             </Link>
-          <Link className="py-3  items-center  flex gap-3  text-gray-700 dark:text-gray-200 hover:dark:text-white hover:text-zinc-900" href="/myShopView">
+          <Link className="py-3  items-center  flex gap-3  text-gray-700 dark:text-gray-200 hover:dark:text-white hover:text-zinc-900" href={`/myShopView/${user.shop[0].id}`}>
             <FaShop className="w-6 h-6" />
             <span className="mx-3">My Shop</span>
             </Link>
-            <Link className="py-3  items-center  flex gap-3  text-gray-700 dark:text-gray-200 hover:dark:text-white hover:text-zinc-900" href="/myShop">
+            <Link className="py-3  items-center  flex gap-3  text-gray-700 dark:text-gray-200 hover:dark:text-white hover:text-zinc-900" href={`/myShop/${user.shop[0].id}`}>
                 <FaRegEdit className="w-6 h-6" />
                 <span className="mx-3">Shop Details</span>
             </Link>
@@ -40,7 +40,7 @@ export function UserButton({ user }) {
                 <TbReportAnalytics className="w-6 h-6 text-orange-600" />
                 <span className="mx-3">Shop Reports</span>
             </Link>
-            <Link className="py-3  items-center  flex gap-3  text-gray-700 dark:text-gray-200 hover:dark:text-white hover:text-zinc-900" href="/shopAds">
+            <Link className="py-3  items-center  flex gap-3  text-gray-700 dark:text-gray-200 hover:dark:text-white hover:text-zinc-900" href={`/shopAds/${user.shop[0].id}`}>
                 <BsThreads className="w-6 h-6 text-sky-600" />
                 <span className="mx-3">Shop Ads</span>
             </Link>

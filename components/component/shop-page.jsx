@@ -16,7 +16,7 @@ export default function ShopPage({ shop }) {
           className="absolute inset-0 w-full h-full object-cover"
           height={1080}
           width={1920}
-          src={shop.bgImage}
+          src={shop?.bgImage}
           style={{
             aspectRatio: "1920/1080",
             objectFit: "cover",
@@ -25,13 +25,13 @@ export default function ShopPage({ shop }) {
         <div className="absolute inset-0 bg-black/40" />
         <div className="relative h-full flex items-end justify-end pb-8 pr-8">
           <Avatar className="w-32 h-32 border-4 border-white">
-            <AvatarImage alt="Shop owner" src={shop.shopImage} />
+            <AvatarImage alt="Shop owner" src={shop?.shopImage} />
             <AvatarFallback>SO</AvatarFallback>
           </Avatar>
         </div>
       </section>
       <main className="container mx-auto px-4 py-8 space-y-4">
-        <h1 className="text-4xl font-bold">{shop.shopName}</h1>
+        <h1 className="text-4xl font-bold">{shop?.shopName}</h1>
         <p className="text-lg text-gray-500 dark:text-gray-400 dark:text-gray-200">
         {shop.description}
         </p>
