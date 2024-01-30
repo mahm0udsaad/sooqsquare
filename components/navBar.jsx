@@ -10,11 +10,11 @@ import { BsChatLeftDots } from "react-icons/bs";
 import { usePathname, useRouter } from 'next/navigation';
 import { useTranslation } from "../app/i18n/client"
 import Logo from './logo'
-import { Avatar } from '@/components/ui/avatar';
 import { useDarkMode } from '@/context/darkModeContext';
 import { CiMenuBurger } from "react-icons/ci";
 import { UserButton } from '@/components/component/user-button'
 import { PopoverTrigger, PopoverContent, Popover } from "@/components/ui/popover"
+import { ArabCountriesWithCurrancy } from '@/data/staticData';
 
 const NavBar = ({lng , user})=> { 
   const path = usePathname()
@@ -71,9 +71,11 @@ const NavBar = ({lng , user})=> {
           <PopoverContent className="w-80 dark:bg-zinc-950 dark:text-white">
             <div className="grid gap-4">
               <div className="space-y-2">
-              <div className="hover:bg-gray-100  px-4 py-2">USA</div>
-              <div className="hover:bg-gray-100  px-4 py-2">UK</div>
-              <div className="hover:bg-gray-100  px-4 py-2">Germany</div>
+              {ArabCountriesWithCurrancy.map((country) => (
+                <div key={country.name} className="hover:bg-gray-100 px-4 py-2">
+                  {country.name}
+                </div>
+              ))}
               </div>
             </div>
           </PopoverContent>

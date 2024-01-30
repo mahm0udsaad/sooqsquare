@@ -32,6 +32,7 @@ export default function LocationDetails({lng , locationGiven}) {
         setLoading(true)
         const userLocation = await getLocation();
         // Do something with the userLocation, like sending it to an API, etc.
+        console.log(userLocation);
         router.push(`?category=${category}&uploadedImages=${uploadedImages}&location=${userLocation.city}`);
       } catch (error) {
         console.error('Error getting location:', error);

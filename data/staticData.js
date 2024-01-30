@@ -127,4 +127,20 @@ const ArabCountries = [
   { code: '+974', name: 'Qatar' },
   { code: '+961', name: 'Lebanon' },
 ];
-  export {ArabCountries, features,cities,categoriesData ,carBrands ,yearsArray ,carTypesArray , carBrandsWithLogos}
+const ArabCountriesWithCurrancy = [
+  { currencyCode: 'EGP', name: 'Egypt' },
+  { currencyCode: 'SAR', name: 'Saudi Arabia' },
+  { currencyCode: 'AED', name: 'United Arab Emirates' },
+  { currencyCode: 'JOD', name: 'Jordan' },
+  { currencyCode: 'KWD', name: 'Kuwait' },
+  { currencyCode: 'BHD', name: 'Bahrain' },
+  { currencyCode: 'OMR', name: 'Oman' },
+  { currencyCode: 'QAR', name: 'Qatar' },
+  { currencyCode: 'LBP', name: 'Lebanon' },
+  { currencyCode: 'TND', name: 'Tunisia' },
+  { currencyCode: 'YER', name: 'Yemen' },
+  { currencyCode: 'MAD', name: 'Morocco' },
+  { currencyCode: 'DZD', name: 'Algeria' },
+  { currencyCode: 'IQD', name: 'Iraq' },
+];
+  export {ArabCountries, ArabCountriesWithCurrancy, features,cities,categoriesData ,carBrands ,yearsArray ,carTypesArray , carBrandsWithLogos}

@@ -12,7 +12,7 @@ import { Textarea } from "@/components/ui/textarea"
 import { GiDrippingStar } from "react-icons/gi";
 import { AvatarImage, AvatarFallback, Avatar } from "@/components/ui/avatar"
 import { useState } from "react";
-import upload from "@/app/[lng]/(dashboard)/myShop/action";
+import upload from "@/app/[lng]/(traderDashboard)/actions";
 import { createShop, deleteShop} from "@/app/[lng]/(dashboard)/actions";
 import { AccordionTrigger, AccordionContent, AccordionItem, Accordion } from "@/components/ui/accordion"
 import { SelectTrigger, SelectItem, SelectContent, Select } from "@/components/ui/select";
@@ -73,19 +73,19 @@ const UserSideBar = ({ user }) =>{
           <h2 className="text-2xl font-semibold text-gray-800 dark:text-gray-200">Dashboard</h2>
         </div>
         <div className="flex flex-col gap-4 px-4 py-2 mt-5">
-        <Link className="flex border-b-[1px] py-2 gap-3 items-center text-gray-700 dark:text-gray-200 hover:dark:text-white hover:text-zinc-900" href="/myProfile">
+        <Link className="flex text-sm gap-3 items-center text-gray-700 dark:text-gray-200 hover:dark:text-white hover:text-zinc-900" href="/myProfile">
               <CgProfile className="w-6 h-6 " />
               <span className="mx-3">My Profile</span>
           </Link>
-          <Link className="flex border-b-[1px] py-2 gap-3 items-center text-gray-700 dark:text-gray-200 hover:dark:text-white hover:text-zinc-900" href="/reports">
+          <Link className="flex text-sm gap-3 items-center text-gray-700 dark:text-gray-200 hover:dark:text-white hover:text-zinc-900" href="/reports">
               <TbReportAnalytics className="w-6 h-6 text-orange-600" />
               <span className="mx-3">Reports</span>
           </Link>
-          <Link className="flex border-b-[1px] py-2 gap-3 items-center text-gray-700 dark:text-gray-200 hover:dark:text-white hover:text-zinc-900" href="/myAds">
+          <Link className="flex text-sm gap-3 items-center text-gray-700 dark:text-gray-200 hover:dark:text-white hover:text-zinc-900" href="/myAds">
               <BsThreads className="w-6 h-6 text-sky-600" />
               <span className="mx-3">My Ads</span>
           </Link>
-          <Link className="flex border-b-[1px] py-2 gap-3 items-center text-gray-700 dark:text-gray-200 hover:dark:text-white hover:text-zinc-900" href="/myAds">
+          <Link className="flex text-sm gap-3 items-center text-gray-700 dark:text-gray-200 hover:dark:text-white hover:text-zinc-900" href="/myAds">
               <HeartIcon className="w-6 h-6 text-rose-600" />
               Favorites
             </Link>
@@ -214,40 +214,36 @@ const ShopSideBar = ({ user }) =>{
   }
     return(
       <div className="flex flex-col w-64 bg-white dark:bg-zinc-950">
-        <div className="flex items-center h-14 border-b dark:border-gray-600">
-        <Avatar className="w-8 h-8 border-4  border-white">
-        <AvatarImage alt="Shop owner" src={user.shop[0].shopImage} />
-            <AvatarFallback>SO</AvatarFallback>
-          </Avatar>
-          <h2 className="text-xl font-semibold text-gray-800 dark:text-gray-200">Dashboard</h2>
+        <div className="flex items-center justify-center h-14 border-b dark:border-gray-600">
+          <h2 className="text-center text-xl font-semibold text-gray-800 dark:text-gray-200">Dashboard</h2>
         </div>
         <div className="flex flex-col min-h-[75dvh] justify-between gap-4  px-4 py-2 mt-5">
          <div className="w-full">
           {user.shop.map((shop)=>(
             <Accordion className="space-y-2" collapsible type="single">
             <AccordionItem value="shop-1 flex justify-between  ">
-              <AccordionTrigger className="flex w-full  justify-between items-center px-4 py-2 text-lg font-semibold">
+              <AccordionTrigger className="flex w-full  justify-between items-center px-4 py-2  font-semibold">
               {shop.shopCategory === "cars" ? <FaCar className="w-6 h-6"/> :<MdOutlineRealEstateAgent className="w-6 h-6"/>}
                 {shop.shopName}
               </AccordionTrigger>
               <AccordionContent className="space-y-2 w-[90%] mx-auto">
-              <Link className="flex border-b-[1px] py-2 gap-3 items-center text-gray-700 dark:text-gray-200 hover:dark:text-white hover:text-zinc-900" href={`/createAd/${shop.id}`}>
+              <Link className="flex text-sm gap-3 items-center text-gray-700 dark:text-gray-200 hover:dark:text-white hover:text-zinc-900" href={`/createAd/${shop.id}`}>
                 <MdOutlineAddBox  className="w-6 h-6" />
                 <span className="mx-3">Create Ad</span>
               </Link>
-              <Link className="flex border-b-[1px] py-2 gap-3 items-center text-gray-700 dark:text-gray-200 hover:dark:text-white hover:text-zinc-900" href={`/myShopView/${shop.id}`}>
+              <Link className="flex text-sm gap-3 items-center text-gray-700 dark:text-gray-200 hover:dark:text-white hover:text-zinc-900" href={`/myShopView/${shop.id}`}>
                 <AiOutlineShop className="w-6 h-6 text-rose-400	" />
                 <span className="mx-3">My Shop</span>
               </Link>
-              <Link className="flex border-b-[1px] py-2 gap-3 items-center text-gray-700 dark:text-gray-200 hover:dark:text-white hover:text-zinc-900" href={`/myShop/${shop.id}`}>
+              <Link className="flex text-sm gap-3 items-center text-gray-700 dark:text-gray-200 hover:dark:text-white hover:text-zinc-900" href={`/myShop/${shop.id}`}>
                   <CiEdit className="w-6 h-6 w-6 h-6 text-fuchsia-400" />
                   <span className="mx-3">Shop Details</span>
               </Link>
-              <Link className="flex border-b-[1px] py-2 gap-3 items-center text-gray-700 dark:text-gray-200 hover:dark:text-white hover:text-zinc-900" href="/reports">
+              <Link className="flex text-sm gap-3 items-center text-gray-700 dark:text-gray-200 hover:dark:text-white hover:text-zinc-900" href="/reports">
                   <TbReportAnalytics className="w-6 h-6 text-orange-600" />
                   <span className="mx-3">Shop Reports</span>
               </Link>
-              <Link className="flex border-b-[1px] py-2 gap-3 items-center text-gray-700 dark:text-gray-200 hover:dark:text-white hover:text-zinc-900" href={`/shopAds/${shop.id}`}>
+              <Link className="flex text-sm gap-3 items-center text-gray-700 dark:text-gray-200 hover:dark:text-white hover:text-zinc-900" href={`/shopAds/${shop.id}`}>
                   <BsThreads className="w-6 h-6 text-sky-600" />
                   <span className="mx-3">Shop Ads</span>
               </Link>
@@ -280,7 +276,7 @@ const ShopSideBar = ({ user }) =>{
          </div>
         <Drawer isOpen={!isConfettiActive}>
           <DrawerTrigger  asChild>
-          <Button className="inline-flex items-center justify-center px-6 py-3 border border-transparent font-medium rounded-full text-white bg-gradient-to-r from-green-400 to-blue-500 hover:from-green-500 hover:to-blue-600 hover:scale-105 transition-all duration-200">
+          <Button className="inline-flex items-center justify-center px-6 py-3 border border-transparent font-medium rounded-full text-white bg-gradient-to-r from-rose-400 to-blue-500  hover:scale-105 transition-all duration-200">
            Create a Shop
           </Button>         
            </DrawerTrigger>

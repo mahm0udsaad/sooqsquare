@@ -22,6 +22,6 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/[lng]/layout.jsx", "app/[lng]/page.jsx", "app/[lng]/(dashboard)/layout.jsx", "app/[lng]/test/page.jsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/[lng]/layout.jsx", "app/[lng]/page.jsx", "app/[lng]/(dashboard)/layout.jsx", "app/[lng]/test/page.jsx", "app/[lng]/(traderDashboard)/layout.jsx"],
   "exclude": ["node_modules"]
 }

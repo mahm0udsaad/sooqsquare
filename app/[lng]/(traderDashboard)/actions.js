@@ -191,6 +191,7 @@ export async function deleteShop(shopId, userId) {
         id: shopId,
       },
       select: {
+        shop:true,
         userId: true,
       },
     });
@@ -219,7 +220,6 @@ export async function deleteShop(shopId, userId) {
       return null;
     }
 
-    // Delete shop and associated ads and images
     await prisma.shop.delete({
       where: {
         id: shopId,
