@@ -6,7 +6,7 @@ import { Textarea } from "@/components/ui/textarea"
 import { Button } from "@/components/ui/button"
 import Image from "next/image"
 import { BsCloudUpload } from "react-icons/bs";
-import upload from '../../app/[lng]/(dashboard)/myShop/action'
+import upload from '../../app/[lng]/(traderDashboard)/myShop/action'
 import { useState } from "react"
 import { toast } from "sonner"
 import { addBgImageToShop, addImageToShop, updateShopInfo } from "@/app/[lng]/(dashboard)/actions"
