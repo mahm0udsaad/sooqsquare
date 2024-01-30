@@ -1,7 +1,7 @@
 
 import { getServerSession } from 'next-auth';
 import { getUserByEmail } from '@/prisma/actions'
-import MyShopPage from '@/components/component/shop-profile'
+import ShopPage from '@/components/component/shop-page'
 import { getAllShops, getShopById } from '../../actions'
 
 export const dynamic = "force-dynamic"
@@ -15,11 +15,10 @@ export async function generateStaticParams() {
 
 export default async function MyShop({params}) {
     const shop = await getShopById(params.id)
-    console.log(shop);
     
     return (
        <div className='flex w-11/12 mx-auto flex-col gap-3'>
-          <MyShopPage shop={shop} />
+          <ShopPage shop={shop} />
        </div>
   )
 }

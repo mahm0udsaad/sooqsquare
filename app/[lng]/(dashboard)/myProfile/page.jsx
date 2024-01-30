@@ -10,7 +10,6 @@ export default async function MyProfile({params:{lng}}) {
     if(user.shop.length > 0){
       redirect('/myShop')
     }
-    console.log(user.shop);
     return (
        <div className='flex w-11/12 mx-auto flex-col gap-3'>
           <UserProfile user={user} />
