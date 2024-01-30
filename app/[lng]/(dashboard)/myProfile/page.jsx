@@ -8,9 +8,8 @@ export default async function MyProfile({params:{lng}}) {
     const logedUser = await getServerSession() 
     const user = await getUserByEmail(logedUser?.user.email) 
     if(user.shop.length > 0){
-      redirect('/myShop')
+      redirect('/dashbard')
     }
-
     return (
        <div className='flex w-11/12 mx-auto flex-col gap-3'>
           <UserProfile user={user} />

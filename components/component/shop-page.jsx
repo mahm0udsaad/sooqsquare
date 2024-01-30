@@ -4,7 +4,6 @@ import { timeSince } from "@/helper/timeConversion"
 import Image from "next/image"
 import Link from "next/link"
 import { CardContent, Card } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
 import { FaEye, FaHeart, FaMapMarkerAlt } from 'react-icons/fa';
 
 export default function ShopPage({ shop }) {

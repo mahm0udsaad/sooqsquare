@@ -102,8 +102,9 @@ export const DarkModeProvider = ({ children }) => {
         console.error('Error fetching location:', error);
       }
     };
-
-    fetchLocation();
+    if(!countryName){
+      fetchLocation();
+    }
   }, []);
 
   useEffect(() => {

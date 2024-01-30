@@ -430,3 +430,58 @@ export default async function upload(data) {
     return null;
   }
 }  
+export async function getFavoriteAdsByUserId(userId) {
+  try {
+    const user = await prisma.user.findUnique({
+      where: { id: userId },
+      include: {
+        favoriteAds: {
+          include: {
+            ad: {
+              select: {
+                id: true,
+                createdAt: true,
+                Adimages: true,
+                description: true,
+                brand: true,
+                EnginCapacity: true,
+                category: true,
+                carType: true,
+                model: true,
+                year: true,
+                carStatus: true,
+                transmission: true,
+                fuelType: true,
+                meterRange: true,
+                paintType: true,
+                payment: true,
+                price: true,
+                name: true,
+                RegionalSpecifications: true,
+                location: true,
+                extraFeatures: true,
+                user:true,
+                shop:true
+              },
+            },
+          },
+        },
+      },
+    });
+
+    if (!user) {
+      console.error('User not found');
+      return;
+    }
+
+    const favoriteAds = user.favoriteAds.map((fav) => fav.ad);
+
+    console.log('Favorite Ads for User ID', userId, ':', favoriteAds);
+    return favoriteAds;
+  } catch (error) {
+    console.error('Error getting favorite ads:', error);
+  } finally {
+    // Close the Prisma client connection
+    await prisma.$disconnect();
+  }
+}

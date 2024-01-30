@@ -323,6 +323,7 @@ export async function getUserByEmail(email) {
             },
           },
         },
+        favoriteAds:true,
       },
     });
 
@@ -331,5 +332,30 @@ export async function getUserByEmail(email) {
     // Handle any potential errors here
     console.error("Error fetching user:", error);
     return null;
+  }finally{
+    prisma.$disconnect()
+  }
+}
+export async function getUserIdByEmail(email) {
+  try {
+    const user = await prisma.user.findUnique({
+      where: {
+        email: email,
+      },
+    });
+
+    if (!user) {
+      console.error('User not found with email:', email);
+      return null;
+    }
+
+    const userId = user.id;
+    console.log(`User ID for email ${email}: ${userId}`);
+    return userId;
+  } catch (error) {
+    console.error('Error getting user ID by email:', error);
+  } finally {
+    // Close the Prisma client connection
+    await prisma.$disconnect();
   }
 }

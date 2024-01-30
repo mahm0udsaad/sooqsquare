@@ -18,7 +18,7 @@ export const AdCategroy = ({ lng ,icon, text }) => {
     const { t } = useTranslation(lng , "translation")
 
     return (
-        <Link href={`?category=${text}`} className={`flex border border-rose-500 text-zinc-800 items-center justify-center border rounded-full px-4 py-8 dark:text-white  hover:bg-gradient-to-r hover:from-rose-400 hover:to-blue-500 hover:text-white cursor-pointer transition`}>
+        <Link href={`?category=${text}`} className={`flex border border-rose-500 text-zinc-800 hover:text-white items-center justify-center border rounded-full px-4 py-8 dark:text-white  hover:bg-gradient-to-r hover:from-rose-400 hover:to-blue-500  cursor-pointer transition`}>
         <div className="text-2xl mx-3">
             {icon}
         </div>

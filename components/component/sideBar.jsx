@@ -12,8 +12,8 @@ import { Textarea } from "@/components/ui/textarea"
 import { GiDrippingStar } from "react-icons/gi";
 import { AvatarImage, AvatarFallback, Avatar } from "@/components/ui/avatar"
 import { useState } from "react";
-import upload from "@/app/[lng]/(traderDashboard)/actions";
-import { createShop, deleteShop} from "@/app/[lng]/(dashboard)/actions";
+import upload from "@/app/[lng]/(traderDashboard)/myShop/action";
+import { createShop, deleteShop } from "@/app/[lng]/(dashboard)/actions";
 import { AccordionTrigger, AccordionContent, AccordionItem, Accordion } from "@/components/ui/accordion"
 import { SelectTrigger, SelectItem, SelectContent, Select } from "@/components/ui/select";
 import { useForm, Controller } from "react-hook-form";
@@ -85,7 +85,7 @@ const UserSideBar = ({ user }) =>{
               <BsThreads className="w-6 h-6 text-sky-600" />
               <span className="mx-3">My Ads</span>
           </Link>
-          <Link className="flex text-sm gap-3 items-center text-gray-700 dark:text-gray-200 hover:dark:text-white hover:text-zinc-900" href="/myAds">
+          <Link className="flex text-sm gap-3 items-center text-gray-700 dark:text-gray-200 hover:dark:text-white hover:text-zinc-900" href="/favorites">
               <HeartIcon className="w-6 h-6 text-rose-600" />
               Favorites
             </Link>

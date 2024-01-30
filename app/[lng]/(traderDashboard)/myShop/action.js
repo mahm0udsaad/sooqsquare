@@ -37,6 +37,3 @@ export default async function upload(data) {
     return null;
   }
 }  
-
-
-

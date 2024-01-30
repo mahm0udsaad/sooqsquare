@@ -6,11 +6,10 @@ import { FaRegEdit } from "react-icons/fa";
 import { TbReportAnalytics } from "react-icons/tb";
 import { BsThreads } from "react-icons/bs";
 import { FaShop } from "react-icons/fa6";
-import { AvatarImage, AvatarFallback, Avatar } from "@/components/ui/avatar"
+import { AvatarImage,  Avatar } from "@/components/ui/avatar"
 
 
 export function UserButton({ user }) {
-  console.log(user.shop);
   return (
     (
     <Popover>
@@ -29,9 +28,9 @@ export function UserButton({ user }) {
               <HeartIcon className="w-6 h-6 text-rose-700 dark:text-rose-200" />
               <span className="mx-3">Favorites</span>
             </Link>
-          <Link className="py-3  items-center  flex gap-3  text-gray-700 dark:text-gray-200 hover:dark:text-white hover:text-zinc-900" href={`/myShopView/${user.shop[0]?.id}`}>
+          <Link className="py-3  items-center  flex gap-3  text-gray-700 dark:text-gray-200 hover:dark:text-white hover:text-zinc-900" href={`/dashboard`}>
             <FaShop className="w-6 h-6" />
-            <span className="mx-3">My Shop</span>
+            <span className="mx-3">Dashboard</span>
             </Link>
             <Link className="py-3  items-center  flex gap-3  text-gray-700 dark:text-gray-200 hover:dark:text-white hover:text-zinc-900" href={`/myShop/${user.shop[0]?.id}`}>
                 <FaRegEdit className="w-6 h-6" />
@@ -64,7 +63,7 @@ export function UserButton({ user }) {
                My Ads
              </span>
             </Link>
-            <Link className="flex py-3  items-center " href="#">
+            <Link className="flex py-3  items-center " href="/favorites">
               <HeartIcon className="w-6 h-6" />
              <span className="mx-3">
                Favorites
@@ -104,8 +103,6 @@ function UserIcon(props) {
     </svg>)
   );
 }
-
-
 function AtSignIcon(props) {
   return (
     (<svg
@@ -124,8 +121,6 @@ function AtSignIcon(props) {
     </svg>)
   );
 }
-
-
 function HeartIcon(props) {
   return (
     (<svg

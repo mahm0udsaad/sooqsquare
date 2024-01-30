@@ -17,6 +17,7 @@ import { PopoverTrigger, PopoverContent, Popover } from "@/components/ui/popover
 import { ArabCountriesWithCurrancy } from '@/data/staticData';
 
 const NavBar = ({lng , user})=> { 
+  console.log('navBar');
   const path = usePathname()
   const { countryName ,  darkMode, setDarkMode} = useDarkMode()
   const { t } = useTranslation(lng , "translation")
@@ -106,7 +107,7 @@ const NavBar = ({lng , user})=> {
          
           <div className="userAvatar">
           {user &&
-               <UserButton  user={user}/>
+               <UserButton user={user}/>
             }
           </div>
          
@@ -176,7 +177,6 @@ const NavBar = ({lng , user})=> {
               <DropdownMenuItem onClick={changeToArabic} className="hover:bg-gray-100  px-4 py-2">Arabic</DropdownMenuItem>
           </DropdownMenuContent>
           </DropdownMenu>
-   \
               
           <div className="flex items-center justify-around">
           

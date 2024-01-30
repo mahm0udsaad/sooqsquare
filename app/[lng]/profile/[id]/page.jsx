@@ -1,6 +1,7 @@
 import ShopPage from "@/components/component/shop-page";
 import UserProfile from "../../../../components/component/user-profile";
 import { getAllUsers, getUserById } from "../action";
+import { getShopById } from "../../(traderDashboard)/actions";
 
 export const dynamic = "force-dynamic"
 
@@ -13,19 +14,20 @@ export async function generateStaticParams() {
   return usersIds
 }
 
-export default async function Vehicle({params})  {
+export default async function Vehicle({params , searchParams})  {
     const user = await getUserById(params.id)
-    console.log(user.shop);
-
-  if(user.shop){
+  if(searchParams.shop){
+    const shopId = parseInt(searchParams.shop)
+    const shop = await getShopById(shopId)
     return <>
-            <ShopPage shop={user.shop} />
+            <ShopPage shop={shop} />
             </>
     }
   return (
     <>
      <UserProfile user={user} />
     </>
-  )}
+  )
+}
 
  

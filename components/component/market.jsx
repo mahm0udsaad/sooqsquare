@@ -14,10 +14,11 @@ import { timeSince } from "../../helper/timeConversion"
 import { carBrands } from '../../data/staticData'
 import { useEffect, useState } from "react"
 import Image from "next/image"
+import { addToFavorites } from "@/app/[lng]/vehicle/actions"
 
 const SelectionComp = withGenericSelection(FilterSelection);
 
-export function Market({lng , ads}) {
+export function Market({lng , ads , user}) {
   const { t } = useTranslation(lng , "translation")
   const transmissionProps = {
     title: t('transmission'),
@@ -119,7 +120,6 @@ export function Market({lng , ads}) {
     'Hyundai'
   ];
 
-console.log(ads);
   const searchParams = useSearchParams();
   const router = useRouter()
   const pathname= usePathname()
@@ -158,9 +158,7 @@ console.log(ads);
   const [visibleBrands, setVisibleBrands] = useState(8);
   const [displayedContent, setDisplayedContent] = useState(null);
   const [currentBrand , setCurrentBrand] = useState('')
-
-  useEffect(() => {
-    // Check if 'brand' parameter is present in the URL's search parameters
+  useEffect(() => { 
     if (searchParams.has('brand')) {
       setDisplayedContent('models');
       const brand = searchParams.get('brand')
@@ -173,13 +171,11 @@ console.log(ads);
     createQueryString('model', modle);
   }
   const handleBrandClick = (brand) => {
-    // Set the brand parameter in the URL and change the displayed content to 'models'
     createQueryString('brand', brand);
     setDisplayedContent('models');
   };
 
   const handleViewMore = () => {
-    // Set visibleBrands to the total number of brands when "View More" is clicked
     setVisibleBrands(Object.keys(carBrands).length);
   };
 
@@ -327,26 +323,31 @@ console.log(ads);
             <Link className="absolute inset-0 z-10" href={`vehicle/${ad.id}`}>
               <span className="sr-only">View</span>
             </Link>
-
               <Image
+              loading="lazy"
               alt="Ad image"
               className="rounded-lg object-none aspect-square w-full h-[15rem] group-hover:opacity-50 transition-opacity"
               src={ad.Adimages[0].url}
               width={250}
               height={250}
             />
-            <Button className="absolute top-2 right-2 bg-transparent rounded-full p-1">
+           <Button
+              onClick={() => addToFavorites(user.id , ad.id)}
+              className="z-50 absolute  top-2 right-2 hover:bg-transparent bg-transparent rounded-full p-1"
+            >
               <svg
-                className="h-6 w-6 text-red-500"
-                fill="none"
-                stroke="currentColor"
+                className={`h-6 w-6 bg-transparent hover:text-red-500 `}
+                fill={`${user.favoriteAds.some(favorite => favorite.adId === ad.id) ? 'red': ' currentColor'}`}
+                stroke="red"
                 viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg">
+                xmlns="http://www.w3.org/2000/svg"
+              >
                 <path
                   d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                  strokeWidth={2} />
+                  strokeWidth={2}
+                />
               </svg>
             </Button>
             <div className="grid grid-cols-2">
