@@ -17,11 +17,11 @@ exports.$Enums = {}
 
 /**
  * Prisma Client JS version: 5.8.1
- * Query Engine version: 78caf6feeaed953168c64e15a249c3e9a033ebe2
+ * Query Engine version: 0ca5ccbcfa6bdc81c003cf549abe4269f59c41e5
  */
 Prisma.prismaVersion = {
   client: "5.8.1",
-  engine: "78caf6feeaed953168c64e15a249c3e9a033ebe2"
+  engine: "0ca5ccbcfa6bdc81c003cf549abe4269f59c41e5"
 }
 
 Prisma.PrismaClientKnownRequestError = () => {
@@ -121,7 +121,14 @@ exports.Prisma.ShopScalarFieldEnum = {
   location: 'location',
   bgImage: 'bgImage',
   shopImage: 'shopImage',
-  description: 'description'
+  description: 'description',
+  facebookLink: 'facebookLink',
+  twitterLink: 'twitterLink',
+  instagramLink: 'instagramLink',
+  tiktokLink: 'tiktokLink',
+  snapchatLink: 'snapchatLink',
+  phoneNumber1: 'phoneNumber1',
+  phoneNumber2: 'phoneNumber2'
 };
 
 exports.Prisma.ImageScalarFieldEnum = {

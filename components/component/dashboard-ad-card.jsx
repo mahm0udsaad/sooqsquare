@@ -11,7 +11,7 @@ import {
 import { Button } from "@/components/ui/button"
 import { CardContent, Card } from "@/components/ui/card"
 import { FaRegStopCircle } from "react-icons/fa";
-import { changeAdStatus, deleteAd, updateAd } from "@/app/[lng]/(dashboard)/actions";
+import { changeAdStatus, deleteAd, updateAd } from "@/app/[lng]/(traderDashboard)/actions";
 import { useState } from "react";
 import { useDarkMode } from "@/context/darkModeContext"
 import {

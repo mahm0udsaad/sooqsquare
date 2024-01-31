@@ -9,16 +9,14 @@ import { BsCloudUpload } from "react-icons/bs";
 import upload from '../../app/[lng]/(traderDashboard)/myShop/action'
 import { useState } from "react"
 import { toast } from "sonner"
-import { addBgImageToShop, addImageToShop, updateShopInfo } from "@/app/[lng]/(dashboard)/actions"
+import { addBgImageToShop, addImageToShop, updateShopInfo } from "@/app/[lng]/(traderDashboard)/actions"
 import { LoadingSpinner } from "@/components/loading-spiner"
+import { useForm, Controller } from 'react-hook-form';
 
 export default function MyShopPage({shop}) {
   const [bgImage, setBgImage] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [shopName, setShopName] = useState(shop.shopName);
-  const [shopDescription, setShopDescription] = useState(shop.description);
-  const [shopLocation, setShopLocation] = useState(shop.location);
   const [uploading, setUploading] = useState(false);
+  const { handleSubmit, control , formState } = useForm();
 
   const handleBgImageChange = async (e) => {
     const file = e.target.files[0];
@@ -71,12 +69,19 @@ export default function MyShopPage({shop}) {
   };
   const handleUpdateShop = async (event) => {
     event.preventDefault(); 
-    setLoading(true)
     const newShop = await updateShopInfo(shop.id, shopName, shopDescription)
+    if(newShop){
+      toast("Shop informaiton updated Successfully")
+    }
+  };
+  const onSubmit = async (data) => {
+    setLoading(true)
+    const newShop = await updateShopInfo(shop.id, data)
     if(newShop){
       toast("Shop informaiton updated Successfully")
       setLoading(false)
     }
+    handleUpdateShop(data);
   };
   return (
     <>
@@ -117,74 +122,121 @@ export default function MyShopPage({shop}) {
         </div>
       </section>
       <main className="container mx-auto px-4 py-8 space-y-4">
-        <form onSubmit={handleUpdateShop}>
-          <Label className="block text-sm font-medium text-gray-700" htmlFor="shop-name">
-            Shop Name
-          </Label>
-          <Input
-            className="mt-1 block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-            defaultValue={shop.shopName}
-            onChange={(e) => setShopName(e.target.value)}
-            id="shop-name"
-            name="shop-name"
-            type="text"
-          />
-          <label className="block text-sm font-medium text-gray-700 mt-4" htmlFor="shop-description">
-            Shop Description
-          </label>
-          <Textarea
-            className="mt-1 block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-            defaultValue={shopDescription}
-            id="shop-description"
-            name="shop-description"
-            onChange={(e) => setShopDescription(e.target.value)}
-            rows="3"
-          />
-            <Label htmlFor="shop-address">Shop Adress</Label>
-            <Input
-            defaultValue={shopLocation}
-            onChange={(e) => setShopLocation(e.target.value)}
-            id="shop-address" placeholder="Enter your shop Address" />
-          <div className="flex space-x-4 mt-4">
-            <Label className="block text-sm font-medium text-gray-700" htmlFor="twitter-link">
-              Twitter Link
-            </Label>
-            <Input
-              className="mt-1 block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-              defaultValue="https://twitter.com/cozycorner"
-              id="twitter-link"
-              name="twitter-link"
-              type="text"
-            />
-            <Label className="block text-sm font-medium text-gray-700" htmlFor="instagram-link">
-              Instagram Link
-            </Label>
-            <Input
-              className="mt-1 block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-              defaultValue="https://instagram.com/cozycorner"
-              id="instagram-link"
-              name="instagram-link"
-              type="text"
-            />
-            <Label className="block text-sm font-medium text-gray-700" htmlFor="facebook-link">
-              Facebook Link
-            </Label>
-            <Input
-              className="mt-1 block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-              defaultValue="https://facebook.com/cozycorner"
-              id="facebook-link"
-              name="facebook-link"
-              type="text"
+        <form onSubmit={handleSubmit(onSubmit)}>
+        <div className="grid grid-cols-3 gap-4">
+          <div className="space-y-2">
+            <Label htmlFor="shop-name">Shop Name</Label>
+            <Controller
+              name="shopName"
+              control={control}
+              defaultValue={shop.shopName || ''}
+              render={({ field }) => <Input {...field} id="shop-name" placeholder="Enter your shop name" />}
             />
           </div>
-         
-          <Button
-            className="mt-4 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white main-bg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-            type="submit"
-          >
-          {loading &&   <LoadingSpinner />}
-            Save Changes
-          </Button>
+
+          <div className="space-y-2">
+            <Label htmlFor="location">Location</Label>
+            <Controller
+              name="location"
+              control={control}
+              defaultValue={shop.location || ''}
+              render={({ field }) => <Input {...field} id="location" placeholder="Enter your location" />}
+            />
+          </div>
+
+
+          <div className="space-y-2">
+            <Label htmlFor="facebook-link">Facebook Link</Label>
+            <Controller
+              name="facebookLink"
+              control={control}
+              defaultValue={shop.facebookLink || ''}
+              render={({ field }) => <Input {...field} id="facebook-link" placeholder="Enter your Facebook link" />}
+            />
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="twitter-link">Twitter Link</Label>
+            <Controller
+              name="twitterLink"
+              control={control}
+              defaultValue={shop.twitterLink || ''}
+              render={({ field }) => <Input {...field} id="twitter-link" placeholder="Enter your Twitter link" />}
+            />
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="instagram-link">Instagram Link</Label>
+            <Controller
+              name="instagramLink"
+              control={control}
+              defaultValue={shop.instagramLink || ''}
+              render={({ field }) => <Input {...field} id="instagram-link" placeholder="Enter your Instagram link" />}
+            />
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="tiktok-link">TikTok Link</Label>
+            <Controller
+              name="tiktokLink"
+              control={control}
+              defaultValue={shop.tiktokLink || ''}
+              render={({ field }) => <Input {...field} id="tiktok-link" placeholder="Enter your TikTok link" />}
+            />
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="snapchat-link">Snapchat Link</Label>
+            <Controller
+              name="snapchatLink"
+              control={control}
+              defaultValue={shop.snapchatLink || ''}
+              render={({ field }) => <Input {...field} id="snapchat-link" placeholder="Enter your Snapchat link" />}
+            />
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="phone-number-1">Phone Number 1</Label>
+            <Controller
+              name="phoneNumber1"
+              control={control}
+              defaultValue={shop.phoneNumber1 || ''}
+              render={({ field }) => <Input {...field} id="phone-number-1" placeholder="Enter your phone number" type="tel" />}
+            />
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="phone-number-2">Phone Number 2</Label>
+            <Controller
+              name="phoneNumber2"
+              control={control}
+              defaultValue={shop.phoneNumber2 || ''}
+              render={({ field }) => <Input {...field} id="phone-number-2" placeholder="Enter your phone number" type="tel" />}
+            />
+          </div>
+        </div>
+
+        <div className="flex w-full gap-4">
+          <div className="space-y-2 w-full">
+            <Label htmlFor="description">Description</Label>
+            <Controller
+              name="description"
+              control={control}
+              defaultValue={shop.description || ''}
+              render={({ field }) => (
+                <Textarea {...field} className="min-h-[100px]" id="description" placeholder="Enter your description" />
+              )}
+            />
+          </div>
+        </div>
+
+        <Button
+          className="mt-4 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white main-bg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+          type="submit"
+        >
+         {formState.isSubmitting && <LoadingSpinner />}
+          Save Changes
+        </Button>
         </form>
       </main>
     </>

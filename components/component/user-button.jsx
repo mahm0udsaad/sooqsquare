@@ -1,4 +1,5 @@
 
+"use client"
 import { Button } from "@/components/ui/button"
 import { PopoverTrigger, PopoverContent, Popover } from "@/components/ui/popover"
 import Link from "next/link"
@@ -6,7 +7,8 @@ import { FaRegEdit } from "react-icons/fa";
 import { TbReportAnalytics } from "react-icons/tb";
 import { BsThreads } from "react-icons/bs";
 import { FaShop } from "react-icons/fa6";
-import { AvatarImage,  Avatar } from "@/components/ui/avatar"
+import { AvatarImage,  Avatar, AvatarFallback } from "@/components/ui/avatar"
+import { FaRegUser } from "react-icons/fa6";
 
 
 export function UserButton({ user }) {
@@ -14,69 +16,49 @@ export function UserButton({ user }) {
     (
     <Popover>
       <PopoverTrigger asChild>
-        <Button className="rounded-full" size="icon" variant="outline">
+        <Button className="rounded-full border-rose-600 border-2" size="icon" variant="outline">
            <Avatar>
-              <AvatarImage src={user.image} alt="user"/>
+              <AvatarImage className="border-rose-600 border-2" src={user.image} alt="user"/>
+            <AvatarFallback>
+              <UserIcon className="w-6 h-6 " />
+            </AvatarFallback>
             </Avatar>
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-80 dark:bg-zinc-950 dark:text-white">
         <div className="grid gap-4">
-          {user.shop.length > 0 ? 
-          <div className="space-y-2">
-             <Link className="py-3  items-center flex  gap-3  hover:dark:text-white hover:text-zinc-900" href="#">
-              <HeartIcon className="w-6 h-6 text-rose-700 dark:text-rose-200" />
-              <span className="mx-3">Favorites</span>
-            </Link>
-          <Link className="py-3  items-center  flex gap-3  text-gray-700 dark:text-gray-200 hover:dark:text-white hover:text-zinc-900" href={`/dashboard`}>
-            <FaShop className="w-6 h-6" />
-            <span className="mx-3">Dashboard</span>
-            </Link>
-            <Link className="py-3  items-center  flex gap-3  text-gray-700 dark:text-gray-200 hover:dark:text-white hover:text-zinc-900" href={`/myShop/${user.shop[0]?.id}`}>
-                <FaRegEdit className="w-6 h-6" />
-                <span className="mx-3">Shop Details</span>
-            </Link>
-            <Link className="py-3  items-center  flex gap-3  text-gray-700 dark:text-gray-200 hover:dark:text-white hover:text-zinc-900" href="/reports">
-                <TbReportAnalytics className="w-6 h-6 text-orange-600" />
-                <span className="mx-3">Shop Reports</span>
-            </Link>
-            <Link className="py-3  items-center  flex gap-3  text-gray-700 dark:text-gray-200 hover:dark:text-white hover:text-zinc-900" href={`/shopAds/${user.shop[0].id}`}>
-                <BsThreads className="w-6 h-6 text-sky-600" />
-                <span className="mx-3">Shop Ads</span>
-            </Link>
-            <Link className="py-3 flex items-center  gap-3 text-rose-600" href="#">
-              <LogOutIcon className="w-6 h-6 " />
-              <span className="mx-3">Logout</span>
-            </Link>
-          </div>
-          :
           <div className="space-y-2">
             <Link className="flex py-3  items-center " href="/myProfile">
-              <UserIcon className="w-6 h-6" />
-             <span className="mx-3">
+              <UserIcon className="w-6 h-6 " />
+             <span className="mx-3 ">
                Profile
              </span>
             </Link>
+            {user.shop.length > 0 &&
+            <Link className="py-3  items-center flex text-gray-700 dark:text-gray-200 hover:dark:text-white hover:text-zinc-900" href={`/dashboard`}>
+             <FaShop className="w-6 h-6 text-green-600" />
+             <span className="mx-3">Dashboard</span>
+            </Link>
+            }
             <Link className="flex py-3  items-center " href="/myAds">
-              <AtSignIcon className="w-6 h-6" />
-             <span className="mx-3">
+              <AtSignIcon className="w-6 h-6 text-sky-600" />
+             <span className="mx-3 ">
                My Ads
              </span>
             </Link>
             <Link className="flex py-3  items-center " href="/favorites">
-              <HeartIcon className="w-6 h-6" />
+              <HeartIcon className="w-6 h-6 text-rose-600" />
              <span className="mx-3">
                Favorites
              </span>
             </Link>
-            <Link className="flex py-3  items-center  text-rose-600" href="#">
+            <Link className="flex py-3 border-t-2 items-center  text-rose-600" href="#">
               <LogOutIcon className="w-6 h-6" />
              <span className="mx-3">
                Logout
              </span>
             </Link>
           </div>
-          }
         </div>
       </PopoverContent>
     </Popover>
@@ -139,8 +121,6 @@ function HeartIcon(props) {
     </svg>)
   );
 }
-
-
 function LogOutIcon(props) {
   return (
     (<svg

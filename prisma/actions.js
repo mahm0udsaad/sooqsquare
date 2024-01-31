@@ -119,7 +119,6 @@ export async function createAdForShop(data, shopId, adStatus) {
     meterRange,
     extraFeatures,
   } = data;
-
   try {
     const shop = await prisma.shop.findUnique({
       where: {
@@ -164,19 +163,18 @@ export async function createAdForShop(data, shopId, adStatus) {
     const newAd = await prisma.ad.create({
       data: newAdData,
       include: {
-        user: true,
         shop: true,
       },
     });
-    
-    console.log(newAd);
+    console.log(newAd.shop.id);
     return newAd;
   } catch (error) {
     console.error('Error creating ad:', error);
     return null;
   } finally {
     revalidatePath('/myAds');
-    revalidatePath('/shopAds');
+    revalidatePath(`/shopAds/${shopId}`);
+    redirect(`/shopAds/${shopId}`)
     revalidatePath('/vehicle');
   }
 }

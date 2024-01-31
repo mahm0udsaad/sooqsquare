@@ -1,7 +1,7 @@
 "use server"
 import { revalidatePath } from "next/cache";
 import prisma from "../../../prisma/client";
-import { redirect } from "next/dist/server/api-utils";
+import { redirect } from "next/navigation";
 
 export async function getAdsByUserId(userId) {
   userId = parseInt(userId)
@@ -97,17 +97,16 @@ export async function deleteAd(adId) {
     revalidatePath('/vehicle')
   }
 }
-
-export async function createShop(userId, shopName, location,  shopImage ,description) {
+export async function createShop(userId, data) {
   let newShop;
   try {
      newShop = await prisma.Shop.create({
       data: {
         user: { connect: { id: userId } }, 
-        shopName,
-        location,
-        shopImage,
-        description,
+          shopImage: data.shopImage,
+          shopName: data.shopName,
+          location: data.location,
+          description: data.description,
       },
     });
     
@@ -118,7 +117,8 @@ export async function createShop(userId, shopName, location,  shopImage ,descrip
   } catch (error) {
     console.error('Error creating shop:', error);
   } finally {
-    revalidatePath(`/myShopView/${newShop.id}`);
+    revalidatePath('/dashboard')
+    redirect(`/myShopView/${newShop.id}`);
   }
 }
 export async function getAllShops() {
@@ -191,7 +191,6 @@ export async function deleteShop(shopId, userId) {
         id: shopId,
       },
       select: {
-        shop:true,
         userId: true,
       },
     });
@@ -220,6 +219,7 @@ export async function deleteShop(shopId, userId) {
       return null;
     }
 
+    // Delete the shop
     await prisma.shop.delete({
       where: {
         id: shopId,
@@ -233,14 +233,21 @@ export async function deleteShop(shopId, userId) {
       },
     });
 
-    return shopId
+    // Revalidate and redirect after successful deletion
+
+
+    // Return the deleted shop
+    console.log("deleted shop:" + shop);
+    return shop;
   } catch (error) {
     console.error('Error deleting shop:', error);
     throw new Error('Error deleting shop');
   }finally{
-    revalidatePath('/shopAds')
+    revalidatePath('/dashboard');
+    redirect('/dashboard');
   }
 }
+
 export async function addBgImageToShop(shopId, bgImage) {
   try {
     // Use Prisma to update the shop's bgImage
@@ -342,7 +349,7 @@ export async function transferUserAdsToShop(userId) {
     revalidatePath('/vehicle')
   }
 }
-export async function updateShopInfo(shopId, name, description) {
+export async function updateShopInfo(shopId, data) {
   try {
     // Check if the shop exists
     const existingShop = await prisma.shop.findUnique({
@@ -356,14 +363,22 @@ export async function updateShopInfo(shopId, name, description) {
       return null;
     }
 
-    // Update shop information
+    // Update shop information using the entire data object
     const updatedShop = await prisma.shop.update({
       where: {
         id: shopId,
       },
       data: {
-        shopName: name,
-        description: description,
+        shopName: data.shopName,
+        location: data.location,
+        description: data.description,
+        facebookLink: data.facebookLink,
+        twitterLink: data.twitterLink,
+        instagramLink: data.instagramLink,
+        tiktokLink: data.tiktokLink,
+        snapchatLink: data.snapchatLink,
+        phoneNumber1: data.phoneNumber1,
+        phoneNumber2: data.phoneNumber2,
       },
     });
 
@@ -375,11 +390,11 @@ export async function updateShopInfo(shopId, name, description) {
     return null;
   } finally {
     // Close the Prisma connection
-    revalidatePath('/myShop')
-    revalidatePath('/myShopView')
+    revalidatePath(`/myShop/${shopId}`);
     await prisma.$disconnect();
   }
 }
+
 export async function changeAdStatus(adId , adStatus) {
   try {
     const updatedAd = await prisma.ad.update({
@@ -395,5 +410,93 @@ export async function changeAdStatus(adId , adStatus) {
     revalidatePath('/myAds')
     revalidatePath('/vehicle')
     revalidatePath('/shopAds')
+  }
+}
+export default async function upload(data) {
+  const imageFile = await data.get('file');
+
+  if (!imageFile) {
+    console.error('No image file provided for upload');
+    return null;
+  }
+
+  const imageBytes = await imageFile.arrayBuffer();
+  const imageBuffer = Buffer.from(imageBytes);
+
+  const client = createAdapter(remotePath, {
+    username,
+    password,
+  });
+
+  try {
+    await client.writeFile(`/upload/${imageFile.name}`, imageBuffer, 'buffer', (err) => {
+      if (err) {
+        console.error("Error writing the image " + err);
+      } else {
+        console.log("Image uploaded successfully");
+      }
+    });
+
+    const imageUrl = `https://cloud.elsewedy-automation.com/nextcloud/apps/sharingpath/mahm0ud/upload/${encodeURIComponent(imageFile.name)}`;
+    console.log(imageUrl);
+    return { adImage: imageUrl };
+  } catch (error) {
+    console.error('Error uploading the image:', error);
+    return null;
+  }
+}  
+export async function getFavoriteAdsByUserId(userId) {
+  try {
+    const user = await prisma.user.findUnique({
+      where: { id: userId },
+      include: {
+        favoriteAds: {
+          include: {
+            ad: {
+              select: {
+                id: true,
+                createdAt: true,
+                Adimages: true,
+                description: true,
+                brand: true,
+                EnginCapacity: true,
+                category: true,
+                carType: true,
+                model: true,
+                year: true,
+                carStatus: true,
+                transmission: true,
+                fuelType: true,
+                meterRange: true,
+                paintType: true,
+                payment: true,
+                price: true,
+                name: true,
+                RegionalSpecifications: true,
+                location: true,
+                extraFeatures: true,
+                user:true,
+                shop:true
+              },
+            },
+          },
+        },
+      },
+    });
+
+    if (!user) {
+      console.error('User not found');
+      return;
+    }
+
+    const favoriteAds = user.favoriteAds.map((fav) => fav.ad);
+
+    console.log('Favorite Ads for User ID', userId, ':', favoriteAds);
+    return favoriteAds;
+  } catch (error) {
+    console.error('Error getting favorite ads:', error);
+  } finally {
+    // Close the Prisma client connection
+    await prisma.$disconnect();
   }
 }

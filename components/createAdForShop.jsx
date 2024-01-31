@@ -555,6 +555,7 @@ export function Review({lng , shopId}) {
     try {
       const ad = await createAdForShop(data, shopId , "Active");
       if (ad) {
+        
         setAd(ad)
         toast("Ad Published Successfuly")
         setShowDialog(true)

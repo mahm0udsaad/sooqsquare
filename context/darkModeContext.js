@@ -1,6 +1,5 @@
 "use client"
 import { getLocation } from '@/helper/location';
-import { usePathname, useRouter } from 'next/navigation';
 import React, { createContext, useState, useContext, useEffect, useRef } from 'react';
 
 const DarkModeContext = createContext();
@@ -51,9 +50,15 @@ export const DarkModeProvider = ({ children }) => {
   };
 
   useEffect(() => {
-      if (isConfettiActive) {
-          generateConfetti();
-      }
+    if (isConfettiActive) {
+      generateConfetti();
+      const timeoutId = setTimeout(() => {
+        console.log('inactive');
+        setConfettiActive(false);
+      }, 2000);
+  
+      return () => clearTimeout(timeoutId);
+    }
   }, [isConfettiActive]);
 
   const [darkMode, setDarkMode] = useState(() => {
@@ -68,9 +73,6 @@ export const DarkModeProvider = ({ children }) => {
       : false;
   });
 
-  const router = useRouter()
-  const pathname = usePathname()
-  
   useEffect(() => {
     // Update the HTML class and save darkMode to local storage
     if (darkMode) {

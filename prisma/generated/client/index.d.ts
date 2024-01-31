@@ -298,7 +298,7 @@ export namespace Prisma {
 
   /**
    * Prisma Client JS version: 5.8.1
-   * Query Engine version: 78caf6feeaed953168c64e15a249c3e9a033ebe2
+   * Query Engine version: 0ca5ccbcfa6bdc81c003cf549abe4269f59c41e5
    */
   export type PrismaVersion = {
     client: string
@@ -2644,6 +2644,13 @@ export namespace Prisma {
     bgImage: string | null
     shopImage: string | null
     description: string | null
+    facebookLink: string | null
+    twitterLink: string | null
+    instagramLink: string | null
+    tiktokLink: string | null
+    snapchatLink: string | null
+    phoneNumber1: string | null
+    phoneNumber2: string | null
   }
 
   export type ShopMaxAggregateOutputType = {
@@ -2655,6 +2662,13 @@ export namespace Prisma {
     bgImage: string | null
     shopImage: string | null
     description: string | null
+    facebookLink: string | null
+    twitterLink: string | null
+    instagramLink: string | null
+    tiktokLink: string | null
+    snapchatLink: string | null
+    phoneNumber1: string | null
+    phoneNumber2: string | null
   }
 
   export type ShopCountAggregateOutputType = {
@@ -2666,6 +2680,13 @@ export namespace Prisma {
     bgImage: number
     shopImage: number
     description: number
+    facebookLink: number
+    twitterLink: number
+    instagramLink: number
+    tiktokLink: number
+    snapchatLink: number
+    phoneNumber1: number
+    phoneNumber2: number
     _all: number
   }
 
@@ -2689,6 +2710,13 @@ export namespace Prisma {
     bgImage?: true
     shopImage?: true
     description?: true
+    facebookLink?: true
+    twitterLink?: true
+    instagramLink?: true
+    tiktokLink?: true
+    snapchatLink?: true
+    phoneNumber1?: true
+    phoneNumber2?: true
   }
 
   export type ShopMaxAggregateInputType = {
@@ -2700,6 +2728,13 @@ export namespace Prisma {
     bgImage?: true
     shopImage?: true
     description?: true
+    facebookLink?: true
+    twitterLink?: true
+    instagramLink?: true
+    tiktokLink?: true
+    snapchatLink?: true
+    phoneNumber1?: true
+    phoneNumber2?: true
   }
 
   export type ShopCountAggregateInputType = {
@@ -2711,6 +2746,13 @@ export namespace Prisma {
     bgImage?: true
     shopImage?: true
     description?: true
+    facebookLink?: true
+    twitterLink?: true
+    instagramLink?: true
+    tiktokLink?: true
+    snapchatLink?: true
+    phoneNumber1?: true
+    phoneNumber2?: true
     _all?: true
   }
 
@@ -2809,6 +2851,13 @@ export namespace Prisma {
     bgImage: string
     shopImage: string | null
     description: string | null
+    facebookLink: string | null
+    twitterLink: string | null
+    instagramLink: string | null
+    tiktokLink: string | null
+    snapchatLink: string | null
+    phoneNumber1: string | null
+    phoneNumber2: string | null
     _count: ShopCountAggregateOutputType | null
     _avg: ShopAvgAggregateOutputType | null
     _sum: ShopSumAggregateOutputType | null
@@ -2839,6 +2888,13 @@ export namespace Prisma {
     bgImage?: boolean
     shopImage?: boolean
     description?: boolean
+    facebookLink?: boolean
+    twitterLink?: boolean
+    instagramLink?: boolean
+    tiktokLink?: boolean
+    snapchatLink?: boolean
+    phoneNumber1?: boolean
+    phoneNumber2?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
     ads?: boolean | Shop$adsArgs<ExtArgs>
     _count?: boolean | ShopCountOutputTypeDefaultArgs<ExtArgs>
@@ -2853,6 +2909,13 @@ export namespace Prisma {
     bgImage?: boolean
     shopImage?: boolean
     description?: boolean
+    facebookLink?: boolean
+    twitterLink?: boolean
+    instagramLink?: boolean
+    tiktokLink?: boolean
+    snapchatLink?: boolean
+    phoneNumber1?: boolean
+    phoneNumber2?: boolean
   }
 
   export type ShopInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2877,6 +2940,13 @@ export namespace Prisma {
       bgImage: string
       shopImage: string | null
       description: string | null
+      facebookLink: string | null
+      twitterLink: string | null
+      instagramLink: string | null
+      tiktokLink: string | null
+      snapchatLink: string | null
+      phoneNumber1: string | null
+      phoneNumber2: string | null
     }, ExtArgs["result"]["shop"]>
     composites: {}
   }
@@ -3266,6 +3336,13 @@ export namespace Prisma {
     readonly bgImage: FieldRef<"Shop", 'String'>
     readonly shopImage: FieldRef<"Shop", 'String'>
     readonly description: FieldRef<"Shop", 'String'>
+    readonly facebookLink: FieldRef<"Shop", 'String'>
+    readonly twitterLink: FieldRef<"Shop", 'String'>
+    readonly instagramLink: FieldRef<"Shop", 'String'>
+    readonly tiktokLink: FieldRef<"Shop", 'String'>
+    readonly snapchatLink: FieldRef<"Shop", 'String'>
+    readonly phoneNumber1: FieldRef<"Shop", 'String'>
+    readonly phoneNumber2: FieldRef<"Shop", 'String'>
   }
     
 
@@ -8610,7 +8687,14 @@ export namespace Prisma {
     location: 'location',
     bgImage: 'bgImage',
     shopImage: 'shopImage',
-    description: 'description'
+    description: 'description',
+    facebookLink: 'facebookLink',
+    twitterLink: 'twitterLink',
+    instagramLink: 'instagramLink',
+    tiktokLink: 'tiktokLink',
+    snapchatLink: 'snapchatLink',
+    phoneNumber1: 'phoneNumber1',
+    phoneNumber2: 'phoneNumber2'
   };
 
   export type ShopScalarFieldEnum = (typeof ShopScalarFieldEnum)[keyof typeof ShopScalarFieldEnum]
@@ -8826,6 +8910,13 @@ export namespace Prisma {
     bgImage?: StringFilter<"Shop"> | string
     shopImage?: StringNullableFilter<"Shop"> | string | null
     description?: StringNullableFilter<"Shop"> | string | null
+    facebookLink?: StringNullableFilter<"Shop"> | string | null
+    twitterLink?: StringNullableFilter<"Shop"> | string | null
+    instagramLink?: StringNullableFilter<"Shop"> | string | null
+    tiktokLink?: StringNullableFilter<"Shop"> | string | null
+    snapchatLink?: StringNullableFilter<"Shop"> | string | null
+    phoneNumber1?: StringNullableFilter<"Shop"> | string | null
+    phoneNumber2?: StringNullableFilter<"Shop"> | string | null
     user?: XOR<UserRelationFilter, UserWhereInput>
     ads?: AdListRelationFilter
   }
@@ -8839,6 +8930,13 @@ export namespace Prisma {
     bgImage?: SortOrder
     shopImage?: SortOrderInput | SortOrder
     description?: SortOrderInput | SortOrder
+    facebookLink?: SortOrderInput | SortOrder
+    twitterLink?: SortOrderInput | SortOrder
+    instagramLink?: SortOrderInput | SortOrder
+    tiktokLink?: SortOrderInput | SortOrder
+    snapchatLink?: SortOrderInput | SortOrder
+    phoneNumber1?: SortOrderInput | SortOrder
+    phoneNumber2?: SortOrderInput | SortOrder
     user?: UserOrderByWithRelationInput
     ads?: AdOrderByRelationAggregateInput
   }
@@ -8855,6 +8953,13 @@ export namespace Prisma {
     bgImage?: StringFilter<"Shop"> | string
     shopImage?: StringNullableFilter<"Shop"> | string | null
     description?: StringNullableFilter<"Shop"> | string | null
+    facebookLink?: StringNullableFilter<"Shop"> | string | null
+    twitterLink?: StringNullableFilter<"Shop"> | string | null
+    instagramLink?: StringNullableFilter<"Shop"> | string | null
+    tiktokLink?: StringNullableFilter<"Shop"> | string | null
+    snapchatLink?: StringNullableFilter<"Shop"> | string | null
+    phoneNumber1?: StringNullableFilter<"Shop"> | string | null
+    phoneNumber2?: StringNullableFilter<"Shop"> | string | null
     user?: XOR<UserRelationFilter, UserWhereInput>
     ads?: AdListRelationFilter
   }, "id">
@@ -8868,6 +8973,13 @@ export namespace Prisma {
     bgImage?: SortOrder
     shopImage?: SortOrderInput | SortOrder
     description?: SortOrderInput | SortOrder
+    facebookLink?: SortOrderInput | SortOrder
+    twitterLink?: SortOrderInput | SortOrder
+    instagramLink?: SortOrderInput | SortOrder
+    tiktokLink?: SortOrderInput | SortOrder
+    snapchatLink?: SortOrderInput | SortOrder
+    phoneNumber1?: SortOrderInput | SortOrder
+    phoneNumber2?: SortOrderInput | SortOrder
     _count?: ShopCountOrderByAggregateInput
     _avg?: ShopAvgOrderByAggregateInput
     _max?: ShopMaxOrderByAggregateInput
@@ -8887,6 +8999,13 @@ export namespace Prisma {
     bgImage?: StringWithAggregatesFilter<"Shop"> | string
     shopImage?: StringNullableWithAggregatesFilter<"Shop"> | string | null
     description?: StringNullableWithAggregatesFilter<"Shop"> | string | null
+    facebookLink?: StringNullableWithAggregatesFilter<"Shop"> | string | null
+    twitterLink?: StringNullableWithAggregatesFilter<"Shop"> | string | null
+    instagramLink?: StringNullableWithAggregatesFilter<"Shop"> | string | null
+    tiktokLink?: StringNullableWithAggregatesFilter<"Shop"> | string | null
+    snapchatLink?: StringNullableWithAggregatesFilter<"Shop"> | string | null
+    phoneNumber1?: StringNullableWithAggregatesFilter<"Shop"> | string | null
+    phoneNumber2?: StringNullableWithAggregatesFilter<"Shop"> | string | null
   }
 
   export type ImageWhereInput = {
@@ -9347,6 +9466,13 @@ export namespace Prisma {
     bgImage?: string
     shopImage?: string | null
     description?: string | null
+    facebookLink?: string | null
+    twitterLink?: string | null
+    instagramLink?: string | null
+    tiktokLink?: string | null
+    snapchatLink?: string | null
+    phoneNumber1?: string | null
+    phoneNumber2?: string | null
     user: UserCreateNestedOneWithoutShopInput
     ads?: AdCreateNestedManyWithoutShopInput
   }
@@ -9360,6 +9486,13 @@ export namespace Prisma {
     bgImage?: string
     shopImage?: string | null
     description?: string | null
+    facebookLink?: string | null
+    twitterLink?: string | null
+    instagramLink?: string | null
+    tiktokLink?: string | null
+    snapchatLink?: string | null
+    phoneNumber1?: string | null
+    phoneNumber2?: string | null
     ads?: AdUncheckedCreateNestedManyWithoutShopInput
   }
 
@@ -9370,6 +9503,13 @@ export namespace Prisma {
     bgImage?: StringFieldUpdateOperationsInput | string
     shopImage?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    facebookLink?: NullableStringFieldUpdateOperationsInput | string | null
+    twitterLink?: NullableStringFieldUpdateOperationsInput | string | null
+    instagramLink?: NullableStringFieldUpdateOperationsInput | string | null
+    tiktokLink?: NullableStringFieldUpdateOperationsInput | string | null
+    snapchatLink?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber1?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber2?: NullableStringFieldUpdateOperationsInput | string | null
     user?: UserUpdateOneRequiredWithoutShopNestedInput
     ads?: AdUpdateManyWithoutShopNestedInput
   }
@@ -9383,6 +9523,13 @@ export namespace Prisma {
     bgImage?: StringFieldUpdateOperationsInput | string
     shopImage?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    facebookLink?: NullableStringFieldUpdateOperationsInput | string | null
+    twitterLink?: NullableStringFieldUpdateOperationsInput | string | null
+    instagramLink?: NullableStringFieldUpdateOperationsInput | string | null
+    tiktokLink?: NullableStringFieldUpdateOperationsInput | string | null
+    snapchatLink?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber1?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber2?: NullableStringFieldUpdateOperationsInput | string | null
     ads?: AdUncheckedUpdateManyWithoutShopNestedInput
   }
 
@@ -9393,6 +9540,13 @@ export namespace Prisma {
     bgImage?: StringFieldUpdateOperationsInput | string
     shopImage?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    facebookLink?: NullableStringFieldUpdateOperationsInput | string | null
+    twitterLink?: NullableStringFieldUpdateOperationsInput | string | null
+    instagramLink?: NullableStringFieldUpdateOperationsInput | string | null
+    tiktokLink?: NullableStringFieldUpdateOperationsInput | string | null
+    snapchatLink?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber1?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber2?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type ShopUncheckedUpdateManyInput = {
@@ -9404,6 +9558,13 @@ export namespace Prisma {
     bgImage?: StringFieldUpdateOperationsInput | string
     shopImage?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    facebookLink?: NullableStringFieldUpdateOperationsInput | string | null
+    twitterLink?: NullableStringFieldUpdateOperationsInput | string | null
+    instagramLink?: NullableStringFieldUpdateOperationsInput | string | null
+    tiktokLink?: NullableStringFieldUpdateOperationsInput | string | null
+    snapchatLink?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber1?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber2?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type ImageCreateInput = {
@@ -9942,6 +10103,13 @@ export namespace Prisma {
     bgImage?: SortOrder
     shopImage?: SortOrder
     description?: SortOrder
+    facebookLink?: SortOrder
+    twitterLink?: SortOrder
+    instagramLink?: SortOrder
+    tiktokLink?: SortOrder
+    snapchatLink?: SortOrder
+    phoneNumber1?: SortOrder
+    phoneNumber2?: SortOrder
   }
 
   export type ShopAvgOrderByAggregateInput = {
@@ -9958,6 +10126,13 @@ export namespace Prisma {
     bgImage?: SortOrder
     shopImage?: SortOrder
     description?: SortOrder
+    facebookLink?: SortOrder
+    twitterLink?: SortOrder
+    instagramLink?: SortOrder
+    tiktokLink?: SortOrder
+    snapchatLink?: SortOrder
+    phoneNumber1?: SortOrder
+    phoneNumber2?: SortOrder
   }
 
   export type ShopMinOrderByAggregateInput = {
@@ -9969,6 +10144,13 @@ export namespace Prisma {
     bgImage?: SortOrder
     shopImage?: SortOrder
     description?: SortOrder
+    facebookLink?: SortOrder
+    twitterLink?: SortOrder
+    instagramLink?: SortOrder
+    tiktokLink?: SortOrder
+    snapchatLink?: SortOrder
+    phoneNumber1?: SortOrder
+    phoneNumber2?: SortOrder
   }
 
   export type ShopSumOrderByAggregateInput = {
@@ -11141,6 +11323,13 @@ export namespace Prisma {
     bgImage?: string
     shopImage?: string | null
     description?: string | null
+    facebookLink?: string | null
+    twitterLink?: string | null
+    instagramLink?: string | null
+    tiktokLink?: string | null
+    snapchatLink?: string | null
+    phoneNumber1?: string | null
+    phoneNumber2?: string | null
     ads?: AdCreateNestedManyWithoutShopInput
   }
 
@@ -11152,6 +11341,13 @@ export namespace Prisma {
     bgImage?: string
     shopImage?: string | null
     description?: string | null
+    facebookLink?: string | null
+    twitterLink?: string | null
+    instagramLink?: string | null
+    tiktokLink?: string | null
+    snapchatLink?: string | null
+    phoneNumber1?: string | null
+    phoneNumber2?: string | null
     ads?: AdUncheckedCreateNestedManyWithoutShopInput
   }
 
@@ -11328,6 +11524,13 @@ export namespace Prisma {
     bgImage?: StringFilter<"Shop"> | string
     shopImage?: StringNullableFilter<"Shop"> | string | null
     description?: StringNullableFilter<"Shop"> | string | null
+    facebookLink?: StringNullableFilter<"Shop"> | string | null
+    twitterLink?: StringNullableFilter<"Shop"> | string | null
+    instagramLink?: StringNullableFilter<"Shop"> | string | null
+    tiktokLink?: StringNullableFilter<"Shop"> | string | null
+    snapchatLink?: StringNullableFilter<"Shop"> | string | null
+    phoneNumber1?: StringNullableFilter<"Shop"> | string | null
+    phoneNumber2?: StringNullableFilter<"Shop"> | string | null
   }
 
   export type UserCreateWithoutShopInput = {
@@ -11647,6 +11850,13 @@ export namespace Prisma {
     bgImage?: string
     shopImage?: string | null
     description?: string | null
+    facebookLink?: string | null
+    twitterLink?: string | null
+    instagramLink?: string | null
+    tiktokLink?: string | null
+    snapchatLink?: string | null
+    phoneNumber1?: string | null
+    phoneNumber2?: string | null
     user: UserCreateNestedOneWithoutShopInput
   }
 
@@ -11659,6 +11869,13 @@ export namespace Prisma {
     bgImage?: string
     shopImage?: string | null
     description?: string | null
+    facebookLink?: string | null
+    twitterLink?: string | null
+    instagramLink?: string | null
+    tiktokLink?: string | null
+    snapchatLink?: string | null
+    phoneNumber1?: string | null
+    phoneNumber2?: string | null
   }
 
   export type ShopCreateOrConnectWithoutAdsInput = {
@@ -11752,6 +11969,13 @@ export namespace Prisma {
     bgImage?: StringFieldUpdateOperationsInput | string
     shopImage?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    facebookLink?: NullableStringFieldUpdateOperationsInput | string | null
+    twitterLink?: NullableStringFieldUpdateOperationsInput | string | null
+    instagramLink?: NullableStringFieldUpdateOperationsInput | string | null
+    tiktokLink?: NullableStringFieldUpdateOperationsInput | string | null
+    snapchatLink?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber1?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber2?: NullableStringFieldUpdateOperationsInput | string | null
     user?: UserUpdateOneRequiredWithoutShopNestedInput
   }
 
@@ -11764,6 +11988,13 @@ export namespace Prisma {
     bgImage?: StringFieldUpdateOperationsInput | string
     shopImage?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    facebookLink?: NullableStringFieldUpdateOperationsInput | string | null
+    twitterLink?: NullableStringFieldUpdateOperationsInput | string | null
+    instagramLink?: NullableStringFieldUpdateOperationsInput | string | null
+    tiktokLink?: NullableStringFieldUpdateOperationsInput | string | null
+    snapchatLink?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber1?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber2?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type ImageUpsertWithWhereUniqueWithoutAdInput = {
@@ -12444,6 +12675,13 @@ export namespace Prisma {
     bgImage?: StringFieldUpdateOperationsInput | string
     shopImage?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    facebookLink?: NullableStringFieldUpdateOperationsInput | string | null
+    twitterLink?: NullableStringFieldUpdateOperationsInput | string | null
+    instagramLink?: NullableStringFieldUpdateOperationsInput | string | null
+    tiktokLink?: NullableStringFieldUpdateOperationsInput | string | null
+    snapchatLink?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber1?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber2?: NullableStringFieldUpdateOperationsInput | string | null
     ads?: AdUpdateManyWithoutShopNestedInput
   }
 
@@ -12455,6 +12693,13 @@ export namespace Prisma {
     bgImage?: StringFieldUpdateOperationsInput | string
     shopImage?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    facebookLink?: NullableStringFieldUpdateOperationsInput | string | null
+    twitterLink?: NullableStringFieldUpdateOperationsInput | string | null
+    instagramLink?: NullableStringFieldUpdateOperationsInput | string | null
+    tiktokLink?: NullableStringFieldUpdateOperationsInput | string | null
+    snapchatLink?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber1?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber2?: NullableStringFieldUpdateOperationsInput | string | null
     ads?: AdUncheckedUpdateManyWithoutShopNestedInput
   }
 
@@ -12466,6 +12711,13 @@ export namespace Prisma {
     bgImage?: StringFieldUpdateOperationsInput | string
     shopImage?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    facebookLink?: NullableStringFieldUpdateOperationsInput | string | null
+    twitterLink?: NullableStringFieldUpdateOperationsInput | string | null
+    instagramLink?: NullableStringFieldUpdateOperationsInput | string | null
+    tiktokLink?: NullableStringFieldUpdateOperationsInput | string | null
+    snapchatLink?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber1?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber2?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type AdUpdateWithoutShopInput = {

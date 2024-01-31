@@ -17,9 +17,8 @@ import { PopoverTrigger, PopoverContent, Popover } from "@/components/ui/popover
 import { ArabCountriesWithCurrancy } from '@/data/staticData';
 
 const NavBar = ({lng , user})=> { 
-  console.log('navBar');
   const path = usePathname()
-  const { countryName ,  darkMode, setDarkMode} = useDarkMode()
+  const { countryName ,  darkMode , setDarkMode} = useDarkMode()
   const { t } = useTranslation(lng , "translation")
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -47,23 +46,23 @@ const NavBar = ({lng , user})=> {
       <Link className="flex items-center" href="#">
         <Logo lng={lng} darkMode={darkMode}/>
       </Link>
-        <form className="flex items-center dark:bg-zinc-900 border dark:border-zinc-800 rounded-full px-4 w-[30%]">
+        <form className="flex items-center dark:bg-zinc-900 border dark:border-zinc-800 rounded-xl px-4 w-[30%]">
           <BiSearch className="w-4 h-4 text-gray-700 dark:text-gray-200" />
           <input
-            className="ml-2 p-2 bg-transparent rounded-full focus:outline-none text-gray-700 dark:text-gray-200"
+            className="ml-2 p-2 bg-transparent rounded-xl focus:outline-none text-gray-700 dark:text-gray-200"
             placeholder="Search"
             type="text"
           />
         </form>
         
         <div className="flex items-center gap-3 ">
-          <Link href={'/sell'} className="border dark:border-zinc-800 px-8 main-bg py-2 rounded-full flex items-center">
-              {t("Sell")}
-              </Link>
+        <Link href={'/sell'} className="border dark:border-zinc-800 px-8 main-bg py-2 rounded-xl flex items-center">
+            {t("Sell")}
+            </Link>
 
           <Popover>
           <PopoverTrigger asChild>
-           <button className="border dark:border-zinc-800 dark:bg-zinc-900 px-4 py-2 rounded-full flex items-center">
+           <button className="border dark:border-zinc-800 dark:bg-zinc-900 px-4 py-2 rounded-xl flex items-center">
               <TfiWorld className="text-xl mx-3" />
               {!countryName ? t("country"): countryName }
               <FiChevronDown className="ml-2" />
@@ -84,7 +83,7 @@ const NavBar = ({lng , user})=> {
 
           <Popover>
           <PopoverTrigger asChild>
-            <button className="border dark:border-zinc-800 dark:bg-zinc-900 px-4 py-2 rounded-full flex items-center">
+            <button className="border dark:border-zinc-800 dark:bg-zinc-900 px-4 py-2 rounded-xl flex items-center">
                   <IoLanguageOutline className="text-xl mx-3" />
                     {t("languages")}  <FiChevronDown className="ml-2" />
                   </button>
@@ -120,8 +119,8 @@ const NavBar = ({lng , user})=> {
               checked={darkMode}
               onChange={toggleDarkMode}
             />
-            <div className={`w-10 h-5 bg-gray-400 dark:bg-gray-600 rounded-full shadow-inner ${darkMode ? "bg-rose-800":""}`}></div>
-            <div className={`toggle-dot absolute w-5 h-5 bg-white dark:bg-gray-800 rounded-full shadow-md inset-y-0 left-0 ${darkMode ? 'transform translate-x-full bg-rose-800' : ''}`}></div>
+            <div className={`w-10 h-5 bg-gray-400 dark:bg-gray-600 rounded-xl shadow-inner ${darkMode ? "bg-rose-800":""}`}></div>
+            <div className={`toggle-dot absolute w-5 h-5 bg-white dark:bg-gray-800 rounded-xl shadow-md inset-y-0 left-0 ${darkMode ? 'transform translate-x-full bg-rose-800' : ''}`}></div>
           </div>
           <span className="ml-2 text-gray-700 dark:text-gray-200">{t('darkMode')}</span>
         </label>
@@ -139,21 +138,21 @@ const NavBar = ({lng , user})=> {
       </button>
       </div>
         <div className={`${menuOpen? 'transition-h h-auto' : 'transition-h h-0 hidden'} flex flex-col py-4 gap-4`}>
-        <form className="flex items-center dark:bg-zinc-900 border dark:border-zinc-800 rounded-full px-4">
+        <form className="flex items-center dark:bg-zinc-900 border dark:border-zinc-800 rounded-xl px-4">
           <BiSearch className="w-4 h-4 text-gray-700 dark:text-gray-200" />
           <input
-            className="ml-2 p-2 bg-transparent rounded-full focus:outline-none text-gray-700 dark:text-gray-200"
+            className="ml-2 p-2 bg-transparent rounded-xl focus:outline-none text-gray-700 dark:text-gray-200"
             placeholder="Search"
             type="text"
           />
         </form>
         <div className="flex flex-col w-full gap-3 ">
-          <Link href={'/sell'} className="border dark:border-zinc-800 px-8 main-bg py-2 rounded-full flex items-center">
+          <Link href={'/sell'} className="border dark:border-zinc-800 px-8 main-bg py-2 rounded-xl flex items-center">
               {t("Sell")}
               </Link>
           <DropdownMenu>
           <DropdownMenuTrigger asChild>
-              <button className="border dark:border-zinc-800 dark:bg-zinc-900 px-4 py-2 rounded-full flex items-center">
+              <button className="border dark:border-zinc-800 dark:bg-zinc-900 px-4 py-2 rounded-xl flex items-center">
               <TfiWorld className="text-xl mx-3" />
               {!countryName ? t("country"): countryName }
               <FiChevronDown className="ml-2" />
@@ -167,7 +166,7 @@ const NavBar = ({lng , user})=> {
           </DropdownMenu>
           <DropdownMenu>
           <DropdownMenuTrigger asChild>
-              <button className="border dark:border-zinc-800 dark:bg-zinc-900 px-4 py-2 rounded-full flex items-center">
+              <button className="border dark:border-zinc-800 dark:bg-zinc-900 px-4 py-2 rounded-xl flex items-center">
               <IoLanguageOutline className="text-xl mx-3" />
               {t("languages")}  <FiChevronDown className="ml-2" />
               </button>
@@ -197,8 +196,8 @@ const NavBar = ({lng , user})=> {
               checked={darkMode}
               onChange={toggleDarkMode}
             />
-            <div className={`w-10 h-5 bg-gray-400 dark:bg-gray-600 rounded-full shadow-inner`}></div>
-            <div className={`toggle-dot absolute w-5 h-5 bg-white dark:bg-gray-800 rounded-full shadow-md inset-y-0 left-0 ${darkMode ? 'transform translate-x-full' : ''}`}></div>
+            <div className={`w-10 h-5 bg-gray-400 dark:bg-gray-600 rounded-xl shadow-inner`}></div>
+            <div className={`toggle-dot absolute w-5 h-5 bg-white dark:bg-gray-800 rounded-xl shadow-md inset-y-0 left-0 ${darkMode ? 'transform translate-x-full' : ''}`}></div>
           </div>
           <span className="ml-2 text-gray-700 dark:text-gray-200">{t('darkMode')}</span>
         </label>

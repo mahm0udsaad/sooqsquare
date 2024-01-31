@@ -8,6 +8,8 @@ import { dir } from 'i18next'
 import { getServerSession } from 'next-auth'
 import { getUserByEmail } from '@/prisma/actions'
 import { Toaster } from "@/components/ui/sonner"
+import { Suspense } from 'react'
+import NavbarSkeleton from '@/components/skeletons/navSkeleton'
 
 export async function generateStaticParams() {
   return languages.map((lng) => ({ lng }))
@@ -23,7 +25,9 @@ export default async function RootLayout({ children, params: { lng }}) {
       <link rel="shortcut icon" href="/icons/favicon.png" />
       <DarkModeProvider>
         <body className='bg-gray-100 dark:bg-zinc-900 dark:text-white' >
+        <Suspense fallback={<NavbarSkeleton />}>
         <NavBar user={user} lng={lng}/>
+        </Suspense>
           <div dir={dir(lng)} className="pt-16 w-full relative">
            <ErrorMessage />
            {children}
