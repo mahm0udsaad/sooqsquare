@@ -45,15 +45,20 @@ const CreateShopButton = ({ user , lng}) =>{
     }
   };
   const onSubmit = async (data) => {
-    if(!data.shopName || !data.shopImage){
-        return ;
+    try {
+      if (!data.shopName || !data.shopImage) {
+        return;
+      }
+  
+      await createShop(user.id, data);
+      drawerCloseRef.current.click();
+      setConfettiActive(true);
+      toast("Shop Created Successfully");
+    } catch (error) {
+      console.error("An error occurred while creating the shop:", error);
     }
-    const newShop = await createShop(user.id, data)
-        console.log(newShop);
-        drawerCloseRef.current.click();
-        setConfettiActive(true)
-        toast("Shop Created Successfully")
   };
+  
     return(
         <Drawer>
           <DrawerTrigger  asChild>

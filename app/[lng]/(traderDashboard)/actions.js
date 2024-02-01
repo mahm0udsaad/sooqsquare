@@ -182,6 +182,7 @@ export async function getShopById(shopId) {
   }
 }
 export async function deleteShop(shopId, userId) {
+ let shop_ID = shopId
   try {
     const shop = await prisma.shop.findUnique({
       where: {
@@ -215,7 +216,8 @@ export async function deleteShop(shopId, userId) {
       },
     });
 
-    return shop;
+    console.log(shop_ID);
+    return shop_ID;
   } catch (error) {
     console.error('Error deleting shop:', error);
     throw new Error('Error deleting shop');

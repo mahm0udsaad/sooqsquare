@@ -1,59 +1,25 @@
-"use client"
 import Link from "next/link";
 import { CgProfile } from "react-icons/cg";
 import { TbReportAnalytics } from "react-icons/tb";
 import { BsThreads } from "react-icons/bs";
-import { Button } from "@/components/ui/button"
-import { useRef, useState } from "react";
-import {  deleteShop } from "@/app/[lng]/(traderDashboard)/actions";
 import { AccordionTrigger, AccordionContent, AccordionItem, Accordion } from "@/components/ui/accordion"
 import { MdOutlineRealEstateAgent } from "react-icons/md";
 import { FaCar } from "react-icons/fa";
 import { MdOutlineAddBox } from "react-icons/md";
-import { toast } from "sonner";
 import { AiOutlineShop } from "react-icons/ai";
 import { CiEdit } from "react-icons/ci";
 import CreateShopButton from '@/components/component/createShopForm'
-import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog"
-import { LoadingSpinner } from "../loading-spiner";
-import { useTranslation } from "@/app/i18n/client";
-const ShopSideBar = ({ user , lng}) =>{
-  
-const { t } = useTranslation(lng , "translation")
-const closeDialoagRef = useRef()
-const [deleteLoading , setDeleteLoading ] = useState(false)
+import { useTranslation } from "@/app/i18n";
+import { getServerSession } from 'next-auth'
+import { getUserByEmail } from '@/prisma/actions'
+import dynamic from "next/dynamic";
 
-if(!user){
-  return ;
-}
+const ShopSideBar = async ({ lng }) =>{
 
-const handleDeleteShop = async (shopId) => {
-  try {
-    setDeleteLoading(true);
-
-    // Call the deleteShop function
-    const deletedShop = await deleteShop(shopId, user.id);
-
-    if (deletedShop) {
-      toast('Shop deleted successfully');
-    } else {
-      console.error('Failed to delete shop or user does not have permission.');
-    }
-  } catch (error) {
-    console.error('Error deleting shop:', error);
-  } finally {
-    setDeleteLoading(false);
-    closeDialoagRef.current.click();
-  }
-};
+  const { t } = await useTranslation(lng , "translation")
+  const DeleteDialoag = dynamic(()=> import('@/components/component/buttons/deleteDailoag'))
+  const logedUser = await getServerSession()
+  const user = await getUserByEmail(logedUser?.user.email)
 
     return(
       <div className="flex flex-col w-64 bg-white dark:bg-zinc-950">
@@ -91,11 +57,11 @@ const handleDeleteShop = async (shopId) => {
             </Link>
             </div>
 
-            {user?.shop.length > 0 ?
+            {user?.shop?.length > 0 ?
             <>
             <p className="pt-3 border-b-[1px]"></p> 
               {user?.shop.map((shop)=>(
-                <Accordion className="space-y-2" collapsible type="single">
+                <Accordion key={shop.id} className="space-y-2" collapsible type="single">
                 <AccordionItem value="shop-1 flex justify-between  ">
                   <AccordionTrigger className="flex w-full  justify-between items-center px-4 py-2 ">
                   {shop.shopCategory === "cars" ? <FaCar className="w-5 h-5"/> :<MdOutlineRealEstateAgent className="w-5 h-5"/>}
@@ -122,34 +88,7 @@ const handleDeleteShop = async (shopId) => {
                       <BsThreads className="w-6 h-6 text-sky-600" />
                       <span className="mx-3">Shop Ads</span>
                   </Link>
-                  <Dialog >
-                  <DialogTrigger>
-                  <Button className="p-0 bg-transparent hover:bg-transparent flex gap-3 items-center text-gray-700 dark:text-gray-200 hover:dark:text-white hover:text-zinc-900">
-                    <TrashIcon className="w-6 h-6 text-red-600" />
-                      <span className="mx-3">Delete Shop</span>
-                    </Button>         
-                  </DialogTrigger>
-                  <DialogContent className="dark:bg-zinc-800 dark:text-white ">
-                    <DialogHeader className="dark:bg-zinc-800 dark:text-white">
-                      <DialogTitle>Delete {shop.shopName}</DialogTitle>
-                      <DialogDescription className="dark:zinc-800 dark:text-white">
-                        This action cannot be undone. This will permanently delete your shop
-                        and remove shop data from our servers.
-                      </DialogDescription>
-                    </DialogHeader>
-                    <Button onClick={()=> handleDeleteShop(shop.id)} className="bg-transparent hover:bg-rose-600 hover:text-white border border-rose-600 flex gap-3 items-center text-rose-700 dark:text-gray-200  hover:text-zinc-900" href={`/shopAds/${shop.id}`}>
-                      {deleteLoading && <LoadingSpinner />}
-                      <TrashIcon className="w-6 h-6" />
-                      <span className="mx-3">Delete Shop</span>
-                  </Button>
-
-                  </DialogContent>
-                  <DialogClose asChild>
-                    <Button ref={closeDialoagRef} className="hidden" type="button" variant="secondary">
-                      Close
-                    </Button>
-                  </DialogClose>
-                    </Dialog>
+                 <DeleteDialoag lng={lng} shop={shop} userId={user.id}/>
                   </AccordionContent>
                 </AccordionItem>
                 </Accordion>
@@ -180,24 +119,5 @@ function HeartIcon(props) {
     </svg>)
   );
 }
-function TrashIcon(props) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M3 6h18" />
-      <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
-      <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
-    </svg>
-  )
-}
-export {  ShopSideBar} ;
+
+export default ShopSideBar;

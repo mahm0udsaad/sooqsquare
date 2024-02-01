@@ -15,14 +15,10 @@ export default function MarketAdCard({ ad , user}) {
        <Link className="hover:opacity-50 relative" href={`/vehicle/${ad.id}`}>
         <Image
           alt="Car Image"
-          className="w-full object-cover rounded-t-lg"
+          className="w-full  object-none aspect-square w-full h-[15rem]  rounded-t-lg"
           height={200}
           width={300}
           src={ad.Adimages[0].url}
-          style={{
-            aspectRatio: "300/200",
-            objectFit: "cover",
-          }}
         />
         </Link>
         <HeartIcon
