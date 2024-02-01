@@ -117,8 +117,7 @@ export async function createShop(userId, data) {
   } catch (error) {
     console.error('Error creating shop:', error);
   } finally {
-    console.log(newShop.id);
-    redirect(`/myShopView/${newShop.id}`);
+    redirect(`/dashboard`);
   }
 }
 export async function getAllShops() {
