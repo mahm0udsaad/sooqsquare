@@ -110,14 +110,12 @@ export async function createShop(userId, data) {
       },
     });
     
-    await transferUserAdsToShop(userId)
-    console.log('Shop created:', newShop);
-
+    console.log("Shop ID Created" + newShop.id);
     return newShop;
   } catch (error) {
     console.error('Error creating shop:', error);
   } finally {
-    redirect(`/dashboard`);
+    redirect(`/myShopView/${newShop.id}`);
   }
 }
 export async function getAllShops() {

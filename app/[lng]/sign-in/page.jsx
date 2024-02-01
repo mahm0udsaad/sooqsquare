@@ -33,8 +33,10 @@ export default async function SginIn() {
 
   console.log(user);
 
-  if(user?.phoneNumber){
-    redirect('/myAds')
+  if(user?.phoneNumber && user.shop){
+    redirect('/dashboard')
+  }else{
+    redirect('/myProfile')
   }
 
   return (

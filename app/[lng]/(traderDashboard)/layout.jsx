@@ -8,10 +8,6 @@ export default async function DashboardLayout({ children , params: { lng }}) {
   const logedUser = await getServerSession()
   const user = await getUserByEmail(logedUser?.user.email)
 
-  if (!user){
-    redirect('/sign-in')
-  }
-  
   return (
        <>
         <div className="flex w-full min-h-screen justify-between bg-gray-100 dark:bg-zinc-950">
