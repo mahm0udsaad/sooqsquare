@@ -215,7 +215,6 @@ export async function deleteShop(shopId, userId) {
       },
     });
 
-    console.log("deleted shop:" + shop);
     return shop;
   } catch (error) {
     console.error('Error deleting shop:', error);
