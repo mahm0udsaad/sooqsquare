@@ -58,7 +58,7 @@ export const FavoriteCard = ({lng, ad , userId}) => {
     }
 
   return (
-      <div className="flex lg:flex-col md:flex-row items-center justify-between lg:w-11/12 w-full lg:mx-auto mx-3 p-8 rounded-lg shadow-md bg-white dark:bg-zinc-800">
+      <div className="flex  items-center justify-between lg:w-11/12 w-full lg:mx-auto mx-3 p-8 rounded-lg shadow-md bg-white dark:bg-zinc-800">
       <Carousel style={carouselStyle} className="w-full max-w-xs mx-auto ">
       <CarouselContent className="dark:bg-zinc-800">
         {Adimages.map((image, index) => (
@@ -140,7 +140,7 @@ export const FavoriteCard = ({lng, ad , userId}) => {
             <span>Delete</span>
             }
           </Button>
-          <Link href={`/profile/${ad.userId ? ad.userId : `${ad.shop.userId}?shop=${ad.shop?.id}`}`} className="w-1/2 py-2 px-4 rounded-md hover:bg-zinc-900 hover:text-white dark:hover:bg-white dark:hover:text-black mx-1 flex items-center border border-black dark:border-white dark:text-white justify-center gap-2 transition">
+          <Link href={`/profile/${ad.user.id ? ad.user.id : `${ad.shop.user.id}?shop=${ad.shop?.id}`}`} className="w-1/2 py-2 px-4 rounded-md hover:bg-zinc-900 hover:text-white dark:hover:bg-white dark:hover:text-black mx-1 flex items-center border border-black dark:border-white dark:text-white justify-center gap-2 transition">
               <UserIcon className='h-4 w-4'/>
                 profile
               </Link>

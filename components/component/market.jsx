@@ -15,6 +15,7 @@ import { carBrands } from '../../data/staticData'
 import { useEffect, useState } from "react"
 import Image from "next/image"
 import { addToFavorites } from "@/app/[lng]/vehicle/actions"
+import MarketAdCard  from "@/components/component/new-card"
 
 const SelectionComp = withGenericSelection(FilterSelection);
 
@@ -319,55 +320,7 @@ export function Market({lng , ads , user}) {
       </div>
         <div className="grid sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-3 gap-8">
           {ads.map((ad,i)=>(
-            <div key={ad.id} className="relative group">
-            <Link className="absolute inset-0 z-10" href={`vehicle/${ad.id}`}>
-              <span className="sr-only">View</span>
-            </Link>
-              <Image
-              loading="lazy"
-              alt="Ad image"
-              className="rounded-lg object-none aspect-square w-full h-[15rem] group-hover:opacity-50 transition-opacity"
-              src={ad.Adimages[0].url}
-              width={250}
-              height={250}
-            />
-           <Button
-              onClick={() => addToFavorites(user.id , ad.id)}
-              className="z-50 absolute  top-2 right-2 hover:bg-transparent bg-transparent rounded-full p-1"
-            >
-              <svg
-                className={`h-6 w-6 bg-transparent hover:text-red-500 `}
-                fill={`${user.favoriteAds.some(favorite => favorite.adId === ad.id) ? 'red': ' currentColor'}`}
-                stroke="red"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                />
-              </svg>
-            </Button>
-            <div className="grid grid-cols-2">
-              <h3 className="font-semibold tracking-tight">{ad.name}</h3>
-              <p className="text-sm leading-none text-gray-500 dark:text-gray-400">{ad.location}</p>
-              <span>{timeSince(ad.createdAt)}</span>
-                  <span className="ml-2">{ad.brand}</span>
-              <h4 className="font-semibold">${ad.price}</h4>
-            </div>
-            <div className="flex justify-between items-center mt-2">
-              <Button className="w-[40%] mr-1 flex items-center justify-center gap-2 inset-0 z-10 bg-[#fe2635] hover:bg-[#fe26355e]">
-               <BsChatLeftDots className='w-4 h-4' />
-                Chat
-              </Button>
-              <Button className="w-[40%] ml-1 flex items-center justify-center gap-2 dark:bg-white dark:text-black">
-              <MdOutlineLocalPhone className='h-4 w-4'/>
-                Call
-              </Button>
-            </div>
-          </div>
+           <MarketAdCard ad={ad}/>
           ))}
         </div>
       </div>

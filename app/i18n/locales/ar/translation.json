@@ -1,10 +1,14 @@
 {
+  "Dashboard":"لوحه التحكم",
+  "Create": "انشاء",
+  "Cancel": "الغاء",
+  "Create Shop":"انشاء متجر",
   "carStatus":"حاله السياره",
   "RegionalSpecifications":"مواصفات اقليميه",
   "messages":{
     "noValue":"لم تقم بادخال اي قيمه",
     "somthingWentWrong":"خطأ من فضلك تاكد من اتصالك بالانترنت",
-    "Adsubmited":"تم الحفظ الاعلان بنجاح"
+    "Adsubmited":"تم الحفظ الاعلان بنجاح" 
   },
   "adDetails":"تفاصيل الاعلان",
   "descriptionPlaceHolder":"وصف الاعلان",

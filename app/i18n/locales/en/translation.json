@@ -1,4 +1,8 @@
 {
+  "Dashboard":"Dashboard",
+  "Create": "Create",
+  "Cancel": "Cancel", 
+  "Create Shop":"Create Shop",
   "carStatus":"Car Status",
   "CarChassisTitle":"Car Chassis Details",
   "/day":"Per Day",
@@ -7,7 +11,7 @@
       "somethingWentWrong": "Error. Please check your internet connection.",
       "AdSubmitted": "Advertisement submitted successfully."
   },
-  "adDetails":"تفاصيل الاعلان",
+  "adDetails":"Ad Details",
   "descriptionPlaceHolder":"Type your Description here",
   "adNamePlaceHolder":"  Enter Ad Name ",
   "Skip":"Skip",

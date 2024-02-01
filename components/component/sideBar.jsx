@@ -24,9 +24,12 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog"
 import { LoadingSpinner } from "../loading-spiner";
-const ShopSideBar = ({ user }) =>{
+import { useTranslation } from "@/app/i18n/client";
+const ShopSideBar = ({ user , lng}) =>{
+const { t } = useTranslation(lng , "translation")
 const closeDialoagRef = useRef()
 const [deleteLoading , setDeleteLoading ] = useState(false)
+
 const handleDeleteShop = async (shopId) => {
   try {
     setDeleteLoading(true);
@@ -50,39 +53,41 @@ const handleDeleteShop = async (shopId) => {
     return(
       <div className="flex flex-col w-64 bg-white dark:bg-zinc-950">
         <div className="flex items-center justify-center h-14 border-b dark:border-gray-600">
-          <h2 className="text-center text-xl font-semibold text-gray-800 dark:text-gray-200">Dashboard</h2>
+          <h2 className="text-center text-xl font-semibold text-gray-800 dark:text-gray-200">{t("Dashboard")}</h2>
         </div>
         <div className="flex flex-col min-h-[75dvh] justify-between gap-4  px-4 py-2 mt-5">
          <div className="w-full">
-            <div className="flex w-[80%] py-2 mx-auto justify-between">
+
+            <div className="flex w-[85%] py-2 mx-auto justify-between">
             <Link className="flex text-sm gap-3 space-y-2  items-center text-gray-700 dark:text-gray-200 hover:dark:text-white hover:text-zinc-900" href="/myProfile">
                 <CgProfile className="w-6 h-6 " />
                 <span className="mx-3">My Profile</span>
             </Link>
             </div>
-            <div className="flex w-[80%] py-2 mx-auto justify-between">
+
+            <div className="flex w-[85%] py-2 mx-auto justify-between">
              <Link className="flex text-sm gap-3 space-y-2  items-center text-gray-700 dark:text-gray-200 hover:dark:text-white hover:text-zinc-900" href="/reports">
                 <TbReportAnalytics className="w-6 h-6 text-orange-600" />
                 <span className="mx-3">Reports</span>
              </Link>
             </div>
 
-           <div className="flex w-[80%] py-2 mx-auto justify-between">
+           <div className="flex w-[85%] py-2 mx-auto justify-between">
             <Link className="flex text-sm gap-3 space-y-2  items-center text-gray-700 dark:text-gray-200 hover:dark:text-white hover:text-zinc-900" href="/myAds">
                 <BsThreads className="w-6 h-6 text-sky-600" />
                 <span className="mx-3">My Ads</span>
             </Link>
             </div>
  
-           <div className="flex w-[80%] py-2 mx-auto justify-between">
+           <div className="flex w-[85%] py-2 mx-auto justify-between">
             <Link className="flex text-sm gap-3 space-y-2  items-center text-gray-700 dark:text-gray-200 hover:dark:text-white hover:text-zinc-900" href="/favorites">
               <HeartIcon className="w-6 h-6 text-rose-600" />
               Favorites
             </Link>
             </div>
 
-              <p className="border-b-2"></p>
 
+          {user.shop.length > 0 && <p className="pt-3 border-b-[1px]"></p>}
           {user.shop.map((shop)=>(
             <Accordion className="space-y-2" collapsible type="single">
             <AccordionItem value="shop-1 flex justify-between  ">
@@ -90,7 +95,7 @@ const handleDeleteShop = async (shopId) => {
               {shop.shopCategory === "cars" ? <FaCar className="w-5 h-5"/> :<MdOutlineRealEstateAgent className="w-5 h-5"/>}
                 {shop.shopName}
               </AccordionTrigger>
-              <AccordionContent className="space-y-2 w-[90%] mx-auto">
+              <AccordionContent className="space-y-2 w-[94%] mx-auto">
               <Link className="flex text-sm gap-3  items-center text-gray-700 dark:text-gray-200 hover:dark:text-white hover:text-zinc-900" href={`/createAd/${shop.id}`}>
                 <MdOutlineAddBox  className="w-6 h-6" />
                 <span className="mx-3">Create Ad</span>
@@ -144,7 +149,7 @@ const handleDeleteShop = async (shopId) => {
             </Accordion>
           ))}
          </div>
-        <CreateShopButton user={user}/>
+         <CreateShopButton lng={lng} user={user}/>
         </div>
       </div>
     )

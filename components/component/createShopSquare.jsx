@@ -15,12 +15,17 @@ import { useForm, Controller } from "react-hook-form";
 import { toast } from "sonner";
 import { useDarkMode } from "@/context/darkModeContext";
 import { useTranslation } from "@/app/i18n/client"
+import { RiTimerFlashLine } from "react-icons/ri";
+import { redirect } from "next/dist/server/api-utils"
 
-const CreateShopButton = ({ user , lng}) =>{
+const CreateShopSquare = ({ user , lng}) =>{
   const [shopImage, setShopImage] = useState(null);
   const { t } = useTranslation(lng , "translation")
   const { register, handleSubmit, setValue, control, formState: { errors, isSubmitting , isSubmitted ,isSubmitSuccessful} } = useForm();
   const { setConfettiActive , isConfettiActive } = useDarkMode()
+  if(!user){
+    redirect('/sign-in')
+  }
   const drawerCloseRef = useRef(null);
 
   const handleImageChange = async (e) => {
@@ -54,11 +59,17 @@ const CreateShopButton = ({ user , lng}) =>{
         setConfettiActive(true)
         toast("Shop Created Successfully")
   };
+
     return(
         <Drawer>
           <DrawerTrigger  asChild>
-          <Button className="inline-flex items-center justify-center px-6 py-3 border border-transparent font-medium rounded-md text-white main-bg   hover:scale-105 transition-all duration-200">
-          {t('Create Shop')}
+          <Button className="bg-transparent hover:bg-transparent mb-3">
+          <div className="flex justify-between self-start lg:w-auto w-full px-20 hover:opacity-70 cursor-pointer py-12 rounded-[35px] bg-gradient-to-r from-rose-900 to-purple-500 items-center ">
+              <RiTimerFlashLine className='text-4xl text-white'/>
+              <div className="text-white text-2xl font-bold leading-10 my-auto">
+              {t('Create Shop')}
+            </div>
+              </div>
           </Button>         
            </DrawerTrigger>
           <DrawerContent>
@@ -131,4 +142,4 @@ const CreateShopButton = ({ user , lng}) =>{
          </Drawer>
     )
 }
-export default CreateShopButton;
+export default CreateShopSquare;

@@ -4,9 +4,9 @@ import Image from 'next/image';
 import { useTranslation } from "../app/i18n/index"
 import Link from 'next/link';
 import { CategroyLink } from './categoriesCard';
+import CreateShopSquare from '@/components/component/createShopSquare'
 
-
-const HomePage= async ({ lng })=> {
+const HomePage= async ({ user ,lng })=> {
     const { t } = await useTranslation(lng , "translation")
 
   return (
@@ -24,16 +24,15 @@ const HomePage= async ({ lng })=> {
             </div>
           </div>
           <div className="flex flex-col items-stretch lg:w-4/5 ml-5 max-md:w-full max-md:ml-0">
-            <div className="relative flex grow flex-col items-end max-md:mt-2.5">
-              <div className="flex justify-between lg:w-auto w-11/12 mx-auto lg:mx-6 px-20 hover:opacity-70 cursor-pointer py-12 rounded-3xl bg-gradient-to-r from-green-900 to-green-500 items-start max-md:px-5">
+            <div className="relative grid grid-cols-2 gap-4">
+            <CreateShopSquare lng={lng} user={user}/>
+              <div className="flex justify-between lg:w-auto w-full px-20 hover:opacity-70 cursor-pointer py-12 rounded-[35px] bg-gradient-to-r from-green-900 to-green-500 items-center ">
               <RiTimerFlashLine className='text-4xl text-white'/>
-              <div className="text-white text-3xl font-bold leading-10 my-auto">
+              <div className="text-white text-2xl font-bold leading-10 my-auto">
               {t('QuickSell')}
             </div>
               </div>
-              <div className="self-stretch mt-6 max-md:max-w-full">
-              <div className="gap-x-5 flex lg:flex-row flex-col max-md:items-stretch max-md:gap-0">
-                <div className="flex flex-col items-stretch w-full relative">
+              <div className="flex flex-col items-stretch w-full relative">
                     {/* First image as background */}
                     <Image
                     src="/site/Ads%201.svg" // Update the path to your SVG file
@@ -93,6 +92,9 @@ const HomePage= async ({ lng })=> {
                     alt="Buy Car"
                     />
                 </div>
+              <div className="self-stretch mt-6 max-md:max-w-full">
+              <div className="gap-x-5 flex lg:flex-row flex-col max-md:items-stretch max-md:gap-0">
+                
              </div>
               </div>
             </div>

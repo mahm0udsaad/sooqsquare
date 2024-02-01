@@ -13,7 +13,7 @@ import { addBgImageToShop, addImageToShop, updateShopInfo } from "@/app/[lng]/(t
 import { LoadingSpinner } from "@/components/loading-spiner"
 import { useForm, Controller } from 'react-hook-form';
 
-export default function MyShopPage({shop}) {
+export default function MyShopPage({shop , lng}) {
   const [bgImage, setBgImage] = useState(null);
   const [uploading, setUploading] = useState(false);
   const { handleSubmit, control , formState } = useForm();
@@ -75,11 +75,9 @@ export default function MyShopPage({shop}) {
     }
   };
   const onSubmit = async (data) => {
-    setLoading(true)
     const newShop = await updateShopInfo(shop.id, data)
     if(newShop){
       toast("Shop informaiton updated Successfully")
-      setLoading(false)
     }
     handleUpdateShop(data);
   };

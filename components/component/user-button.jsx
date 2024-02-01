@@ -9,50 +9,63 @@ import { BsThreads } from "react-icons/bs";
 import { FaShop } from "react-icons/fa6";
 import { AvatarImage,  Avatar, AvatarFallback } from "@/components/ui/avatar"
 import { FaRegUser } from "react-icons/fa6";
+import { useState } from "react";
 
 
 export function UserButton({ user }) {
+  const [ open , setOpen] = useState(false)
+
   return (
     (
-    <Popover>
+    <Popover open={open} onOpenChange={setOpen} className="border-rose-600 border-2">
       <PopoverTrigger asChild>
-        <Button className="rounded-full border-rose-600 border-2" size="icon" variant="outline">
-           <Avatar>
-              <AvatarImage className="border-rose-600 border-2" src={user.image} alt="user"/>
+        <div
+        className="relative inline-block rounded-full flex items-center"
+        style={{
+          padding: '3px', // Adjust padding as needed
+          background: 'linear-gradient(to right,rgb(255 0 241) , #fe2635)', // Adjust gradient colors
+        }}
+      >
+        <Button className="rounded-full" size="icon" variant="outline">
+          <Avatar>
+            <div className="absolute top-0 left-0 right-0 bottom-0">
+              <AvatarImage className="rounded-full hover:opacity-50 transition" src={user.image} alt="user" />
+            </div>
             <AvatarFallback>
-              <UserIcon className="w-6 h-6 " />
+              <UserIcon className="w-6 h-6" />
             </AvatarFallback>
-            </Avatar>
+          </Avatar>
         </Button>
+      </div>
       </PopoverTrigger>
       <PopoverContent className="w-80 dark:bg-zinc-950 dark:text-white">
         <div className="grid gap-4">
           <div className="space-y-2">
-            <Link className="flex py-3  items-center " href="/myProfile">
+            <Link onClick={()=> setOpen(false)} className="flex py-3  items-center " href="/myProfile">
               <UserIcon className="w-6 h-6 " />
              <span className="mx-3 ">
                Profile
              </span>
             </Link>
             {user.shop.length > 0 &&
-            <Link className="py-3  items-center flex text-gray-700 dark:text-gray-200 hover:dark:text-white hover:text-zinc-900" href={`/dashboard`}>
+            <Link onClick={()=> setOpen(false)}  className="py-3  items-center flex text-gray-700 dark:text-gray-200 hover:dark:text-white hover:text-zinc-900" href={`/dashboard`}>
              <FaShop className="w-6 h-6 text-green-600" />
              <span className="mx-3">Dashboard</span>
             </Link>
             }
-            <Link className="flex py-3  items-center " href="/myAds">
+            <Link onClick={()=> setOpen(false)} className="flex py-3  items-center " href="/myAds">
               <AtSignIcon className="w-6 h-6 text-sky-600" />
              <span className="mx-3 ">
                My Ads
              </span>
             </Link>
-            <Link className="flex py-3  items-center " href="/favorites">
+            <Link onClick={()=> setOpen(false)} className="flex py-3  items-center " href="/favorites">
               <HeartIcon className="w-6 h-6 text-rose-600" />
              <span className="mx-3">
                Favorites
              </span>
             </Link>
-            <Link className="flex py-3 border-t-2 items-center  text-rose-600" href="#">
+            <Link onClick={()=> setOpen(false)} className="flex py-3 border-t-2 items-center  text-rose-600" href="#">
               <LogOutIcon className="w-6 h-6" />
              <span className="mx-3">
                Logout
