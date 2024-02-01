@@ -1,64 +1,121 @@
 "use client"
-import { CardTitle, CardDescription, CardHeader, CardContent, CardFooter, Card } from "@/components/ui/card"
+import { CardTitle, CardHeader, CardContent, CardFooter, Card } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import Image from "next/image"
+import { timeSince } from "@/helper/timeConversion"
+import { BsChatLeftDots } from "react-icons/bs";
+import { MdOutlineLocalPhone } from "react-icons/md";
+import { addToFavorites } from "@/app/[lng]/vehicle/actions"
+import Link from "next/link"
 
-export default function MarketAdCard({ ad }) {
+export default function MarketAdCard({ ad , user}) {
   return (
     <Card className="w-full max-w-md flex flex-col">
-      <Image
-        alt="Car Image"
-        className="w-full object-cover rounded-t-lg"
-        height={200}
-        width={300}
-        src={ad.Adimages[0].url}
-        style={{
-          aspectRatio: "300/200",
-          objectFit: "cover",
-        }}
-      />
+       <Link className="hover:opacity-50" href={`/vehicle/${ad.id}`}>
+       <div className="relative">
+        <Image
+          alt="Car Image"
+          className="w-full object-cover rounded-t-lg"
+          height={200}
+          width={300}
+          src="/placeholder.svg"
+          style={{
+            aspectRatio: "300/200",
+            objectFit: "cover",
+          }}
+        />
+        <HeartIcon
+        onClick={()=> addToFavorites(user.id , ad.id)}
+        className="cursor-pointer text-gray-500 absolute top-2 right-2 h-6 w-6"
+        style={{ fill: user.favoriteAds.some(favorite => favorite.adId === ad.id) ? 'red text-transparent' : '' }}
+        />
+      </div>
+       </Link>
       <CardHeader>
         <CardTitle>{ad.name}</CardTitle>
-        <CardDescription>Electric Sedan</CardDescription>
+        <div className="my-4 flex items-center">
+          <p className="main-color text-lg font-semibold">
+            <TagIcon className="mx-2 inline-block h-6 w-6" />
+            {ad.price}
+          </p>
+        </div>
       </CardHeader>
       <CardContent className="grid gap-4">
         <div className="grid gap-1">
           <p className="text-sm text-gray-500 dark:text-gray-400">
-            <LocateIcon className="mr-2 inline-block h-4 w-4" />
-            Los Angeles, CA
+            <LocateIcon className="mx-2 inline-block h-4 w-4" />
+            {ad.location}
           </p>
           <p className="text-sm text-gray-500 dark:text-gray-400">
-            <CalendarIcon className="mr-2 inline-block h-4 w-4" />
-            Listed on January 24, 2024
-          </p>
-        </div>
-        <div className="grid gap-2">
-          <p className="text-sm text-gray-500 dark:text-gray-400">
-            <GaugeIcon className="mr-2 inline-block h-4 w-4" />
-            Mileage: 15,000 miles
+            <CalendarIcon className="mx-2 inline-block h-4 w-4" />
+            {timeSince(ad.createdAt)}
           </p>
           <p className="text-sm text-gray-500 dark:text-gray-400">
-            <BatteryIcon className="mr-2 inline-block h-4 w-4" />
-            Battery: 75 kWh
+            <CarIcon className="mx-2 inline-block h-4 w-4" />
+            Brand: {ad.brand}
           </p>
-        </div>
-        <div className="mt-4">
-          <p className="text-lg font-semibold">
-            <TagIcon className="mr-2 inline-block h-6 w-6" />
-            $35,000
+          <p className="text-sm text-gray-500 dark:text-gray-400">
+            <CarIcon className="mx-2 inline-block h-4 w-4" />
+            Model: {ad.model}
           </p>
         </div>
       </CardContent>
       <CardFooter className="flex gap-2">
-        <Button size="sm">Call</Button>
-        <Button size="sm" variant="outline">
-          Chat
+        <Button className="w-[40%] mr-1 flex items-center justify-center gap-2 inset-0 z-10 bg-[#fe2635] hover:bg-[#fe26355e]">
+        <BsChatLeftDots className='w-4 h-4' />
+        Chat
+        </Button>
+        <Button className="w-[40%] ml-1 flex items-center justify-center gap-2 dark:bg-white dark:text-black">
+        <MdOutlineLocalPhone className='h-4 w-4'/>
+        Call
         </Button>
       </CardFooter>
     </Card>
   )
 }
-
+function CarIcon(props) {
+    return (
+      <svg
+        {...props}
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
+        <path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2" />
+        <circle cx="7" cy="17" r="2" />
+        <path d="M9 17h6" />
+        <circle cx="17" cy="17" r="2" />
+      </svg>
+    )
+  }
+  
+  
+  function HeartIcon(props) {
+    return (
+      <svg
+        {...props}
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
+        <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
+      </svg>
+    )
+  }
+  
+  
 function BatteryIcon(props) {
   return (
     <svg

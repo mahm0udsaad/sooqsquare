@@ -7,15 +7,13 @@ import { Label } from "@/components/ui/label"
 import { Button } from "@/components/ui/button"
 import { FilterSelection, withGenericSelection } from "../dynamicSelection"
 import { useTranslation } from "@/app/i18n/client"
-import { BsChatLeftDots } from "react-icons/bs";
-import { MdOutlineLocalPhone } from "react-icons/md";
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
 import { timeSince } from "../../helper/timeConversion"
 import { carBrands } from '../../data/staticData'
 import { useEffect, useState } from "react"
 import Image from "next/image"
 import { addToFavorites } from "@/app/[lng]/vehicle/actions"
-import MarketAdCard  from "@/components/component/new-card"
+import MarketAdCard from "./new-card"
 
 const SelectionComp = withGenericSelection(FilterSelection);
 
@@ -319,8 +317,8 @@ export function Market({lng , ads , user}) {
         )}
       </div>
         <div className="grid sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-3 gap-8">
-          {ads.map((ad,i)=>(
-           <MarketAdCard ad={ad}/>
+          {ads.map((ad)=>(
+            <MarketAdCard key={ad.id} user={user} ad={ad} />
           ))}
         </div>
       </div>
