@@ -115,6 +115,7 @@ export async function createShop(userId, data) {
   } catch (error) {
     console.error('Error creating shop:', error);
   } finally {
+    revalidatePath('/dashboard')
     redirect(`/myShopView/${newShop.id}`);
   }
 }
