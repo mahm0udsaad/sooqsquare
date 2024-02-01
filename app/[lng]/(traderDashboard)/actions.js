@@ -183,22 +183,6 @@ export async function getShopById(shopId) {
 }
 export async function deleteShop(shopId, userId) {
   try {
-    // Check if the user is the owner of the shop
-    const isOwner = await prisma.shop.findUnique({
-      where: {
-        id: shopId,
-      },
-      select: {
-        userId: true,
-      },
-    });
-
-    if (!isOwner || isOwner.userId !== userId) {
-      console.error('User does not have permission to delete this shop.');
-      return null;
-    }
-
-    // Fetch the shop with associated ads and images
     const shop = await prisma.shop.findUnique({
       where: {
         id: shopId,
@@ -231,10 +215,6 @@ export async function deleteShop(shopId, userId) {
       },
     });
 
-    // Revalidate and redirect after successful deletion
-
-
-    // Return the deleted shop
     console.log("deleted shop:" + shop);
     return shop;
   } catch (error) {
@@ -245,7 +225,6 @@ export async function deleteShop(shopId, userId) {
     redirect('/dashboard');
   }
 }
-
 export async function addBgImageToShop(shopId, bgImage) {
   try {
     // Use Prisma to update the shop's bgImage
@@ -392,7 +371,6 @@ export async function updateShopInfo(shopId, data) {
     await prisma.$disconnect();
   }
 }
-
 export async function changeAdStatus(adId , adStatus) {
   try {
     const updatedAd = await prisma.ad.update({
