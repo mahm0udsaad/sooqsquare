@@ -3,6 +3,7 @@
 import Link from "next/link"
 import { CardTitle, CardHeader, CardContent, Card } from "@/components/ui/card"
 import { FaCar } from "react-icons/fa";
+import { MdOutlineRealEstateAgent } from "react-icons/md";
 
 export default function Dashboard({ shops }) {
   return (
