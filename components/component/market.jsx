@@ -11,8 +11,6 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation"
 import { timeSince } from "../../helper/timeConversion"
 import { carBrands } from '../../data/staticData'
 import { useEffect, useState } from "react"
-import Image from "next/image"
-import { addToFavorites } from "@/app/[lng]/vehicle/actions"
 import MarketAdCard from "./new-card"
 
 const SelectionComp = withGenericSelection(FilterSelection);

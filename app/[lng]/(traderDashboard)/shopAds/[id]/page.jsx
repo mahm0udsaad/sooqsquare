@@ -12,7 +12,7 @@ export async function generateStaticParams() {
 export default async function MyShop({params}) {
     const shop = await getShopById(params.id)
     return (
-       <div className='flex lg:w-5/6 mx-auto flex-col gap-3'>
+       <div className='flex flex-col items-center lg:w-4/5 mx-auto gap-3'>
           {
             shop.ads.length > 0  ? shop.ads.map((ad)=>(
               <AdCard key={ad.id} lng={params.lng} ad={ad} />

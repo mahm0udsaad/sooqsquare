@@ -25,7 +25,7 @@ const HomePage= async ({ user ,lng })=> {
           </div>
           <div className="flex flex-col items-stretch lg:w-4/5 ml-5 max-md:w-full max-md:ml-0">
             <div className="relative grid grid-cols-2 gap-4">
-            <CreateShopSquare lng={lng} user={user}/>
+              <CreateShopSquare lng={lng} user={user}/>
               <div className="flex justify-between lg:w-auto w-full px-20 hover:opacity-70 cursor-pointer py-12 rounded-[35px] bg-gradient-to-r from-green-900 to-green-500 items-center ">
               <RiTimerFlashLine className='text-4xl text-white'/>
               <div className="text-white text-2xl font-bold leading-10 my-auto">

@@ -26,14 +26,14 @@ export default async function upload(data) {
   // Resize the watermark image to fit within the main image dimensions
   const mainImageMetadata = await mainImage.metadata();
   const watermarkResized = await watermark.resize({
-    width: 55, // Adjust the size as needed
-    height: 50,
+    width: 65, // Adjust the size as needed
+    height: 60,
     fit: sharp.fit.inside,
   }).toBuffer();
 
   // Calculate the position for bottom right corner
-  const positionX = parseInt(mainImageMetadata.width) - 55;
-  const positionY = parseInt(mainImageMetadata.height) - 50;
+  const positionX = parseInt(mainImageMetadata.width) - 75;
+  const positionY = parseInt(mainImageMetadata.height) - 30;
 
   console.log(positionX, positionY);
   // Composite the resized watermark onto the main image at the calculated position

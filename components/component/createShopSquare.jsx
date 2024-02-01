@@ -23,6 +23,7 @@ const CreateShopSquare = ({ user , lng}) =>{
   const { t } = useTranslation(lng , "translation")
   const { register, handleSubmit, setValue, control, formState: { errors, isSubmitting , isSubmitted ,isSubmitSuccessful} } = useForm();
   const { setConfettiActive , isConfettiActive } = useDarkMode()
+ 
   if(!user){
     redirect('/sign-in')
   }

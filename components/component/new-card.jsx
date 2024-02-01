@@ -11,26 +11,26 @@ import Link from "next/link"
 export default function MarketAdCard({ ad , user}) {
   return (
     <Card className="w-full max-w-md flex flex-col">
-       <Link className="hover:opacity-50" href={`/vehicle/${ad.id}`}>
        <div className="relative">
+       <Link className="hover:opacity-50 relative" href={`/vehicle/${ad.id}`}>
         <Image
           alt="Car Image"
           className="w-full object-cover rounded-t-lg"
           height={200}
           width={300}
-          src="/placeholder.svg"
+          src={ad.Adimages[0].url}
           style={{
             aspectRatio: "300/200",
             objectFit: "cover",
           }}
         />
+        </Link>
         <HeartIcon
         onClick={()=> addToFavorites(user.id , ad.id)}
-        className="cursor-pointer text-gray-500 absolute top-2 right-2 h-6 w-6"
-        style={{ fill: user.favoriteAds.some(favorite => favorite.adId === ad.id) ? 'red text-transparent' : '' }}
+        className={`cursor-pointer z-50 text-gray-500 absolute top-2 right-2 h-6 w-6 ${ user.favoriteAds.some(favorite => favorite.adId === ad.id) ? 'text-transparent': ''}`}
+        style={{ fill: user.favoriteAds.some(favorite => favorite.adId === ad.id) ? 'red' : '' }}
         />
       </div>
-       </Link>
       <CardHeader>
         <CardTitle>{ad.name}</CardTitle>
         <div className="my-4 flex items-center">

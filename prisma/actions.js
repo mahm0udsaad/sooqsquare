@@ -172,10 +172,8 @@ export async function createAdForShop(data, shopId, adStatus) {
     console.error('Error creating ad:', error);
     return null;
   } finally {
-    revalidatePath('/myAds');
     revalidatePath(`/shopAds/${shopId}`);
     redirect(`/shopAds/${shopId}`)
-    revalidatePath('/vehicle');
   }
 }
 
