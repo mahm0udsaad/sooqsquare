@@ -26,12 +26,13 @@ import {
 import { LoadingSpinner } from "../loading-spiner";
 import { useTranslation } from "@/app/i18n/client";
 const ShopSideBar = ({ user , lng}) =>{
+  
 const { t } = useTranslation(lng , "translation")
 const closeDialoagRef = useRef()
 const [deleteLoading , setDeleteLoading ] = useState(false)
 
 if(!user){
-  console.log("lost User");
+  return ;
 }
 
 const handleDeleteShop = async (shopId) => {
@@ -90,72 +91,71 @@ const handleDeleteShop = async (shopId) => {
             </Link>
             </div>
 
-          {user.shop?.length > 0 ?
-           <>
-           <p className="pt-3 border-b-[1px]"></p> 
-            {user.shop.map((shop)=>(
-              <Accordion className="space-y-2" collapsible type="single">
-              <AccordionItem value="shop-1 flex justify-between  ">
-                <AccordionTrigger className="flex w-full  justify-between items-center px-4 py-2 ">
-                {shop.shopCategory === "cars" ? <FaCar className="w-5 h-5"/> :<MdOutlineRealEstateAgent className="w-5 h-5"/>}
-                  {shop.shopName}
-                </AccordionTrigger>
-                <AccordionContent className="space-y-2 w-[94%] mx-auto">
-                <Link className="flex text-sm gap-3  items-center text-gray-700 dark:text-gray-200 hover:dark:text-white hover:text-zinc-900" href={`/createAd/${shop.id}`}>
-                  <MdOutlineAddBox  className="w-6 h-6" />
-                  <span className="mx-3">Create Ad</span>
-                </Link>
-                <Link className="flex text-sm gap-3  items-center text-gray-700 dark:text-gray-200 hover:dark:text-white hover:text-zinc-900" href={`/myShopView/${shop.id}`}>
-                  <AiOutlineShop className="w-6 h-6 text-rose-400	" />
-                  <span className="mx-3">My Shop</span>
-                </Link>
-                <Link className="flex text-sm gap-3  items-center text-gray-700 dark:text-gray-200 hover:dark:text-white hover:text-zinc-900" href={`/myShop/${shop.id}`}>
-                    <CiEdit className="w-6 h-6 w-6 h-6 text-fuchsia-400" />
-                    <span className="mx-3">Shop Details</span>
-                </Link>
-                <Link className="flex text-sm gap-3  items-center text-gray-700 dark:text-gray-200 hover:dark:text-white hover:text-zinc-900" href="/reports">
-                    <TbReportAnalytics className="w-6 h-6 text-orange-600" />
-                    <span className="mx-3">Shop Reports</span>
-                </Link>
-                <Link className="flex text-sm gap-3  items-center text-gray-700 dark:text-gray-200 hover:dark:text-white hover:text-zinc-900" href={`/shopAds/${shop.id}`}>
-                    <BsThreads className="w-6 h-6 text-sky-600" />
-                    <span className="mx-3">Shop Ads</span>
-                </Link>
-                <Dialog >
-                <DialogTrigger>
-                <Button className="p-0 bg-transparent hover:bg-transparent flex gap-3 items-center text-gray-700 dark:text-gray-200 hover:dark:text-white hover:text-zinc-900">
-                  <TrashIcon className="w-6 h-6 text-red-600" />
-                    <span className="mx-3">Delete Shop</span>
-                  </Button>         
-                </DialogTrigger>
-                <DialogContent className="dark:bg-zinc-800 dark:text-white ">
-                  <DialogHeader className="dark:bg-zinc-800 dark:text-white">
-                    <DialogTitle>Delete {shop.shopName}</DialogTitle>
-                    <DialogDescription className="dark:zinc-800 dark:text-white">
-                      This action cannot be undone. This will permanently delete your shop
-                      and remove shop data from our servers.
-                    </DialogDescription>
-                  </DialogHeader>
-                  <Button onClick={()=> handleDeleteShop(shop.id)} className="bg-transparent hover:bg-rose-600 hover:text-white border border-rose-600 flex gap-3 items-center text-rose-700 dark:text-gray-200  hover:text-zinc-900" href={`/shopAds/${shop.id}`}>
-                    {deleteLoading && <LoadingSpinner />}
-                    <TrashIcon className="w-6 h-6" />
-                    <span className="mx-3">Delete Shop</span>
-                </Button>
-
-                </DialogContent>
-                <DialogClose asChild>
-                  <Button ref={closeDialoagRef} className="hidden" type="button" variant="secondary">
-                    Close
+            {user?.shop.length > 0 ?
+            <>
+            <p className="pt-3 border-b-[1px]"></p> 
+              {user?.shop.map((shop)=>(
+                <Accordion className="space-y-2" collapsible type="single">
+                <AccordionItem value="shop-1 flex justify-between  ">
+                  <AccordionTrigger className="flex w-full  justify-between items-center px-4 py-2 ">
+                  {shop.shopCategory === "cars" ? <FaCar className="w-5 h-5"/> :<MdOutlineRealEstateAgent className="w-5 h-5"/>}
+                    {shop.shopName}
+                  </AccordionTrigger>
+                  <AccordionContent className="space-y-2 w-[94%] mx-auto">
+                  <Link className="flex text-sm gap-3  items-center text-gray-700 dark:text-gray-200 hover:dark:text-white hover:text-zinc-900" href={`/createAd/${shop.id}`}>
+                    <MdOutlineAddBox  className="w-6 h-6" />
+                    <span className="mx-3">Create Ad</span>
+                  </Link>
+                  <Link className="flex text-sm gap-3  items-center text-gray-700 dark:text-gray-200 hover:dark:text-white hover:text-zinc-900" href={`/myShopView/${shop.id}`}>
+                    <AiOutlineShop className="w-6 h-6 text-rose-400	" />
+                    <span className="mx-3">My Shop</span>
+                  </Link>
+                  <Link className="flex text-sm gap-3  items-center text-gray-700 dark:text-gray-200 hover:dark:text-white hover:text-zinc-900" href={`/myShop/${shop.id}`}>
+                      <CiEdit className="w-6 h-6 w-6 h-6 text-fuchsia-400" />
+                      <span className="mx-3">Shop Details</span>
+                  </Link>
+                  <Link className="flex text-sm gap-3  items-center text-gray-700 dark:text-gray-200 hover:dark:text-white hover:text-zinc-900" href="/reports">
+                      <TbReportAnalytics className="w-6 h-6 text-orange-600" />
+                      <span className="mx-3">Shop Reports</span>
+                  </Link>
+                  <Link className="flex text-sm gap-3  items-center text-gray-700 dark:text-gray-200 hover:dark:text-white hover:text-zinc-900" href={`/shopAds/${shop.id}`}>
+                      <BsThreads className="w-6 h-6 text-sky-600" />
+                      <span className="mx-3">Shop Ads</span>
+                  </Link>
+                  <Dialog >
+                  <DialogTrigger>
+                  <Button className="p-0 bg-transparent hover:bg-transparent flex gap-3 items-center text-gray-700 dark:text-gray-200 hover:dark:text-white hover:text-zinc-900">
+                    <TrashIcon className="w-6 h-6 text-red-600" />
+                      <span className="mx-3">Delete Shop</span>
+                    </Button>         
+                  </DialogTrigger>
+                  <DialogContent className="dark:bg-zinc-800 dark:text-white ">
+                    <DialogHeader className="dark:bg-zinc-800 dark:text-white">
+                      <DialogTitle>Delete {shop.shopName}</DialogTitle>
+                      <DialogDescription className="dark:zinc-800 dark:text-white">
+                        This action cannot be undone. This will permanently delete your shop
+                        and remove shop data from our servers.
+                      </DialogDescription>
+                    </DialogHeader>
+                    <Button onClick={()=> handleDeleteShop(shop.id)} className="bg-transparent hover:bg-rose-600 hover:text-white border border-rose-600 flex gap-3 items-center text-rose-700 dark:text-gray-200  hover:text-zinc-900" href={`/shopAds/${shop.id}`}>
+                      {deleteLoading && <LoadingSpinner />}
+                      <TrashIcon className="w-6 h-6" />
+                      <span className="mx-3">Delete Shop</span>
                   </Button>
-                </DialogClose>
-                  </Dialog>
-                </AccordionContent>
-              </AccordionItem>
-              </Accordion>
-            ))}
-           </>
-          : null}
-          
+
+                  </DialogContent>
+                  <DialogClose asChild>
+                    <Button ref={closeDialoagRef} className="hidden" type="button" variant="secondary">
+                      Close
+                    </Button>
+                  </DialogClose>
+                    </Dialog>
+                  </AccordionContent>
+                </AccordionItem>
+                </Accordion>
+              ))}
+            </>
+            : null}
          </div>
          <CreateShopButton lng={lng} user={user}/>
         </div>

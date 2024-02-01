@@ -18,7 +18,7 @@ export async function generateStaticParams() {
 export default async function RootLayout({ children, params: { lng }}) {
   
   const logedUser = await getServerSession()
-  const user = await getUserByEmail(logedUser?.user?.email)
+  const user = await getUserByEmail(logedUser?.user.email)
   
   return (
     <html lang={lng}>
