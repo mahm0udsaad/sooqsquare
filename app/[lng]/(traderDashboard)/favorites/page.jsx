@@ -3,6 +3,7 @@ import { FavoriteCard } from '@/components/component/favorite-cards'
 import { redirect } from 'next/navigation';
 import { getServerSession } from 'next-auth'
 import { getUserByEmail } from '@/prisma/actions'
+
 export default async function MyfavoriteAds({params:{lng}}) {
 
     const logedUser = await getServerSession()

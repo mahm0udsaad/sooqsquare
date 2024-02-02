@@ -17,6 +17,7 @@ export default async function RootLayout({ children, params: { lng }}) {
   const NavBar = dynamic(() => import('@/components/navBar'), {
     loading: () => <NavbarSkeleton />, // Render skeleton while NavBar is loading
   });
+  
   return (
     <html lang={lng}>
       <link rel="shortcut icon" href="/icons/favicon.png" />

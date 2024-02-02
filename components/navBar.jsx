@@ -9,17 +9,17 @@ import { getUserByEmail } from '@/prisma/actions';
 import { getServerSession } from 'next-auth';
 import { redirect } from 'next/dist/server/api-utils';
 
-const NavBar = async  ({lng})=> { 
+const NavBar = async  ({ lng })=> { 
   const { t } = await useTranslation(lng , "translation")
   const logedUser = await getServerSession()
   let user;
-  if(logedUser){
-   user = await getUserByEmail(logedUser?.user.email)
-  }else{
-    redirect('sign-in')
-  }
+    if(logedUser){
+    user = await getUserByEmail(logedUser?.user.email)
+    }else{
+      redirect('sign-in')
+    }
 
-  console.log("navBar");
+    console.log("navBar");
 
     const UserButton = dynamic(()=> import('@/components/component/user-button'),{
       loading: () => <btnSkeleton />,
