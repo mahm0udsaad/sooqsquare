@@ -315,8 +315,10 @@ export async function getUserByEmail(email) {
 
     return existingUser;
   } catch (error) {
-    console.error("Error fetching user:", error);
+    console.log("Error fetching user:", error);
     return null;
+  }finally{
+    prisma.$disconnect()
   }
 }
 export async function getUserShopsByEmail() {

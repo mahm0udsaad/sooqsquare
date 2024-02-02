@@ -20,6 +20,7 @@ const ShopSideBar = async ({ lng  }) =>{
 
   const logedUser = await getServerSession()
   const user = await getUserByEmail(logedUser?.user?.email)
+  
     return(
       <div className="flex flex-col w-64 bg-white dark:bg-zinc-950">
         <div className="flex items-center justify-center h-14 border-b dark:border-gray-600">

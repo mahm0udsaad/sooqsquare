@@ -35,34 +35,37 @@ const handleDeleteShop = async (shopId) => {
 };
 
     return(
-    <Dialog >
-    <DialogTrigger>
-    <Button className="p-0 bg-transparent hover:bg-transparent flex gap-3 items-center text-gray-700 dark:text-gray-200 hover:dark:text-white hover:text-zinc-900">
-    <TrashIcon className="w-6 h-6 text-red-600" />
-        <span className="mx-3">{t("Delete Shop")}</span>
-    </Button>         
-    </DialogTrigger>
-    <DialogContent className="dark:bg-zinc-800 dark:text-white ">
-    <DialogHeader className="dark:bg-zinc-800 dark:text-white">
-        <DialogTitle>Delete {shop.shopName}</DialogTitle>
-        <DialogDescription className="dark:zinc-800 dark:text-white">
-        This action cannot be undone. This will permanently delete your shop
-        and remove shop data from our servers.
-        </DialogDescription>
-    </DialogHeader>
-    <Button onClick={()=> handleDeleteShop(shop.id)} className="bg-transparent hover:bg-rose-600 hover:text-white border border-rose-600 flex gap-3 items-center text-rose-700 dark:text-gray-200  hover:text-zinc-900" href={`/shopAds/${shop.id}`}>
-        {deleteLoading && <LoadingSpinner />}
-        <TrashIcon className="w-6 h-6" />
-        <span className="mx-3">Delete Shop</span>
-    </Button>
-
-    </DialogContent>
-    <DialogClose asChild>
-    <Button ref={closeDialoagRef} className="hidden" type="button" variant="secondary">
-        Close
-    </Button>
-    </DialogClose>
+      <Dialog>
+      <DialogTrigger>
+        <Button className="p-0 bg-transparent hover:bg-transparent flex gap-3 items-center text-gray-700 dark:text-gray-200 hover:dark:text-white hover:text-zinc-900">
+          <TrashIcon className="w-6 h-6 text-red-600" />
+          <span className="mx-3">{t("Delete Shop")}</span>
+        </Button>
+      </DialogTrigger>
+      <DialogContent className="dark:bg-zinc-800 dark:text-white ">
+        <DialogHeader className="dark:bg-zinc-800 dark:text-white">
+          <DialogTitle>Delete {shop.shopName}</DialogTitle>
+          <DialogDescription className="dark:zinc-800 dark:text-white">
+            This action cannot be undone. This will permanently delete your shop
+            and remove shop data from our servers.
+          </DialogDescription>
+        </DialogHeader>
+        <div>
+          {/* Replace Button with another element */}
+          <div onClick={() => handleDeleteShop(shop.id)} className="bg-transparent hover:bg-rose-600 hover:text-white border border-rose-600 flex gap-3 items-center text-rose-700 dark:text-gray-200 hover:text-zinc-900" href={`/shopAds/${shop.id}`}>
+            {deleteLoading && <LoadingSpinner />}
+            <TrashIcon className="w-6 h-6" />
+            <span className="mx-3">Delete Shop</span>
+          </div>
+        </div>
+      </DialogContent>
+      <DialogClose asChild>
+        <Button ref={closeDialoagRef} className="hidden" type="button" variant="secondary">
+          Close
+        </Button>
+      </DialogClose>
     </Dialog>
+    
     )
 }
 function TrashIcon(props) {

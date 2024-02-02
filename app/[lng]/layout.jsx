@@ -23,7 +23,7 @@ export default async function RootLayout({ children, params: { lng }}) {
       <link rel="shortcut icon" href="/icons/favicon.png" />
       <DarkModeProvider>
         <body className='bg-gray-100 dark:bg-zinc-900 dark:text-white' >
-        <NavBar  lng={lng}/>
+        <NavBar lng={lng}/>
           <div dir={dir(lng)} className="pt-16 w-full relative">
            <ErrorMessage />
            {children}

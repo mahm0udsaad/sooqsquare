@@ -1,7 +1,6 @@
 "use server"
 import { revalidatePath } from "next/cache";
 import prisma from "../../../prisma/client";
-import { redirect } from "next/navigation";
 
 export async function getAdsByUserId(userId) {
   userId = parseInt(userId)
@@ -115,7 +114,6 @@ export async function createShop(userId, data) {
     console.error('Error creating shop:', error);
   } finally {
     revalidatePath('/dashboard')
-    redirect(`/myShopView/${newShop.id}`);
   }
 }
 export async function getAllShops() {
@@ -220,7 +218,6 @@ export async function deleteShop(shopId, userId) {
     throw new Error('Error deleting shop');
   }finally{
     revalidatePath('/dashboard');
-    redirect('/dashboard');
   }
 }
 export async function addBgImageToShop(shopId, bgImage) {

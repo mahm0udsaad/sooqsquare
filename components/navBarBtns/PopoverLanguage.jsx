@@ -11,6 +11,7 @@ import { useRouter } from 'next/navigation';
 
 const PopoverLanguage = ({ lng }) => {
   const { t } = useTranslation(lng , "translation");
+  
   const path = usePathname()
   const router = useRouter()
    const changeToArabic = () => {

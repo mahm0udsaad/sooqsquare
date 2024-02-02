@@ -10,7 +10,6 @@ import { useState } from "react";
 
 export default  function UserButton({ user }) {
   const [ open , setOpen] = useState(false)
-
   return (
     (
     <Popover open={open} onOpenChange={setOpen} className="border-rose-600 border-2">

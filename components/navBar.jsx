@@ -16,10 +16,16 @@ const NavBar = async  ({ lng })=> {
     if(logedUser){
     user = await getUserByEmail(logedUser?.user.email)
     }else{
+      console.log('no loged User');
       redirect('sign-in')
     }
 
-    console.log("navBar");
+    if(!user){
+    console.log('no User');
+    }else{
+    console.log('User fetched successfully');
+
+    }
 
     const UserButton = dynamic(()=> import('@/components/component/user-button'),{
       loading: () => <btnSkeleton />,
