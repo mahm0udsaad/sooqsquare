@@ -166,14 +166,12 @@ export async function createAdForShop(data, shopId, adStatus) {
         shop: true,
       },
     });
-    console.log(newAd.shop.id);
     return newAd;
   } catch (error) {
     console.error('Error creating ad:', error);
     return null;
   } finally {
-    revalidatePath(`/shopAds/${shopId}`);
-    redirect(`/shopAds/${shopId}`)
+    revalidatePath(`/dashboard`);
   }
 }
 export  async function createUserIfNotExists(userData) {
