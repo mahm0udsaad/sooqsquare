@@ -200,7 +200,6 @@ export async function deleteShop(shopId) {
       return null;
     }
 
-    // Delete the shop
     const deletedShop = await prisma.shop.delete({
       where: {
         id: shopId,
@@ -218,6 +217,7 @@ export async function deleteShop(shopId) {
   } catch (error) {
     console.error('Error deleting shop:', error);
   } finally {
+    revalidatePath('/dashboard')
     redirect('/dashboard');
   }
 }

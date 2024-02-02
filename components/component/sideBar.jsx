@@ -10,16 +10,12 @@ import { AiOutlineShop } from "react-icons/ai";
 import { CiEdit } from "react-icons/ci";
 import CreateShopButton from '@/components/component/createShopForm'
 import { useTranslation } from "@/app/i18n";
-import { getServerSession } from 'next-auth'
-import {  getUserShopsByEmail } from '@/prisma/actions'
 import dynamic from "next/dynamic";
 
-const ShopSideBar = async ({ lng }) =>{
+const ShopSideBar = async ({ lng , user }) =>{
   const DeleteDialoag = dynamic(()=> import('@/components/component/buttons/deleteDailoag'))
   
   const { t } = await useTranslation(lng , "translation")
-  const logedUser = await getServerSession()
-  const user = await getUserShopsByEmail(logedUser?.user.email)
 
     return(
       <div className="flex flex-col w-64 bg-white dark:bg-zinc-950">
