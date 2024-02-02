@@ -320,7 +320,6 @@ export async function getUserByEmail(email) {
 
     return existingUser;
   } catch (error) {
-    // Handle any potential errors here
     console.error("Error fetching user:", error);
     return null;
   }
