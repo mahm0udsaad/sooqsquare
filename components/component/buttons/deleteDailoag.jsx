@@ -15,7 +15,7 @@ import {
 import { LoadingSpinner } from "@/components/loading-spiner";
 import { useTranslation } from "@/app/i18n/client";
 
-const DeleteDialoag = ({ shop , userId , lng}) =>{
+ const DeleteDialoag = ({ shop , lng}) =>{
   
 const { t } = useTranslation(lng , "view")
 const closeDialoagRef = useRef()
@@ -24,11 +24,8 @@ const [deleteLoading , setDeleteLoading ] = useState(false)
 const handleDeleteShop = async (shopId) => {
   try {
     setDeleteLoading(true);
-
-    // Call the deleteShop function
-    const deletedShop = await deleteShop(shopId, userId);
-    console.log(deletedShop);
-    toast('Shop deleted successfully');
+     await deleteShop(shopId);
+     toast('Shop deleted successfully');
   } catch (error) {
     console.error('Error deleting shop:', error);
   } finally {

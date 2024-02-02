@@ -176,8 +176,6 @@ export async function createAdForShop(data, shopId, adStatus) {
     redirect(`/shopAds/${shopId}`)
   }
 }
-
-
 export  async function createUserIfNotExists(userData) {
   try {
       const {email , image , name} = userData.user
@@ -196,7 +194,6 @@ export  async function createUserIfNotExists(userData) {
     return null;
   }
 }
-
 export async function getUserByUserId(userId) {
   try {
     const user = await prisma.user.findUnique({
@@ -213,7 +210,6 @@ export async function getUserByUserId(userId) {
     throw new Error(`Unable to fetch user: ${error.message}`);
   }
 }
-
 export async function updateUserPhoneNumber(newPhoneNumber , email) {
   try {
     const user = await prisma.User.findUnique({
@@ -239,7 +235,6 @@ export async function updateUserPhoneNumber(newPhoneNumber , email) {
     console.error(`Failed to update user's phone number: ${error.message}`);
   }
 }
-
 export async function getUserByEmail(email) {
   try {
     const existingUser = await prisma.user.findUnique({
@@ -330,6 +325,24 @@ export async function getUserByEmail(email) {
     return null;
   }finally{
     prisma.$disconnect()
+  }
+}
+export async function getUserShopsByEmail(email) {
+  try {
+    const existingUser = await prisma.user.findUnique({
+      where: {
+        email: email,
+      },
+      include: {
+        shop: true ,
+      },
+    });
+
+    return existingUser;
+  } catch (error) {
+    // Handle any potential errors here
+    console.error("Error fetching user:", error);
+    return null;
   }
 }
 export async function getUserIdByEmail(email) {

@@ -181,8 +181,7 @@ export async function getShopById(shopId) {
     throw new Error('Error fetching shop by ID');
   }
 }
-export async function deleteShop(shopId, userId) {
- let shop_ID = shopId
+export async function deleteShop(shopId) {
   try {
     const shop = await prisma.shop.findUnique({
       where: {
@@ -203,7 +202,7 @@ export async function deleteShop(shopId, userId) {
     }
 
     // Delete the shop
-    await prisma.shop.delete({
+    const deletedShop = await prisma.shop.delete({
       where: {
         id: shopId,
       },
@@ -216,13 +215,11 @@ export async function deleteShop(shopId, userId) {
       },
     });
 
-    console.log(shop_ID);
-    return shop_ID;
+    return deletedShop;
   } catch (error) {
     console.error('Error deleting shop:', error);
-    throw new Error('Error deleting shop');
-  }finally{
-    revalidatePath('/dashboard');
+  } finally {
+    revalidatePath('/dashboard')
     redirect('/dashboard');
   }
 }

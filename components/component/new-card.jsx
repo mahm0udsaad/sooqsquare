@@ -19,7 +19,7 @@ export default function MarketAdCard({ ad , user}) {
           height={200}
           width={300}
           src={ad.Adimages[0].url}
-        />
+        />  
         </Link>
         <HeartIcon
         onClick={()=> addToFavorites(user.id , ad.id)}

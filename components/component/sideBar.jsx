@@ -11,16 +11,15 @@ import { CiEdit } from "react-icons/ci";
 import CreateShopButton from '@/components/component/createShopForm'
 import { useTranslation } from "@/app/i18n";
 import { getServerSession } from 'next-auth'
-import { getUserByEmail } from '@/prisma/actions'
+import {  getUserShopsByEmail } from '@/prisma/actions'
 import dynamic from "next/dynamic";
-import { unstable_noStore } from "next/cache";
 
 const ShopSideBar = async ({ lng }) =>{
-  unstable_noStore()
-  const { t } = await useTranslation(lng , "translation")
   const DeleteDialoag = dynamic(()=> import('@/components/component/buttons/deleteDailoag'))
+  
+  const { t } = await useTranslation(lng , "translation")
   const logedUser = await getServerSession()
-  const user = await getUserByEmail(logedUser?.user.email)
+  const user = await getUserShopsByEmail(logedUser?.user.email)
 
     return(
       <div className="flex flex-col w-64 bg-white dark:bg-zinc-950">
@@ -89,7 +88,7 @@ const ShopSideBar = async ({ lng }) =>{
                       <BsThreads className="w-6 h-6 text-sky-600" />
                       <span className="mx-3">Shop Ads</span>
                   </Link>
-                 <DeleteDialoag lng={lng} shop={shop} userId={user.id}/>
+                 <DeleteDialoag lng={lng} shop={shop}/>
                   </AccordionContent>
                 </AccordionItem>
                 </Accordion>
