@@ -1,7 +1,7 @@
 "use server"
 import { revalidatePath } from "next/cache";
 import prisma from "./client";
-import { redirect } from "next/navigation";
+import { getServerSession } from "next-auth";
 
 export async function createAd(data, userId, adStatus) {
   const {
@@ -192,14 +192,11 @@ export  async function createUserIfNotExists(userData) {
     return null;
   }
 }
-export async function getUserByUserId(userId) {
+export async function getUserByUseremail(email) {
   try {
     const user = await prisma.user.findUnique({
       where: {
-        userId,
-      },
-      include: {
-        ads: true,
+        email,
       },
     });
 
@@ -322,17 +319,25 @@ export async function getUserByEmail(email) {
     return null;
   }
 }
-export async function getUserShopsByEmail(email) {
+export async function getUserShopsByEmail() {
   try {
+    const logedUser = await getServerSession();
+
+    if (!logedUser) {
+      console.error('User not logged in.');
+      return null;
+    }
+
     const existingUser = await prisma.user.findUnique({
       where: {
-        email: email,
+        email: logedUser.user.email,
       },
       include: {
-        shop: true ,
+        shop: true,
       },
     });
 
+    console.log(existingUser);
     return existingUser;
   } catch (error) {
     console.error("Error fetching user:", error);

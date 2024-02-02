@@ -16,6 +16,12 @@ export const DarkModeProvider = ({ children }) => {
   const [successMessage, setSuccessMessage] = useState(null);
   const [countryName , setCountryName] = useState(null)
   const [isConfettiActive, setConfettiActive] = useState(false);
+  const [darkMode, setDarkMode] = useState(() => {
+    return isLocalStorageAvailable
+      ? JSON.parse(localStorage.getItem('darkMode')) || false
+      : false;
+  });
+
   const containerRef = useRef(null);
   const generateRandomColor = () => {
     let color = "#";
@@ -50,6 +56,7 @@ export const DarkModeProvider = ({ children }) => {
   };
 
   useEffect(() => {
+
     if (isConfettiActive) {
       generateConfetti();
       const timeoutId = setTimeout(() => {
@@ -60,60 +67,32 @@ export const DarkModeProvider = ({ children }) => {
       return () => clearTimeout(timeoutId);
     }
   }, [isConfettiActive]);
-
-  const [darkMode, setDarkMode] = useState(() => {
-    return isLocalStorageAvailable
-      ? JSON.parse(localStorage.getItem('darkMode')) || false
-      : false;
-  });
-
-  const [lng, setLng] = useState(() => {
-    return isLocalStorageAvailable
-      ? JSON.parse(localStorage.getItem('lng')) || false
-      : false;
-  });
-
+  
   useEffect(() => {
-    // Update the HTML class and save darkMode to local storage
     if (darkMode) {
       document.documentElement.classList.add('dark');
     } else {
       document.documentElement.classList.remove('dark');
     }
-    // Save darkMode to local storage
     localStorage.setItem('darkMode', JSON.stringify(darkMode));
   }, [darkMode]);
-
-  useEffect(() => {
-    // Update the HTML class and save darkMode to local storage
-    if (darkMode) {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
-    // Save darkMode to local storage
-    localStorage.setItem('darkMode', JSON.stringify(darkMode));
-  }, [darkMode]);
-
+  
   useEffect(() => {
     const fetchLocation = async () => {
       try {
         const location = await getLocation();
-        setCountryName(location.countryName)
+        setCountryName(location.countryName);
       } catch (error) {
         console.error('Error fetching location:', error);
       }
     };
-    if(!countryName){
+  
+    if (!countryName) {
       fetchLocation();
     }
-  }, []);
+  
+  }, [countryName]);
 
-  useEffect(() => {
-    if (errorMessage !== null || successMessage !== null) {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-  }, [errorMessage , successMessage]);
 
   return (
     <DarkModeContext.Provider value={{isConfettiActive, setConfettiActive , darkMode, setDarkMode ,countryName,phoneNum , setPhoneNum , extraFeature ,setExtraFeature,errorMessage , setErrorMessage , successMessage, setSuccessMessage, adImages ,setAdImages }}>

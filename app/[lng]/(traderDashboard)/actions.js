@@ -110,11 +110,11 @@ export async function createShop(userId, data) {
       },
     });
     
-    console.log("Shop ID Created" + newShop.id);
     return newShop;
   } catch (error) {
     console.error('Error creating shop:', error);
   } finally {
+    revalidatePath('/dashboard')
     redirect(`/myShopView/${newShop.id}`);
   }
 }
@@ -180,7 +180,7 @@ export async function getShopById(shopId) {
     throw new Error('Error fetching shop by ID');
   }
 }
-export async function deleteShop(shopId) {
+export async function deleteShop(shopId, userId) {
   try {
     const shop = await prisma.shop.findUnique({
       where: {
@@ -200,7 +200,8 @@ export async function deleteShop(shopId) {
       return null;
     }
 
-    const deletedShop = await prisma.shop.delete({
+    // Delete the shop
+    await prisma.shop.delete({
       where: {
         id: shopId,
       },
@@ -213,11 +214,12 @@ export async function deleteShop(shopId) {
       },
     });
 
-    return deletedShop;
+    return shopId;
   } catch (error) {
     console.error('Error deleting shop:', error);
-  } finally {
-    revalidatePath('/dashboard')
+    throw new Error('Error deleting shop');
+  }finally{
+    revalidatePath('/dashboard');
     redirect('/dashboard');
   }
 }

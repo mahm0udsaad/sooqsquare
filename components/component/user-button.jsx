@@ -3,16 +3,12 @@
 import { Button } from "@/components/ui/button"
 import { PopoverTrigger, PopoverContent, Popover } from "@/components/ui/popover"
 import Link from "next/link"
-import { FaRegEdit } from "react-icons/fa";
-import { TbReportAnalytics } from "react-icons/tb";
-import { BsThreads } from "react-icons/bs";
 import { FaShop } from "react-icons/fa6";
 import { AvatarImage,  Avatar, AvatarFallback } from "@/components/ui/avatar"
-import { FaRegUser } from "react-icons/fa6";
 import { useState } from "react";
 
 
-export function UserButton({ user }) {
+export default  function UserButton({ user }) {
   const [ open , setOpen] = useState(false)
 
   return (
@@ -47,12 +43,12 @@ export function UserButton({ user }) {
                Profile
              </span>
             </Link>
-            {user.shop.length > 0 &&
+            {/* {user?.shop.length > 0 &&
             <Link onClick={()=> setOpen(false)}  className="py-3  items-center flex text-gray-700 dark:text-gray-200 hover:dark:text-white hover:text-zinc-900" href={`/dashboard`}>
              <FaShop className="w-6 h-6 text-green-600" />
              <span className="mx-3">Dashboard</span>
             </Link>
-            }
+            } */}
             <Link onClick={()=> setOpen(false)} className="flex py-3  items-center " href="/myAds">
               <AtSignIcon className="w-6 h-6 text-sky-600" />
              <span className="mx-3 ">

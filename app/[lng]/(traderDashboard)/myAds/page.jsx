@@ -1,13 +1,11 @@
-import { getServerSession } from 'next-auth';
 import { getUserByEmail } from '@/prisma/actions'
 import { getAdsByUserId } from '../actions';
 import { AdCard } from '@/components/component/dashboard-ad-card';
-import { redirect } from 'next/navigation'
+import { getServerSession } from 'next-auth'
 
 export default async function MyAds({params:{lng}}) {
-
-    const logedUser = await getServerSession() 
-    const user = await getUserByEmail(logedUser?.user.email) 
+    const logedUser = await getServerSession()
+    const user = await getUserByEmail(logedUser?.user.email)
     const ads = await getAdsByUserId(user.id)
     
     return (

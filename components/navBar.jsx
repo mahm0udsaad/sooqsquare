@@ -1,50 +1,49 @@
-"use client"
-import { useState} from 'react';
 import Link from 'next/link';
 import {  BiSearch } from 'react-icons/bi';
-import { FiChevronDown } from 'react-icons/fi';
-import { DropdownMenuTrigger, DropdownMenuItem, DropdownMenuContent, DropdownMenu } from '@/components/ui/dropdown-menu';
-import { TfiWorld } from 'react-icons/tfi';
-import { IoLanguageOutline } from 'react-icons/io5';
 import { BsChatLeftDots } from "react-icons/bs";
-import { usePathname, useRouter } from 'next/navigation';
-import { useTranslation } from "../app/i18n/client"
 import Logo from './logo'
-import { useDarkMode } from '@/context/darkModeContext';
-import { CiMenuBurger } from "react-icons/ci";
-import { UserButton } from '@/components/component/user-button'
-import { PopoverTrigger, PopoverContent, Popover } from "@/components/ui/popover"
-import { ArabCountriesWithCurrancy } from '@/data/staticData';
+import dynamic from 'next/dynamic';
+import { useTranslation } from '@/app/i18n';
+import btnSkeleton from '@/components/skeletons/btnSkeleton'
+import { getUserByEmail } from '@/prisma/actions';
+import { getServerSession } from 'next-auth';
+import { redirect } from 'next/dist/server/api-utils';
 
-const NavBar = ({lng , user})=> { 
-  const path = usePathname()
-  const { countryName ,  darkMode , setDarkMode} = useDarkMode()
-  const { t } = useTranslation(lng , "translation")
-  const [menuOpen, setMenuOpen] = useState(false);
+const NavBar = async  ({lng})=> { 
+  const { t } = await useTranslation(lng , "translation")
+  const logedUser = await getServerSession()
+  let user;
+  if(logedUser){
+   user = await getUserByEmail(logedUser?.user.email)
+  }else{
+    redirect('sign-in')
+  }
 
-  const toggleMenu = () => {
-    setMenuOpen(!menuOpen);
-  };
-    const toggleDarkMode = () => {
-      setDarkMode((prevMode) => !prevMode);
-    };
+  console.log("navBar");
+
+    const UserButton = dynamic(()=> import('@/components/component/user-button'),{
+      loading: () => <btnSkeleton />,
+      ssr:false
+    })
+    const DarkModeToggle = dynamic(()=> import('@/components/navBarBtns/darkModeBtn'),{
+      loading:()=> <btnSkeleton />,
+      ssr:false
+    })
     
-    const router = useRouter();
-    
-    const changeToArabic = () => {
-      const arabicPath = path.replace('/en', '/ar');
-      router.push(arabicPath);
-    };
-    const changeToEnglish = () => {
-      const englishPath = path.replace('/ar', '/en');
-      router.push(englishPath);
-    };
-
+    const PopoverCountry = dynamic(()=> import('@/components/navBarBtns/PopoverCountry'),{
+      loading:()=> <btnSkeleton />,
+      ssr:false
+    })
+    const PopoverLanguage = dynamic(()=> import('@/components/navBarBtns/PopoverLanguage'),{
+      loading:()=> <btnSkeleton />,
+      ssr:false
+    })
+ 
   return (
     <>
     <nav className="hidden lg:flex z-50 fixed py-2 shadow-lg w-full  items-center justify-between px-6  bg-white dark:text-white dark:bg-zinc-950">
       <Link className="flex items-center" href="#">
-        <Logo lng={lng} darkMode={darkMode}/>
+        <Logo lng={lng} />
       </Link>
         <form className="flex items-center dark:bg-zinc-900 border dark:border-zinc-800 rounded-xl px-4 w-[30%]">
           <BiSearch className="w-4 h-4 text-gray-700 dark:text-gray-200" />
@@ -60,46 +59,9 @@ const NavBar = ({lng , user})=> {
             {t("Sell")}
             </Link>
 
-          <Popover>
-          <PopoverTrigger asChild>
-           <button className="border dark:border-zinc-800 dark:bg-zinc-900 px-4 py-2 rounded-xl flex items-center">
-              <TfiWorld className="text-xl mx-3" />
-              {!countryName ? t("country"): countryName }
-              <FiChevronDown className="ml-2" />
-              </button>
-          </PopoverTrigger>
-          <PopoverContent className="w-80 dark:bg-zinc-950 dark:text-white">
-            <div className="grid gap-4">
-              <div className="space-y-2">
-              {ArabCountriesWithCurrancy.map((country) => (
-                <div key={country.name} className="hover:bg-gray-100 px-4 py-2">
-                  {country.name}
-                </div>
-              ))}
-              </div>
-            </div>
-          </PopoverContent>
-         </Popover>
+          <PopoverCountry lng={lng} />
+          <PopoverLanguage lng={lng} />
 
-          <Popover>
-          <PopoverTrigger asChild>
-            <button className="border dark:border-zinc-800 dark:bg-zinc-900 px-4 py-2 rounded-xl flex items-center">
-                  <IoLanguageOutline className="text-xl mx-3" />
-                    {t("languages")}  <FiChevronDown className="ml-2" />
-                  </button>
-          </PopoverTrigger>
-          <PopoverContent className="w-80 dark:bg-zinc-950 dark:text-white">
-            <div className="grid gap-4">
-              <div className="space-y-2">
-                  <div onClick={changeToEnglish} className="hover:bg-gray-100  px-4 py-2">
-                  English
-                  </div>
-                  <div onClick={changeToArabic} className="hover:bg-gray-100  px-4 py-2">Arabic</div>
-              </div>
-            </div>
-          </PopoverContent>
-           </Popover>
-         
           <Link href={'/chat'} className="chat dark:bg-zinc-900 hover:opacity-50 bg-white border dark:border-zinc-800 p-2 rounded-md">
           <BsChatLeftDots className="text-xl"/>
           </Link>
@@ -110,25 +72,12 @@ const NavBar = ({lng , user})=> {
             }
           </div>
          
-          <label htmlFor="darkModeToggle" className="flex items-center cursor-pointer ">
-          <div className="relative">
-            <input
-              id="darkModeToggle"
-              className={`sr-only form-checkbox w-0 h-0 `}
-              type="checkbox"
-              checked={darkMode}
-              onChange={toggleDarkMode}
-            />
-            <div className={`w-10 h-5 bg-gray-400 dark:bg-gray-600 rounded-xl shadow-inner ${darkMode ? "bg-rose-800":""}`}></div>
-            <div className={`toggle-dot absolute w-5 h-5 bg-white dark:bg-gray-800 rounded-xl shadow-md inset-y-0 left-0 ${darkMode ? 'transform translate-x-full bg-rose-800' : ''}`}></div>
-          </div>
-          <span className="ml-2 text-gray-700 dark:text-gray-200">{t('darkMode')}</span>
-        </label>
+        <DarkModeToggle lng={lng} />
       
         </div>
     </nav>
     {/* Mobile NavBar */}
-    <nav className="flex flex-col lg:hidden z-50 fixed py-2 shadow-lg w-full  px-6  bg-white dark:bg-zinc-950">
+    {/* <nav className="flex flex-col lg:hidden z-50 fixed py-2 shadow-lg w-full  px-6  bg-white dark:bg-zinc-950">
       <div className="flex  items-center justify-between">
       <Link className="flex items-center" href="#">
         <Logo lng={lng} darkMode={darkMode}/>
@@ -204,7 +153,7 @@ const NavBar = ({lng , user})=> {
           </div>
         </div>
         </div>
-    </nav>
+    </nav> */}
     </>
   )
 }
