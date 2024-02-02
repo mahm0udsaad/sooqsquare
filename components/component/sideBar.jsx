@@ -13,9 +13,10 @@ import { useTranslation } from "@/app/i18n";
 import { getServerSession } from 'next-auth'
 import { getUserByEmail } from '@/prisma/actions'
 import dynamic from "next/dynamic";
+import { unstable_noStore } from "next/cache";
 
 const ShopSideBar = async ({ lng }) =>{
-
+  unstable_noStore()
   const { t } = await useTranslation(lng , "translation")
   const DeleteDialoag = dynamic(()=> import('@/components/component/buttons/deleteDailoag'))
   const logedUser = await getServerSession()
