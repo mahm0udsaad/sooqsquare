@@ -340,7 +340,6 @@ export async function getUserShopsByEmail(email) {
 
     return existingUser;
   } catch (error) {
-    // Handle any potential errors here
     console.error("Error fetching user:", error);
     return null;
   }
