@@ -175,7 +175,6 @@ export async function getShopById(shopId) {
     return shop;
   } catch (error) {
     console.error('Error in getShopById:', error);
-    throw new Error('Error fetching shop by ID');
   }
 }
 export async function deleteShop(shopId, userId) {

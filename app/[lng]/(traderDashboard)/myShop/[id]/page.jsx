@@ -18,7 +18,7 @@ export default async function MyShop({params}) {
     
     return (
        <div className='flex w-11/12 mx-auto flex-col gap-3'>
-          <MyShopPage shop={shop} lng={params.lng}/>
+          {shop ? <MyShopPage shop={shop} lng={params.lng}/> : <h1 className='text-center text-xl'>you have no shop</h1>}
        </div>
   )
 }
