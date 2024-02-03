@@ -4,7 +4,7 @@ import { BsChatLeftDots } from "react-icons/bs";
 import Logo from './logo'
 import dynamic from 'next/dynamic';
 import { useTranslation } from '@/app/i18n';
-import BtnSkeleton from '@/components/skeletons/BtnSkeleton'
+import BtnSkeleton from '@/components/skeletons/btnSkeleton'
 import UserAvatarSkeleton from '@/components/skeletons/userAvatarSkeleton'
 import { getUserByEmail } from '@/prisma/actions';
 import { getServerSession } from 'next-auth';
