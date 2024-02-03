@@ -15,16 +15,10 @@ const NavBar = async  ({ lng })=> {
   const logedUser = await getServerSession()
   const user = await getUserByEmail(logedUser?.user.email)
 
-  console.log("navBar");
     const UserButton = dynamic(()=> import('@/components/component/user-button'),{
       loading: () => <UserAvatarSkeleton />,
       ssr:false
     })
-    const DarkModeToggle = dynamic(()=> import('@/components/navBarBtns/darkModeBtn'),{
-      loading:()=> <BtnSkeleton />,
-      ssr:false
-    })
-    
     const PopoverCountry = dynamic(()=> import('@/components/navBarBtns/PopoverCountry'),{
       loading:()=> <BtnSkeleton />,
       ssr:false

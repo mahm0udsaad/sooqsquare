@@ -25,7 +25,7 @@ export default  function UserButton({ user , lng }) {
         <Button className="rounded-full" size="icon" variant="outline">
           <Avatar>
             <div className="absolute top-0 left-0 right-0 bottom-0">
-              <AvatarImage className="rounded-full hover:opacity-50 transition" src={user.image} alt="user" />
+              <AvatarImage className="rounded-full hover:opacity-50 transition" src={user?.image} alt="user" />
             </div>
             <AvatarFallback>
               <UserIcon className="w-6 h-6" />

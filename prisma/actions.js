@@ -400,7 +400,6 @@ export async function getUserByEmail(email) {
     return existingUser;
   } catch (error) {
     console.log("Error fetching user:", error);
-    return null;
   }finally{
     prisma.$disconnect()
   }

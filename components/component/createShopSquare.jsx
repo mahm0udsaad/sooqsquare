@@ -24,9 +24,7 @@ const CreateShopSquare = ({ user , lng}) =>{
   const { register, handleSubmit, setValue, control, formState: { errors, isSubmitting , isSubmitted ,isSubmitSuccessful} } = useForm();
   const { setConfettiActive , isConfettiActive } = useDarkMode()
  
-  if(!user){
-    redirect('/sign-in')
-  }
+
   const drawerCloseRef = useRef(null);
 
   const handleImageChange = async (e) => {
@@ -51,6 +49,9 @@ const CreateShopSquare = ({ user , lng}) =>{
     }
   };
   const onSubmit = async (data) => {
+    if(!user){
+      redirect('sign-in')
+    }
     if(!data.shopName || !data.shopImage){
         return ;
     }
