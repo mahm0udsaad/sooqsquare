@@ -1,36 +1,43 @@
 import { getShopById } from '../../actions'
 import CategoriesForm from '@/components/shopAdsForms/categoryForm'
 import dynamic from 'next/dynamic';
-import { useTranslation } from '@/app/i18n';
 import Selectors from '@/components/shopAdsForms/selectors'
 
-const MultiImageForm = dynamic(() => import(`@/components/MultibleImages`),{
-    ssr: false,
-});
-const CarBrandSelector = dynamic(() => import(`@/components/carBrandSelection`),{
-ssr: false,
-});
-const LocationDetails = dynamic(() => import(`@/components/LocationSelector`),{
-ssr: false,
-});
-const ExtraFeatures = dynamic(() => import(`@/components/shopAdsForms/extraFeatures`),{
-ssr: false,
-});
-const CarChassis = dynamic(() => import(`@/components/shopAdsForms/carChassis`),{
-ssr: false,
-});
-const PriceSelection = dynamic(() => import(`@/components/shopAdsForms/priceForm`),{
-ssr: false,
-});
-const NameDescriptionSelector = dynamic(() => import(`@/components/NameDescriptionSelector`) ,{
-ssr: false,
-});
-const Review = dynamic(() => import(`@/components/shopAdsForms/review`) ,{
-ssr: false,
-});
-  
-  const SellForm = async ({ params : {id, lng} , searchParams }) =>{
-    const { t } = await useTranslation(lng,"translation")
+const SellForm = async ({ params : {id, lng} , searchParams }) =>{
+      
+      const MultiImageForm = dynamic(() => import(`@/components/MultibleImages`),{
+          ssr: false,
+          loading:()=> <p>loading...</p>
+      });
+      const CarBrandSelector = dynamic(() => import(`@/components/carBrandSelection`),{
+      ssr: false,
+      loading:()=> <p>loading...</p>
+      });
+      const LocationDetails = dynamic(() => import(`@/components/LocationSelector`),{
+      ssr: false,
+      loading:()=> <p>loading...</p>
+      });
+      const ExtraFeatures = dynamic(() => import(`@/components/shopAdsForms/extraFeatures`),{
+      ssr: false,
+      loading:()=> <p>loading...</p>
+      });
+      const CarChassis = dynamic(() => import(`@/components/shopAdsForms/carChassis`),{
+      ssr: false,
+      loading:()=> <p>loading...</p>
+      });
+      const PriceSelection = dynamic(() => import(`@/components/shopAdsForms/priceForm`),{
+      ssr: false,
+      loading:()=> <p>loading...</p>
+      });
+      const NameDescriptionSelector = dynamic(() => import(`@/components/NameDescriptionSelector`) ,{
+      ssr: false,
+      loading:()=> <p>loading...</p>
+      });
+      const Review = dynamic(() => import(`@/components/shopAdsForms/review`) ,{
+      ssr: false,
+      loading:()=> <p>loading...</p>
+      });
+        
     const shop = await getShopById(id)
     
     return (

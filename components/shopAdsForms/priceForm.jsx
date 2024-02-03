@@ -37,13 +37,28 @@ export default function PriceSelection({lng}) {
     const { setErrorMessage } = useDarkMode()
   
     if (!brand || !category || !model || !year || !carType || !carStatus || !transmission || !fuelType || !paintType || price && payment || !extraFeatures ||  !carChassis) return null;
-
+     const searchParams = useSearchParams();
+    const pathname= usePathname()
+    const createQueryString = (queryParams) => {
+      const params = new URLSearchParams(router.query);
+    
+      queryParams.forEach(({ name, value }) => {
+        params.set(name, value);
+      });
+    
+      const updatedParams = params.toString();
+      router.push(pathname + '?' + updatedParams);
+    };
+    
     const handleSubmit = (e) => {
       e.preventDefault();
       if(!pricestate){
         setErrorMessage(t('messages.noValue'))
       }else{
-        router.push(`?category=${category}&carStatus=${carStatus}&uploadedImages=${uploadedImages}&location=${location}&brand=${brand}&carType=${carType}&year=${year}&model=${model}&transmission=${transmission}&RegionalSpecifications=${RegionalSpecifications}&fuelType=${fuelType}&EnginCapacity=${EnginCapacity}&meterRange=${meterRange}&paintType=${paintType}&extraFeatures=${extraFeatures}&carChassis=${carChassis}&price=${pricestate}&payment=${selectedPaymentMethod}`);
+        createQueryString([
+          { name: 'price', value: pricestate },
+          { name: 'payment', value: selectedPaymentMethod },
+        ]);
       }
     };
     return (

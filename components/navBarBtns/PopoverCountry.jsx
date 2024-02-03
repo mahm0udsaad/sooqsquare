@@ -7,16 +7,13 @@ import { useTranslation } from "@/app/i18n/client";
 import { ArabCountriesWithCurrancy } from '@/data/staticData';
 import { useDarkMode } from '@/context/darkModeContext';
 
-const PopoverCountry = ({ lng }) => {
-  const { t } = useTranslation(lng , "translation");
-  const { countryName } = useDarkMode()
-
+const PopoverCountry = () => {
   return (
     <Popover>
       <PopoverTrigger asChild>
         <button className="border dark:border-zinc-800 dark:bg-zinc-900 px-4 py-2 rounded-xl flex items-center">
           <TfiWorld className="text-xl mx-3" />
-          {!countryName ? t("country") : countryName}
+          country
           <FiChevronDown className="ml-2" />
         </button>
       </PopoverTrigger>

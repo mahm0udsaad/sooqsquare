@@ -6,9 +6,10 @@ import React, { useState } from 'react';
 import {  SelectTrigger, SelectItem, SelectGroup, SelectContent, Select } from "@/components/ui/select"
 import {getLocation} from '../helper/location'
 import { cities} from "./../data/staticData"
+import { updateUserCountry } from '@/prisma/actions';
 
 
-export default function LocationDetails({lng , locationGiven}) {
+export default function LocationDetails({lng , locationGiven, user}) {
     const { t } = useTranslation(lng,"translation");
     const [loading , setLoading] = useState(false)
     const router = useRouter();
@@ -32,16 +33,16 @@ export default function LocationDetails({lng , locationGiven}) {
         setLoading(true)
         const userLocation = await getLocation();
         // Do something with the userLocation, like sending it to an API, etc.
-        console.log(userLocation);
-        router.push(`?category=${category}&uploadedImages=${uploadedImages}&location=${userLocation.city}`);
+        updateUserCountry(user.id , userLocation.countryName)
+        createQueryString('location' , userLocation.city)
       } catch (error) {
         console.error('Error getting location:', error);
         // Handle error, show a message to the user, etc.
       }
     };
     if ( location  || !category || !uploadedImages ) return null;
-    function handleLocationSelection(location) {
-      createQueryString('location' , location)
+    const handleLocationSelection = (city) => {
+      createQueryString('location' , city)
     }
     return (
       <>
@@ -55,7 +56,7 @@ export default function LocationDetails({lng , locationGiven}) {
           <SelectContent>
             <SelectGroup>
             {cities.map((city) => (
-                <SelectItem key={city} onMouseDown={()=>handleLocationSelection(city)}>
+                <SelectItem key={city} onMouseDown={()=> handleLocationSelection(city)}>
                   {t(`cities.${city}`)}
                 </SelectItem>
               ))}

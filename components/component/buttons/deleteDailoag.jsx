@@ -36,7 +36,7 @@ const handleDeleteShop = async (shopId) => {
 
     return(
       <Dialog>
-      <DialogTrigger>
+      <DialogTrigger asChild>
         <Button className="p-0 bg-transparent hover:bg-transparent flex gap-3 items-center text-gray-700 dark:text-gray-200 hover:dark:text-white hover:text-zinc-900">
           <TrashIcon className="w-6 h-6 text-red-600" />
           <span className="mx-3">{t("Delete Shop")}</span>
@@ -52,7 +52,7 @@ const handleDeleteShop = async (shopId) => {
         </DialogHeader>
         <div>
           {/* Replace Button with another element */}
-          <div onClick={() => handleDeleteShop(shop.id)} className="bg-transparent hover:bg-rose-600 hover:text-white border border-rose-600 flex gap-3 items-center text-rose-700 dark:text-gray-200 hover:text-zinc-900" href={`/shopAds/${shop.id}`}>
+          <div onClick={() => handleDeleteShop(shop.id)} className="bg-transparent cursor-pointer hover:text-white justify-center p-4 rounded-md hover:bg-rose-600 hover:text-white border border-rose-600 flex gap-3 items-center text-rose-700 dark:text-gray-200 hover:text-zinc-900" >
             {deleteLoading && <LoadingSpinner />}
             <TrashIcon className="w-6 h-6" />
             <span className="mx-3">Delete Shop</span>

@@ -1550,6 +1550,7 @@ export namespace Prisma {
     createdAt: Date | null
     phoneNumber: string | null
     username: string | null
+    country: string | null
     image: string | null
     email: string | null
   }
@@ -1559,6 +1560,7 @@ export namespace Prisma {
     createdAt: Date | null
     phoneNumber: string | null
     username: string | null
+    country: string | null
     image: string | null
     email: string | null
   }
@@ -1568,6 +1570,7 @@ export namespace Prisma {
     createdAt: number
     phoneNumber: number
     username: number
+    country: number
     image: number
     email: number
     _all: number
@@ -1587,6 +1590,7 @@ export namespace Prisma {
     createdAt?: true
     phoneNumber?: true
     username?: true
+    country?: true
     image?: true
     email?: true
   }
@@ -1596,6 +1600,7 @@ export namespace Prisma {
     createdAt?: true
     phoneNumber?: true
     username?: true
+    country?: true
     image?: true
     email?: true
   }
@@ -1605,6 +1610,7 @@ export namespace Prisma {
     createdAt?: true
     phoneNumber?: true
     username?: true
+    country?: true
     image?: true
     email?: true
     _all?: true
@@ -1701,6 +1707,7 @@ export namespace Prisma {
     createdAt: Date
     phoneNumber: string | null
     username: string | null
+    country: string | null
     image: string | null
     email: string
     _count: UserCountAggregateOutputType | null
@@ -1729,6 +1736,7 @@ export namespace Prisma {
     createdAt?: boolean
     phoneNumber?: boolean
     username?: boolean
+    country?: boolean
     image?: boolean
     email?: boolean
     ads?: boolean | User$adsArgs<ExtArgs>
@@ -1745,6 +1753,7 @@ export namespace Prisma {
     createdAt?: boolean
     phoneNumber?: boolean
     username?: boolean
+    country?: boolean
     image?: boolean
     email?: boolean
   }
@@ -1775,6 +1784,7 @@ export namespace Prisma {
       createdAt: Date
       phoneNumber: string | null
       username: string | null
+      country: string | null
       image: string | null
       email: string
     }, ExtArgs["result"]["user"]>
@@ -2170,6 +2180,7 @@ export namespace Prisma {
     readonly createdAt: FieldRef<"User", 'DateTime'>
     readonly phoneNumber: FieldRef<"User", 'String'>
     readonly username: FieldRef<"User", 'String'>
+    readonly country: FieldRef<"User", 'String'>
     readonly image: FieldRef<"User", 'String'>
     readonly email: FieldRef<"User", 'String'>
   }
@@ -4619,6 +4630,7 @@ export namespace Prisma {
     shopId: number | null
     createdAt: Date | null
     description: string | null
+    country: string | null
     brand: string | null
     EnginCapacity: string | null
     category: string | null
@@ -4647,6 +4659,7 @@ export namespace Prisma {
     shopId: number | null
     createdAt: Date | null
     description: string | null
+    country: string | null
     brand: string | null
     EnginCapacity: string | null
     category: string | null
@@ -4675,6 +4688,7 @@ export namespace Prisma {
     shopId: number
     createdAt: number
     description: number
+    country: number
     brand: number
     EnginCapacity: number
     category: number
@@ -4721,6 +4735,7 @@ export namespace Prisma {
     shopId?: true
     createdAt?: true
     description?: true
+    country?: true
     brand?: true
     EnginCapacity?: true
     category?: true
@@ -4749,6 +4764,7 @@ export namespace Prisma {
     shopId?: true
     createdAt?: true
     description?: true
+    country?: true
     brand?: true
     EnginCapacity?: true
     category?: true
@@ -4777,6 +4793,7 @@ export namespace Prisma {
     shopId?: true
     createdAt?: true
     description?: true
+    country?: true
     brand?: true
     EnginCapacity?: true
     category?: true
@@ -4892,6 +4909,7 @@ export namespace Prisma {
     shopId: number | null
     createdAt: Date
     description: string | null
+    country: string | null
     brand: string
     EnginCapacity: string
     category: string
@@ -4939,6 +4957,7 @@ export namespace Prisma {
     shopId?: boolean
     createdAt?: boolean
     description?: boolean
+    country?: boolean
     brand?: boolean
     EnginCapacity?: boolean
     category?: boolean
@@ -4972,6 +4991,7 @@ export namespace Prisma {
     shopId?: boolean
     createdAt?: boolean
     description?: boolean
+    country?: boolean
     brand?: boolean
     EnginCapacity?: boolean
     category?: boolean
@@ -5017,6 +5037,7 @@ export namespace Prisma {
       shopId: number | null
       createdAt: Date
       description: string | null
+      country: string | null
       brand: string
       EnginCapacity: string
       category: string
@@ -5427,6 +5448,7 @@ export namespace Prisma {
     readonly shopId: FieldRef<"Ad", 'Int'>
     readonly createdAt: FieldRef<"Ad", 'DateTime'>
     readonly description: FieldRef<"Ad", 'String'>
+    readonly country: FieldRef<"Ad", 'String'>
     readonly brand: FieldRef<"Ad", 'String'>
     readonly EnginCapacity: FieldRef<"Ad", 'String'>
     readonly category: FieldRef<"Ad", 'String'>
@@ -8672,6 +8694,7 @@ export namespace Prisma {
     createdAt: 'createdAt',
     phoneNumber: 'phoneNumber',
     username: 'username',
+    country: 'country',
     image: 'image',
     email: 'email'
   };
@@ -8715,6 +8738,7 @@ export namespace Prisma {
     shopId: 'shopId',
     createdAt: 'createdAt',
     description: 'description',
+    country: 'country',
     brand: 'brand',
     EnginCapacity: 'EnginCapacity',
     category: 'category',
@@ -8829,6 +8853,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"User"> | Date | string
     phoneNumber?: StringNullableFilter<"User"> | string | null
     username?: StringNullableFilter<"User"> | string | null
+    country?: StringNullableFilter<"User"> | string | null
     image?: StringNullableFilter<"User"> | string | null
     email?: StringFilter<"User"> | string
     ads?: AdListRelationFilter
@@ -8844,6 +8869,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     phoneNumber?: SortOrderInput | SortOrder
     username?: SortOrderInput | SortOrder
+    country?: SortOrderInput | SortOrder
     image?: SortOrderInput | SortOrder
     email?: SortOrder
     ads?: AdOrderByRelationAggregateInput
@@ -8863,6 +8889,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"User"> | Date | string
     phoneNumber?: StringNullableFilter<"User"> | string | null
     username?: StringNullableFilter<"User"> | string | null
+    country?: StringNullableFilter<"User"> | string | null
     image?: StringNullableFilter<"User"> | string | null
     ads?: AdListRelationFilter
     chats?: ChatListRelationFilter
@@ -8877,6 +8904,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     phoneNumber?: SortOrderInput | SortOrder
     username?: SortOrderInput | SortOrder
+    country?: SortOrderInput | SortOrder
     image?: SortOrderInput | SortOrder
     email?: SortOrder
     _count?: UserCountOrderByAggregateInput
@@ -8894,6 +8922,7 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     phoneNumber?: StringNullableWithAggregatesFilter<"User"> | string | null
     username?: StringNullableWithAggregatesFilter<"User"> | string | null
+    country?: StringNullableWithAggregatesFilter<"User"> | string | null
     image?: StringNullableWithAggregatesFilter<"User"> | string | null
     email?: StringWithAggregatesFilter<"User"> | string
   }
@@ -9064,6 +9093,7 @@ export namespace Prisma {
     shopId?: IntNullableFilter<"Ad"> | number | null
     createdAt?: DateTimeFilter<"Ad"> | Date | string
     description?: StringNullableFilter<"Ad"> | string | null
+    country?: StringNullableFilter<"Ad"> | string | null
     brand?: StringFilter<"Ad"> | string
     EnginCapacity?: StringFilter<"Ad"> | string
     category?: StringFilter<"Ad"> | string
@@ -9096,6 +9126,7 @@ export namespace Prisma {
     shopId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     description?: SortOrderInput | SortOrder
+    country?: SortOrderInput | SortOrder
     brand?: SortOrder
     EnginCapacity?: SortOrder
     category?: SortOrder
@@ -9131,6 +9162,7 @@ export namespace Prisma {
     shopId?: IntNullableFilter<"Ad"> | number | null
     createdAt?: DateTimeFilter<"Ad"> | Date | string
     description?: StringNullableFilter<"Ad"> | string | null
+    country?: StringNullableFilter<"Ad"> | string | null
     brand?: StringFilter<"Ad"> | string
     EnginCapacity?: StringFilter<"Ad"> | string
     category?: StringFilter<"Ad"> | string
@@ -9163,6 +9195,7 @@ export namespace Prisma {
     shopId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     description?: SortOrderInput | SortOrder
+    country?: SortOrderInput | SortOrder
     brand?: SortOrder
     EnginCapacity?: SortOrder
     category?: SortOrder
@@ -9199,6 +9232,7 @@ export namespace Prisma {
     shopId?: IntNullableWithAggregatesFilter<"Ad"> | number | null
     createdAt?: DateTimeWithAggregatesFilter<"Ad"> | Date | string
     description?: StringNullableWithAggregatesFilter<"Ad"> | string | null
+    country?: StringNullableWithAggregatesFilter<"Ad"> | string | null
     brand?: StringWithAggregatesFilter<"Ad"> | string
     EnginCapacity?: StringWithAggregatesFilter<"Ad"> | string
     category?: StringWithAggregatesFilter<"Ad"> | string
@@ -9388,6 +9422,7 @@ export namespace Prisma {
     createdAt?: Date | string
     phoneNumber?: string | null
     username?: string | null
+    country?: string | null
     image?: string | null
     email: string
     ads?: AdCreateNestedManyWithoutUserInput
@@ -9403,6 +9438,7 @@ export namespace Prisma {
     createdAt?: Date | string
     phoneNumber?: string | null
     username?: string | null
+    country?: string | null
     image?: string | null
     email: string
     ads?: AdUncheckedCreateNestedManyWithoutUserInput
@@ -9417,6 +9453,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     username?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     ads?: AdUpdateManyWithoutUserNestedInput
@@ -9432,6 +9469,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     username?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     ads?: AdUncheckedUpdateManyWithoutUserNestedInput
@@ -9446,6 +9484,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     username?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
   }
@@ -9455,6 +9494,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     username?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
   }
@@ -9602,6 +9642,7 @@ export namespace Prisma {
   export type AdCreateInput = {
     createdAt?: Date | string
     description?: string | null
+    country?: string | null
     brand: string
     EnginCapacity: string
     category: string
@@ -9634,6 +9675,7 @@ export namespace Prisma {
     shopId?: number | null
     createdAt?: Date | string
     description?: string | null
+    country?: string | null
     brand: string
     EnginCapacity: string
     category: string
@@ -9661,6 +9703,7 @@ export namespace Prisma {
   export type AdUpdateInput = {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
     brand?: StringFieldUpdateOperationsInput | string
     EnginCapacity?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
@@ -9693,6 +9736,7 @@ export namespace Prisma {
     shopId?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
     brand?: StringFieldUpdateOperationsInput | string
     EnginCapacity?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
@@ -9720,6 +9764,7 @@ export namespace Prisma {
   export type AdUpdateManyMutationInput = {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
     brand?: StringFieldUpdateOperationsInput | string
     EnginCapacity?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
@@ -9748,6 +9793,7 @@ export namespace Prisma {
     shopId?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
     brand?: StringFieldUpdateOperationsInput | string
     EnginCapacity?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
@@ -9995,6 +10041,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     phoneNumber?: SortOrder
     username?: SortOrder
+    country?: SortOrder
     image?: SortOrder
     email?: SortOrder
   }
@@ -10008,6 +10055,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     phoneNumber?: SortOrder
     username?: SortOrder
+    country?: SortOrder
     image?: SortOrder
     email?: SortOrder
   }
@@ -10017,6 +10065,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     phoneNumber?: SortOrder
     username?: SortOrder
+    country?: SortOrder
     image?: SortOrder
     email?: SortOrder
   }
@@ -10228,6 +10277,7 @@ export namespace Prisma {
     shopId?: SortOrder
     createdAt?: SortOrder
     description?: SortOrder
+    country?: SortOrder
     brand?: SortOrder
     EnginCapacity?: SortOrder
     category?: SortOrder
@@ -10264,6 +10314,7 @@ export namespace Prisma {
     shopId?: SortOrder
     createdAt?: SortOrder
     description?: SortOrder
+    country?: SortOrder
     brand?: SortOrder
     EnginCapacity?: SortOrder
     category?: SortOrder
@@ -10292,6 +10343,7 @@ export namespace Prisma {
     shopId?: SortOrder
     createdAt?: SortOrder
     description?: SortOrder
+    country?: SortOrder
     brand?: SortOrder
     EnginCapacity?: SortOrder
     category?: SortOrder
@@ -11187,6 +11239,7 @@ export namespace Prisma {
   export type AdCreateWithoutUserInput = {
     createdAt?: Date | string
     description?: string | null
+    country?: string | null
     brand: string
     EnginCapacity: string
     category: string
@@ -11217,6 +11270,7 @@ export namespace Prisma {
     shopId?: number | null
     createdAt?: Date | string
     description?: string | null
+    country?: string | null
     brand: string
     EnginCapacity: string
     category: string
@@ -11381,6 +11435,7 @@ export namespace Prisma {
     shopId?: IntNullableFilter<"Ad"> | number | null
     createdAt?: DateTimeFilter<"Ad"> | Date | string
     description?: StringNullableFilter<"Ad"> | string | null
+    country?: StringNullableFilter<"Ad"> | string | null
     brand?: StringFilter<"Ad"> | string
     EnginCapacity?: StringFilter<"Ad"> | string
     category?: StringFilter<"Ad"> | string
@@ -11537,6 +11592,7 @@ export namespace Prisma {
     createdAt?: Date | string
     phoneNumber?: string | null
     username?: string | null
+    country?: string | null
     image?: string | null
     email: string
     ads?: AdCreateNestedManyWithoutUserInput
@@ -11551,6 +11607,7 @@ export namespace Prisma {
     createdAt?: Date | string
     phoneNumber?: string | null
     username?: string | null
+    country?: string | null
     image?: string | null
     email: string
     ads?: AdUncheckedCreateNestedManyWithoutUserInput
@@ -11568,6 +11625,7 @@ export namespace Prisma {
   export type AdCreateWithoutShopInput = {
     createdAt?: Date | string
     description?: string | null
+    country?: string | null
     brand: string
     EnginCapacity: string
     category: string
@@ -11598,6 +11656,7 @@ export namespace Prisma {
     userId?: number | null
     createdAt?: Date | string
     description?: string | null
+    country?: string | null
     brand: string
     EnginCapacity: string
     category: string
@@ -11642,6 +11701,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     username?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     ads?: AdUpdateManyWithoutUserNestedInput
@@ -11656,6 +11716,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     username?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     ads?: AdUncheckedUpdateManyWithoutUserNestedInput
@@ -11684,6 +11745,7 @@ export namespace Prisma {
   export type AdCreateWithoutAdimagesInput = {
     createdAt?: Date | string
     description?: string | null
+    country?: string | null
     brand: string
     EnginCapacity: string
     category: string
@@ -11715,6 +11777,7 @@ export namespace Prisma {
     shopId?: number | null
     createdAt?: Date | string
     description?: string | null
+    country?: string | null
     brand: string
     EnginCapacity: string
     category: string
@@ -11757,6 +11820,7 @@ export namespace Prisma {
   export type AdUpdateWithoutAdimagesInput = {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
     brand?: StringFieldUpdateOperationsInput | string
     EnginCapacity?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
@@ -11788,6 +11852,7 @@ export namespace Prisma {
     shopId?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
     brand?: StringFieldUpdateOperationsInput | string
     EnginCapacity?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
@@ -11815,6 +11880,7 @@ export namespace Prisma {
     createdAt?: Date | string
     phoneNumber?: string | null
     username?: string | null
+    country?: string | null
     image?: string | null
     email: string
     chats?: ChatCreateNestedManyWithoutUsersInput
@@ -11829,6 +11895,7 @@ export namespace Prisma {
     createdAt?: Date | string
     phoneNumber?: string | null
     username?: string | null
+    country?: string | null
     image?: string | null
     email: string
     chats?: ChatUncheckedCreateNestedManyWithoutUsersInput
@@ -11928,6 +11995,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     username?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     chats?: ChatUpdateManyWithoutUsersNestedInput
@@ -11942,6 +12010,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     username?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     chats?: ChatUncheckedUpdateManyWithoutUsersNestedInput
@@ -12042,6 +12111,7 @@ export namespace Prisma {
     createdAt?: Date | string
     phoneNumber?: string | null
     username?: string | null
+    country?: string | null
     image?: string | null
     email: string
     ads?: AdCreateNestedManyWithoutUserInput
@@ -12056,6 +12126,7 @@ export namespace Prisma {
     createdAt?: Date | string
     phoneNumber?: string | null
     username?: string | null
+    country?: string | null
     image?: string | null
     email: string
     ads?: AdUncheckedCreateNestedManyWithoutUserInput
@@ -12073,6 +12144,7 @@ export namespace Prisma {
   export type AdCreateWithoutFavoritedByInput = {
     createdAt?: Date | string
     description?: string | null
+    country?: string | null
     brand: string
     EnginCapacity: string
     category: string
@@ -12104,6 +12176,7 @@ export namespace Prisma {
     shopId?: number | null
     createdAt?: Date | string
     description?: string | null
+    country?: string | null
     brand: string
     EnginCapacity: string
     category: string
@@ -12147,6 +12220,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     username?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     ads?: AdUpdateManyWithoutUserNestedInput
@@ -12161,6 +12235,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     username?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     ads?: AdUncheckedUpdateManyWithoutUserNestedInput
@@ -12184,6 +12259,7 @@ export namespace Prisma {
   export type AdUpdateWithoutFavoritedByInput = {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
     brand?: StringFieldUpdateOperationsInput | string
     EnginCapacity?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
@@ -12215,6 +12291,7 @@ export namespace Prisma {
     shopId?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
     brand?: StringFieldUpdateOperationsInput | string
     EnginCapacity?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
@@ -12242,6 +12319,7 @@ export namespace Prisma {
     createdAt?: Date | string
     phoneNumber?: string | null
     username?: string | null
+    country?: string | null
     image?: string | null
     email: string
     ads?: AdCreateNestedManyWithoutUserInput
@@ -12256,6 +12334,7 @@ export namespace Prisma {
     createdAt?: Date | string
     phoneNumber?: string | null
     username?: string | null
+    country?: string | null
     image?: string | null
     email: string
     ads?: AdUncheckedCreateNestedManyWithoutUserInput
@@ -12314,6 +12393,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"User"> | Date | string
     phoneNumber?: StringNullableFilter<"User"> | string | null
     username?: StringNullableFilter<"User"> | string | null
+    country?: StringNullableFilter<"User"> | string | null
     image?: StringNullableFilter<"User"> | string | null
     email?: StringFilter<"User"> | string
   }
@@ -12338,6 +12418,7 @@ export namespace Prisma {
     createdAt?: Date | string
     phoneNumber?: string | null
     username?: string | null
+    country?: string | null
     image?: string | null
     email: string
     ads?: AdCreateNestedManyWithoutUserInput
@@ -12352,6 +12433,7 @@ export namespace Prisma {
     createdAt?: Date | string
     phoneNumber?: string | null
     username?: string | null
+    country?: string | null
     image?: string | null
     email: string
     ads?: AdUncheckedCreateNestedManyWithoutUserInput
@@ -12370,6 +12452,7 @@ export namespace Prisma {
     createdAt?: Date | string
     phoneNumber?: string | null
     username?: string | null
+    country?: string | null
     image?: string | null
     email: string
     ads?: AdCreateNestedManyWithoutUserInput
@@ -12384,6 +12467,7 @@ export namespace Prisma {
     createdAt?: Date | string
     phoneNumber?: string | null
     username?: string | null
+    country?: string | null
     image?: string | null
     email: string
     ads?: AdUncheckedCreateNestedManyWithoutUserInput
@@ -12427,6 +12511,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     username?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     ads?: AdUpdateManyWithoutUserNestedInput
@@ -12441,6 +12526,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     username?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     ads?: AdUncheckedUpdateManyWithoutUserNestedInput
@@ -12465,6 +12551,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     username?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     ads?: AdUpdateManyWithoutUserNestedInput
@@ -12479,6 +12566,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     username?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     ads?: AdUncheckedUpdateManyWithoutUserNestedInput
@@ -12511,6 +12599,7 @@ export namespace Prisma {
   export type AdUpdateWithoutUserInput = {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
     brand?: StringFieldUpdateOperationsInput | string
     EnginCapacity?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
@@ -12541,6 +12630,7 @@ export namespace Prisma {
     shopId?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
     brand?: StringFieldUpdateOperationsInput | string
     EnginCapacity?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
@@ -12570,6 +12660,7 @@ export namespace Prisma {
     shopId?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
     brand?: StringFieldUpdateOperationsInput | string
     EnginCapacity?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
@@ -12723,6 +12814,7 @@ export namespace Prisma {
   export type AdUpdateWithoutShopInput = {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
     brand?: StringFieldUpdateOperationsInput | string
     EnginCapacity?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
@@ -12753,6 +12845,7 @@ export namespace Prisma {
     userId?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
     brand?: StringFieldUpdateOperationsInput | string
     EnginCapacity?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
@@ -12782,6 +12875,7 @@ export namespace Prisma {
     userId?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
     brand?: StringFieldUpdateOperationsInput | string
     EnginCapacity?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
@@ -12839,6 +12933,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     username?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     ads?: AdUpdateManyWithoutUserNestedInput
@@ -12853,6 +12948,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     username?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     ads?: AdUncheckedUpdateManyWithoutUserNestedInput
@@ -12867,6 +12963,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     username?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
   }

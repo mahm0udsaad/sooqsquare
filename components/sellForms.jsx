@@ -23,26 +23,27 @@ import {
   ToggleGroupItem,
 } from "@/components/ui/toggle-group"
 import { toast } from 'sonner';
-const NameDescriptionSelector = dynamic(() => import(`./NameDescriptionSelector`) ,{
-  ssr: false,
-});
-const CarBrandSelector = dynamic(() => import(`./carBrandSelection`),{
-  ssr: false,
-});
-const CarStatusSelection = dynamic(() => import(`./carStatusSelection`),{
-  ssr: false,
-});
-const MultiImageForm = dynamic(() => import(`./MultibleImages`),{
-  ssr: false,
-});
-const LocationDetails = dynamic(() => import(`./LocationSelector`),{
-  ssr: false,
-});
 
 
 const SelectionComp = withGenericSelection(GenericSelection);
 
 export const CarForSellAd = ({lng , userId}) =>{
+  const NameDescriptionSelector = dynamic(() => import(`./NameDescriptionSelector`) ,{
+    ssr: false,
+  });
+  const CarBrandSelector = dynamic(() => import(`./carBrandSelection`),{
+    ssr: false,
+  });
+  const CarStatusSelection = dynamic(() => import(`./carStatusSelection`),{
+    ssr: false,
+  });
+  const MultiImageForm = dynamic(() => import(`./MultibleImages`),{
+    ssr: false,
+  });
+  const LocationDetails = dynamic(() => import(`./LocationSelector`),{
+    ssr: false,
+  });
+  
   const { t } = useTranslation(lng , "translation")
   const transmission = useSearchParams().get("transmission");
   const RegionalSpecifications = useSearchParams().get("RegionalSpecifications");
@@ -198,7 +199,7 @@ return (
         <CarStatusSelection lng={lng} />
         <MultiImageForm lng={lng} />
         <NameDescriptionSelector lng={lng} />
-        <LocationDetails lng={lng} />
+        <LocationDetails locationGiven={null} lng={lng} />
         <CarBrandSelector lng={lng} />
 
         {!transmission && <SelectionComp {...transmissionProps} />}

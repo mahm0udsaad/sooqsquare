@@ -79,7 +79,7 @@ function TrashIcon(props) {
     const searchParams = useSearchParams();
     const router = useRouter()
     const pathname= usePathname()
-    
+    if(!searchParams.has('category')) return ;
     const createQueryString = (name, value) => {
       const params = new URLSearchParams(searchParams);
       params.set(name, value);

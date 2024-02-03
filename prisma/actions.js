@@ -369,3 +369,29 @@ export async function getUserIdByEmail(email) {
     await prisma.$disconnect();
   }
 }
+export async function updateUserCountry(userId, newCountry) {
+  try {
+    // Find the user by ID
+    const user = await prisma.user.findUnique({
+      where: { id: userId },
+    });
+
+    if (!user) {
+      // Handle user not found
+      return { success: false, message: 'User not found.' };
+    }
+
+    // Update the user's country
+    await prisma.user.update({
+      where: { id: userId },
+      data: { country: newCountry },
+    });
+
+    // Return success
+    return { success: true, message: 'User country updated successfully.' };
+  } catch (error) {
+    // Handle errors
+    console.error('Error updating user country:', error);
+    return { success: false, message: 'Internal server error.' };
+  }
+}

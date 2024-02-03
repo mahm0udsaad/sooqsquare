@@ -18,10 +18,17 @@ export const DarkModeProvider = ({ children }) => {
   const [isConfettiActive, setConfettiActive] = useState(false);
   const [darkMode, setDarkMode] = useState(() => {
     return isLocalStorageAvailable
-      ? JSON.parse(localStorage.getItem('darkMode')) || false
+      ? JSON.parse(localStorage.getItem('darkMode'))
       : false;
   });
-
+  const [lng, setLngState] = useState(() => {
+    return isLocalStorageAvailable 
+    ? localStorage.getItem('lng') : 'ar';
+  });
+  const setLng = (newLng) => {
+    setLngState(newLng);
+    localStorage.setItem('lng', newLng);
+  };
   const containerRef = useRef(null);
   const generateRandomColor = () => {
     let color = "#";
@@ -91,11 +98,12 @@ export const DarkModeProvider = ({ children }) => {
       fetchLocation();
     }
   
-  }, [countryName]);
+  }, []);
 
 
   return (
-    <DarkModeContext.Provider value={{isConfettiActive, setConfettiActive , darkMode, setDarkMode ,countryName,phoneNum , setPhoneNum , extraFeature ,setExtraFeature,errorMessage , setErrorMessage , successMessage, setSuccessMessage, adImages ,setAdImages }}>
+    <DarkModeContext.Provider value={{lng, setLng , isConfettiActive, setConfettiActive , darkMode, setDarkMode ,countryName,phoneNum , setPhoneNum , extraFeature ,setExtraFeature,errorMessage , setErrorMessage , successMessage, setSuccessMessage, adImages ,setAdImages }}>
+    {isConfettiActive && <div className='fixed top-0 left-0 w-full h-full pointer-events-none' ref={containerRef} id="confetti-container"></div>}
       {children}
     </DarkModeContext.Provider>
   );

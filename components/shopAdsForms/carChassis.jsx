@@ -1,31 +1,28 @@
 "use client"
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button"
-import {  useRouter, useSearchParams } from "next/navigation";
+import {  usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useDarkMode } from "@/context/darkModeContext";
 import { useState } from "react";
 import { useTranslation } from "@/app/i18n/client";
 
  const CarChassis = ({ lng }) =>{
     const router = useRouter()
+    const searchParams = useSearchParams();
+
     const {setErrorMessage} = useDarkMode()
-    const brand = useSearchParams().get("brand");
-    const category = useSearchParams().get("category");
-    const model = useSearchParams().get("model");
-    const year = useSearchParams().get("year"); 
-    const carType = useSearchParams().get("carType");
-    const carStatus = useSearchParams().get("carStatus");
-    const transmission = useSearchParams().get("transmission");
-    const uploadedImages = useSearchParams().get("uploadedImages");
-    const RegionalSpecifications = useSearchParams().get("RegionalSpecifications");
-    const fuelType = useSearchParams().get("fuelType");
-    const EnginCapacity = useSearchParams().get("EnginCapacity");
-    const meterRange = useSearchParams().get("meterRange");
-    const paintType = useSearchParams().get("paintType");
-    const location = useSearchParams().get("location");
+    const brand = searchParams.get("brand");
+    const category = searchParams.get("category");
+    const model = searchParams.get("model");
+    const year = searchParams.get("year"); 
+    const carType = searchParams.get("carType");
+    const carStatus = searchParams.get("carStatus");
+    const transmission = searchParams.get("transmission");
+    const fuelType = searchParams.get("fuelType");
+    const paintType = searchParams.get("paintType");
     const { t } = useTranslation(lng , "translation")
-    const extraFeatures = useSearchParams().get("extraFeatures");
-    const carChassis = useSearchParams().get("carChassis");
+    const extraFeatures = searchParams.get("extraFeatures");
+    const carChassis = searchParams.get("carChassis");
     const [chassisNum , setChassisNum] = useState(null)
     if (
       !brand ||
@@ -42,22 +39,23 @@ import { useTranslation } from "@/app/i18n/client";
     ) {
       return null; 
     }
-
+    const pathname= usePathname()
+    const createQueryString = (name, value) => {
+      const params = new URLSearchParams(searchParams);
+      params.set(name, value);
+      const updatedParams = params.toString();
+      router.push(pathname + '?' + updatedParams);
+    };
     const handleSubmit = (chassisNumber) => {
       if(!chassisNum){
         setErrorMessage(t('messages.noValue'))
       }else{
-        const queryParams = `?category=${category}&carStatus=${carStatus}&uploadedImages=${uploadedImages}&location=${location}&brand=${brand}&carType=${carType}&year=${year}&model=${model}&transmission=${transmission}&RegionalSpecifications=${RegionalSpecifications}&fuelType=${fuelType}&EnginCapacity=${EnginCapacity}&meterRange=${meterRange}&paintType=${paintType}&extraFeatures=${extraFeatures}&carChassis=${chassisNumber}`;
-        // Handle submission logic here (e.g., API calls, state updates)
-        router.push(queryParams)
+        createQueryString('carChassis',chassisNumber)
       }
     };
   
     const handleSkip = () => {
-      const queryParams = `?category=${category}&carStatus=${carStatus}&uploadedImages=${uploadedImages}&location=${location}&brand=${brand}&carType=${carType}&year=${year}&model=${model}&transmission=${transmission}&RegionalSpecifications=${RegionalSpecifications}&fuelType=${fuelType}&EnginCapacity=${EnginCapacity}&meterRange=${meterRange}&paintType=${paintType}&extraFeatures=${extraFeatures}&carChassis=0`;
-      router.push(queryParams)
-      // Handle skip logic here
-      console.log('Skipped chassis number input.');
+      createQueryString('carChassis',0)
     };
   
     return (

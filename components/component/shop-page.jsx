@@ -76,7 +76,8 @@ export default function ShopPage({ shop , lng}) {
         </p>
         <div className="flex  justify-between space-x-4">
           <div className="flex w-5/6 gap-3">
-          <h3 className="text-lg font-bold">{t('Social Media')} : </h3>
+          {shop.facebookLink || shop.twitterLink || shop.instagramLink ||shop.tiktokLink ||shop.snapchatLink
+          ? <h3 className="text-lg font-bold">{t('Social Media')} : </h3> : null}
           {shop.twitterLink ? <Link className="text-zinc-800" target="_blank" href={shop.TwitterLink || '#'}>
             <RiTwitterXFill className="h-6 w-6" />
             <span className="sr-only">Twitter</span>
@@ -113,7 +114,7 @@ export default function ShopPage({ shop , lng}) {
           </div>
         </div>
         <section className="container mx-auto px-4 py-8 space-y-4">
-        <h2 className="text-2xl font-bold">{t("Featured Ads")} :</h2>
+        {shop?.ads?.length > 0 && <h2 className="text-2xl font-bold">{t("Featured Ads")} :</h2>}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {shop.ads.map((ad)=>(
          <Card key={ad.id} className="bg-white dark:bg-gray-800 shadow rounded-lg overflow-hidden">

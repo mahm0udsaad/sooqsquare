@@ -4,44 +4,33 @@ import { BsChatLeftDots } from "react-icons/bs";
 import Logo from './logo'
 import dynamic from 'next/dynamic';
 import { useTranslation } from '@/app/i18n';
-import btnSkeleton from '@/components/skeletons/btnSkeleton'
+import BtnSkeleton from '@/components/skeletons/BtnSkeleton'
+import UserAvatarSkeleton from '@/components/skeletons/userAvatarSkeleton'
 import { getUserByEmail } from '@/prisma/actions';
 import { getServerSession } from 'next-auth';
-import { redirect } from 'next/dist/server/api-utils';
 
 const NavBar = async  ({ lng })=> { 
   const { t } = await useTranslation(lng , "translation")
+  
   const logedUser = await getServerSession()
-  let user;
-    if(logedUser){
-    user = await getUserByEmail(logedUser?.user.email)
-    }else{
-      console.log('no loged User');
-      redirect('sign-in')
-    }
+  const user = await getUserByEmail(logedUser?.user.email)
 
-    if(!user){
-    console.log('no User');
-    }else{
-    console.log('User fetched successfully');
-
-    }
-
+  console.log("navBar");
     const UserButton = dynamic(()=> import('@/components/component/user-button'),{
-      loading: () => <btnSkeleton />,
+      loading: () => <UserAvatarSkeleton />,
       ssr:false
     })
     const DarkModeToggle = dynamic(()=> import('@/components/navBarBtns/darkModeBtn'),{
-      loading:()=> <btnSkeleton />,
+      loading:()=> <BtnSkeleton />,
       ssr:false
     })
     
     const PopoverCountry = dynamic(()=> import('@/components/navBarBtns/PopoverCountry'),{
-      loading:()=> <btnSkeleton />,
+      loading:()=> <BtnSkeleton />,
       ssr:false
     })
     const PopoverLanguage = dynamic(()=> import('@/components/navBarBtns/PopoverLanguage'),{
-      loading:()=> <btnSkeleton />,
+      loading:()=> <BtnSkeleton />,
       ssr:false
     })
  
@@ -65,8 +54,8 @@ const NavBar = async  ({ lng })=> {
             {t("Sell")}
             </Link>
 
-          <PopoverCountry lng={lng} />
           <PopoverLanguage lng={lng} />
+          <PopoverCountry lng={lng} />
 
           <Link href={'/chat'} className="chat dark:bg-zinc-900 hover:opacity-50 bg-white border dark:border-zinc-800 p-2 rounded-md">
           <BsChatLeftDots className="text-xl"/>
@@ -74,11 +63,10 @@ const NavBar = async  ({ lng })=> {
          
           <div className="userAvatar">
           {user &&
-               <UserButton user={user}/>
+               <UserButton lng={lng} user={user}/>
             }
           </div>
          
-        <DarkModeToggle lng={lng} />
       
         </div>
     </nav>

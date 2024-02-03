@@ -109,6 +109,7 @@ exports.Prisma.UserScalarFieldEnum = {
   createdAt: 'createdAt',
   phoneNumber: 'phoneNumber',
   username: 'username',
+  country: 'country',
   image: 'image',
   email: 'email'
 };
@@ -143,6 +144,7 @@ exports.Prisma.AdScalarFieldEnum = {
   shopId: 'shopId',
   createdAt: 'createdAt',
   description: 'description',
+  country: 'country',
   brand: 'brand',
   EnginCapacity: 'EnginCapacity',
   category: 'category',

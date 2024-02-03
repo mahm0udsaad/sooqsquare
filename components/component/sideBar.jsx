@@ -8,21 +8,25 @@ import { FaCar } from "react-icons/fa";
 import { MdOutlineAddBox } from "react-icons/md";
 import { AiOutlineShop } from "react-icons/ai";
 import { CiEdit } from "react-icons/ci";
-import CreateShopButton from '@/components/component/createShopForm'
 import { useTranslation } from "@/app/i18n";
 import dynamic from "next/dynamic";
 import { getServerSession } from "next-auth";
 import { getUserByEmail } from '@/prisma/actions'
 
 const ShopSideBar = async ({ lng  }) =>{
-  const DeleteDialoag = dynamic(()=> import('@/components/component/buttons/deleteDailoag'))
+  const DeleteDialoag = dynamic(()=> import('@/components/component/buttons/deleteDailoag'),{
+    ssr:false
+  })
+  const CreateShopButton = dynamic(()=> import('@/components/component/createShopForm'),{
+    ssr:false
+  })
   const { t } = await useTranslation(lng , "translation")
 
   const logedUser = await getServerSession()
   const user = await getUserByEmail(logedUser?.user?.email)
   
     return(
-      <div className="flex flex-col w-64 bg-white dark:bg-zinc-950">
+      <div className="flex shadow-lg dark:shadow-[#5b5b5b3bs] flex-col w-64 bg-white dark:bg-zinc-950">
         <div className="flex items-center justify-center h-14 border-b dark:border-gray-600">
           <h2 className="text-center text-xl font-semibold text-gray-800 dark:text-gray-200">{t("Dashboard")}</h2>
         </div>
@@ -59,32 +63,32 @@ const ShopSideBar = async ({ lng  }) =>{
 
             {user?.shop?.length > 0 ?
             <>
-            <p className="pt-3 border-b-[1px]"></p> 
+            <p className="pt-3 border-b-[1px] dark:border-gray-600"></p> 
               {user?.shop.map((shop)=>(
                 <Accordion key={shop.id} className="space-y-2" collapsible type="single">
-                <AccordionItem value="shop-1 flex justify-between  ">
-                  <AccordionTrigger className="flex w-full  justify-between items-center px-4 py-2 ">
+                <AccordionItem value="shop-1 flex dark:border-gray-600 justify-between">
+                  <AccordionTrigger className="flex w-full justify-between items-center px-4 py-2 ">
                   {shop.shopCategory === "cars" ? <FaCar className="w-5 h-5"/> :<MdOutlineRealEstateAgent className="w-5 h-5"/>}
                     {shop.shopName}
                   </AccordionTrigger>
                   <AccordionContent className="space-y-2 w-[94%] mx-auto">
-                  <Link className="flex text-sm gap-3  items-center text-gray-700 dark:text-gray-200 hover:dark:text-white hover:text-zinc-900" href={`/createAd/${shop.id}`}>
+                  <Link className="flex text-sm gap-3 items-center text-gray-700 dark:text-gray-200 hover:dark:text-white hover:text-zinc-900" href={`/createAd/${shop.id}`}>
                     <MdOutlineAddBox  className="w-6 h-6" />
                     <span className="mx-3">Create Ad</span>
                   </Link>
-                  <Link className="flex text-sm gap-3  items-center text-gray-700 dark:text-gray-200 hover:dark:text-white hover:text-zinc-900" href={`/myShopView/${shop.id}`}>
+                  <Link className="flex text-sm gap-3 items-center text-gray-700 dark:text-gray-200 hover:dark:text-white hover:text-zinc-900" href={`/myShopView/${shop.id}`}>
                     <AiOutlineShop className="w-6 h-6 text-rose-400	" />
                     <span className="mx-3">My Shop</span>
                   </Link>
-                  <Link className="flex text-sm gap-3  items-center text-gray-700 dark:text-gray-200 hover:dark:text-white hover:text-zinc-900" href={`/myShop/${shop.id}`}>
+                  <Link className="flex text-sm gap-3 items-center text-gray-700 dark:text-gray-200 hover:dark:text-white hover:text-zinc-900" href={`/myShop/${shop.id}`}>
                       <CiEdit className="w-6 h-6 w-6 h-6 text-fuchsia-400" />
                       <span className="mx-3">Shop Details</span>
                   </Link>
-                  <Link className="flex text-sm gap-3  items-center text-gray-700 dark:text-gray-200 hover:dark:text-white hover:text-zinc-900" href="/reports">
+                  <Link className="flex text-sm gap-3 items-center text-gray-700 dark:text-gray-200 hover:dark:text-white hover:text-zinc-900" href="/reports">
                       <TbReportAnalytics className="w-6 h-6 text-orange-600" />
                       <span className="mx-3">Shop Reports</span>
                   </Link>
-                  <Link className="flex text-sm gap-3  items-center text-gray-700 dark:text-gray-200 hover:dark:text-white hover:text-zinc-900" href={`/shopAds/${shop.id}`}>
+                  <Link className="flex text-sm gap-3 items-center text-gray-700 dark:text-gray-200 hover:dark:text-white hover:text-zinc-900" href={`/shopAds/${shop.id}`}>
                       <BsThreads className="w-6 h-6 text-sky-600" />
                       <span className="mx-3">Shop Ads</span>
                   </Link>
