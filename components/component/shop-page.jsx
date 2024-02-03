@@ -4,7 +4,7 @@ import { timeSince } from "@/helper/timeConversion"
 import Image from "next/image"
 import Link from "next/link"
 import { CardContent, Card } from "@/components/ui/card"
-import { FaEye, FaHeart, FaMapMarkerAlt } from 'react-icons/fa';
+import {FaMapMarkerAlt } from 'react-icons/fa';
 import { Button } from "../ui/button"
 import { BsChatLeftDots } from "react-icons/bs";
 import { MdOutlineLocalPhone } from "react-icons/md";
@@ -20,7 +20,7 @@ export default function ShopPage({ shop , lng}) {
   const { t } = useTranslation(lng , "view")
   const [copiedState, setCopiedState] = useState({});
 
-  const handleShare = (adId) => {
+  const handleShare = async (adId) => {
     const adLink = `${window.location.origin}/vehicle/${adId}`;
 
     setCopiedState((prevCopiedState) => ({
@@ -71,7 +71,7 @@ export default function ShopPage({ shop , lng}) {
       </section>
       <main className="container mx-auto px-4 py-8 space-y-4">
         <h1 className="text-4xl font-bold">{shop?.shopName}</h1>
-        <p className="text-lg text-gray-500 dark:text-gray-400 dark:text-gray-200">
+        <p className="text-lg text-gray-500 dark:text-gray-800 dark:text-gray-200">
         {shop.description}
         </p>
         <div className="flex  justify-between space-x-4">
@@ -121,34 +121,34 @@ export default function ShopPage({ shop , lng}) {
           <Image
             alt="Ad image"
             className="rounded-lg object-none aspect-square w-full h-[15rem] group-hover:opacity-50 transition-opacity"
-            src={ad.Adimages[0].url}
+            src={ad.Adimages[0]?.url}
             width={200}
             height={200}
           />
           <CardContent className="p-4">
             <h3 className="text-lg font-semibold mb-2">{ad.name}</h3>
             <p className="text-gray-500 dark:text-gray-200 mb-2">
-              <FaMapMarkerAlt className="inline dark:text-gray200 text-gray-400 dark:text-gray-200 mx-1" />
+              <FaMapMarkerAlt className="inline dark:text-gray200 text-gray-800 dark:text-gray-200 mx-1" />
               {ad.location}
             </p>
-            <p className="text-sm text-gray-400 dark:text-gray-200">{t("Created at")} : {timeSince(ad.createdAt)}</p>
-            <p className="text-sm text-gray-400 dark:text-gray-200">
+            <p className="text-sm text-gray-800 dark:text-gray-200">{t("Created at")} : {timeSince(ad.createdAt)}</p>
+            <p className="text-sm text-gray-800 dark:text-gray-200">
               <strong>{t("Brand")} :</strong> {ad.brand}
             </p>  
-            <p className="text-sm text-gray-400 dark:text-gray-200">
+            <p className="text-sm text-gray-800 dark:text-gray-200">
               <strong>{t("Model")} :</strong> {ad.model}
             </p>
-            <p className="text-sm text-gray-400 dark:text-gray-200">
-              <strong>{t("Price")} :</strong> {ad.price}
+            <p className="text-sm text-gray-800 dark:text-gray-200">
+              <strong>{t("Price")} :</strong> <span className="text-rose-600 font-semibold">{ad.price}</span>
             </p>
             <div className="flex gap-2 mt-2">
-              <Link href={`/vehicle/${ad.id}`} className="rounded-md border border-black text-center flex-1 py-3 px-4 bg-black text-white dark:bg-white dark:text-black hover:text-black hover:bg-white hover:dark:text-white hover:dark:bg-black">
+              <Link href={`/vehicle/${ad.id}`} className="rounded-md hover:bg-transparent hover:text-rose-600 hover:border hover:border-rose-600 text-center flex-1 py-3 px-4 main-bg text-white dark:bg-white dark:text-black hover:text-black hover:bg-white hover:dark:text-white hover:dark:bg-black">
                 View Ad
               </Link>
               {/* Share button */}
               <button
               onClick={() => handleShare(ad.id)}
-              className={`rounded-md  text-center border border-blue-500 hover:bg-transparent hover:text-blue-500 flex-1 py-3 px-4 ${copiedState[ad.id]?.isCopied ? 'bg-green-500' : 'bg-blue-500'} text-white hover:bg-blue-600`}
+              className={`rounded-md  text-center border border-blue-500  bg-transparent hover:text-blue-500 flex-1 py-3 px-4 ${copiedState[ad.id]?.isCopied ? 'bg-green-500' : 'hover:bg-blue-500'} text-blue-500  hover:text-white hover:bg-blue-600`}
               disabled={copiedState[ad.id]?.isLoading}
             >
               {copiedState[ad.id]?.isLoading ? 'Copying...' : (copiedState[ad.id]?.isCopied ? <FaCopy className="text-center"/> : 'Share')}
@@ -161,46 +161,6 @@ export default function ShopPage({ shop , lng}) {
         </section>
       </main>
     </>
-  )
-}
-function PhoneIcon(props) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
-    </svg>
-  )
-}
-
-
-function TextIcon(props) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M17 6.1H3" />
-      <path d="M21 12.1H3" />
-      <path d="M15.1 18H3" />
-    </svg>
   )
 }
 
@@ -222,8 +182,6 @@ function FacebookIcon(props) {
     </svg>
   )
 }
-
-
 function InstagramIcon(props) {
   return (
     <svg
@@ -241,26 +199,6 @@ function InstagramIcon(props) {
       <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
       <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
       <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
-    </svg>
-  )
-}
-
-
-function TwitterIcon(props) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z" />
     </svg>
   )
 }

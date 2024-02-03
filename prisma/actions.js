@@ -2,6 +2,7 @@
 import { revalidatePath } from "next/cache";
 import prisma from "./client";
 import { getServerSession } from "next-auth";
+import { redirect } from "next/navigation";
 
 export async function createAd(data, userId, adStatus) {
   const {
@@ -175,11 +176,9 @@ export async function createAdForUser(data, userId, adStatus) {
     return newAd;
   } catch (error) {
     console.error('Error creating ad:', error);
-    return null;
   } finally {
     revalidatePath('/myAds');
-    revalidatePath('/shopAds');
-    revalidatePath('/vehicle');
+    redirect(`/myAds`);
   }
 }
 export async function createAdForShop(data, shopId, adStatus) {
@@ -256,6 +255,7 @@ export async function createAdForShop(data, shopId, adStatus) {
     return null;
   } finally {
     revalidatePath(`/dashboard`);
+    redirect(`/shopAds/${shopId}`);
   }
 }
 export  async function createUserIfNotExists(userData) {

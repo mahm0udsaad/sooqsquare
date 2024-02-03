@@ -44,7 +44,6 @@ export default function MyShopPage({shop , lng}) {
   };
   const handleShopImageChange = async (e) => {
     const file = e.target.files[0];
-    console.log(file);
     try {
       if (!file) {
         throw new Error('No file uploaded');
