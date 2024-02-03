@@ -18,7 +18,7 @@ export default function MarketAdCard({ ad , user}) {
           className="w-full  object-none aspect-square w-full h-[15rem]  rounded-t-lg"
           height={200}
           width={300}
-          src={ad.Adimages[0].url}
+          src={ad.Adimages[0]?.url}
         />  
         </Link>
         <HeartIcon
