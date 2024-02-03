@@ -100,6 +100,7 @@ export async function createAd(data, userId, adStatus) {
   }
 }
 export async function createAdForUser(data, userId, adStatus) {
+  userId = parseInt(userId)
   const {
     EnginCapacity,
     paintType,
