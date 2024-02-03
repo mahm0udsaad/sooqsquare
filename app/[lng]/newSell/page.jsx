@@ -47,7 +47,7 @@ const SellForm = async ({ params : { lng} , searchParams  }) =>{
       loading:()=> <p>Review...</p>
       });
       const LogedInUser = await getServerSession() 
-      const user = await getUserByUseremail(LogedInUser?.user.email)
+      const user = await getUserByEmail(LogedInUser?.user.email)
       if (!user?.phoneNumber || !user) redirect('/sign-in')
       let profile ;
       if(searchParams.profile == "mainProfile"){

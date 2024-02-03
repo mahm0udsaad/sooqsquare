@@ -43,8 +43,8 @@ const SellForm = async ({ params : {id, lng} , searchParams }) =>{
       });
       const LogedInUser = await getServerSession() 
       const user = await getUserByEmail(LogedInUser?.user.email)
-      if (!user?.phoneNumber || !user) redirect('/sign-in')
-    const profile = await getShopById(id)
+      const profile = await getShopById(id)
+    if (!user?.phoneNumber || !user) redirect('/sign-in')
     
     return (
         <div className="flex flex-col min-h-screen w-11/12 mx-8">
