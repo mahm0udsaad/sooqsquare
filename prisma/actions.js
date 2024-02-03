@@ -282,6 +282,12 @@ export async function getUserByUseremail(email) {
       where: {
         email,
       },
+      include:{
+        image:true ,
+        username:true,
+        phoneNumber:true,
+        shop:true 
+      }
     });
 
     return user;

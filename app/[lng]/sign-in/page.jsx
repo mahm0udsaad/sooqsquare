@@ -6,10 +6,7 @@ import { redirect } from "next/navigation"
 import { createUserIfNotExists, getUserByEmail } from "../../../prisma/actions"
 import Image from "next/image"
 import dynamic from "next/dynamic"
-
-const Fbtn = dynamic(()=> import('../../../components/btns').then(mod => mod.Fbtn) , { ssr: false})
-const Gbtn = dynamic(()=> import('../../../components/btns').then(mod => mod.Gbtn) , { ssr: false})
-const SginInBtn = dynamic(()=> import('../../../components/btns').then(mod => mod.SginInBtn))
+import { Fbtn, Gbtn, SginInBtn } from "@/components/btns"
 const Card = dynamic(()=> import('@/components/ui/card').then(mod => mod.Card) , { ssr: false})
 const CardTitle = dynamic(()=> import('@/components/ui/card').then(mod => mod.CardTitle) , { ssr: false})
 const CardFooter = dynamic(()=> import('@/components/ui/card').then(mod => mod.CardFooter) , { ssr: false})
@@ -23,22 +20,19 @@ export default async function SginIn() {
   const user = await getUserByEmail(logedUser?.user?.email);
 
   if (logedUser) {
-  
+    console.log(logedUser);
     const existingUser = await getUserByEmail(logedUser?.email);
   
     if (!existingUser) {
       await createUserIfNotExists(logedUser);
     } 
   }
-
-  console.log(user);
-
-  if(user?.phoneNumber && user.shop){
+  if(user && user?.phoneNumber && user.shop){
     redirect('/dashboard')
-  }else{
+  }
+  if(user && !user.shop){
     redirect('/myProfile')
   }
-
   return (
     <div className="w-full min-h-screen lg:flex">
       <div className="lg:w-1/2 p-6 lg:p-10 bg-gradient-to-r from-purple-700 via-pink-700 to-red-700 lg:flex lg:items-center lg:justify-center">

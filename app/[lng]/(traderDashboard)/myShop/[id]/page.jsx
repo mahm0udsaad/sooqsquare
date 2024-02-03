@@ -14,8 +14,9 @@ export async function generateStaticParams() {
 }
 
 export default async function MyShop({params}) {
+
     const shop = await getShopById(params.id)
-    
+
     return (
        <div className='flex w-11/12 mx-auto flex-col gap-3'>
           {shop ? <MyShopPage shop={shop} lng={params.lng}/> : <h1 className='text-center text-xl'>you have no shop</h1>}

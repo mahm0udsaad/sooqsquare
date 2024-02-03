@@ -1,5 +1,5 @@
 import dynamic from 'next/dynamic';
-import { getUserByEmail } from '@/prisma/actions'
+import { getUserByEmail, getUserByUseremail } from '@/prisma/actions'
 import { getServerSession } from 'next-auth'
 import { redirect } from 'next/navigation'
 import SelectProfile from '@/components/shopAdsForms/profileSelector';
@@ -47,7 +47,7 @@ const SellForm = async ({ params : { lng} , searchParams  }) =>{
       loading:()=> <p>Review...</p>
       });
       const LogedInUser = await getServerSession() 
-      const user = await getUserByEmail(LogedInUser?.user.email)
+      const user = await getUserByUseremail(LogedInUser?.user.email)
       if (!user?.phoneNumber || !user) redirect('/sign-in')
       let profile ;
       if(searchParams.profile == "mainProfile"){

@@ -5,7 +5,7 @@ import { MdFavoriteBorder } from "react-icons/md";
 import { RiEyeLine } from "react-icons/ri";
 import { BsThreads } from "react-icons/bs";
 
-export default function UserProfile({user}) {
+export default function UserProfile({ user }) {
   return (
     <div className="flex flex-col items-center justify-center space-y-6 p-6 md:p-10">
       <Avatar className="w-24 h-24 border">

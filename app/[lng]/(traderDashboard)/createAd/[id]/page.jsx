@@ -5,6 +5,7 @@ import Selectors from '@/components/shopAdsForms/selectors'
 import SelectProfile from '@/components/shopAdsForms/profileSelector';
 import { getUserByEmail } from '@/prisma/actions'
 import { getServerSession } from 'next-auth'
+import { redirect } from 'next/navigation';
 
 const SellForm = async ({ params : {id, lng} , searchParams }) =>{
       
