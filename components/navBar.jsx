@@ -50,7 +50,7 @@ const NavBar = async  ({ lng })=> {
         </form>
         
         <div className="flex items-center gap-3 ">
-        <Link href={'/sell'} className="border dark:border-zinc-800 px-8 main-bg py-2 rounded-xl flex items-center">
+        <Link href={'/newSell'} className="border dark:border-zinc-800 px-8 main-bg py-2 rounded-xl flex items-center">
             {t("Sell")}
             </Link>
 

@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/toggle-group"
 export default function PriceSelection({lng}) {
     const router = useRouter();
+    const searchParams = useSearchParams()
     const brand = useSearchParams().get("brand");
     const category = useSearchParams().get("category");
     const model = useSearchParams().get("model");
@@ -37,17 +38,16 @@ export default function PriceSelection({lng}) {
     const { setErrorMessage } = useDarkMode()
   
     if (!brand || !category || !model || !year || !carType || !carStatus || !transmission || !fuelType || !paintType || price && payment || !extraFeatures ||  !carChassis) return null;
-     const searchParams = useSearchParams();
-    const pathname= usePathname()
-    const createQueryString = (queryParams) => {
-      const params = new URLSearchParams(router.query);
+
+    const pathname = usePathname()
+    const createQueryString = (params) => {
+      const updatedParams = new URLSearchParams(searchParams);
+
+      for (const [name, value] of Object.entries(params)) {
+        updatedParams.set(name, value);
+      }
     
-      queryParams.forEach(({ name, value }) => {
-        params.set(name, value);
-      });
-    
-      const updatedParams = params.toString();
-      router.push(pathname + '?' + updatedParams);
+      router.push(pathname + '?' + updatedParams.toString());
     };
     
     const handleSubmit = (e) => {
@@ -55,10 +55,10 @@ export default function PriceSelection({lng}) {
       if(!pricestate){
         setErrorMessage(t('messages.noValue'))
       }else{
-        createQueryString([
-          { name: 'price', value: pricestate },
-          { name: 'payment', value: selectedPaymentMethod },
-        ]);
+        createQueryString( {
+          price: pricestate,
+          payment: selectedPaymentMethod,
+        });
       }
     };
     return (

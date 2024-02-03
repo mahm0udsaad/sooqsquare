@@ -1,7 +1,7 @@
 "use client"
 
 import { useRouter, useSearchParams } from "next/navigation";
-import { createAdForShop } from "../../prisma/actions";
+import { createAd, createAdForShop, createAdForUser } from "../../prisma/actions";
 import { useDarkMode } from "@/context/darkModeContext";
 import { useState } from "react";
 import {  DialogTitle, DialogDescription, DialogHeader, DialogFooter, DialogContent, Dialog } from "@/components/ui/dialog"
@@ -14,7 +14,7 @@ import { useTranslation } from "@/app/i18n/client";
 import { Button } from "@/components/ui/button"
 import { toast } from "sonner";
 
-export default function Review({lng , shopId}) {
+export default function Review({lng ,userId ,  shopId}) {
     const brand = useSearchParams().get("brand");
     const category = useSearchParams().get("category");
     const model = useSearchParams().get("model");
@@ -31,6 +31,7 @@ export default function Review({lng , shopId}) {
     const payment = useSearchParams().get("payment");
     const price = useSearchParams().get("price");
     const name = useSearchParams().get("name");
+    const profile = useSearchParams().get("profile");
     const location = useSearchParams().get("location");
     const {extraFeature , adImages  , setConfettiActive} = useDarkMode()
     const carChassis = useSearchParams().get("carChassis");
@@ -62,12 +63,12 @@ export default function Review({lng , shopId}) {
       RegionalSpecifications: RegionalSpecifications,
       meterRange: meterRange
     };
-  
+    console.log(profile);
     const handleSave = async () => {
       setLoading(true);
     
       try {
-        const ad = await createAdForShop(data, shopId , "inActive");
+        const ad =  profile === "mainProfile" ? await createAdForUser(data , userId , "inActive")  : await createAdForShop(data, shopId , "inActive") 
         if (ad) {
           toast("Ad Created Successfuly")
           setShowDialog(true)
@@ -87,7 +88,7 @@ export default function Review({lng , shopId}) {
       setPublishIsLoading(true);
     
       try {
-        const ad = await createAdForShop(data, shopId , "Active");
+        const ad =  profile === "mainProfile" ? await createAdForUser(data , userId , "active")  : await createAdForShop(data, shopId , "active") 
         if (ad) {
           setAd(ad)
           toast("Ad Published Successfuly")
@@ -126,7 +127,7 @@ export default function Review({lng , shopId}) {
       { label: 'Meter Range', value: meterRange },
       { label : "Extra Features" ,value:extraFeatures},
     ];
-   
+   const searchParams = useSearchParams()
     
     return (
       <main className="">
@@ -148,7 +149,7 @@ export default function Review({lng , shopId}) {
               <DialogFooter className="flex justify-center space-x-4 p-6 sm:p-8">
                 <Link
                   className="inline-flex h-10 items-center justify-center rounded-md bg-green-500 px-8 text-sm font-medium text-white shadow transition-colors hover:bg-green-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-700 disabled:pointer-events-none disabled:opacity-50"
-                  href={`${ad?.user ? '/myAds' : `/shopAds/${shopId}`}`}
+                  href={`${searchParams.get('profile')?.split('=')[0] == 'shop' ? `/shopAds/${shopId}` : '/myAds' }`}
                 >
                   <BsThreads className="h-5 w-5 mr-2" />
                   My Ads

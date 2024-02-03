@@ -98,6 +98,90 @@ export async function createAd(data, userId, adStatus) {
     revalidatePath('/vehicle');
   }
 }
+export async function createAdForUser(data, userId, adStatus) {
+  const {
+    EnginCapacity,
+    paintType,
+    payment,
+    price,
+    name,
+    RegionalSpecifications,
+    location,
+    adImages,
+    brand,
+    category,
+    model,
+    year,
+    carType,
+    carStatus,
+    transmission,
+    fuelType,
+    meterRange,
+    extraFeatures,
+  } = data;
+
+  try {
+    const user = await prisma.user.findUnique({
+      where: {
+        id: userId,
+      },
+      include: {
+        shop: true,
+      },
+    });
+
+    if (!user) {
+      console.error('User not found');
+      return null;
+    }
+
+    const newAdData = {
+      EnginCapacity,
+      paintType,
+      payment,
+      price,
+      name,
+      RegionalSpecifications,
+      location,
+      brand,
+      category,
+      model,
+      year,
+      carType,
+      carStatus,
+      transmission,
+      fuelType,
+      meterRange,
+      extraFeatures,
+      adStatus,
+      Adimages: {
+        create: adImages.map((image) => ({ url: image })),
+      },
+    };
+
+      newAdData.user = {
+        connect: {
+          id: userId,
+        },
+    }
+
+    const newAd = await prisma.ad.create({
+      data: newAdData,
+      include: {
+        user: true,
+      },
+    });
+    console.log(newAd);
+    return newAd;
+  } catch (error) {
+    console.error('Error creating ad:', error);
+    return null;
+  } finally {
+    revalidatePath('/myAds');
+    revalidatePath('/shopAds');
+    revalidatePath('/vehicle');
+  }
+}
 export async function createAdForShop(data, shopId, adStatus) {
   const {
     EnginCapacity,
@@ -382,11 +466,10 @@ export async function updateUserCountry(userId, newCountry) {
     }
 
     // Update the user's country
-    await prisma.user.update({
+    const updatedUser = await prisma.user.update({
       where: { id: userId },
       data: { country: newCountry },
     });
-
     // Return success
     return { success: true, message: 'User country updated successfully.' };
   } catch (error) {
