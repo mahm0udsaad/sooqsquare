@@ -2,6 +2,9 @@ import { getShopById } from '../../actions'
 import CategoriesForm from '@/components/shopAdsForms/categoryForm'
 import dynamic from 'next/dynamic';
 import Selectors from '@/components/shopAdsForms/selectors'
+import SelectProfile from '@/components/shopAdsForms/profileSelector';
+import { getUserByEmail } from '@/prisma/actions'
+import { getServerSession } from 'next-auth'
 
 const SellForm = async ({ params : {id, lng} , searchParams }) =>{
       
@@ -37,22 +40,25 @@ const SellForm = async ({ params : {id, lng} , searchParams }) =>{
       ssr: false,
       loading:()=> <p>loading...</p>
       });
-        
-    const shop = await getShopById(id)
+      const LogedInUser = await getServerSession() 
+      const user = await getUserByEmail(LogedInUser?.user.email)
+      if (!user?.phoneNumber || !user) redirect('/sign-in')
+    const profile = await getShopById(id)
     
     return (
-        <div className="flex flex-col w-11/12 mx-8">
+        <div className="flex flex-col min-h-screen w-11/12 mx-8">
         <div className="w-full pt-8">
-        {!searchParams.category && <CategoriesForm lng={lng} />}
-        {!searchParams.uploadedImages && <MultiImageForm  lng={lng} />}
-        {!searchParams.brand && <CarBrandSelector lng={lng} />}
-        {!searchParams.carChassis && <CarChassis lng={lng} />}
-        {!searchParams.price && <PriceSelection lng={lng} />}
-        {!searchParams.name && <NameDescriptionSelector lng={lng} />}
-        <ExtraFeatures lng={lng} />
-        {searchParams.carStatus && <LocationDetails lng={lng} locationGiven={shop.location}/>}
-        <Selectors lng={lng}/>
-        {searchParams.name && <Review shopId={shop.id} lng={lng}/>}
+        {!searchParams.profile ? <SelectProfile user={user}/> : null}
+        {!searchParams.category && searchParams.profile && <CategoriesForm lng={lng} />}
+        {!searchParams.uploadedImages && searchParams.category && searchParams.profile && <MultiImageForm  lng={lng} />}
+        {!searchParams.brand && searchParams.carStatus && <CarBrandSelector lng={lng} />}
+        {!searchParams.carChassis && searchParams.carStatus && <CarChassis lng={lng} />}
+        {!searchParams.price && searchParams.carChassis && <PriceSelection lng={lng} />}
+        {!searchParams.name && searchParams.price && <NameDescriptionSelector lng={lng} />}
+        {searchParams.paintType && <ExtraFeatures lng={lng} />}
+        {searchParams.carStatus && <LocationDetails user={user} lng={lng}/>}
+        {searchParams.uploadedImages && <Selectors lng={lng}/>}
+        {searchParams.name && <Review shopId={profile?.id} lng={lng}/>}
         </div>
     </div>
     )
