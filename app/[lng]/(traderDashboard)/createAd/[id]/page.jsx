@@ -59,7 +59,7 @@ const SellForm = async ({ params : {id, lng} , searchParams }) =>{
         {searchParams.paintType && <ExtraFeatures lng={lng} />}
         {searchParams.carStatus && <LocationDetails user={user} lng={lng}/>}
         {searchParams.uploadedImages && <Selectors lng={lng}/>}
-        {searchParams.name && <Review shopId={profile?.id} lng={lng}/>}
+        {searchParams.name && <Review userId={user.id} shopId={profile?.id} lng={lng}/>}
         </div>
     </div>
     )
