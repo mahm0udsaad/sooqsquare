@@ -29,7 +29,10 @@ export async function getAllads(searchParams , user){
                 }).flat()
               : []),
             { adStatus: "active" },
-            { country: searchParams['country'] ? searchParams['country']  : user.country },
+            {
+              country:
+                user?.country && (searchParams['country'] ? searchParams['country'] : user.country),
+            },
           ],
         },
       });

@@ -22,9 +22,9 @@ export default function MarketAdCard({ ad , user}) {
         />  
         </Link>
         <HeartIcon
-        onClick={()=> addToFavorites(user.id , ad.id)}
-        className={`cursor-pointer z-50 text-gray-300 absolute top-2 right-2 h-6 w-6 ${ user.favoriteAds.some(favorite => favorite.adId === ad.id) ? 'text-transparent': ''}`}
-        style={{ fill: user.favoriteAds.some(favorite => favorite.adId === ad.id) ? 'red' : '' }}
+        onClick={()=> addToFavorites(user?.id , ad.id)}
+        className={`cursor-pointer z-50 text-gray-300 absolute top-2 right-2 h-6 w-6 ${ user?.favoriteAds.some(favorite => favorite.adId === ad.id) ? 'text-transparent': ''}`}
+        style={{ fill: user?.favoriteAds.some(favorite => favorite.adId === ad.id) ? 'red' : '' }}
         />
       </div>
       <CardHeader>
