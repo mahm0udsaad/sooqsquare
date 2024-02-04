@@ -7,7 +7,7 @@ const Logo = ({ lng }) => {
   const { darkMode } = useDarkMode();
 
   return (
-    <Link href={'/'} >
+    <Link href={'/'}> 
       {lng === 'ar' ? (
         <>
           {darkMode ? <DarkAr /> : <LightAr />}

@@ -16,14 +16,16 @@ import { toast } from "sonner";
 import { useDarkMode } from "@/context/darkModeContext";
 import { useTranslation } from "@/app/i18n/client"
 import { RiTimerFlashLine } from "react-icons/ri";
-import { redirect } from "next/dist/server/api-utils"
+import { countriesWithCities } from "@/data/staticData"
+import { DropdownMenuTrigger, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuSubTrigger, DropdownMenuItem, DropdownMenuSubContent, DropdownMenuSub, DropdownMenuContent, DropdownMenu } from "@/components/ui/dropdown-menu"
+import { getLocation } from "@/helper/location"
 
 const CreateShopSquare = ({ user , lng}) =>{
   const [shopImage, setShopImage] = useState(null);
   const { t } = useTranslation(lng , "translation")
   const { register, handleSubmit, setValue, control, formState: { errors, isSubmitting , isSubmitted ,isSubmitSuccessful} } = useForm();
   const { setConfettiActive , isConfettiActive } = useDarkMode()
- 
+  const [ loading , setLoading ] = useState(false)
 
   const drawerCloseRef = useRef(null);
 
@@ -49,23 +51,42 @@ const CreateShopSquare = ({ user , lng}) =>{
     }
   };
   const onSubmit = async (data) => {
-    if(!user){
-      redirect('sign-in')
+    try {
+      if (!data.shopName || !data.shopImage) {
+        return;
+      }
+  
+      await createShop(user.id, data);
+      drawerCloseRef.current.click();
+      setConfettiActive(true);
+      toast("Shop Created Successfully");
+    } catch (error) {
+      console.error("An error occurred while creating the shop:", error);
     }
-    if(!data.shopName || !data.shopImage){
-        return ;
+  };
+  const handleShopCityChange = (city , country) =>{
+    setValue('city',city)
+    setValue('country',country)
+  }
+  const handleButtonClick = async () => {
+    try {
+      setLoading(true)
+      const userLocation = await getLocation();
+
+      setValue('city',userLocation.city)
+      setValue('country',userLocation.countryName)
+
+    } catch (error) {
+      console.error('Error getting location:', error);
+    }finally{
+      setLoading(false)
     }
-    const newShop = await createShop(user.id, data)
-        console.log(newShop);
-        drawerCloseRef.current.click();
-        setConfettiActive(true)
-        toast("Shop Created Successfully")
   };
 
     return(
         <Drawer>
           <DrawerTrigger  asChild>
-          <Button className="bg-transparent hover:bg-transparent mb-3">
+          <Button className="bg-transparent hover:bg-transparent py-0 px-0 h-full">
           <div className="flex justify-between self-start lg:w-auto w-full px-20 hover:opacity-70 cursor-pointer py-12 rounded-[35px] bg-gradient-to-r from-rose-900 to-purple-500 items-center ">
               <RiTimerFlashLine className='text-4xl text-white'/>
               <div className="text-white text-2xl font-bold leading-10 my-auto">
@@ -84,7 +105,7 @@ const CreateShopSquare = ({ user , lng}) =>{
             </DrawerHeader>
             <div className="px-4">
               <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-              <div className="space-y-1 w-1/2">
+              <div className="space-y-1 w-[25%]">
                 <Label className="cursor-pointer" htmlFor="avatar-image">
                   <span className="sr-only">Upload an avatar</span>
                   <Avatar className="w-32 h-32 border-4 border-white">
@@ -95,50 +116,83 @@ const CreateShopSquare = ({ user , lng}) =>{
                     {isSubmitted && !shopImage ? <p className="text-red-500">you have to upload image for the shop</p> : null}
                 </Label>
                   </div>
-                  <div className="space-y-1">
-                      <Label htmlFor="shop-name">Shop Name</Label>
-                      <Input  onChange={(e)=> setValue('shopName',e.target.value)} placeholder="Enter your shop name" />
-                      {errors.shopName && <span className="text-red-300 text-sm">{errors.shopName.message}</span>}
-                    </div>
-                  <div className="space-y-1">
-                      <Label htmlFor="shop-category">Shop Category</Label>
-                      <Controller
-                        name="shopCategory"
-                        control={control}
-                        render={({ field }) => (
-                          <Select>
-                            <SelectTrigger>
-                              {field.value || "Select Category"}
-                            </SelectTrigger>
-                            <SelectContent>
-                              <SelectItem key={'cars'} onMouseDown={() => setValue("shopCategory", "Cars")}>Cars</SelectItem>
-                              <SelectItem key={'appartment'} onMouseDown={() => setValue("shopCategory", "Appartment")}>Appartment</SelectItem>
-                            </SelectContent>
-                          </Select>
-                        )}
-                      />
-                    </div>
+                  <div className="flex justify-between gap-4 w-full items-center">
+                    <div className="w-full">
+                        <Label htmlFor="shop-name">Shop Name</Label>
+                        <Input  onChange={(e)=> setValue('shopName',e.target.value)} placeholder="Enter your shop name" />
+                        {errors.shopName && <span className="text-red-300 text-sm">{errors.shopName.message}</span>}
+                      </div>
+                    <div className="w-full">
+                        <Label htmlFor="shop-category">Shop Category</Label>
+                        <Controller
+                          name="shopCategory"
+                          control={control}
+                          render={({ field }) => (
+                            <Select>
+                              <SelectTrigger>
+                                {field.value || "Select Category"}
+                              </SelectTrigger>
+                              <SelectContent>
+                                <SelectItem key={'cars'} onMouseDown={() => setValue("shopCategory", "Cars")}>Cars</SelectItem>
+                                <SelectItem key={'appartment'} onMouseDown={() => setValue("shopCategory", "Appartment")}>Appartment</SelectItem>
+                              </SelectContent>
+                            </Select>
+                          )}
+                        />
+                      </div>
+                  </div>
                     <div className="space-y-1">
                       <Label htmlFor="shop-description">Shop Description</Label>
                       <Textarea {...register("shopDescription")} className="min-h-[100px]" placeholder="Describe your shop" />
                     </div>
-                    <div className="space-y-1">
-                      <Label htmlFor="shop-address">Shop Address</Label>
-                      <Input   onChange={(e)=> setValue('location',e.target.value)} placeholder="Enter your shop Address" />
-                    </div>
-                    <div className="flex gap-4">
-                    <Button
-                    type="submit"
-                    className="inline-flex items-center justify-center px-6 py-3 border border-transparent font-medium rounded text-white bg-gradient-to-r from-green-400 to-blue-500 hover:from-green-500 hover:to-blue-600 hover:scale-105 transition-all duration-200"
-                    >
-                       {isSubmitting && <LoadingSpinner />}
-                       {t('Create')}
-                    </Button>
-                    <DrawerClose  asChild>
-                      <Button ref={drawerCloseRef} variant="outline"> {t('Cancel')}</Button>
-                   </DrawerClose>
-                    </div>
-                  </form>
+                    <div className="w-4/5 flex max-w-md items-center gap-4">
+                    <Label className="w-44">Shop Location :</Label>
+                      <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                          <Button variant="outline" className="w-60 py-2 px-4">Select a country</Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent className="w-56">
+                          <DropdownMenuLabel>Countries</DropdownMenuLabel>
+                          <DropdownMenuSeparator />
+                          {countriesWithCities.map((countryObj, index) => (
+                            <DropdownMenuSub key={index}>
+                              <DropdownMenuSubTrigger>
+                              {countryObj.countryCode && <span className={`mx-2 fi fi-${countryObj.countryCode}`}></span> }
+                                {t(`${countryObj.country}`)}
+                              </DropdownMenuSubTrigger>
+                              <DropdownMenuSubContent className="p-0">
+                                {countryObj.cities.map((city, cityIndex) => (
+                                  <DropdownMenuItem key={cityIndex} onClick={() => handleShopCityChange(city , countryObj.country)}>
+                                    {t(`${city}`)}
+                                  </DropdownMenuItem>
+                                ))}
+                              </DropdownMenuSubContent>
+                            </DropdownMenuSub>
+                          ))}
+                        </DropdownMenuContent>
+                      </DropdownMenu>
+                      <Button className="main-bg relative" disabled={loading} onClick={handleButtonClick}>
+                        <span className="absolute top-0 right-0 inline-flex h-3 w-3">
+                          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75"></span>
+                          <span className="relative inline-flex rounded-full h-3 w-3 bg-sky-500"></span>
+                        </span>
+                        {loading ? <LoadingSpinner /> : null}
+                        {t('locationDetails.useCurrentLocation')}
+                      </Button>
+                      </div>
+                      <div className="flex gap-4">
+                      <Button
+                      type="submit"
+                      className="inline-flex items-center justify-center px-6 py-3 border border-transparent font-medium rounded text-white bg-gradient-to-r from-green-400 to-blue-500 hover:from-green-500 hover:to-blue-600 hover:scale-105 transition-all duration-200"
+                      >
+                        {isSubmitting && <LoadingSpinner />}
+                        {t('Create')}
+                      </Button>
+                      <DrawerClose  asChild>
+                        <Button ref={drawerCloseRef} variant="outline"> {t('Cancel')}</Button>
+                    </DrawerClose>
+                      </div>
+               </form>
                 </div>
           </DrawerContent>
          </Drawer>

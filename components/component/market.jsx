@@ -8,14 +8,13 @@ import { Button } from "@/components/ui/button"
 import { FilterSelection, withGenericSelection } from "../dynamicSelection"
 import { useTranslation } from "@/app/i18n/client"
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
-import { timeSince } from "../../helper/timeConversion"
 import { carBrands } from '../../data/staticData'
 import { useEffect, useState } from "react"
 import MarketAdCard from "./new-card"
 
 const SelectionComp = withGenericSelection(FilterSelection);
 
-export function Market({lng , ads , user}) {
+export default function Market({lng , ads , user}) {
   const { t } = useTranslation(lng , "translation")
   const transmissionProps = {
     title: t('transmission'),

@@ -13,7 +13,6 @@ export default function MarketAdCard({ ad , user}) {
     <Card className="w-full max-w-md flex flex-col">
        <div className="relative">
        <Link className="hover:opacity-50 relative" href={`/vehicle/${ad.id}`}>
-
         <Image
           alt="Car Image"
           className="w-full  object-none aspect-square w-full h-[15rem]  rounded-t-lg"
@@ -24,7 +23,7 @@ export default function MarketAdCard({ ad , user}) {
         </Link>
         <HeartIcon
         onClick={()=> addToFavorites(user.id , ad.id)}
-        className={`cursor-pointer z-50 text-gray-500 absolute top-2 right-2 h-6 w-6 ${ user.favoriteAds.some(favorite => favorite.adId === ad.id) ? 'text-transparent': ''}`}
+        className={`cursor-pointer z-50 text-gray-300 absolute top-2 right-2 h-6 w-6 ${ user.favoriteAds.some(favorite => favorite.adId === ad.id) ? 'text-transparent': ''}`}
         style={{ fill: user.favoriteAds.some(favorite => favorite.adId === ad.id) ? 'red' : '' }}
         />
       </div>

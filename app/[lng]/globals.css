@@ -142,12 +142,22 @@ nav{
   transition: all 0.1s ease-in-out;
   background-color: #fe2635;
   color: white;
+  border: 1px solid #fe2635 !important;
 }
 .main-color{
  color: #fe2635;
 }
 .main-bg:hover{
-  background-color: rgb(37, 37, 37)
+  background-color: transparent !important;
+  color: white;
+}
+.dark .main-bg:hover {
+  background-color: transparent;
+  color: white;
+}
+.main-bg:hover{
+  background-color: transparent;
+  color: black;
 }
 .force-flex{
   display: flex !important;

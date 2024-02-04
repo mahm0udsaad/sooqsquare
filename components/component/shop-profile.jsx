@@ -12,11 +12,17 @@ import { toast } from "sonner"
 import { addBgImageToShop, addImageToShop, updateShopInfo } from "@/app/[lng]/(traderDashboard)/actions"
 import { LoadingSpinner } from "@/components/loading-spiner"
 import { useForm, Controller } from 'react-hook-form';
+import { countriesWithCities } from "@/data/staticData"
+import { DropdownMenuTrigger, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuSubTrigger, DropdownMenuItem, DropdownMenuSubContent, DropdownMenuSub, DropdownMenuContent, DropdownMenu } from "@/components/ui/dropdown-menu"
+import { getLocation } from "@/helper/location"
+import { useTranslation } from "../../app/i18n/client"
 
 export default function MyShopPage({shop , lng}) {
+  const { t } = useTranslation(lng , 'view')
   const [bgImage, setBgImage] = useState(null);
   const [uploading, setUploading] = useState(false);
-  const { handleSubmit, control , formState } = useForm();
+  const { handleSubmit, control , formState , setValue} = useForm();
+  const [ loading , setLoading ] = useState(false)
 
   const handleBgImageChange = async (e) => {
     const file = e.target.files[0];
@@ -80,6 +86,25 @@ export default function MyShopPage({shop , lng}) {
     }
     handleUpdateShop(data);
   };
+  const handleShopCityChange = (city , country) =>{
+    setValue('city',city)
+    setValue('country',country)
+  }
+  const handleButtonClick = async () => {
+    try {
+      setLoading(true)
+      const userLocation = await getLocation();
+
+      setValue('city',userLocation.city)
+      setValue('country',userLocation.countryName)
+
+    } catch (error) {
+      console.error('Error getting location:', error);
+    }finally{
+      setLoading(false)
+    }
+  };
+
   return (
     <>
       <section className="relative w-full h-[50dvh] overflow-hidden">
@@ -130,17 +155,6 @@ export default function MyShopPage({shop , lng}) {
               render={({ field }) => <Input {...field} id="shop-name" placeholder="Enter your shop name" />}
             />
           </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="location">Location</Label>
-            <Controller
-              name="location"
-              control={control}
-              defaultValue={shop.location || ''}
-              render={({ field }) => <Input {...field} id="location" placeholder="Enter your location" />}
-            />
-          </div>
-
 
           <div className="space-y-2">
             <Label htmlFor="facebook-link">Facebook Link</Label>
@@ -211,8 +225,44 @@ export default function MyShopPage({shop , lng}) {
               render={({ field }) => <Input {...field} id="phone-number-2" placeholder="Enter your phone number" type="tel" />}
             />
           </div>
+        <div className="relative ">
+         <div className="flex max-w-md h-full items-end gap-4">
+         <Label className="absolute top-2 w-44">Shop Location</Label>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="outline" className="w-60 py-2 px-4">Select a country</Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className="w-56">
+              <DropdownMenuLabel>Countries</DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              {countriesWithCities.map((countryObj, index) => (
+                <DropdownMenuSub key={index}>
+                  <DropdownMenuSubTrigger>
+                  {countryObj.countryCode && <span className={`mx-2 fi fi-${countryObj.countryCode}`}></span> }
+                    {t(`${countryObj.country}`)}
+                  </DropdownMenuSubTrigger>
+                  <DropdownMenuSubContent className="p-0">
+                    {countryObj.cities.map((city, cityIndex) => (
+                      <DropdownMenuItem key={cityIndex} onClick={() => handleShopCityChange(city , countryObj.country)}>
+                        {t(`${city}`)}
+                      </DropdownMenuItem>
+                    ))}
+                  </DropdownMenuSubContent>
+                </DropdownMenuSub>
+              ))}
+            </DropdownMenuContent>
+          </DropdownMenu>
+          <Button className="main-bg relative" disabled={loading} onClick={handleButtonClick}>
+            <span className="absolute top-0 right-0 inline-flex h-3 w-3">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-3 w-3 bg-sky-500"></span>
+            </span>
+            {loading ? <LoadingSpinner /> : null}
+            {t('locationDetails.useCurrentLocation')}
+          </Button>
+         </div>
+          </div>
         </div>
-
         <div className="flex w-full gap-4">
           <div className="space-y-2 w-full">
             <Label htmlFor="description">Description</Label>
@@ -226,7 +276,7 @@ export default function MyShopPage({shop , lng}) {
             />
           </div>
         </div>
-
+      
         <Button
           className="mt-4 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white main-bg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
           type="submit"

@@ -31,7 +31,8 @@ model Shop {
   userId              Int      
   shopCategory        String   @default("cars")
   shopName            String  
-  location            String  
+  city                String?  
+  country             String?  
   bgImage             String  @default("https://cloud.elsewedy-automation.com/nextcloud/apps/sharingpath/mahm0ud/upload/Rectangle%2023787.png")
   shopImage           String?  
   description         String?  

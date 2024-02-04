@@ -86,7 +86,6 @@ const cities = [
   "Tripoli",
   "Tunis",
   "Algiers",
-  // Add more cities as needed
 ];
 const features = [
   "ABS",
@@ -127,6 +126,53 @@ const ArabCountries = [
   { code: '+974', name: 'Qatar' },
   { code: '+961', name: 'Lebanon' },
 ];
+const countriesWithCities = [
+  {
+    country: 'Egypt',
+    countryCode: 'eg',
+    cities: ['Cairo', 'Alexandria', 'Luxor', 'Aswan', 'Sharm El Sheikh', 'Hurghada', 'Port Said', 'Suez']
+  },
+  {
+    country: 'Saudi Arabia',
+    countryCode: 'sa',
+    cities: ['Riyadh', 'Jeddah', 'Mecca', 'Medina', 'Dammam', 'Khobar', 'Abha', 'Tabuk']
+  },
+  {
+    country: 'United Arab Emirates',
+    countryCode: 'ae',
+    cities: ['Dubai', 'Abu Dhabi', 'Sharjah', 'Ajman', 'Fujairah', 'Al Ain', 'Ras Al Khaimah', 'Umm Al-Quwain']
+  },
+  {
+    country: 'Jordan',
+    countryCode: 'jo',
+    cities: ['Amman', 'Aqaba', 'Irbid', 'Zarqa', 'Madaba', 'Karak', `Ma'an`, 'Jerash']
+  },
+  {
+    country: 'Kuwait',
+    countryCode: 'kw',
+    cities: ['Kuwait City', 'Ahmadi', 'Hawalli', 'Farwaniya', 'Jahra', 'Mubarak Al-Kabeer', 'Salmiya', 'Fahaheel']
+  },
+  {
+    country: 'Bahrain',
+    countryCode: 'bh',
+    cities: ['Manama', 'Muharraq', 'Riffa', 'Hamad Town', 'Isa Town', 'Jidhafs', 'Sitra', 'Sanad']
+  },
+  {
+    country: 'Oman',
+    countryCode: 'om',
+    cities: ['Muscat', 'Salalah', 'Sohar', 'Nizwa', 'Sur', 'Ibri', 'Buraimi', 'Khasab']
+  },
+  {
+    country: 'Qatar',
+    countryCode: 'qa',
+    cities: ['Doha', 'Al Rayyan', 'Al Wakrah', 'Al Khor', 'Mesaieed', 'Umm Salal', 'Al Daayen', 'Al Shamal']
+  },
+  {
+    country: 'Lebanon',
+    countryCode: 'lb',
+    cities: ['Beirut', 'Tripoli', 'Sidon', 'Tyre', 'Byblos', 'Jounieh', 'Zahle', 'Baabda']
+  }
+];
 const ArabCountriesWithCurrancy = [
   { currencyCode: 'EGP', name: 'Egypt' },
   { currencyCode: 'SAR', name: 'Saudi Arabia' },
@@ -143,4 +189,4 @@ const ArabCountriesWithCurrancy = [
   { currencyCode: 'DZD', name: 'Algeria' },
   { currencyCode: 'IQD', name: 'Iraq' },
 ];
-  export {ArabCountries, ArabCountriesWithCurrancy, features,cities,categoriesData ,carBrands ,yearsArray ,carTypesArray , carBrandsWithLogos}
+  export {countriesWithCities ,ArabCountries, ArabCountriesWithCurrancy, features,cities,categoriesData ,carBrands ,yearsArray ,carTypesArray , carBrandsWithLogos}

@@ -4,49 +4,91 @@ import { FiChevronDown } from 'react-icons/fi';
 import { PopoverTrigger, PopoverContent, Popover } from "@/components/ui/popover";
 import { TfiWorld } from 'react-icons/tfi';
 import { useTranslation } from "@/app/i18n/client";
-import { ArabCountriesWithCurrancy } from '@/data/staticData';
 import { useDarkMode } from '@/context/darkModeContext';
 import { getLocation } from '@/helper/location';
+import { DropdownMenuTrigger, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuSubTrigger, DropdownMenuItem, DropdownMenuSubContent, DropdownMenuSub, DropdownMenuContent, DropdownMenu } from "@/components/ui/dropdown-menu"
+import { countriesWithCities } from "@/data/staticData";
+import { Button } from '../ui/button';
+import 'flag-icons/css/flag-icons.min.css';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
-const PopoverCountry = () => {
-  const [countryName , setCountryName] = useState(null)
-  useEffect(() => {
-    const fetchLocation = async () => {
-      try {
-        const location = await getLocation();
-        setCountryName(location.countryName);
-      } catch (error) {
-        console.error('Error fetching location:', error);
-      }
+const PopoverCountry = ({ lng }) => {
+  const { t } = useTranslation(lng , "view")
+    const pathname = usePathname()
+    const [selectedCountry, setSelectedCountry] = useState(null);
+
+    const handleCountryChange = (country, code) => {
+      setSelectedCountry({ country: country, code: code });
+      createQueryString('country', country);
+      // Store selectedCountry in localStorage
+      localStorage.setItem('selectedCountry', JSON.stringify({ country, code }));
     };
   
-    if (!countryName) {
-      fetchLocation();
-    }
+      const router = useRouter();
+      const searchParams = useSearchParams();
+    
+      const createQueryString = (name, value) => {
+        if (pathname.split('/')[2] === "vehicle") {
+          const params = new URLSearchParams(searchParams);
+          params.set(name, value);
+            const updatedParams = params.toString();
+            router.push(pathname + '?' + updatedParams);
+          }
+        };
+    
+    useEffect(() => {
+      const fetchLocation = async () => {
+        try {
+          const storedCountry = localStorage.getItem('selectedCountry');
+          if (storedCountry) {
+            // If there's a selectedCountry in localStorage, use it
+            setSelectedCountry(JSON.parse(storedCountry));
+          } else {
+              const location = await getLocation();
+              const countryObj = countriesWithCities.find(country => country.country === location.countryName);
+
+            localStorage.setItem('selectedCountry', JSON.stringify({ country: countryObj.country, code: countryObj.countryCode }));
+            setSelectedCountry({ country: countryObj.country, code: countryObj.countryCode });
+          }
+        } catch (error) {
+          console.error('Error fetching location:', error);
+        }
+      };
   
-  }, []);
+      if (!selectedCountry) {
+        fetchLocation();
+      }
+    }, []);
 
   return (
-    <Popover>
-      <PopoverTrigger asChild>
-        <button className="border dark:border-zinc-800 dark:bg-zinc-900 px-4 py-2 rounded-xl flex items-center">
-          <TfiWorld className="text-xl mx-3" />
-          {countryName ? countryName : 'country'}
-          <FiChevronDown className="ml-2" />
-        </button>
-      </PopoverTrigger>
-      <PopoverContent className="w-80 dark:bg-zinc-950 dark:text-white">
-        <div className="grid gap-4">
-          <div className="space-y-2">
-            {ArabCountriesWithCurrancy.map((country) => (
-              <div key={country.name} onClick={() => changeCountry(country.name)} className="hover:bg-gray-100 px-4 py-2">
-                {country.name}
-              </div>
-            ))}
-          </div>
-        </div>
-      </PopoverContent>
-    </Popover>
+    <DropdownMenu>
+    <DropdownMenuTrigger asChild>
+      <Button variant="outline" className="w-48 py-2 px-4 rounded-xl">
+          {selectedCountry ? (
+            <>
+            <span className={`mx-2 fi fi-${selectedCountry.code}`}></span>
+            {t(`${selectedCountry.country}`)}
+            </>
+            ) : 
+            <>
+            <TfiWorld className="text-xl mx-3" />
+            country
+            </>
+            }
+            <FiChevronDown className="ml-2" />
+      </Button>
+    </DropdownMenuTrigger>
+    <DropdownMenuContent className="w-56">
+      <DropdownMenuLabel>Countries</DropdownMenuLabel>
+      <DropdownMenuSeparator />
+      {countriesWithCities.map((countryObj, index) => (
+        <DropdownMenuItem onClick={()=>handleCountryChange(countryObj.country , countryObj.countryCode)} key={index}>
+          {countryObj.countryCode && <span className={`mx-2 fi fi-${countryObj.countryCode}`}></span> }
+          {t(`${countryObj.country}`)}
+        </DropdownMenuItem>
+      ))}
+    </DropdownMenuContent>
+  </DropdownMenu>
   );
 };
 

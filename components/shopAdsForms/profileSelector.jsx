@@ -4,9 +4,11 @@ import { AvatarImage, AvatarFallback, Avatar } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
 import { CardContent, Card } from "@/components/ui/card"
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
+import { useTranslation } from "../../app/i18n/client"
 
 
-const SelectProfile = ({ user }) =>{
+const SelectProfile = ({ user , lng}) =>{
+    const { t } = useTranslation(lng , 'view')
     const searchParams = useSearchParams();
     const router = useRouter()
     const pathname= usePathname()
@@ -25,7 +27,7 @@ const SelectProfile = ({ user }) =>{
 
     return (
         <>
-        <h1 className="text-center py-3 font-semibold text-xl">Select Profile to display the ad</h1>
+        <h1 className="text-center py-3 font-semibold text-xl">{t("SelectProfile")}</h1>
 
         <div className="flex justify-center items-center gap-8 p-4">
           <Card className="relative w-64 shadow-lg rounded-lg overflow-hidden border border-green-500 rounded-lg shadow-md bg-white dark:bg-zinc-800">
@@ -36,7 +38,7 @@ const SelectProfile = ({ user }) =>{
                 <AvatarFallback>UN1</AvatarFallback>
               </Avatar>
               <h2 className="text-2xl font-semibold text-gray-800 dark:text-gray-200">{user.username}</h2>
-              <Button onClick={()=>createQueryString('profile',"mainProfile")} className="mt-4 w-full bg-blue-500 text-white rounded-md py-2">Select Profile</Button>
+              <Button onClick={()=>createQueryString('profile',"mainProfile")} className="mt-4 w-full main-bg rounded-md py-2">Select Profile</Button>
             </CardContent>
           </Card>
           {user.shop?.map((shop)=>(
@@ -47,7 +49,7 @@ const SelectProfile = ({ user }) =>{
                 <AvatarFallback>UN2</AvatarFallback>
               </Avatar>
               <h2 className="text-2xl font-semibold text-gray-800 dark:text-gray-200">{shop.shopName}</h2>
-              <Button onClick={()=>createQueryString('profile', `shop=${shop.id}`)} className="mt-4 w-full bg-blue-500 text-white rounded-md py-2">Select Profile</Button>
+              <Button onClick={()=>createQueryString('profile', `shop=${shop.id}`)} className="mt-4 w-full main-bg rounded-md py-2">Select Profile</Button>
             </CardContent>
           </Card>
           ))}

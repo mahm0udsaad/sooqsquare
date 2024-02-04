@@ -7,7 +7,7 @@ import { Button } from "./ui/button";
 
 export const CategroyLink = ({ icon, text ,link}) => {
     return (
-        <Link href={`${link}`} className={`flex items-center hover:text-white justify-center dark:text-white border border-[#F34A62] rounded-xl lg:px-2 py-5 hover:bg-gradient-to-r hover:from-rose-400 hover:to-blue-500 cursor-pointer transition`}>
+        <Link href={`/vehicle`} className={`flex items-center hover:text-white justify-center dark:text-white border border-[#F34A62] rounded-xl lg:px-2 py-5 hover:bg-gradient-to-r hover:from-rose-400 hover:to-blue-500 cursor-pointer transition`}>
         <div className="text-2xl mx-3">
             {icon}
         </div>

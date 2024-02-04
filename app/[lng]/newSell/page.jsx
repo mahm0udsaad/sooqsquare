@@ -59,7 +59,7 @@ const SellForm = async ({ params : { lng} , searchParams  }) =>{
     return (
         <div className="flex flex-col min-h-screen w-11/12 mx-8">
         <div className="w-full pt-8">
-        {!searchParams.profile ? <SelectProfile user={user}/> : null}
+        {!searchParams.profile ? <SelectProfile lng={lng} user={user}/> : null}
         {!searchParams.category && searchParams.profile && <CategoriesForm lng={lng} />}
         {!searchParams.uploadedImages && searchParams.category && searchParams.profile && <MultiImageForm  lng={lng} />}
         {!searchParams.brand && searchParams.carStatus && <CarBrandSelector lng={lng} />}

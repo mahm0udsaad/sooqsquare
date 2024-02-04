@@ -103,6 +103,7 @@ export async function createAdForUser(data, userId, adStatus) {
   userId = parseInt(userId)
   const {
     EnginCapacity,
+    country,
     paintType,
     payment,
     price,
@@ -139,6 +140,7 @@ export async function createAdForUser(data, userId, adStatus) {
 
     const newAdData = {
       EnginCapacity,
+      country,
       paintType,
       payment,
       price,
@@ -183,6 +185,7 @@ export async function createAdForUser(data, userId, adStatus) {
 }
 export async function createAdForShop(data, shopId, adStatus) {
   const {
+    country,
     EnginCapacity,
     paintType,
     payment,
@@ -215,6 +218,7 @@ export async function createAdForShop(data, shopId, adStatus) {
     }
 
     const newAdData = {
+      country,
       EnginCapacity,
       paintType,
       payment,

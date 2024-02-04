@@ -33,7 +33,7 @@ export default function Review({lng ,userId ,  shopId}) {
     const name = useSearchParams().get("name");
     const profile = useSearchParams().get("profile");
     const location = useSearchParams().get("location");
-    const {extraFeature , adImages  , setConfettiActive} = useDarkMode()
+    const {extraFeature , adImages  , setConfettiActive , userLocation} = useDarkMode()
     const carChassis = useSearchParams().get("carChassis");
     const [loading , setLoading] = useState(false)
     const [PublishIsLoading , setPublishIsLoading] = useState(false)
@@ -41,9 +41,10 @@ export default function Review({lng ,userId ,  shopId}) {
     const [ad, setAd] = useState(null);
     const { t } = useTranslation(lng , "translation")
     const extraFeatures = extraFeature.join(' ')
-  
+
     const data = {
       name: name,
+      country: userLocation.countryName,
       carStatus: carStatus,
       price: price,
       payment: payment,
@@ -110,7 +111,6 @@ export default function Review({lng ,userId ,  shopId}) {
       { label: 'Category', value: category },
       { label: 'Car Status', value: carStatus },
       { label: 'Name', value: name },
-      { label: 'Uploaded Images', value: uploadedImages },
       { label: 'Brand', value: brand },
       { label: 'Model', value: model },
       { label: 'Year', value: year },
@@ -133,7 +133,7 @@ export default function Review({lng ,userId ,  shopId}) {
       <main className="">
         <div className="grid mx-8 grid-cols-1 md:grid-cols-3 gap-x-3 gap-y-2 pb-4">
           {steps.map((step, i) => (
-            step.value !== 'null' && 
+            step.value !== 'null'  && 
             <div key={i}>
               <Label htmlFor={`step-${i}`}>{step.label}</Label>
               <Input id={`step-${i}`} type="text" value={step.value || ''} />
@@ -165,7 +165,7 @@ export default function Review({lng ,userId ,  shopId}) {
             </DialogContent>
           </Dialog>
         </div>
-        <div className="flex items-center">
+        <div className="flex w-[35%] gap-4 mx-8 justify-start items-center">
         <Button onClick={handleSave} disabled={loading} className="flex h-14 w-full rounded-md self-end justify-around rounded-md bg-gray-900  text-sm font-medium text-gray-50 shadow transition-colors hover:bg-gray-900/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-950 disabled:pointer-events-none disabled:opacity-50 dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-50/90 dark:focus-visible:ring-gray-300">
               {loading ? 'saving...' :  t('saveAd')}
               <HardDriveIcon className="ml-2 h-4 w-4 mx-3" />

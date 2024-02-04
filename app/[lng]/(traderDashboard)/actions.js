@@ -104,7 +104,8 @@ export async function createShop(userId, data) {
         user: { connect: { id: userId } }, 
           shopImage: data.shopImage,
           shopName: data.shopName,
-          location: data.location,
+          city: data.city,
+          country: data.country,
           description: data.description,
       },
     });
@@ -341,7 +342,8 @@ export async function updateShopInfo(shopId, data) {
       },
       data: {
         shopName: data.shopName,
-        location: data.location,
+        city: data.city,
+        country: data.country,
         description: data.description,
         facebookLink: data.facebookLink,
         twitterLink: data.twitterLink,

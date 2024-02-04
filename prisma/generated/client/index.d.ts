@@ -2651,7 +2651,8 @@ export namespace Prisma {
     userId: number | null
     shopCategory: string | null
     shopName: string | null
-    location: string | null
+    city: string | null
+    country: string | null
     bgImage: string | null
     shopImage: string | null
     description: string | null
@@ -2669,7 +2670,8 @@ export namespace Prisma {
     userId: number | null
     shopCategory: string | null
     shopName: string | null
-    location: string | null
+    city: string | null
+    country: string | null
     bgImage: string | null
     shopImage: string | null
     description: string | null
@@ -2687,7 +2689,8 @@ export namespace Prisma {
     userId: number
     shopCategory: number
     shopName: number
-    location: number
+    city: number
+    country: number
     bgImage: number
     shopImage: number
     description: number
@@ -2717,7 +2720,8 @@ export namespace Prisma {
     userId?: true
     shopCategory?: true
     shopName?: true
-    location?: true
+    city?: true
+    country?: true
     bgImage?: true
     shopImage?: true
     description?: true
@@ -2735,7 +2739,8 @@ export namespace Prisma {
     userId?: true
     shopCategory?: true
     shopName?: true
-    location?: true
+    city?: true
+    country?: true
     bgImage?: true
     shopImage?: true
     description?: true
@@ -2753,7 +2758,8 @@ export namespace Prisma {
     userId?: true
     shopCategory?: true
     shopName?: true
-    location?: true
+    city?: true
+    country?: true
     bgImage?: true
     shopImage?: true
     description?: true
@@ -2858,7 +2864,8 @@ export namespace Prisma {
     userId: number
     shopCategory: string
     shopName: string
-    location: string
+    city: string | null
+    country: string | null
     bgImage: string
     shopImage: string | null
     description: string | null
@@ -2895,7 +2902,8 @@ export namespace Prisma {
     userId?: boolean
     shopCategory?: boolean
     shopName?: boolean
-    location?: boolean
+    city?: boolean
+    country?: boolean
     bgImage?: boolean
     shopImage?: boolean
     description?: boolean
@@ -2916,7 +2924,8 @@ export namespace Prisma {
     userId?: boolean
     shopCategory?: boolean
     shopName?: boolean
-    location?: boolean
+    city?: boolean
+    country?: boolean
     bgImage?: boolean
     shopImage?: boolean
     description?: boolean
@@ -2947,7 +2956,8 @@ export namespace Prisma {
       userId: number
       shopCategory: string
       shopName: string
-      location: string
+      city: string | null
+      country: string | null
       bgImage: string
       shopImage: string | null
       description: string | null
@@ -3343,7 +3353,8 @@ export namespace Prisma {
     readonly userId: FieldRef<"Shop", 'Int'>
     readonly shopCategory: FieldRef<"Shop", 'String'>
     readonly shopName: FieldRef<"Shop", 'String'>
-    readonly location: FieldRef<"Shop", 'String'>
+    readonly city: FieldRef<"Shop", 'String'>
+    readonly country: FieldRef<"Shop", 'String'>
     readonly bgImage: FieldRef<"Shop", 'String'>
     readonly shopImage: FieldRef<"Shop", 'String'>
     readonly description: FieldRef<"Shop", 'String'>
@@ -8707,7 +8718,8 @@ export namespace Prisma {
     userId: 'userId',
     shopCategory: 'shopCategory',
     shopName: 'shopName',
-    location: 'location',
+    city: 'city',
+    country: 'country',
     bgImage: 'bgImage',
     shopImage: 'shopImage',
     description: 'description',
@@ -8935,7 +8947,8 @@ export namespace Prisma {
     userId?: IntFilter<"Shop"> | number
     shopCategory?: StringFilter<"Shop"> | string
     shopName?: StringFilter<"Shop"> | string
-    location?: StringFilter<"Shop"> | string
+    city?: StringNullableFilter<"Shop"> | string | null
+    country?: StringNullableFilter<"Shop"> | string | null
     bgImage?: StringFilter<"Shop"> | string
     shopImage?: StringNullableFilter<"Shop"> | string | null
     description?: StringNullableFilter<"Shop"> | string | null
@@ -8955,7 +8968,8 @@ export namespace Prisma {
     userId?: SortOrder
     shopCategory?: SortOrder
     shopName?: SortOrder
-    location?: SortOrder
+    city?: SortOrderInput | SortOrder
+    country?: SortOrderInput | SortOrder
     bgImage?: SortOrder
     shopImage?: SortOrderInput | SortOrder
     description?: SortOrderInput | SortOrder
@@ -8978,7 +8992,8 @@ export namespace Prisma {
     userId?: IntFilter<"Shop"> | number
     shopCategory?: StringFilter<"Shop"> | string
     shopName?: StringFilter<"Shop"> | string
-    location?: StringFilter<"Shop"> | string
+    city?: StringNullableFilter<"Shop"> | string | null
+    country?: StringNullableFilter<"Shop"> | string | null
     bgImage?: StringFilter<"Shop"> | string
     shopImage?: StringNullableFilter<"Shop"> | string | null
     description?: StringNullableFilter<"Shop"> | string | null
@@ -8998,7 +9013,8 @@ export namespace Prisma {
     userId?: SortOrder
     shopCategory?: SortOrder
     shopName?: SortOrder
-    location?: SortOrder
+    city?: SortOrderInput | SortOrder
+    country?: SortOrderInput | SortOrder
     bgImage?: SortOrder
     shopImage?: SortOrderInput | SortOrder
     description?: SortOrderInput | SortOrder
@@ -9024,7 +9040,8 @@ export namespace Prisma {
     userId?: IntWithAggregatesFilter<"Shop"> | number
     shopCategory?: StringWithAggregatesFilter<"Shop"> | string
     shopName?: StringWithAggregatesFilter<"Shop"> | string
-    location?: StringWithAggregatesFilter<"Shop"> | string
+    city?: StringNullableWithAggregatesFilter<"Shop"> | string | null
+    country?: StringNullableWithAggregatesFilter<"Shop"> | string | null
     bgImage?: StringWithAggregatesFilter<"Shop"> | string
     shopImage?: StringNullableWithAggregatesFilter<"Shop"> | string | null
     description?: StringNullableWithAggregatesFilter<"Shop"> | string | null
@@ -9502,7 +9519,8 @@ export namespace Prisma {
   export type ShopCreateInput = {
     shopCategory?: string
     shopName: string
-    location: string
+    city?: string | null
+    country?: string | null
     bgImage?: string
     shopImage?: string | null
     description?: string | null
@@ -9522,7 +9540,8 @@ export namespace Prisma {
     userId: number
     shopCategory?: string
     shopName: string
-    location: string
+    city?: string | null
+    country?: string | null
     bgImage?: string
     shopImage?: string | null
     description?: string | null
@@ -9539,7 +9558,8 @@ export namespace Prisma {
   export type ShopUpdateInput = {
     shopCategory?: StringFieldUpdateOperationsInput | string
     shopName?: StringFieldUpdateOperationsInput | string
-    location?: StringFieldUpdateOperationsInput | string
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
     bgImage?: StringFieldUpdateOperationsInput | string
     shopImage?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
@@ -9559,7 +9579,8 @@ export namespace Prisma {
     userId?: IntFieldUpdateOperationsInput | number
     shopCategory?: StringFieldUpdateOperationsInput | string
     shopName?: StringFieldUpdateOperationsInput | string
-    location?: StringFieldUpdateOperationsInput | string
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
     bgImage?: StringFieldUpdateOperationsInput | string
     shopImage?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
@@ -9576,7 +9597,8 @@ export namespace Prisma {
   export type ShopUpdateManyMutationInput = {
     shopCategory?: StringFieldUpdateOperationsInput | string
     shopName?: StringFieldUpdateOperationsInput | string
-    location?: StringFieldUpdateOperationsInput | string
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
     bgImage?: StringFieldUpdateOperationsInput | string
     shopImage?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
@@ -9594,7 +9616,8 @@ export namespace Prisma {
     userId?: IntFieldUpdateOperationsInput | number
     shopCategory?: StringFieldUpdateOperationsInput | string
     shopName?: StringFieldUpdateOperationsInput | string
-    location?: StringFieldUpdateOperationsInput | string
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
     bgImage?: StringFieldUpdateOperationsInput | string
     shopImage?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
@@ -10148,7 +10171,8 @@ export namespace Prisma {
     userId?: SortOrder
     shopCategory?: SortOrder
     shopName?: SortOrder
-    location?: SortOrder
+    city?: SortOrder
+    country?: SortOrder
     bgImage?: SortOrder
     shopImage?: SortOrder
     description?: SortOrder
@@ -10171,7 +10195,8 @@ export namespace Prisma {
     userId?: SortOrder
     shopCategory?: SortOrder
     shopName?: SortOrder
-    location?: SortOrder
+    city?: SortOrder
+    country?: SortOrder
     bgImage?: SortOrder
     shopImage?: SortOrder
     description?: SortOrder
@@ -10189,7 +10214,8 @@ export namespace Prisma {
     userId?: SortOrder
     shopCategory?: SortOrder
     shopName?: SortOrder
-    location?: SortOrder
+    city?: SortOrder
+    country?: SortOrder
     bgImage?: SortOrder
     shopImage?: SortOrder
     description?: SortOrder
@@ -11373,7 +11399,8 @@ export namespace Prisma {
   export type ShopCreateWithoutUserInput = {
     shopCategory?: string
     shopName: string
-    location: string
+    city?: string | null
+    country?: string | null
     bgImage?: string
     shopImage?: string | null
     description?: string | null
@@ -11391,7 +11418,8 @@ export namespace Prisma {
     id?: number
     shopCategory?: string
     shopName: string
-    location: string
+    city?: string | null
+    country?: string | null
     bgImage?: string
     shopImage?: string | null
     description?: string | null
@@ -11575,7 +11603,8 @@ export namespace Prisma {
     userId?: IntFilter<"Shop"> | number
     shopCategory?: StringFilter<"Shop"> | string
     shopName?: StringFilter<"Shop"> | string
-    location?: StringFilter<"Shop"> | string
+    city?: StringNullableFilter<"Shop"> | string | null
+    country?: StringNullableFilter<"Shop"> | string | null
     bgImage?: StringFilter<"Shop"> | string
     shopImage?: StringNullableFilter<"Shop"> | string | null
     description?: StringNullableFilter<"Shop"> | string | null
@@ -11913,7 +11942,8 @@ export namespace Prisma {
   export type ShopCreateWithoutAdsInput = {
     shopCategory?: string
     shopName: string
-    location: string
+    city?: string | null
+    country?: string | null
     bgImage?: string
     shopImage?: string | null
     description?: string | null
@@ -11932,7 +11962,8 @@ export namespace Prisma {
     userId: number
     shopCategory?: string
     shopName: string
-    location: string
+    city?: string | null
+    country?: string | null
     bgImage?: string
     shopImage?: string | null
     description?: string | null
@@ -12034,7 +12065,8 @@ export namespace Prisma {
   export type ShopUpdateWithoutAdsInput = {
     shopCategory?: StringFieldUpdateOperationsInput | string
     shopName?: StringFieldUpdateOperationsInput | string
-    location?: StringFieldUpdateOperationsInput | string
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
     bgImage?: StringFieldUpdateOperationsInput | string
     shopImage?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
@@ -12053,7 +12085,8 @@ export namespace Prisma {
     userId?: IntFieldUpdateOperationsInput | number
     shopCategory?: StringFieldUpdateOperationsInput | string
     shopName?: StringFieldUpdateOperationsInput | string
-    location?: StringFieldUpdateOperationsInput | string
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
     bgImage?: StringFieldUpdateOperationsInput | string
     shopImage?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
@@ -12762,7 +12795,8 @@ export namespace Prisma {
   export type ShopUpdateWithoutUserInput = {
     shopCategory?: StringFieldUpdateOperationsInput | string
     shopName?: StringFieldUpdateOperationsInput | string
-    location?: StringFieldUpdateOperationsInput | string
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
     bgImage?: StringFieldUpdateOperationsInput | string
     shopImage?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
@@ -12780,7 +12814,8 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     shopCategory?: StringFieldUpdateOperationsInput | string
     shopName?: StringFieldUpdateOperationsInput | string
-    location?: StringFieldUpdateOperationsInput | string
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
     bgImage?: StringFieldUpdateOperationsInput | string
     shopImage?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
@@ -12798,7 +12833,8 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     shopCategory?: StringFieldUpdateOperationsInput | string
     shopName?: StringFieldUpdateOperationsInput | string
-    location?: StringFieldUpdateOperationsInput | string
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
     bgImage?: StringFieldUpdateOperationsInput | string
     shopImage?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null

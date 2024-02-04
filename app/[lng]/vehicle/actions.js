@@ -2,7 +2,7 @@
 import prisma from "@/prisma/client"
 import { revalidatePath } from "next/cache";
 
-export async function getAllads(searchParams){
+export async function getAllads(searchParams , user){
     const ads = await prisma.Ad.findMany({
         include: {
           Adimages: true,
@@ -28,8 +28,8 @@ export async function getAllads(searchParams){
                   return { [key]: { contains: searchParams[key] } };
                 }).flat()
               : []),
-            // Condition for active ads
             { adStatus: "active" },
+            { country: searchParams['country'] ? searchParams['country']  : user.country },
           ],
         },
       });
