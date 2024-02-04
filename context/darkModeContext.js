@@ -98,7 +98,7 @@ export const DarkModeProvider = ({ children }) => {
       fetchLocation();
     }
   
-  }, []);
+  }, [countryName]);
 
 
   return (

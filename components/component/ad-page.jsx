@@ -80,7 +80,7 @@ export function AdPage({ad , lng}) {
         </Card>
         <Card>
         <CardHeader className='py-8'>
-          <CardTitle >Car description</CardTitle>
+          <CardTitle >{t("Car Detials")}</CardTitle>
           </CardHeader>
         <CardContent className="grid grid-cols-2 gap-4">
         <div className="flex justify-between">
@@ -135,7 +135,7 @@ export function AdPage({ad , lng}) {
         </Card>
         <Card>
           <CardHeader>
-            <CardTitle>Description</CardTitle>
+            <CardTitle>{t("Description")}</CardTitle>
           </CardHeader>
           <CardContent className="text-2xl font-semibold">
           {ad.description}
@@ -155,7 +155,7 @@ export function AdPage({ad , lng}) {
       <div className="w-[30%] grid gap-6 md:gap-3 items-start">
         <Card>
           <CardHeader>
-            <CardTitle>Owner Information</CardTitle>
+            <CardTitle>{t("Owner Information")}</CardTitle>
           </CardHeader>
           <CardContent className='flex flex-col gap-4'>
             <div className="flex justify-start gap-4 items-center">
@@ -167,22 +167,22 @@ export function AdPage({ad , lng}) {
           </Avatar>
             <p className="">{ad.userId ? ad.user?.username : ad.shop.shopName}</p>
             </div>
-            <p>Member Since : {ad.userId ? ad.user?.createdAt && memberSince(ad.user.createdAt) : ad.shop?.createdAt && memberSince(ad.shop.createdAt)}</p>
+            <p>{t("Member Since")} : {ad.userId ? ad.user?.createdAt && memberSince(ad.user.createdAt) : ad.shop?.createdAt && memberSince(ad.shop.createdAt)}</p>
             <div className="flex justify-between items-center mt-2">
               <Link href={{
                 pathname: '/chat',
                 query: { owner: ad.userId ? ad.user?.id : ad.shop.id },
             }} className="w-1/2 mx-1 rounded text-white p-2  flex items-center justify-center gap-2 inset-0 z-10 bg-[#fe2635] hover:bg-[#fe26355e]">
                <BsChatLeftDots className='w-4 h-4' />
-                Chat
+                {t("Chat")}
               </Link>
               <Button className="w-1/2 ml-1 flex items-center justify-center gap-2 dark:bg-white dark:text-black dark:hover:text-white">
               <MdOutlineLocalPhone className='h-4 w-4'/>
-                Call
+                {t("Call")}
               </Button>
               <Link href={`/profile/${ad.userId ? ad.userId : `${ad.shop.userId}?shop=${ad.shop?.id}`}`} className="w-1/2 py-2 px-4 rounded-md hover:bg-zinc-900 hover:text-white dark:hover:bg-white dark:hover:text-black mx-1 flex items-center border border-black dark:border-white dark:text-white justify-center gap-2 transition">
               <UserIcon className='h-4 w-4'/>
-                profile
+                {t("profile")}
               </Link>
             </div>
           </CardContent>

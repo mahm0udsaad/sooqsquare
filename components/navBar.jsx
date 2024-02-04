@@ -30,7 +30,7 @@ const NavBar = async  ({ lng })=> {
  
   return (
     <>
-    <nav className="hidden lg:flex z-50 fixed py-2 shadow-lg w-full  items-center justify-between px-6  bg-white dark:text-white dark:bg-zinc-950">
+    <nav className="hidden lg:flex fixed py-2 shadow-lg w-full  items-center justify-between px-6  bg-white dark:text-white dark:bg-zinc-950">
       <Link className="flex items-center" href="#">
         <Logo lng={lng} />
       </Link>

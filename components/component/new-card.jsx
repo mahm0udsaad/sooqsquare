@@ -7,12 +7,19 @@ import { BsChatLeftDots } from "react-icons/bs";
 import { MdOutlineLocalPhone } from "react-icons/md";
 import { addToFavorites } from "@/app/[lng]/vehicle/actions"
 import Link from "next/link"
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip"
 
 export default function MarketAdCard({ ad , user}) {
   return (
     <Card className="w-full max-w-md flex flex-col">
        <div className="relative">
        <Link className="hover:opacity-50 relative" href={`/vehicle/${ad.id}`}>
+
         <Image
           alt="Car Image"
           className="w-full  object-none aspect-square w-full h-[15rem]  rounded-t-lg"
@@ -56,12 +63,22 @@ export default function MarketAdCard({ ad , user}) {
           </p>
         </div>
       </CardContent>
-      <CardFooter className="flex gap-2">
-        <Button className="w-[40%] mr-1 flex items-center justify-center gap-2 inset-0 z-10 bg-[#fe2635] hover:bg-[#fe26355e]">
-        <BsChatLeftDots className='w-4 h-4' />
-        Chat
-        </Button>
-        <Button className="w-[40%] ml-1 flex items-center justify-center gap-2 dark:bg-white dark:text-black">
+      <CardFooter className="flex justify-center gap-2">
+      <TooltipProvider>
+      <Tooltip >
+        <TooltipTrigger>
+          <Button className="w-full mr-1 flex items-center justify-center gap-2 inset-0 z-10  dark:hover:text-white hover:text-black bg-[#fe2635] hover:bg-transparent border border-[#fe2635]">
+            <BsChatLeftDots className='w-4 h-4' />
+           Chat
+          </Button>
+        </TooltipTrigger>
+        <TooltipContent>
+          <p>Go To Chat</p>
+        </TooltipContent>
+      </Tooltip>
+    </TooltipProvider>
+       
+        <Button className="w-[40%] ml-1 flex items-center justify-center gap-2 border dark:hover:text-white hover:text-black  hover:bg-transparent  dark:border-white dark:bg-white dark:text-black">
         <MdOutlineLocalPhone className='h-4 w-4'/>
         Call
         </Button>

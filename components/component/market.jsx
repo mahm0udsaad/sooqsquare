@@ -314,7 +314,7 @@ export function Market({lng , ads , user}) {
           </Button>
         )}
       </div>
-        <div className="grid sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {ads.map((ad)=>(
             <MarketAdCard key={ad.id} user={user} ad={ad} />
           ))}
