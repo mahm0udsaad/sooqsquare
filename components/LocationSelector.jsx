@@ -8,7 +8,7 @@ import { useDarkMode } from '@/context/darkModeContext';
 import { Button } from "@/components/ui/button"
 import { DropdownMenuTrigger, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuSubTrigger, DropdownMenuItem, DropdownMenuSubContent, DropdownMenuSub, DropdownMenuContent, DropdownMenu } from "@/components/ui/dropdown-menu"
 import { countriesWithCities } from "@/data/staticData";
-import 'flag-icons/css/flag-icons.min.css';
+import "/node_modules/flag-icons/css/flag-icons.min.css";
 
 export default function LocationDetails({lng , locationGiven, user}) {
     const { t } = useTranslation(lng,"translation");

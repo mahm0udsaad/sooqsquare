@@ -19,6 +19,7 @@ import { RiTimerFlashLine } from "react-icons/ri";
 import { countriesWithCities } from "@/data/staticData"
 import { DropdownMenuTrigger, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuSubTrigger, DropdownMenuItem, DropdownMenuSubContent, DropdownMenuSub, DropdownMenuContent, DropdownMenu } from "@/components/ui/dropdown-menu"
 import { getLocation } from "@/helper/location"
+import "/node_modules/flag-icons/css/flag-icons.min.css";
 
 const CreateShopSquare = ({ user , lng}) =>{
   const [shopImage, setShopImage] = useState(null);

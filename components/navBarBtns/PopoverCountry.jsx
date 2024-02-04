@@ -9,7 +9,7 @@ import { getLocation } from '@/helper/location';
 import { DropdownMenuTrigger, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuSubTrigger, DropdownMenuItem, DropdownMenuSubContent, DropdownMenuSub, DropdownMenuContent, DropdownMenu } from "@/components/ui/dropdown-menu"
 import { countriesWithCities } from "@/data/staticData";
 import { Button } from '../ui/button';
-import 'flag-icons/css/flag-icons.min.css';
+import "/node_modules/flag-icons/css/flag-icons.min.css";
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
 const PopoverCountry = ({ lng }) => {

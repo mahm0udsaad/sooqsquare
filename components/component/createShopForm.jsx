@@ -18,7 +18,7 @@ import { useTranslation } from "@/app/i18n/client"
 import { countriesWithCities } from "@/data/staticData"
 import { DropdownMenuTrigger, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuSubTrigger, DropdownMenuItem, DropdownMenuSubContent, DropdownMenuSub, DropdownMenuContent, DropdownMenu } from "@/components/ui/dropdown-menu"
 import { getLocation } from "@/helper/location"
-import 'flag-icons/css/flag-icons.min.css';
+import "/node_modules/flag-icons/css/flag-icons.min.css";
 
 const CreateShopButton = ({ user , lng}) =>{
   const [shopImage, setShopImage] = useState(null);
