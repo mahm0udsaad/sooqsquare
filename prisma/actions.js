@@ -179,7 +179,6 @@ export async function createAdForUser(data, userId, adStatus) {
     console.error('Error creating ad:', error);
   } finally {
     revalidatePath('/myAds');
-    redirect(`/myAds`);
   }
 }
 export async function createAdForShop(data, shopId, adStatus) {
@@ -256,7 +255,6 @@ export async function createAdForShop(data, shopId, adStatus) {
     return null;
   } finally {
     revalidatePath(`/dashboard`);
-    redirect(`/shopAds/${shopId}`);
   }
 }
 export  async function createUserIfNotExists(userData) {

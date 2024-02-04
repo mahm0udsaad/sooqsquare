@@ -56,7 +56,6 @@ const SellForm = async ({ params : { lng} , searchParams  }) =>{
         const shopId = searchParams.profile?.split('=')[1];
        profile = user.shop?.find(shop => shop.id === parseInt(shopId));
       }
-      console.log(profile);
     return (
         <div className="flex flex-col min-h-screen w-11/12 mx-8">
         <div className="w-full pt-8">
@@ -70,7 +69,7 @@ const SellForm = async ({ params : { lng} , searchParams  }) =>{
         {searchParams.paintType && <ExtraFeatures lng={lng} />}
         {searchParams.carStatus && <LocationDetails user={user} lng={lng}/>}
         {searchParams.uploadedImages && <Selectors lng={lng}/>}
-        {searchParams.name && <Review userId={user.id} shopId={profile?.id} lng={lng}/>}
+        {searchParams.name && <Review userId={user?.id} shopId={profile?.id} lng={lng}/>}
         </div>
     </div>
     )
