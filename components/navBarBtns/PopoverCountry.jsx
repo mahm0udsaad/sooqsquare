@@ -47,8 +47,8 @@ const PopoverCountry = ({ lng }) => {
               const location = await getLocation();
               const countryObj = countriesWithCities.find(country => country.country === location.countryName);
 
-            localStorage.setItem('selectedCountry', JSON.stringify({ country: countryObj.country, code: countryObj.countryCode }));
-            setSelectedCountry({ country: countryObj.country, code: countryObj.countryCode });
+            localStorage.setItem('selectedCountry', JSON.stringify({ country: countryObj?.country, code: countryObj?.countryCode }));
+            setSelectedCountry({ country: countryObj?.country, code: countryObj?.countryCode });
           }
         } catch (error) {
           console.error('Error fetching location:', error);
@@ -67,7 +67,7 @@ const PopoverCountry = ({ lng }) => {
           {selectedCountry ? (
             <>
             <span className={`mx-2 fi fi-${selectedCountry.code}`}></span>
-            {t(`${selectedCountry.country}`)}
+            {t(`${selectedCountry?.country}`)}
             </>
             ) : 
             <>
