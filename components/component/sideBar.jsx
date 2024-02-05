@@ -41,10 +41,12 @@ const ShopSideBar = async ({ lng  }) =>{
             </Link>
             </div>
             {user?.shop.length > 0 &&
-            <Link   className="py-3  items-center flex text-gray-700 dark:text-gray-200 hover:dark:text-white hover:text-zinc-900" href={`/dashboard`}>
-             <FaShop className="w-6 h-6 text-green-600" />
-             <span className="mx-3">Dashboard</span>
+            <div className="flex w-[85%] py-2 mx-auto justify-between">
+            <Link className="flex text-sm gap-3 space-y-2  items-center text-gray-700 dark:text-gray-200 hover:dark:text-white hover:text-zinc-900" href={`/dashboard`}>
+                <FaShop className="w-6 h-6 " />
+                <span className="mx-3">Dashboard</span>
             </Link>
+            </div>
             }
             <div className="flex w-[85%] py-2 mx-auto justify-between">
              <Link className="flex text-sm gap-3 space-y-2  items-center text-gray-700 dark:text-gray-200 hover:dark:text-white hover:text-zinc-900" href="/reports">
