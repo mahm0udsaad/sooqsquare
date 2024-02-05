@@ -12,6 +12,7 @@ import { useTranslation } from "@/app/i18n";
 import dynamic from "next/dynamic";
 import { getServerSession } from "next-auth";
 import { getUserByEmail } from '@/prisma/actions'
+import { FaShop } from "react-icons/fa6";
 
 const ShopSideBar = async ({ lng  }) =>{
   const DeleteDialoag = dynamic(()=> import('@/components/component/buttons/deleteDailoag'),{
@@ -39,7 +40,12 @@ const ShopSideBar = async ({ lng  }) =>{
                 <span className="mx-3">My Profile</span>
             </Link>
             </div>
-
+            {user?.shop.length > 0 &&
+            <Link   className="py-3  items-center flex text-gray-700 dark:text-gray-200 hover:dark:text-white hover:text-zinc-900" href={`/dashboard`}>
+             <FaShop className="w-6 h-6 text-green-600" />
+             <span className="mx-3">Dashboard</span>
+            </Link>
+            }
             <div className="flex w-[85%] py-2 mx-auto justify-between">
              <Link className="flex text-sm gap-3 space-y-2  items-center text-gray-700 dark:text-gray-200 hover:dark:text-white hover:text-zinc-900" href="/reports">
                 <TbReportAnalytics className="w-6 h-6 text-orange-600" />
@@ -72,10 +78,6 @@ const ShopSideBar = async ({ lng  }) =>{
                     {shop.shopName}
                   </AccordionTrigger>
                   <AccordionContent className="space-y-2 w-[94%] mx-auto">
-                  <Link className="flex text-sm gap-3 items-center text-gray-700 dark:text-gray-200 hover:dark:text-white hover:text-zinc-900" href={`/createAd/${shop.id}`}>
-                    <MdOutlineAddBox  className="w-6 h-6" />
-                    <span className="mx-3">Create Ad</span>
-                  </Link>
                   <Link className="flex text-sm gap-3 items-center text-gray-700 dark:text-gray-200 hover:dark:text-white hover:text-zinc-900" href={`/myShopView/${shop.id}`}>
                     <AiOutlineShop className="w-6 h-6 text-rose-400	" />
                     <span className="mx-3">My Shop</span>
