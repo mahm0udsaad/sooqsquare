@@ -1,7 +1,6 @@
 "use client"
 import React, { useEffect, useState } from 'react';
 import { FiChevronDown } from 'react-icons/fi';
-import { PopoverTrigger, PopoverContent, Popover } from "@/components/ui/popover";
 import { TfiWorld } from 'react-icons/tfi';
 import { useTranslation } from "@/app/i18n/client";
 import { useDarkMode } from '@/context/darkModeContext';
@@ -12,11 +11,11 @@ import { Button } from '../ui/button';
 import "/node_modules/flag-icons/css/flag-icons.min.css";
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
-const PopoverCountry = ({ lng }) => {
+const PopoverCountry = ({ lng  }) => {
   const { t } = useTranslation(lng , "view")
     const pathname = usePathname()
-    const [selectedCountry, setSelectedCountry] = useState(null);
-
+    const { selectedCountry, setSelectedCountry } = useDarkMode();
+    
     const handleCountryChange = (country, code) => {
       setSelectedCountry({ country: country, code: code });
       createQueryString('country', country);
@@ -40,7 +39,7 @@ const PopoverCountry = ({ lng }) => {
       const fetchLocation = async () => {
         try {
           const storedCountry = localStorage.getItem('selectedCountry');
-          if (storedCountry) {
+          if (storedCountry.country) {
             // If there's a selectedCountry in localStorage, use it
             setSelectedCountry(JSON.parse(storedCountry));
           } else {
@@ -51,22 +50,21 @@ const PopoverCountry = ({ lng }) => {
             setSelectedCountry({ country: countryObj?.country, code: countryObj?.countryCode });
           }
         } catch (error) {
-          console.error('Error fetching location:', error);
+          console.error('Error fetching location in popoverCountry:', error);
         }
       };
-  
-      if (!selectedCountry) {
+      
+      if (!selectedCountry?.country) {
         fetchLocation();
       }
     }, []);
-
   return (
     <DropdownMenu>
     <DropdownMenuTrigger asChild>
-      <Button variant="outline" className="w-48 py-2 px-4 rounded-xl">
-          {selectedCountry ? (
+      <Button variant="outline" className="max-w-56 py-2 px-4 rounded-xl">
+          {selectedCountry?.country ? (
             <>
-            <span className={`mx-2 fi fi-${selectedCountry.code}`}></span>
+            <span className={` mx-2 fi fi-${selectedCountry.code}`}></span>
             {t(`${selectedCountry?.country}`)}
             </>
             ) : 

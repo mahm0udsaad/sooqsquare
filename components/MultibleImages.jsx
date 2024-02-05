@@ -3,13 +3,14 @@ import {   usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label"
 import { Badge } from "@/components/ui/badge"
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDarkMode } from '@/context/darkModeContext';
 import  upload  from '../app/[lng]/sell/imageUploadAction'
 import { CiImageOn } from "react-icons/ci";
 import { MdOutlineRocketLaunch } from "react-icons/md";
 import { useTranslation } from '../app/i18n/client';
 import Image from 'next/image';
+import { Progress } from "@/components/ui/progress"
 
 function TrashIcon(props) {
     return (
@@ -35,10 +36,25 @@ function TrashIcon(props) {
  const MultiImageForm = ({lng}) => {
     const { setAdImages , adImages ,setErrorMessage } = useDarkMode()
     const [images, setImages] = useState([]);
-    const [uploading, setUploading] = useState(false);
-    const uploadedImages = useSearchParams().get('uploadedImages')
-    const category = useSearchParams().get('category')
+    const [uploadingStates, setUploadingStates] = useState(Array.from({ length: 20 }, () => false));
     const { t } = useTranslation(lng , "translation")
+    const [progress, setProgress] = useState(0)
+
+    useEffect(() => {
+      const timer = setInterval(() => {
+        // Increase progress up to 70
+        if (progress < 80) {
+          setProgress((prevProgress) => prevProgress + 1)
+        }
+        // If the upload is complete, set progress to 100
+        else {
+          clearInterval(timer)
+          setProgress(100)
+        }
+      }, 500)
+  
+      return () => clearInterval(timer)
+    }, [progress])
 
     const handleImageChange = async (e, index) => {
       const files = e.target.files;
@@ -48,8 +64,12 @@ function TrashIcon(props) {
           throw new Error('No files uploaded');
         }
     
-        setUploading(true);
-    
+        setUploadingStates((prevStates) => {
+          const updatedStates = [...prevStates];
+          updatedStates[index] = true;
+          return updatedStates;
+        });
+
         const uploadPromises = [];
     
         for (let i = 0; i < files.length; i++) {
@@ -69,10 +89,18 @@ function TrashIcon(props) {
           });
           return updatedImages;
         });
-        setUploading(false);
+        setUploadingStates((prevStates) => {
+          const updatedStates = [...prevStates];
+          updatedStates[index] = false;
+          return updatedStates;
+        });
       } catch (error) {
         console.error(error.message);
-        setUploading(false);
+        setUploadingStates((prevStates) => {
+          const updatedStates = [...prevStates];
+          updatedStates[index] = false;
+          return updatedStates;
+        });
       }
     };
 
@@ -144,12 +172,12 @@ function TrashIcon(props) {
                     </Button>   
                     </div>
                 )}
-                {uploading && (
-                    <div className="absolute inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 text-white">
-                    <span>Loading...</span>
-                    </div>
+               {uploadingStates[index] && (
+                  <div className="absolute inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 text-white">
+                    <Progress value={progress} className="w-[60%]" />
+                  </div>
                 )}
-                {!images[index] && !uploading && (
+                {!images[index] && !uploadingStates[index] && (
                     <Label htmlFor={`image${index}`} className="cursor-pointer flex items-center justify-center">
                     <CiImageOn className="w-8 h-8 mt-3" />
                     </Label>

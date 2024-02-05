@@ -1,9 +1,11 @@
 import dynamic from 'next/dynamic';
-import { getUserByEmail, getUserByUseremail } from '@/prisma/actions'
+import { getUserByEmail } from '@/prisma/actions'
 import { getServerSession } from 'next-auth'
 import { redirect } from 'next/navigation'
 import SelectProfile from '@/components/shopAdsForms/profileSelector';
-
+import { OverView } from '@/components/sellForms';
+import SkeletonScreen from '@/components/skeletons/brandsSkeleton'
+import DropdownSkeleton from '@/components/skeletons/selectorSkeleton'
 
 const SellForm = async ({ params : { lng} , searchParams  }) =>{
     const CategoriesForm = dynamic(() => import(`@/components/shopAdsForms/categoryForm`),{
@@ -12,39 +14,39 @@ const SellForm = async ({ params : { lng} , searchParams  }) =>{
     });
     const Selectors = dynamic(() => import(`@/components/shopAdsForms/selectors`),{
         ssr: false,
-        loading:()=> <p>Selectors...</p>
+        loading:()=> <DropdownSkeleton />
     });
       const MultiImageForm = dynamic(() => import(`@/components/MultibleImages`),{
           ssr: false,
-          loading:()=> <p>MultiImageForm...</p>
+          loading:()=> <SkeletonScreen/>
       });
       const CarBrandSelector = dynamic(() => import(`@/components/carBrandSelection`),{
       ssr: false,
-      loading:()=> <p>CarBrandSelector...</p>
+      loading:()=> <SkeletonScreen/>
       });
       const LocationDetails = dynamic(() => import(`@/components/LocationSelector`),{
       ssr: false,
-      loading:()=> <p>LocationDetails...</p>
+      loading:()=> <DropdownSkeleton />
       });
       const ExtraFeatures = dynamic(() => import(`@/components/shopAdsForms/extraFeatures`),{
       ssr: false,
-      loading:()=> <p>ExtraFeatures...</p>
+      loading:()=> <DropdownSkeleton />
       });
       const CarChassis = dynamic(() => import(`@/components/shopAdsForms/carChassis`),{
       ssr: false,
-      loading:()=> <p>CarChassis...</p>
+      loading:()=> <DropdownSkeleton />
       });
       const PriceSelection = dynamic(() => import(`@/components/shopAdsForms/priceForm`),{
       ssr: false,
-      loading:()=> <p>PriceSelection...</p>
+      loading:()=> <DropdownSkeleton />
       });
       const NameDescriptionSelector = dynamic(() => import(`@/components/NameDescriptionSelector`) ,{
       ssr: false,
-      loading:()=> <p>NameDescriptionSelector...</p>
+      loading:()=> <DropdownSkeleton />
       });
       const Review = dynamic(() => import(`@/components/shopAdsForms/review`) ,{
       ssr: false,
-      loading:()=> <p>Review...</p>
+      loading:()=> <DropdownSkeleton />
       });
       const LogedInUser = await getServerSession() 
       const user = await getUserByEmail(LogedInUser?.user.email)
@@ -57,8 +59,11 @@ const SellForm = async ({ params : { lng} , searchParams  }) =>{
        profile = user.shop?.find(shop => shop.id === parseInt(shopId));
       }
     return (
-        <div className="flex flex-col min-h-screen w-11/12 mx-8">
-        <div className="w-full pt-8">
+      <div className='relative w-11/12 mx-auto pt-8 min-h-screen flex lg:flex-row flex-col-reverse'>
+           <OverView lng={lng} />
+        <div className="flex flex-col w-11/12 mx-8">
+          <div className="w-full">
+        <div className="w-full">
         {!searchParams.profile ? <SelectProfile lng={lng} user={user}/> : null}
         {!searchParams.category && searchParams.profile && <CategoriesForm lng={lng} />}
         {!searchParams.uploadedImages && searchParams.category && searchParams.profile && <MultiImageForm  lng={lng} />}
@@ -71,7 +76,9 @@ const SellForm = async ({ params : { lng} , searchParams  }) =>{
         {searchParams.uploadedImages && <Selectors lng={lng}/>}
         {searchParams.name && <Review userId={user?.id} shopId={profile?.id} lng={lng}/>}
         </div>
-    </div>
+          </div>
+        </div>
+      </div>
     )
 }
 

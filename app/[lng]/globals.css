@@ -135,9 +135,7 @@ display: none !important;
   transition-duration: 0.3s; 
   transition-timing-function: ease;
 }
-nav{
-  z-index: 100;
-}
+
 .main-bg{
   transition: all 0.1s ease-in-out;
   background-color: #fe2635;

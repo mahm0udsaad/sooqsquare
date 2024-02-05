@@ -1,4 +1,11 @@
 {
+    "Name":"الاسم",
+    "Select a country":"اختر بلد",
+    "locationDetails": {
+        "title": "تفاصيل الموقع",
+        "selectCity": "اختر مدينة",
+        "useCurrentLocation": "استخدم الموقع الحالي"
+      },
     "Featured Ads":"إعلانات مميزة",
     "Call":"اتصال",
     "Chat":"رساله",

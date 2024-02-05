@@ -8,14 +8,29 @@ import { Button } from "@/components/ui/button"
 import { FilterSelection, withGenericSelection } from "../dynamicSelection"
 import { useTranslation } from "@/app/i18n/client"
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
-import { carBrands } from '../../data/staticData'
-import { useEffect, useState } from "react"
-import MarketAdCard from "./new-card"
-
+import { carBrands, countriesWithCities } from '../../data/staticData'
+import { useEffect,  useState } from "react"
+import { useDarkMode } from '@/context/darkModeContext';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
+import dynamic from "next/dynamic"
+import BtnSkeleton from '@/components/skeletons/btnSkeleton'
+import MarketAdCardSkeleton from "../skeletons/marketSkeleton"
 const SelectionComp = withGenericSelection(FilterSelection);
 
 export default function Market({lng , ads , user}) {
   const { t } = useTranslation(lng , "translation")
+  const {selectedCountry, setSelectedCountry} = useDarkMode();
+  const cities = countriesWithCities.find(country => country.country === selectedCountry?.country)?.cities
+  const [ open , setOpen ] = useState(false)
+  const searchParams = useSearchParams();
+  const router = useRouter()
+  const pathname= usePathname()
   const transmissionProps = {
     title: t('transmission'),
     itemsArray: [
@@ -107,6 +122,13 @@ export default function Market({lng , ads , user}) {
     paramsToCheck: [
     ],
   };
+  const citiesSelectorProps = {
+    title: t('city'), 
+    itemsArray: cities, 
+    paramNameToSet: 'location', 
+    paramsToCheck: [
+    ],
+  };
   const levelOneFilters = [
     'Ford',
     'Audi',
@@ -115,10 +137,14 @@ export default function Market({lng , ads , user}) {
     'Kia',
     'Hyundai'
   ];
-
-  const searchParams = useSearchParams();
-  const router = useRouter()
-  const pathname= usePathname()
+  const PopoverCountry = dynamic(()=> import('@/components/navBarBtns/PopoverCountry'),{
+    loading:()=> <BtnSkeleton />,
+    ssr:false
+  })
+  const MarketAdCard = searchParams.has('country') ? dynamic(()=> import('./new-card'),{
+    loading:()=> <MarketAdCardSkeleton />,
+    ssr:false
+  }):null
   
   const createQueryString = (name, value) => {
     const params = new URLSearchParams(searchParams);
@@ -126,7 +152,14 @@ export default function Market({lng , ads , user}) {
     const updatedParams = params.toString();
     router.push(pathname + '?' + updatedParams);
   };
-
+  useEffect(() => {
+      if(!selectedCountry?.country && !user?.country && !searchParams.has('country')){
+        setOpen(true)
+      }else{
+        setOpen(false)
+        createQueryString('country',selectedCountry?.country)
+      }
+  }, [selectedCountry]);
   const resetFileters = () =>{
     router.push(pathname)
   }
@@ -176,7 +209,24 @@ export default function Market({lng , ads , user}) {
   };
 
   return (
-    (<main
+    (
+    <>
+      <Dialog open={open}>
+      <DialogTrigger asChild>
+      <Button className="absolute hidden" size="lg" variant="solid">
+        country
+      </Button>
+      </DialogTrigger>
+      <DialogContent className="dark:bg-zinc-800 dark:text-white ">
+        <DialogHeader className="dark:bg-zinc-800 dark:text-white">
+          <DialogTitle>you have to choose a country to display it's ads </DialogTitle>
+        </DialogHeader>
+       <div className="flex w-full justify-center items-center">
+       <PopoverCountry lng={lng} />
+       </div>
+      </DialogContent>
+         </Dialog>
+    <main
       key="1"
       className="container mx-auto px-4 md:px-6 grid md:grid-cols-[240px_1fr] gap-10 items-start">
       <div className="filters bg-white dark:bg-zinc-950 shadow rounded p-3 flex flex-col gap-4 items-start py-2">
@@ -213,29 +263,8 @@ export default function Market({lng , ads , user}) {
             </Link>
           </div>
         </div>
-        <div className="grid gap-1">
-          <h3 className="font-semibold">Location</h3>
-          <Input id="location" placeholder="Enter location" />
-          <h3 className="font-semibold mt-2">
-            City
-            <Select className="mt-2" id="city">
-              <SelectTrigger className="w-full">
-                <SelectValue placeholder="Select a city" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectGroup>
-                  <SelectItem value="new-york">New York</SelectItem>
-                  <SelectItem value="los-angeles">Los Angeles</SelectItem>
-                  <SelectItem value="chicago">Chicago</SelectItem>
-                  <SelectItem value="houston">Houston</SelectItem>
-                  <SelectItem value="phoenix">Phoenix</SelectItem>
-                </SelectGroup>
-              </SelectContent>
-            </Select>
-          </h3>
-          <Select
-            id="city"
-            options={["New York", "Los Angeles", "Chicago", "Houston", "Phoenix"]} />
+        <div className="grid gap-3 w-full">
+        <SelectionComp {...citiesSelectorProps} />
         </div>
         <div className="grid gap-1">
           <h3 className="font-semibold">Price Range</h3>
@@ -315,10 +344,13 @@ export default function Market({lng , ads , user}) {
       </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {ads.map((ad)=>(
-            <MarketAdCard key={ad.id} user={user} ad={ad} />
+           searchParams.has('country') && <MarketAdCard key={ad.id} user={user} ad={ad} />
           ))}
         </div>
       </div>
-    </main>)
+ 
+    </main>
+    </>
+    )
   );
 }

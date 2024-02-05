@@ -6,16 +6,18 @@ import { timeSince } from "@/helper/timeConversion"
 import { BsChatLeftDots } from "react-icons/bs";
 import { MdOutlineLocalPhone } from "react-icons/md";
 import { addToFavorites } from "@/app/[lng]/vehicle/actions"
+import { ArabCountriesWithCurrancy } from "@/data/staticData";
 import Link from "next/link"
 
 export default function MarketAdCard({ ad , user}) {
+  let priceCode = ArabCountriesWithCurrancy.find(country => country.name === ad.country)?.currencyCode;
   return (
     <Card className="w-full max-w-md flex flex-col">
        <div className="relative">
        <Link className="hover:opacity-50 relative" href={`/vehicle/${ad.id}`}>
         <Image
           alt="Car Image"
-          className="w-full  object-none aspect-square w-full h-[15rem]  rounded-t-lg"
+          className="w-full object-none aspect-square w-full h-[15rem]  rounded-t-lg"
           height={200}
           width={300}
           src={ad.Adimages[0]?.url}
@@ -23,7 +25,7 @@ export default function MarketAdCard({ ad , user}) {
         </Link>
         <HeartIcon
         onClick={()=> addToFavorites(user?.id , ad.id)}
-        className={`cursor-pointer z-50 text-gray-300 absolute top-2 right-2 h-6 w-6 ${ user?.favoriteAds.some(favorite => favorite.adId === ad.id) ? 'text-transparent': ''}`}
+        className={`cursor-pointer z-10 text-gray-300 absolute top-2 right-2 h-6 w-6 ${ user?.favoriteAds.some(favorite => favorite.adId === ad.id) ? 'text-transparent': ''}`}
         style={{ fill: user?.favoriteAds.some(favorite => favorite.adId === ad.id) ? 'red' : '' }}
         />
       </div>
@@ -32,7 +34,7 @@ export default function MarketAdCard({ ad , user}) {
         <div className="my-4 flex items-center">
           <p className="main-color text-lg font-semibold">
             <TagIcon className="mx-2 inline-block h-6 w-6" />
-            {ad.price}
+            {ad.price} {priceCode}
           </p>
         </div>
       </CardHeader>

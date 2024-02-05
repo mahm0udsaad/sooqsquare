@@ -1,5 +1,4 @@
 "use client"
-
 import {
     Carousel,
     CarouselContent,
@@ -13,7 +12,6 @@ import { CardContent, Card } from "@/components/ui/card"
 import { FaRegStopCircle } from "react-icons/fa";
 import { changeAdStatus, deleteAd, updateAd } from "@/app/[lng]/(traderDashboard)/actions";
 import { useState } from "react";
-import { useDarkMode } from "@/context/darkModeContext"
 import {
   Dialog,
   DialogContent,
@@ -22,28 +20,16 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
-import {
-  Drawer,
-  DrawerClose,
-  DrawerContent,
-  DrawerDescription,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerTitle,
-  DrawerTrigger,
-} from "@/components/ui/drawer"
-import { Input } from "../ui/input"
-import { Label } from "../ui/label"
+
 import { useTranslation } from "@/app/i18n/client"
 import { toast } from "sonner"
+import EditBtn from "./buttons/editDailoag"
 
 export const AdCard = ({lng, ad }) => {
     const { t } = useTranslation(lng ,"translation")
     const [deleteLoading , setDeleteLoading ] = useState(false)
     const [adStatusLoading , setAdStatusLoading ] = useState(false)
-    const [formData, setFormData] = useState(ad);
     const isArabic = lng === 'ar';
-    const rowColors = ['bg-gray-100', 'bg-gray-200']; // Change colors as needed
     const carouselStyle = isArabic ? { direction: 'ltr' } : {};
     const {
       id,
@@ -66,22 +52,13 @@ export const AdCard = ({lng, ad }) => {
       fuelType,
       meterRange,
     } = ad;
-    function extractAdData(ad) {
-      const { Adimages, user, userId,createdAt,id, ...adData } = ad;
-      return adData;
-    }
+ 
     function extractAdDataViewMore(ad) {
-      const {RegionalSpecifications ,payment ,category , carStatus , fuelType , meterRange, Adimages, user, userId,createdAt,id, ...adData } = ad;
+      const {RegionalSpecifications ,payment ,category , country,shopId ,description , carStatus , fuelType , meterRange, Adimages, user, userId,createdAt,id, ...adData } = ad;
       return adData;
     }
     const updatedAd = extractAdDataViewMore(ad)
-    const handleInputChange = (e) => {
-      const { id, value } = e.target;
-      setFormData((prevData) => ({
-        ...prevData,
-        [id]: value,
-      }));
-    };
+   
     const handleDelete = async (adId) =>{
         setDeleteLoading(true)
         adId = parseInt(adId)
@@ -91,16 +68,6 @@ export const AdCard = ({lng, ad }) => {
             toast("Ad Deleted Successfuly")
         }
     }
-    const handleEdit = async (e) =>{
-      e.preventDefault()
-      const data = extractAdData(formData)
-
-      const updatedAd = await updateAd(ad.id,data)
-      if(updatedAd){
-      toast("ad Updated Successfuly")
-      console.log("success");
-      }
-    }
     const handleChanginAdStatus = async (adId , adStatus)=>{
       setAdStatusLoading(true)
       const newStatus = await changeAdStatus(adId , adStatus)
@@ -109,6 +76,7 @@ export const AdCard = ({lng, ad }) => {
         toast("Ad Status Changing Successfully")
       }
     }
+
   return (
       <div className="flex flex-col md:flex-row items-center justify-between lg:w-11/12 w-full lg:mx-auto mx-3 p-8 rounded-lg shadow-md bg-white dark:bg-zinc-800">
       <Carousel style={carouselStyle} className="w-full max-w-xs mx-auto ">
@@ -175,18 +143,14 @@ export const AdCard = ({lng, ad }) => {
           </ul>
           {/* Show More Dialoag */}
             <Dialog >
-          <DialogTrigger>
-          <Button className="mt-4" size="lg" variant="solid">
+          <DialogTrigger >
+          <Button className="mt-4 hidden" size="lg" variant="solid">
             Show More
           </Button>
           </DialogTrigger>
           <DialogContent className="dark:bg-zinc-800 dark:text-white ">
             <DialogHeader className="dark:bg-zinc-800 dark:text-white">
               <DialogTitle>Details for {name}</DialogTitle>
-              <DialogDescription className="dark:zinc-800 dark:text-white">
-                This action cannot be undone. This will permanently delete your account
-                and remove your data from our servers.
-              </DialogDescription>
             </DialogHeader>
             <Card>
             <CardContent className="grid  gap-2">
@@ -201,42 +165,7 @@ export const AdCard = ({lng, ad }) => {
              </Dialog>
           <div className="p-4 flex gap-3">
           {/* Edit Dialog */}
-          <Drawer>
-          <DrawerTrigger className="w-1/2">
-          <Button className="bg-transparent border border-black text-black hover:text-white dark:border-white dark:text-white hover:dark:bg-white hover:dark:border-black hover:dark:text-black  flex justify-center items-center space-x-2">
-            <PencilIcon className="w-4 h-4 mx-2" />
-            <span>Edit</span>
-          </Button>
-          </DrawerTrigger>
-          <DrawerContent className="dark:bg-zinc-800 ">
-            <DrawerHeader>
-              <DrawerTitle>Are you absolutely sure?</DrawerTitle>
-              <DrawerDescription>This action cannot be undone.</DrawerDescription>
-            </DrawerHeader>
-            <form  className="grid grid-cols-3 gap-x-4 w-11/12 mx-auto">
-            {Object.keys(formData).map((key) => (
-                <div key={key} className={`flex justify-between items-center ${key === 'id' || key === 'createdAt' || key === 'userId' || key == 'Adimages' || key === 'user' ? "hidden" : ""}`}>
-                  <Label className="block text-sm font-bold w-1/2" htmlFor={key}>
-                    {key}:
-                  </Label>
-                  <Input
-                    className="border border-gray-300 rounded px-3 py-2 w-1/2"
-                    type="text"
-                    id={key}
-                    value={formData[key]}
-                    onChange={(e) => handleInputChange(e, key)} 
-                  />
-                </div>
-              ))}
-            </form>
-            <DrawerFooter className={'flex flex-row items-center justify-center gap-4'}>
-              <Button onClick={handleEdit} type='submit' className="bg-transparent border border-green-600 hover:bg-green-600 hover:text-white text-green-600">Submit</Button>
-              <DrawerClose className="dark:text-black mx-2">
-                <Button variant="outline">Cancel</Button>
-              </DrawerClose>
-            </DrawerFooter>
-          </DrawerContent>
-        </Drawer>
+          <EditBtn ad={ad} lng={lng} />
           <Button onClick={()=> handleDelete(ad.id)} className="bg-transparent border border-rose-600 text-rose-600 hover:bg-rose-600 hover:text-white w-1/2 flex justify-center items-center space-x-2">
             <TrashIcon className="w-4 h-4 mx-2" />
             {deleteLoading ?

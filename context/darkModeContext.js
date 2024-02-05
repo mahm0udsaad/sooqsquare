@@ -14,8 +14,8 @@ export const DarkModeProvider = ({ children }) => {
   const [extraFeature, setExtraFeature] = useState([]);
   const [errorMessage, setErrorMessage] = useState(null);
   const [successMessage, setSuccessMessage] = useState(null);
-  const [countryName , setCountryName] = useState(null) 
-   const [userLocation , setUserLocation] = useState(null)
+  const [selectedCountry, setSelectedCountry] = useState(null);
+  const [userLocation , setUserLocation] = useState(null)
   const [isConfettiActive, setConfettiActive] = useState(false);
   const [darkMode, setDarkMode] = useState(() => {
     return isLocalStorageAvailable
@@ -89,21 +89,21 @@ export const DarkModeProvider = ({ children }) => {
     const fetchLocation = async () => {
       try {
         const location = await getLocation();
-        setCountryName(location.countryName);
+        setSelectedCountry(location.countryName);
       } catch (error) {
         console.error('Error fetching location:', error);
       }
     };
   
-    if (!countryName) {
+    if (!selectedCountry) {
       fetchLocation();
     }
   
-  }, [countryName]);
+  }, [selectedCountry]);
 
 
   return (
-    <DarkModeContext.Provider value={{ userLocation , setUserLocation , lng, setLng , isConfettiActive, setConfettiActive , darkMode, setDarkMode ,countryName,phoneNum , setPhoneNum , extraFeature ,setExtraFeature,errorMessage , setErrorMessage , successMessage, setSuccessMessage, adImages ,setAdImages }}>
+    <DarkModeContext.Provider value={{ userLocation , setUserLocation , lng, setLng , isConfettiActive, setConfettiActive , darkMode, setDarkMode ,selectedCountry, setSelectedCountry,phoneNum , setPhoneNum , extraFeature ,setExtraFeature,errorMessage , setErrorMessage , successMessage, setSuccessMessage, adImages ,setAdImages }}>
     {isConfettiActive ? <div className='fixed z-50 top-0 left-0 w-full h-full pointer-events-none' ref={containerRef} id="confetti-container"></div> : null}
       {children}
     </DarkModeContext.Provider>

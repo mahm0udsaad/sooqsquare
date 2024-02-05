@@ -1,4 +1,11 @@
 {
+  "Name":"Name",
+  "Select a country":"Select a country",
+    "locationDetails": {
+        "title": "Location Details",
+        "selectCity": "Select a city",
+        "useCurrentLocation": "Use Current Location"
+      },
     "Featured Ads":"Featured Ads",
     "Call":"Call",
     "Chat":"Chat",

@@ -14,6 +14,7 @@ import { IoLocationOutline } from "react-icons/io5";
 import { useTranslation } from "@/app/i18n/client";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { ArabCountriesWithCurrancy } from "@/data/staticData";
 
 export function AdPage({ad , lng}) {
   const { t } = useTranslation(lng , "tranlsation")
@@ -38,6 +39,7 @@ export function AdPage({ad , lng}) {
   console.log(ad , ad.shop );
 
   const owner = getOwnerInfo();
+  const priceCode = ArabCountriesWithCurrancy.find(country => country.name === ad.country).currencyCode;
 
   const extraFeatures = ad.extraFeatures ? ad.extraFeatures.split(" ") : null
   return (
@@ -65,7 +67,7 @@ export function AdPage({ad , lng}) {
         </Carousel>
         <Card>
           <CardHeader>
-          <CardTitle className='text-4xl font-bold main-color'>${ad.price}</CardTitle>
+          <CardTitle className='text-4xl font-bold main-color'>{priceCode} {ad.price}</CardTitle>
             <CardDescription>{ad.description}</CardDescription>
           </CardHeader>
           <CardContent className="text-2xl font-semibold">

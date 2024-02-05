@@ -4,7 +4,20 @@ import { createAdapter  } from "webdav-fs";
 const username = 'mahm0ud';
 const password = 'dbEMY-soQg6-JKq4H-4S832-MRSPN';
 const remotePath = `https://cloud.elsewedy-automation.com/nextcloud/remote.php/dav/files/${username}`;
+function extractUploadPath(url) {
+  // Replace the base URL and decode the remaining path
+  const decodedPath = decodeURIComponent(url.replace('https://cloud.elsewedy-automation.com', ''));
 
+  // Find the index of "/upload/" and get the substring after it
+  const uploadIndex = decodedPath.indexOf('/upload/');
+  if (uploadIndex !== -1) {
+    const uploadPath = decodedPath.substring(uploadIndex + '/upload/'.length);
+    return `/upload/${uploadPath}`;
+  }
+
+  // If "/upload/" is not found, return the full path
+  return decodedPath;
+}
 export default async function upload(data) {
   const imageFile = await data.get('file');
 
@@ -72,6 +85,27 @@ export default async function upload(data) {
     return null;
   }
 }  
+export async function deleteCloudImage(imageUrl) {
+  try {
+    const client = createAdapter(remotePath, {
+      username,
+      password,
+    });
+    const cleanedUrl = extractUploadPath(imageUrl)
+    const fullUrl = remotePath + cleanedUrl;
+    await client.unlink(cleanedUrl, (err) => {
+      if (err) {
+        console.error('Error deleting image:', err);
+        throw err; // Throw the error to handle it at the higher level if needed
+      }
+      console.log('Image deleted successfully');
+    });
+    console.log(fullUrl);
+  } catch (error) {
+    console.error('Error deleting image:', error);
+    throw error; // Throw the error to handle it at the higher level if needed
+  }
+}
 
 
 

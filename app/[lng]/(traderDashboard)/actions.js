@@ -384,39 +384,6 @@ export async function changeAdStatus(adId , adStatus) {
     revalidatePath('/shopAds')
   }
 }
-export default async function upload(data) {
-  const imageFile = await data.get('file');
-
-  if (!imageFile) {
-    console.error('No image file provided for upload');
-    return null;
-  }
-
-  const imageBytes = await imageFile.arrayBuffer();
-  const imageBuffer = Buffer.from(imageBytes);
-
-  const client = createAdapter(remotePath, {
-    username,
-    password,
-  });
-
-  try {
-    await client.writeFile(`/upload/${imageFile.name}`, imageBuffer, 'buffer', (err) => {
-      if (err) {
-        console.error("Error writing the image " + err);
-      } else {
-        console.log("Image uploaded successfully");
-      }
-    });
-
-    const imageUrl = `https://cloud.elsewedy-automation.com/nextcloud/apps/sharingpath/mahm0ud/upload/${encodeURIComponent(imageFile.name)}`;
-    console.log(imageUrl);
-    return { adImage: imageUrl };
-  } catch (error) {
-    console.error('Error uploading the image:', error);
-    return null;
-  }
-}  
 export async function getFavoriteAdsByUserId(userId) {
   try {
     const user = await prisma.user.findUnique({
@@ -470,5 +437,32 @@ export async function getFavoriteAdsByUserId(userId) {
   } finally {
     // Close the Prisma client connection
     await prisma.$disconnect();
+  }
+}
+export async function updateAdImage(adId, dataToUpdate) {
+  try {
+    const updatedAd = await prisma.ad.update({
+      where: { id: adId },
+      data: dataToUpdate,
+    });
+
+    return updatedAd;
+  } catch (error) {
+    console.error('Error updating ad:', error);
+    throw error;
+  }finally{
+    revalidatePath('/myAds')
+  }
+}
+export async function deleteImage(imageUrl) {
+  try {
+    const deletedImage = await prisma.image.delete({
+      where: { id: imageUrl.id },
+    });
+
+    return deletedImage;
+  } catch (error) {
+    console.error('Error deleting image:', error);
+    throw error;
   }
 }

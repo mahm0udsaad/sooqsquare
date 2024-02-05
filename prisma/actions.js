@@ -324,6 +324,7 @@ export async function updateUserPhoneNumber(newPhoneNumber , email) {
   }
 }
 export async function getUserByEmail(email) {
+  if(!email) return;
   try {
     const existingUser = await prisma.user.findUnique({
       where: {
