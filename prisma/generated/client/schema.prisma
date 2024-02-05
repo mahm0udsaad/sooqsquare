@@ -79,6 +79,7 @@ model Ad {
   name                   String
   RegionalSpecifications String
   location               String
+  CarChassis             String?
   extraFeatures          String?
   adStatus               String       @default("active")
   favoritedBy            FavoriteAd[]

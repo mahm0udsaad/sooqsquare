@@ -162,6 +162,7 @@ exports.Prisma.AdScalarFieldEnum = {
   name: 'name',
   RegionalSpecifications: 'RegionalSpecifications',
   location: 'location',
+  CarChassis: 'CarChassis',
   extraFeatures: 'extraFeatures',
   adStatus: 'adStatus',
   views: 'views',

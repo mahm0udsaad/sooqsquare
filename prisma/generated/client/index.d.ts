@@ -4658,6 +4658,7 @@ export namespace Prisma {
     name: string | null
     RegionalSpecifications: string | null
     location: string | null
+    CarChassis: string | null
     extraFeatures: string | null
     adStatus: string | null
     views: number | null
@@ -4687,6 +4688,7 @@ export namespace Prisma {
     name: string | null
     RegionalSpecifications: string | null
     location: string | null
+    CarChassis: string | null
     extraFeatures: string | null
     adStatus: string | null
     views: number | null
@@ -4716,6 +4718,7 @@ export namespace Prisma {
     name: number
     RegionalSpecifications: number
     location: number
+    CarChassis: number
     extraFeatures: number
     adStatus: number
     views: number
@@ -4763,6 +4766,7 @@ export namespace Prisma {
     name?: true
     RegionalSpecifications?: true
     location?: true
+    CarChassis?: true
     extraFeatures?: true
     adStatus?: true
     views?: true
@@ -4792,6 +4796,7 @@ export namespace Prisma {
     name?: true
     RegionalSpecifications?: true
     location?: true
+    CarChassis?: true
     extraFeatures?: true
     adStatus?: true
     views?: true
@@ -4821,6 +4826,7 @@ export namespace Prisma {
     name?: true
     RegionalSpecifications?: true
     location?: true
+    CarChassis?: true
     extraFeatures?: true
     adStatus?: true
     views?: true
@@ -4937,6 +4943,7 @@ export namespace Prisma {
     name: string
     RegionalSpecifications: string
     location: string
+    CarChassis: string | null
     extraFeatures: string | null
     adStatus: string
     views: number
@@ -4985,6 +4992,7 @@ export namespace Prisma {
     name?: boolean
     RegionalSpecifications?: boolean
     location?: boolean
+    CarChassis?: boolean
     extraFeatures?: boolean
     adStatus?: boolean
     views?: boolean
@@ -5019,6 +5027,7 @@ export namespace Prisma {
     name?: boolean
     RegionalSpecifications?: boolean
     location?: boolean
+    CarChassis?: boolean
     extraFeatures?: boolean
     adStatus?: boolean
     views?: boolean
@@ -5065,6 +5074,7 @@ export namespace Prisma {
       name: string
       RegionalSpecifications: string
       location: string
+      CarChassis: string | null
       extraFeatures: string | null
       adStatus: string
       views: number
@@ -5476,6 +5486,7 @@ export namespace Prisma {
     readonly name: FieldRef<"Ad", 'String'>
     readonly RegionalSpecifications: FieldRef<"Ad", 'String'>
     readonly location: FieldRef<"Ad", 'String'>
+    readonly CarChassis: FieldRef<"Ad", 'String'>
     readonly extraFeatures: FieldRef<"Ad", 'String'>
     readonly adStatus: FieldRef<"Ad", 'String'>
     readonly views: FieldRef<"Ad", 'Int'>
@@ -8767,6 +8778,7 @@ export namespace Prisma {
     name: 'name',
     RegionalSpecifications: 'RegionalSpecifications',
     location: 'location',
+    CarChassis: 'CarChassis',
     extraFeatures: 'extraFeatures',
     adStatus: 'adStatus',
     views: 'views',
@@ -9127,6 +9139,7 @@ export namespace Prisma {
     name?: StringFilter<"Ad"> | string
     RegionalSpecifications?: StringFilter<"Ad"> | string
     location?: StringFilter<"Ad"> | string
+    CarChassis?: StringNullableFilter<"Ad"> | string | null
     extraFeatures?: StringNullableFilter<"Ad"> | string | null
     adStatus?: StringFilter<"Ad"> | string
     views?: IntFilter<"Ad"> | number
@@ -9160,6 +9173,7 @@ export namespace Prisma {
     name?: SortOrder
     RegionalSpecifications?: SortOrder
     location?: SortOrder
+    CarChassis?: SortOrderInput | SortOrder
     extraFeatures?: SortOrderInput | SortOrder
     adStatus?: SortOrder
     views?: SortOrder
@@ -9196,6 +9210,7 @@ export namespace Prisma {
     name?: StringFilter<"Ad"> | string
     RegionalSpecifications?: StringFilter<"Ad"> | string
     location?: StringFilter<"Ad"> | string
+    CarChassis?: StringNullableFilter<"Ad"> | string | null
     extraFeatures?: StringNullableFilter<"Ad"> | string | null
     adStatus?: StringFilter<"Ad"> | string
     views?: IntFilter<"Ad"> | number
@@ -9229,6 +9244,7 @@ export namespace Prisma {
     name?: SortOrder
     RegionalSpecifications?: SortOrder
     location?: SortOrder
+    CarChassis?: SortOrderInput | SortOrder
     extraFeatures?: SortOrderInput | SortOrder
     adStatus?: SortOrder
     views?: SortOrder
@@ -9266,6 +9282,7 @@ export namespace Prisma {
     name?: StringWithAggregatesFilter<"Ad"> | string
     RegionalSpecifications?: StringWithAggregatesFilter<"Ad"> | string
     location?: StringWithAggregatesFilter<"Ad"> | string
+    CarChassis?: StringNullableWithAggregatesFilter<"Ad"> | string | null
     extraFeatures?: StringNullableWithAggregatesFilter<"Ad"> | string | null
     adStatus?: StringWithAggregatesFilter<"Ad"> | string
     views?: IntWithAggregatesFilter<"Ad"> | number
@@ -9682,6 +9699,7 @@ export namespace Prisma {
     name: string
     RegionalSpecifications: string
     location: string
+    CarChassis?: string | null
     extraFeatures?: string | null
     adStatus?: string
     views?: number
@@ -9715,6 +9733,7 @@ export namespace Prisma {
     name: string
     RegionalSpecifications: string
     location: string
+    CarChassis?: string | null
     extraFeatures?: string | null
     adStatus?: string
     views?: number
@@ -9743,6 +9762,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     RegionalSpecifications?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
+    CarChassis?: NullableStringFieldUpdateOperationsInput | string | null
     extraFeatures?: NullableStringFieldUpdateOperationsInput | string | null
     adStatus?: StringFieldUpdateOperationsInput | string
     views?: IntFieldUpdateOperationsInput | number
@@ -9776,6 +9796,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     RegionalSpecifications?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
+    CarChassis?: NullableStringFieldUpdateOperationsInput | string | null
     extraFeatures?: NullableStringFieldUpdateOperationsInput | string | null
     adStatus?: StringFieldUpdateOperationsInput | string
     views?: IntFieldUpdateOperationsInput | number
@@ -9804,6 +9825,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     RegionalSpecifications?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
+    CarChassis?: NullableStringFieldUpdateOperationsInput | string | null
     extraFeatures?: NullableStringFieldUpdateOperationsInput | string | null
     adStatus?: StringFieldUpdateOperationsInput | string
     views?: IntFieldUpdateOperationsInput | number
@@ -9833,6 +9855,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     RegionalSpecifications?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
+    CarChassis?: NullableStringFieldUpdateOperationsInput | string | null
     extraFeatures?: NullableStringFieldUpdateOperationsInput | string | null
     adStatus?: StringFieldUpdateOperationsInput | string
     views?: IntFieldUpdateOperationsInput | number
@@ -10320,6 +10343,7 @@ export namespace Prisma {
     name?: SortOrder
     RegionalSpecifications?: SortOrder
     location?: SortOrder
+    CarChassis?: SortOrder
     extraFeatures?: SortOrder
     adStatus?: SortOrder
     views?: SortOrder
@@ -10357,6 +10381,7 @@ export namespace Prisma {
     name?: SortOrder
     RegionalSpecifications?: SortOrder
     location?: SortOrder
+    CarChassis?: SortOrder
     extraFeatures?: SortOrder
     adStatus?: SortOrder
     views?: SortOrder
@@ -10386,6 +10411,7 @@ export namespace Prisma {
     name?: SortOrder
     RegionalSpecifications?: SortOrder
     location?: SortOrder
+    CarChassis?: SortOrder
     extraFeatures?: SortOrder
     adStatus?: SortOrder
     views?: SortOrder
@@ -11282,6 +11308,7 @@ export namespace Prisma {
     name: string
     RegionalSpecifications: string
     location: string
+    CarChassis?: string | null
     extraFeatures?: string | null
     adStatus?: string
     views?: number
@@ -11313,6 +11340,7 @@ export namespace Prisma {
     name: string
     RegionalSpecifications: string
     location: string
+    CarChassis?: string | null
     extraFeatures?: string | null
     adStatus?: string
     views?: number
@@ -11480,6 +11508,7 @@ export namespace Prisma {
     name?: StringFilter<"Ad"> | string
     RegionalSpecifications?: StringFilter<"Ad"> | string
     location?: StringFilter<"Ad"> | string
+    CarChassis?: StringNullableFilter<"Ad"> | string | null
     extraFeatures?: StringNullableFilter<"Ad"> | string | null
     adStatus?: StringFilter<"Ad"> | string
     views?: IntFilter<"Ad"> | number
@@ -11671,6 +11700,7 @@ export namespace Prisma {
     name: string
     RegionalSpecifications: string
     location: string
+    CarChassis?: string | null
     extraFeatures?: string | null
     adStatus?: string
     views?: number
@@ -11702,6 +11732,7 @@ export namespace Prisma {
     name: string
     RegionalSpecifications: string
     location: string
+    CarChassis?: string | null
     extraFeatures?: string | null
     adStatus?: string
     views?: number
@@ -11791,6 +11822,7 @@ export namespace Prisma {
     name: string
     RegionalSpecifications: string
     location: string
+    CarChassis?: string | null
     extraFeatures?: string | null
     adStatus?: string
     views?: number
@@ -11823,6 +11855,7 @@ export namespace Prisma {
     name: string
     RegionalSpecifications: string
     location: string
+    CarChassis?: string | null
     extraFeatures?: string | null
     adStatus?: string
     views?: number
@@ -11866,6 +11899,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     RegionalSpecifications?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
+    CarChassis?: NullableStringFieldUpdateOperationsInput | string | null
     extraFeatures?: NullableStringFieldUpdateOperationsInput | string | null
     adStatus?: StringFieldUpdateOperationsInput | string
     views?: IntFieldUpdateOperationsInput | number
@@ -11898,6 +11932,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     RegionalSpecifications?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
+    CarChassis?: NullableStringFieldUpdateOperationsInput | string | null
     extraFeatures?: NullableStringFieldUpdateOperationsInput | string | null
     adStatus?: StringFieldUpdateOperationsInput | string
     views?: IntFieldUpdateOperationsInput | number
@@ -12194,6 +12229,7 @@ export namespace Prisma {
     name: string
     RegionalSpecifications: string
     location: string
+    CarChassis?: string | null
     extraFeatures?: string | null
     adStatus?: string
     views?: number
@@ -12226,6 +12262,7 @@ export namespace Prisma {
     name: string
     RegionalSpecifications: string
     location: string
+    CarChassis?: string | null
     extraFeatures?: string | null
     adStatus?: string
     views?: number
@@ -12309,6 +12346,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     RegionalSpecifications?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
+    CarChassis?: NullableStringFieldUpdateOperationsInput | string | null
     extraFeatures?: NullableStringFieldUpdateOperationsInput | string | null
     adStatus?: StringFieldUpdateOperationsInput | string
     views?: IntFieldUpdateOperationsInput | number
@@ -12341,6 +12379,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     RegionalSpecifications?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
+    CarChassis?: NullableStringFieldUpdateOperationsInput | string | null
     extraFeatures?: NullableStringFieldUpdateOperationsInput | string | null
     adStatus?: StringFieldUpdateOperationsInput | string
     views?: IntFieldUpdateOperationsInput | number
@@ -12649,6 +12688,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     RegionalSpecifications?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
+    CarChassis?: NullableStringFieldUpdateOperationsInput | string | null
     extraFeatures?: NullableStringFieldUpdateOperationsInput | string | null
     adStatus?: StringFieldUpdateOperationsInput | string
     views?: IntFieldUpdateOperationsInput | number
@@ -12680,6 +12720,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     RegionalSpecifications?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
+    CarChassis?: NullableStringFieldUpdateOperationsInput | string | null
     extraFeatures?: NullableStringFieldUpdateOperationsInput | string | null
     adStatus?: StringFieldUpdateOperationsInput | string
     views?: IntFieldUpdateOperationsInput | number
@@ -12710,6 +12751,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     RegionalSpecifications?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
+    CarChassis?: NullableStringFieldUpdateOperationsInput | string | null
     extraFeatures?: NullableStringFieldUpdateOperationsInput | string | null
     adStatus?: StringFieldUpdateOperationsInput | string
     views?: IntFieldUpdateOperationsInput | number
@@ -12867,6 +12909,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     RegionalSpecifications?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
+    CarChassis?: NullableStringFieldUpdateOperationsInput | string | null
     extraFeatures?: NullableStringFieldUpdateOperationsInput | string | null
     adStatus?: StringFieldUpdateOperationsInput | string
     views?: IntFieldUpdateOperationsInput | number
@@ -12898,6 +12941,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     RegionalSpecifications?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
+    CarChassis?: NullableStringFieldUpdateOperationsInput | string | null
     extraFeatures?: NullableStringFieldUpdateOperationsInput | string | null
     adStatus?: StringFieldUpdateOperationsInput | string
     views?: IntFieldUpdateOperationsInput | number
@@ -12928,6 +12972,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     RegionalSpecifications?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
+    CarChassis?: NullableStringFieldUpdateOperationsInput | string | null
     extraFeatures?: NullableStringFieldUpdateOperationsInput | string | null
     adStatus?: StringFieldUpdateOperationsInput | string
     views?: IntFieldUpdateOperationsInput | number
