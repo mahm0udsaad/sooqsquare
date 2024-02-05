@@ -16,7 +16,9 @@ export const DarkModeProvider = ({ children }) => {
   const [successMessage, setSuccessMessage] = useState(null);
   const [selectedCountry, setSelectedCountry] = useState(null);
   const [userLocation , setUserLocation] = useState(null)
-  const [isConfettiActive, setConfettiActive] = useState(false);
+
+  
+   const [isConfettiActive, setConfettiActive] = useState(false);
   const [darkMode, setDarkMode] = useState(() => {
     return isLocalStorageAvailable
       ? JSON.parse(localStorage.getItem('darkMode'))

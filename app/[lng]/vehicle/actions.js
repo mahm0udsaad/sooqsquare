@@ -105,3 +105,33 @@ export async function addToFavorites(userId, adId) {
     revalidatePath('/vehicle')
   }
 }
+export async function incrementAdViews(adId) {
+  try {
+    const updatedAd = await prisma.ad.update({
+      where: { id: adId },
+      data: { views: { increment: 1 } },
+    });
+    console.log('incremented');
+    return updatedAd.views;
+  } catch (error) {
+    console.error('Error incrementing ad views:', error);
+    throw new Error('Error incrementing ad views');
+  } finally {
+    await prisma.$disconnect();
+  }
+}
+export async function incrementAdClicks(adId) {
+  try {
+    const updatedAd = await prisma.ad.update({
+      where: { id: adId },
+      data: { clicks: { increment: 1 } },
+    });
+
+    return updatedAd.clicks;
+  } catch (error) {
+    console.error('Error incrementing ad clicks:', error);
+    throw new Error('Error incrementing ad clicks');
+  } finally {
+    await prisma.$disconnect();
+  }
+}

@@ -11,12 +11,13 @@ export default async function MyfavoriteAds({params:{lng}}) {
     const favoriteAds = await getFavoriteAdsByUserId(user.id)
     if(!user){
       redirect('/sign-in')
+
     }
     return (
        <div className='flex flex-col items-center lg:w-4/5 mx-auto gap-3'>
                   {
             favoriteAds.length > 0 ? (
-              favoriteAds.map((ad) => <FavoriteCard key={ad.id} lng={lng} ad={ad} />)
+              favoriteAds.map((ad) => <FavoriteCard key={ad.id} userId={user.id} lng={lng} ad={ad} />)
             ) : (
               <h1 className='pt-20 text-center'>You haven't Liked any ads</h1>
             )

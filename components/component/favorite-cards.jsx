@@ -23,7 +23,6 @@ export const FavoriteCard = ({lng, ad , userId}) => {
     const { t } = useTranslation(lng ,"translation")
     const [deleteLoading , setDeleteLoading ] = useState(false)
     const isArabic = lng === 'ar';
-    const rowColors = ['bg-gray-100', 'bg-gray-200']; 
     const carouselStyle = isArabic ? { direction: 'ltr' } : {};
     const {
       id,
@@ -47,14 +46,11 @@ export const FavoriteCard = ({lng, ad , userId}) => {
       meterRange,
     } = ad;
 
-    const handleDelete = async (adId) =>{
+    const handleDelete = async () =>{
         setDeleteLoading(true)
-        adId = parseInt(adId)
-        const deletedAd = await addToFavorites(userId , ad.id)
-        if(deletedAd){
-            setDeleteLoading(false)
-            toast("Ad Deleted Successfuly")
-        }
+         await addToFavorites(userId , ad.id)
+         setDeleteLoading(false)
+         toast("Ad Deleted Successfuly")
     }
 
   return (
@@ -122,7 +118,7 @@ export const FavoriteCard = ({lng, ad , userId}) => {
             </div>
           </ul>
           <div className="flex justify-between items-center mt-2">
-          <Button onClick={()=> handleDelete(ad.id)} className="bg-transparent border border-rose-600 text-rose-600 hover:bg-rose-600 hover:text-white w-1/2 flex justify-center items-center space-x-2">
+          <Button onClick={handleDelete} className="bg-transparent border border-rose-600 text-rose-600 hover:bg-rose-600 hover:text-white w-1/2 flex justify-center items-center space-x-2">
             <TrashIcon className="w-4 h-4 mx-2" />
             {deleteLoading ?
                 <svg
@@ -140,7 +136,7 @@ export const FavoriteCard = ({lng, ad , userId}) => {
             <span>Delete</span>
             }
           </Button>
-          <Link href={`/profile/${ad.user?.id ? ad.user?.id : `${ad.shop?.user?.id}?shop=${ad.shop?.id}`}`} className="w-1/2 py-2 px-4 rounded-md hover:bg-zinc-900 hover:text-white dark:hover:bg-white dark:hover:text-black mx-1 flex items-center border border-black dark:border-white dark:text-white justify-center gap-2 transition">
+          <Link href={`/profile/${ad.shop ? `${ad.shop?.userId}?shop=${ad.shop?.id}` : `${ad.user?.id}`}`} className="w-1/2 py-2 px-4 rounded-md hover:bg-zinc-900 hover:text-white dark:hover:bg-white dark:hover:text-black mx-1 flex items-center border border-black dark:border-white dark:text-white justify-center gap-2 transition">
               <UserIcon className='h-4 w-4'/>
                 profile
               </Link>

@@ -5,14 +5,53 @@ import Image from "next/image"
 import { timeSince } from "@/helper/timeConversion"
 import { BsChatLeftDots } from "react-icons/bs";
 import { MdOutlineLocalPhone } from "react-icons/md";
-import { addToFavorites } from "@/app/[lng]/vehicle/actions"
+import { addToFavorites, incrementAdClicks, incrementAdViews } from "@/app/[lng]/vehicle/actions"
 import { ArabCountriesWithCurrancy } from "@/data/staticData";
 import Link from "next/link"
+import { useEffect, useRef, useState } from "react"
 
-export default function MarketAdCard({ ad , user}) {
+export default function MarketAdCard({ ad , user }) {
   let priceCode = ArabCountriesWithCurrancy.find(country => country.name === ad.country)?.currencyCode;
+  const [hasViewed, setHasViewed] = useState(() => {
+    if (window) {
+      const storedValue = localStorage.getItem(`adViewed_${ad.id}`);
+      return storedValue ? JSON.parse(storedValue) : false;
+    }
+    return null;
+  });
+
+  const adCardRef = useRef(null);
+  console.log(ad.clicks);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        // Check if the ad card is in the viewport
+        if (entry.isIntersecting) {
+          // Log "hasViewed" when the ad card is first viewed
+          if (!hasViewed) {
+            setHasViewed(true);
+            incrementAdViews(ad.id)
+              localStorage.setItem(`adViewed_${ad.id}`, JSON.stringify(true));
+          }
+        }
+      },
+      { threshold: 0.5 } 
+    );
+
+    if (adCardRef.current) {
+      observer.observe(adCardRef.current);
+    }
+
+    return () => {
+      if (adCardRef.current) {
+        observer.unobserve(adCardRef.current);
+      }
+    };
+  }, [hasViewed, user]);
+
   return (
-    <Card className="w-full max-w-md flex flex-col">
+    <Card onClick={()=>incrementAdClicks(ad.id)} ref={adCardRef} className="w-full max-w-md flex flex-col">
        <div className="relative">
        <Link className="hover:opacity-50 relative" href={`/vehicle/${ad.id}`}>
         <Image
@@ -71,6 +110,7 @@ export default function MarketAdCard({ ad , user}) {
     </Card>
   )
 }
+
 function CarIcon(props) {
     return (
       <svg
@@ -91,29 +131,25 @@ function CarIcon(props) {
         <circle cx="17" cy="17" r="2" />
       </svg>
     )
-  }
-  
-  
-  function HeartIcon(props) {
-    return (
-      <svg
-        {...props}
-        xmlns="http://www.w3.org/2000/svg"
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
-        <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
-      </svg>
-    )
-  }
-  
-  
+}
+function HeartIcon(props) {
+  return (
+    <svg
+      {...props}
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
+    </svg>
+  )
+}
 function BatteryIcon(props) {
   return (
     <svg
@@ -133,8 +169,6 @@ function BatteryIcon(props) {
     </svg>
   )
 }
-
-
 function CalendarIcon(props) {
   return (
     <svg
@@ -156,8 +190,6 @@ function CalendarIcon(props) {
     </svg>
   )
 }
-
-
 function GaugeIcon(props) {
   return (
     <svg
@@ -177,8 +209,6 @@ function GaugeIcon(props) {
     </svg>
   )
 }
-
-
 function LocateIcon(props) {
   return (
     <svg
