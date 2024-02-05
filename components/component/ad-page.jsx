@@ -36,8 +36,6 @@ export function AdPage({ad , lng}) {
       console.error("Invalid owner ID");
     }
   };
-  console.log(ad , ad.shop );
-
   const owner = getOwnerInfo();
   const priceCode = ArabCountriesWithCurrancy.find(country => country.name === ad.country).currencyCode;
 

@@ -14,7 +14,11 @@ export const DarkModeProvider = ({ children }) => {
   const [extraFeature, setExtraFeature] = useState([]);
   const [errorMessage, setErrorMessage] = useState(null);
   const [successMessage, setSuccessMessage] = useState(null);
-  const [selectedCountry, setSelectedCountry] = useState(null);
+  const [selectedCountry, setSelectedCountry] = useState(() => {
+    return isLocalStorageAvailable
+      ? JSON.parse(localStorage.getItem('selectedCountry'))
+      : null;
+  });
   const [userLocation , setUserLocation] = useState(null)
 
   

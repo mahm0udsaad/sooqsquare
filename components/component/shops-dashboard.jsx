@@ -6,6 +6,9 @@ import { FaCar } from "react-icons/fa";
 import { MdOutlineRealEstateAgent } from "react-icons/md";
 
 export default function Dashboard({ shops }) {
+
+  console.log(shops[0].ads);
+
   return (
     <div key="1" className="flex flex-col w-full min-h-screen p-4 md:p-10">
       <header className="flex items-center h-16 px-4 border-b shrink-0 md:px-6">
@@ -31,11 +34,11 @@ export default function Dashboard({ shops }) {
                 <p className="text-xs text-gray-500 dark:text-gray-400">Number of Orders</p>
                 <div className="text-2xl font-bold">{shop.averageCustomerRating ?? 0}</div>
                 <p className="text-xs text-gray-500 dark:text-gray-400">Average Customer Rating</p>
-                <div className="text-2xl font-bold">{shop.adClicks ?? 0}</div>
+                <div className="text-2xl font-bold">{ shop.ads.reduce((acc, ad) => acc + ad.views, 0) ?? 0}</div>
                 <p className="text-xs text-gray-500 dark:text-gray-400">Ad Clicks</p>
-                <div className="text-2xl font-bold">{shop.adViews ?? 0}</div>
+                <div className="text-2xl font-bold">{ shop.ads.reduce((acc, ad) => acc + ad.clicks, 0) ?? 0}</div>
                 <p className="text-xs text-gray-500 dark:text-gray-400">Ad Views</p>
-                <div className="text-2xl font-bold">{shop.adFavorites ?? 0}</div>
+                <div className="text-2xl font-bold">{shop.ads.reduce((acc, ad) => acc + (ad.favoritedBy ? ad.favoritedBy.length : 0), 0) ?? 0}</div>
                 <p className="text-xs text-gray-500 dark:text-gray-400">Ad Favorites</p>
               </CardContent>
             </Card>

@@ -22,7 +22,7 @@ const PopoverCountry = ({ lng  }) => {
       // Store selectedCountry in localStorage
       localStorage.setItem('selectedCountry', JSON.stringify({ country, code }));
     };
-  
+
       const router = useRouter();
       const searchParams = useSearchParams();
     

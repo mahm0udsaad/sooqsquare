@@ -53,6 +53,7 @@ export const AdCard = ({lng, ad }) => {
       meterRange,
     } = ad;
  
+    console.log(ad.views);
     function extractAdDataViewMore(ad) {
       const {RegionalSpecifications ,payment ,category , country,shopId ,description , carStatus , fuelType , meterRange, Adimages, user, userId,createdAt,id, ...adData } = ad;
       return adData;

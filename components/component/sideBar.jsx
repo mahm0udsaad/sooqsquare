@@ -84,7 +84,7 @@ const ShopSideBar = async ({ lng  }) =>{
                       <CiEdit className="w-6 h-6 w-6 h-6 text-fuchsia-400" />
                       <span className="mx-3">Shop Details</span>
                   </Link>
-                  <Link className="flex text-sm gap-3 items-center text-gray-700 dark:text-gray-200 hover:dark:text-white hover:text-zinc-900" href="/reports">
+                  <Link className="flex text-sm gap-3 items-center text-gray-700 dark:text-gray-200 hover:dark:text-white hover:text-zinc-900" href={`/shopReports/${shop.id}`}>
                       <TbReportAnalytics className="w-6 h-6 text-orange-600" />
                       <span className="mx-3">Shop Reports</span>
                   </Link>

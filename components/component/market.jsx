@@ -152,14 +152,16 @@ export default function Market({lng , ads , user}) {
     const updatedParams = params.toString();
     router.push(pathname + '?' + updatedParams);
   };
+
   useEffect(() => {
-      if(!selectedCountry?.country && !user?.country && !searchParams.has('country')){
+      if(!selectedCountry?.country && !user?.country && !searchParams.has('country') || searchParams.get('country') == "undefined"){
         setOpen(true)
-      }else{
+      }else if(searchParams.get('country') !== "undefined"){
         setOpen(false)
         createQueryString('country',selectedCountry?.country)
       }
   }, [selectedCountry]);
+  
   const resetFileters = () =>{
     router.push(pathname)
   }

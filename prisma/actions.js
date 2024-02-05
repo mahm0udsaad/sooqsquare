@@ -363,6 +363,7 @@ export async function getUserByEmail(email) {
             adStatus: true,
             views: true,
             clicks: true,
+            favoritedBy:true
           },
           orderBy: {
             createdAt: 'desc', // Order by createdAt in descending order (newest first)
@@ -396,6 +397,7 @@ export async function getUserByEmail(email) {
                 adStatus: true,
                 views: true,
                 clicks: true,
+               favoritedBy:true
               },
               orderBy: {
                 createdAt: 'desc', // Order by createdAt in descending order (newest first)
