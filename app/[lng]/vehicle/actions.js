@@ -31,7 +31,7 @@ export async function getAllads(searchParams , user){
             { adStatus: "active" },
             {
               country:
-                user?.country && (searchParams['country'] ? searchParams['country'] : user.country),
+                user?.country ? (searchParams['country'] ? searchParams['country'] : user.country) : searchParams?.country,
             },
           ],
         },

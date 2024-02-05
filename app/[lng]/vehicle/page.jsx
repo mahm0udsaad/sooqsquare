@@ -9,6 +9,7 @@ const VehicleMarket = async ({params:{lng },searchParams}) =>{
     const logedUser = await getServerSession()
     const user = await getUserByEmail(logedUser?.user.email)
     const ads = await getAllads(searchParams , user)
+
     return(
         <div className="pt-8">
             <Market lng={lng} user={user} ads={ads}/>

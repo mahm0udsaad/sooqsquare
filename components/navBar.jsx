@@ -8,6 +8,9 @@ import BtnSkeleton from '@/components/skeletons/btnSkeleton'
 import UserAvatarSkeleton from '@/components/skeletons/userAvatarSkeleton'
 import { getUserByEmail } from '@/prisma/actions';
 import { getServerSession } from 'next-auth';
+import UserButton from '@/components/component/user-button';
+import PopoverCountry from '@/components/navBarBtns/PopoverCountry';
+import PopoverLanguage from '@/components/navBarBtns/PopoverLanguage';
 
 const NavBar = async  ({ lng })=> { 
   const { t } = await useTranslation(lng , "translation")
@@ -15,19 +18,7 @@ const NavBar = async  ({ lng })=> {
   const logedUser = await getServerSession()
   const user = await getUserByEmail(logedUser?.user.email)
 
-    const UserButton = dynamic(()=> import('@/components/component/user-button'),{
-      loading: () => <UserAvatarSkeleton />,
-      ssr:false
-    })
-    const PopoverCountry = dynamic(()=> import('@/components/navBarBtns/PopoverCountry'),{
-      loading:()=> <BtnSkeleton />,
-      ssr:false
-    })
-    const PopoverLanguage = dynamic(()=> import('@/components/navBarBtns/PopoverLanguage'),{
-      loading:()=> <BtnSkeleton />,
-      ssr:false
-    })
- 
+
   return (
     <>
     <nav className="hidden z-50 lg:flex fixed py-2 shadow-lg w-full  items-center justify-between px-6  bg-white dark:text-white dark:bg-zinc-950">

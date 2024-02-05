@@ -29,6 +29,7 @@ export default function Market({lng , ads , user}) {
   const cities = countriesWithCities.find(country => country.country === selectedCountry?.country)?.cities
   const [ open , setOpen ] = useState(false)
   const searchParams = useSearchParams();
+  console.log(ads);
   const router = useRouter()
   const pathname= usePathname()
   const transmissionProps = {
