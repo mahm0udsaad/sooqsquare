@@ -25,6 +25,7 @@ export default async function Vehicle({params , searchParams})  {
             </>
     }
 
+  const user = await getUserById(params.id)
   return (
     <>
      <UserProfile user={user} />
