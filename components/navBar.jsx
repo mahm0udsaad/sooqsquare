@@ -32,6 +32,8 @@ const NavBar = async  ({ lng })=> {
             className="ml-2 p-2 bg-transparent rounded-xl focus:outline-none text-gray-700 dark:text-gray-200"
             placeholder="Search"
             type="text"
+            id="search"
+            name="search"
           />
         </form>
         

@@ -1,6 +1,7 @@
 "use server"
 import { revalidatePath } from "next/cache";
 import prisma from "../../../prisma/client";
+import { redirect } from "next/navigation";
 
 export async function getAdsByUserId(userId) {
   userId = parseInt(userId)

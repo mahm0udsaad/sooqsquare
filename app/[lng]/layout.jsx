@@ -2,9 +2,9 @@ import './globals.css'
 import { languages } from '../i18n/settings'
 import { DarkModeProvider } from '../../context/darkModeContext'
 import { dir } from 'i18next'
-import { Toaster } from "@/components/ui/sonner"
 import dynamic from 'next/dynamic'
 import NavBar from '@/components/navBar'
+import { Toaster } from "@/components/ui/toaster"
 
 export async function generateStaticParams() {
   return languages.map((lng) => ({ lng }))

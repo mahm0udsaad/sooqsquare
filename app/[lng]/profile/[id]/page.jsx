@@ -21,9 +21,10 @@ export default async function Vehicle({params , searchParams})  {
     const shop = await getShopById(shopId)
 
     return <>
-            <ShopPage shop={shop} />
+            <ShopPage lng={params.lng} shop={shop} />
             </>
     }
+
   return (
     <>
      <UserProfile user={user} />

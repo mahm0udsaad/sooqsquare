@@ -78,7 +78,7 @@ export default function Footer() {
         <div>
           <h3 className="font-bold text-lg mb-3">Subscribe</h3>
           <form className="flex space-x-2">
-            <Input className="flex-1" placeholder="Enter your email" type="email" />
+            <Input name="email" id="email" className="flex-1" placeholder="Enter your email" type="email" />
             <Button type="submit" className="main-bg">Subscribe</Button>
           </form>
         </div>

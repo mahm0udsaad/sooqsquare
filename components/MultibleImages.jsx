@@ -9,7 +9,6 @@ import  upload  from '../app/[lng]/sell/imageUploadAction'
 import { CiImageOn } from "react-icons/ci";
 import { MdOutlineRocketLaunch } from "react-icons/md";
 import { useTranslation } from '../app/i18n/client';
-import Image from 'next/image';
 import { Progress } from "@/components/ui/progress"
 
 function TrashIcon(props) {
@@ -108,23 +107,21 @@ function TrashIcon(props) {
     const router = useRouter()
     const pathname= usePathname()
     if(!searchParams.has('category')) return ;
+
     const createQueryString = (name, value) => {
       const params = new URLSearchParams(searchParams);
       params.set(name, value);
       const updatedParams = params.toString();
       router.push(pathname + '?' + updatedParams);
     };
-
     const handleImageRemove = (indexToRemove) => {
       setImages((prevImages) => prevImages.filter((_, index) => index !== indexToRemove));
     };
-  
     const handleSubmit = (e) => {
       e.preventDefault();
       setAdImages(images)
       createQueryString('uploadedImages',images.length)
     };
-  
   
     return (
       <div className="bg-white border rounded p-8 shadow-md  dark:bg-zinc-950">
@@ -154,12 +151,12 @@ function TrashIcon(props) {
                 {images[index] && (
                     <div className="flex flex-col items-center justify-center gap-6">
                     <div className='flex items-center justify-center h-[6rem]'>
-                        <Image
+                        <img
                         alt={`Uploaded image ${index + 1}`}
                         className='aspect-auto'
                         src={`${images[index]}`}
-                        height={120}
-                        width={120}
+                        height="120"
+                        width="120"
                         />
                     </div>
                     <Button

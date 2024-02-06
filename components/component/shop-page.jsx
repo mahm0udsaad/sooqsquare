@@ -15,37 +15,16 @@ import { useTranslation } from "@/app/i18n/client"
 import { useState } from "react"
 import { FaCopy } from 'react-icons/fa';
 import { toast } from "sonner"
+import ShopAdCard from '@/components/component/shop-card'
+import dynamic from "next/dynamic"
+import MarketAdCardSkeleton from "@/components/skeletons/marketSkeleton"
 
 export default function ShopPage({ shop , lng}) {
   const { t } = useTranslation(lng , "view")
-  const [copiedState, setCopiedState] = useState({});
-
-  const handleShare = async (adId) => {
-    const adLink = `${window.location.origin}/vehicle/${adId}`;
-
-    setCopiedState((prevCopiedState) => ({
-      ...prevCopiedState,
-      [adId]: { isLoading: true },
-    }));
-
-    navigator.clipboard.writeText(adLink)
-      .then(() => {
-        setCopiedState((prevCopiedState) => ({
-          ...prevCopiedState,
-          [adId]: { isLoading: false, isCopied: true },
-        }));
-        toast.success('Link copied to clipboard!');
-        setTimeout(() => setCopiedState((prevCopiedState) => ({ ...prevCopiedState, [adId]: { isCopied: false } })), 2000); // Reset copied state after 2 seconds
-      })
-      .catch((error) => {
-        setCopiedState((prevCopiedState) => ({
-          ...prevCopiedState,
-          [adId]: { isLoading: false },
-        }));
-        console.error('Unable to copy link', error);
-        toast.error('Failed to copy link. Please try again.');
-      });
-  };
+  const ShopAdCard = dynamic(()=> import("@/components/component/shop-card") , {
+    ssr:false ,
+    loading:()=> <MarketAdCardSkeleton />
+  })
 
   return (
     <>
@@ -117,45 +96,7 @@ export default function ShopPage({ shop , lng}) {
         {shop?.ads?.length > 0 && <h2 className="text-2xl font-bold">{t("Featured Ads")} :</h2>}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {shop.ads.map((ad)=>(
-         <Card key={ad.id} className="bg-white dark:bg-gray-800 shadow rounded-lg overflow-hidden">
-          <Image
-            alt="Ad image"
-            className="rounded-lg object-none aspect-square w-full h-[15rem] group-hover:opacity-50 transition-opacity"
-            src={ad.Adimages[0]?.url}
-            width={200}
-            height={200}
-          />
-          <CardContent className="p-4">
-            <h3 className="text-lg font-semibold mb-2">{ad.name}</h3>
-            <p className="text-gray-500 dark:text-gray-200 mb-2">
-              <FaMapMarkerAlt className="inline dark:text-gray200 text-gray-800 dark:text-gray-200 mx-1" />
-              {ad.location}
-            </p>
-            <p className="text-sm text-gray-800 dark:text-gray-200">{t("Created at")} : {timeSince(ad.createdAt)}</p>
-            <p className="text-sm text-gray-800 dark:text-gray-200">
-              <strong>{t("Brand")} :</strong> {ad.brand}
-            </p>  
-            <p className="text-sm text-gray-800 dark:text-gray-200">
-              <strong>{t("Model")} :</strong> {ad.model}
-            </p>
-            <p className="text-sm text-gray-800 dark:text-gray-200">
-              <strong>{t("Price")} :</strong> <span className="text-rose-600 font-semibold">{ad.price}</span>
-            </p>
-            <div className="flex gap-2 mt-2">
-              <Link href={`/vehicle/${ad.id}`} className="rounded-md hover:bg-transparent hover:text-rose-600 hover:border hover:border-rose-600 text-center flex-1 py-3 px-4 main-bg text-white dark:bg-white dark:text-black hover:text-black hover:bg-white hover:dark:text-white hover:dark:bg-black">
-                View Ad
-              </Link>
-              {/* Share button */}
-              <button
-              onClick={() => handleShare(ad.id)}
-              className={`rounded-md  text-center border border-blue-500  bg-transparent hover:text-blue-500 flex-1 py-3 px-4 ${copiedState[ad.id]?.isCopied ? 'bg-green-500' : 'hover:bg-blue-500'} text-blue-500  hover:text-white hover:bg-blue-600`}
-              disabled={copiedState[ad.id]?.isLoading}
-            >
-              {copiedState[ad.id]?.isLoading ? 'Copying...' : (copiedState[ad.id]?.isCopied ? <FaCopy className="text-center"/> : 'Share')}
-            </button>
-            </div>
-          </CardContent>
-        </Card>
+         <ShopAdCard key={ad.id} ad={ad}/>
           ))}
         </div>
         </section>

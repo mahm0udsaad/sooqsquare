@@ -7,10 +7,7 @@ export default async function MyProfile({params:{lng}}) {
 
     const logedUser = await getServerSession() 
     const user = await getUserByEmail(logedUser?.user.email) 
-   //  if(!user){
-   //    redirect('sign-in')
-   //  }
-    console.log(user);
+
     return (
        <div className='flex w-11/12 mx-auto flex-col gap-3'>
           {user? <UserProfile user={user} />: <>loading...</>}

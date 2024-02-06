@@ -5,7 +5,6 @@ import { BsThreads } from "react-icons/bs";
 import { AccordionTrigger, AccordionContent, AccordionItem, Accordion } from "@/components/ui/accordion"
 import { MdOutlineRealEstateAgent } from "react-icons/md";
 import { FaCar } from "react-icons/fa";
-import { MdOutlineAddBox } from "react-icons/md";
 import { AiOutlineShop } from "react-icons/ai";
 import { CiEdit } from "react-icons/ci";
 import { useTranslation } from "@/app/i18n";

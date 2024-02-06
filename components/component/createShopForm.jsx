@@ -12,7 +12,7 @@ import upload from "@/app/[lng]/(traderDashboard)/myShop/action";
 import { createShop } from "@/app/[lng]/(traderDashboard)/actions";
 import { SelectTrigger, SelectItem, SelectContent, Select } from "@/components/ui/select";
 import { useForm, Controller } from "react-hook-form";
-import { toast } from "sonner";
+import { useToast } from "@/components/ui/use-toast"
 import { useDarkMode } from "@/context/darkModeContext";
 import { useTranslation } from "@/app/i18n/client"
 import { countriesWithCities } from "@/data/staticData"
@@ -26,7 +26,7 @@ const CreateShopButton = ({ user , lng}) =>{
   const { register, handleSubmit, setValue, control, formState: { errors, isSubmitting , isSubmitted ,isSubmitSuccessful} } = useForm();
   const { setConfettiActive , isConfettiActive } = useDarkMode()
   const [ loading , setLoading ] = useState(false)
-
+  const { toast } = useToast();
   const drawerCloseRef = useRef(null);
 
   const handleImageChange = async (e) => {
@@ -44,24 +44,52 @@ const CreateShopButton = ({ user , lng}) =>{
       if (uploadResult && uploadResult.adImage) {
         setShopImage(uploadResult.adImage);
         setValue('shopImage' , uploadResult.adImage);
+        toast({
+          title:"Image Uploaded Successfully"
+        } )
+      }else{
+        toast({
+          variant: "destructive",
+          title: "Uh oh! Something went wrong.",
+          description: "There was a problem with your Image dimensions.",
+        })
       }
-      toast("Image Uploaded Successfully " )
     } catch (error) {
-      console.error(error.message);
+      toast({
+        variant: "destructive",
+        title: "Uh oh! Something went wrong.",
+        description: "There was a problem with your Image dimensions.",
+      })
     }
   };
+
   const onSubmit = async (data) => {
     try {
       if (!data.shopName || !data.shopImage) {
         return;
       }
   
-      await createShop(user.id, data);
-      drawerCloseRef.current.click();
-      setConfettiActive(true);
-      toast("Shop Created Successfully");
+      const shop = await createShop(user.id, data);
+      if(shop){
+        drawerCloseRef.current.click();
+        setConfettiActive(true);
+        toast({
+          title:"Shop Created Successfully"
+        });
+      }else if(!shop){
+        toast({
+          variant: "destructive",
+          title: "Uh oh! Something went wrong.",
+          description: "There was a problem with your Internet Connecti",
+        })
+      }
+      console.log(shop);
     } catch (error) {
-      console.error("An error occurred while creating the shop:", error);
+      toast({
+        variant: "destructive",
+        title: "Uh oh! Something went wrong.",
+        description: "There was a problem with your Internet.",
+      })
     }
   };
   const handleShopCityChange = (city , country) =>{

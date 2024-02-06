@@ -59,7 +59,6 @@ export default async function upload(data) {
         gravity: 'northwest',
       },
     ])
-    .toFormat('jpeg', { mozjpeg: true })
     .toBuffer();
 
   // Upload the watermarked and resized image to the remote file system
