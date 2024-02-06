@@ -1,23 +1,23 @@
 import Link from 'next/link';
 import {  BiSearch } from 'react-icons/bi';
 import { BsChatLeftDots } from "react-icons/bs";
-import Logo from './logo'
-import dynamic from 'next/dynamic';
 import { useTranslation } from '@/app/i18n';
-import BtnSkeleton from '@/components/skeletons/btnSkeleton'
-import UserAvatarSkeleton from '@/components/skeletons/userAvatarSkeleton'
 import { getUserByEmail } from '@/prisma/actions';
 import { getServerSession } from 'next-auth';
 import UserButton from '@/components/component/user-button';
-import PopoverCountry from '@/components/navBarBtns/PopoverCountry';
 import PopoverLanguage from '@/components/navBarBtns/PopoverLanguage';
+import dynamic from 'next/dynamic';
+import BtnSkeleton from '@/components/skeletons/btnSkeleton'
+import UserAvatarSkeleton from '@/components/skeletons/userAvatarSkeleton'
 
 const NavBar = async  ({ lng })=> { 
+
   const { t } = await useTranslation(lng , "translation")
-  
   const logedUser = await getServerSession()
   const user = await getUserByEmail(logedUser?.user.email)
-
+  const PopoverCountry = dynamic(()=> import('@/components/navBarBtns/PopoverCountry'),{ ssr:false , loading:()=> <BtnSkeleton />})
+  const UserButton = dynamic(()=> import('@/components/component/user-button'),{ ssr:false , loading:()=> <UserAvatarSkeleton />})
+  const Logo = dynamic(()=> import('./logo'),{ ssr:false , loading:()=> <UserAvatarSkeleton />})
 
   return (
     <>
@@ -25,6 +25,7 @@ const NavBar = async  ({ lng })=> {
       <Link className="flex items-center" href="#">
         <Logo lng={lng} />
       </Link>
+
         <form className="flex items-center dark:bg-zinc-900 border dark:border-zinc-800 rounded-xl px-4 w-[30%]">
           <BiSearch className="w-4 h-4 text-gray-700 dark:text-gray-200" />
           <input
@@ -35,7 +36,7 @@ const NavBar = async  ({ lng })=> {
         </form>
         
         <div className="flex items-center gap-3 ">
-        <Link href={'/newSell'} className="border dark:border-zinc-800 px-8 main-bg py-2 rounded-xl flex items-center">
+          <Link href={'/newSell'} className="border dark:border-zinc-800 px-8 main-bg py-2 rounded-xl flex items-center">
             {t("Sell")}
             </Link>
 

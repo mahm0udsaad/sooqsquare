@@ -22,7 +22,6 @@ export default  function UserButton({ user , lng }) {
           background: 'linear-gradient(to right,rgb(255 0 241) , #fe2635)', // Adjust gradient colors
         }}
       >
-        <Button className="rounded-full" size="icon" variant="outline">
           <Avatar>
             <div className="absolute top-0 left-0 right-0 bottom-0">
               <AvatarImage className="rounded-full hover:opacity-50 transition" src={user?.image} alt="user" />
@@ -31,7 +30,6 @@ export default  function UserButton({ user , lng }) {
               <UserIcon className="w-6 h-6" />
             </AvatarFallback>
           </Avatar>
-        </Button>
       </div>
       </PopoverTrigger>
       <PopoverContent className="w-80 dark:bg-zinc-950 dark:text-white">

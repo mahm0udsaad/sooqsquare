@@ -24,14 +24,15 @@ import MarketAdCardSkeleton from "../skeletons/marketSkeleton"
 const SelectionComp = withGenericSelection(FilterSelection);
 
 export default function Market({lng , ads , user}) {
-  const { t } = useTranslation(lng , "translation")
+  const { t } = useTranslation(lng , "view")
   const {selectedCountry, setSelectedCountry} = useDarkMode();
   const cities = countriesWithCities.find(country => country.country === selectedCountry?.country)?.cities
   const [ open , setOpen ] = useState(false)
+
   const searchParams = useSearchParams();
-  console.log(ads);
   const router = useRouter()
   const pathname= usePathname()
+
   const transmissionProps = {
     title: t('transmission'),
     itemsArray: [
@@ -125,7 +126,7 @@ export default function Market({lng , ads , user}) {
   };
   const citiesSelectorProps = {
     title: t('city'), 
-    itemsArray: cities, 
+    itemsArray: cities?.map((city)=> t(`${city}`)), 
     paramNameToSet: 'location', 
     paramsToCheck: [
     ],
@@ -164,7 +165,7 @@ export default function Market({lng , ads , user}) {
   }, [selectedCountry]);
   
   const resetFileters = () =>{
-    router.push(pathname)
+    router.push(`${pathname}?country=${selectedCountry.country}`)
   }
   const handleCheckBoxChange = (e ,value) =>{
     // const isChecked = e.target.checked;
@@ -187,9 +188,11 @@ export default function Market({lng , ads , user}) {
     router.push(newUrl);
     }
   }
+
   const [visibleBrands, setVisibleBrands] = useState(8);
   const [displayedContent, setDisplayedContent] = useState(null);
   const [currentBrand , setCurrentBrand] = useState('')
+
   useEffect(() => { 
     if (searchParams.has('brand')) {
       setDisplayedContent('models');
@@ -199,6 +202,7 @@ export default function Market({lng , ads , user}) {
       setDisplayedContent('brands');
     }
   }, [searchParams]);
+
   const handleModleSelect = (modle)=>{
     createQueryString('model', modle);
   }
@@ -210,7 +214,13 @@ export default function Market({lng , ads , user}) {
   const handleViewMore = () => {
     setVisibleBrands(Object.keys(carBrands).length);
   };
+  const handleMaxMinFilters = (queryName , value) =>{
+    if(value){
+      createQueryString(queryName, value)
+    }
 
+    console.log(value);
+  }
   return (
     (
     <>
@@ -272,21 +282,21 @@ export default function Market({lng , ads , user}) {
         <div className="grid gap-1">
           <h3 className="font-semibold">Price Range</h3>
           <div className="flex gap-2">
-            <Input className="dark:bg-zinc-800 dark:border-zinc-900 dark:text-white" id="price-min" placeholder="Min price" />
-            <Input className="dark:bg-zinc-800 dark:border-zinc-900 dark:text-white" id="price-max" placeholder="Max price" />
+            <Input onBlur={(e)=> handleMaxMinFilters('priceMin' , e.target.value)} className="dark:bg-zinc-800 dark:border-zinc-900 dark:text-white" id="price-min" placeholder="Min price" />
+            <Input onBlur={(e)=> handleMaxMinFilters('priceMax' , e.target.value)}  className="dark:bg-zinc-800 dark:border-zinc-900 dark:text-white" id="price-max" placeholder="Max price" />
           </div>
         </div>
         <div className="grid gap-1">
           <h3 className="font-semibold">Year</h3>
           <div className="flex gap-2">
-            <Input className="dark:bg-zinc-800 dark:border-zinc-900 dark:text-white" id="price-min" placeholder="Min Year" />
-            <Input className="dark:bg-zinc-800 dark:border-zinc-900 dark:text-white" id="price-max" placeholder="Max Year" />
+            <Input onBlur={(e)=> handleMaxMinFilters('yearMin' , e.target.value)} className="dark:bg-zinc-800 dark:border-zinc-900 dark:text-white" id="price-min" placeholder="Min Year" />
+            <Input onBlur={(e)=> handleMaxMinFilters('yearMax' , e.target.value)} className="dark:bg-zinc-800 dark:border-zinc-900 dark:text-white" id="price-max" placeholder="Max Year" />
           </div>
         </div>
         <div className="grid gap-1">
           <h3 className="font-semibold">Vehicle Type</h3>
           <div className="flex items-center gap-2">
-            <Checkbox isChecked={true} onCheckedChange={(e)=>handleCheckBoxChange(e , 'sport')} id="sport" value="sport" />
+            <Checkbox ischecked="true" onCheckedChange={(e)=>handleCheckBoxChange(e , 'sport')} id="sport" value="sport" />
             <Label htmlFor="sport">Sport (10)</Label>
           </div>
           <div className="flex items-center gap-2">

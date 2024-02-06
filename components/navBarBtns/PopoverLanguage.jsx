@@ -28,7 +28,7 @@ const PopoverLanguage = () => {
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger>
+      <DropdownMenuTrigger asChild>
       <Button variant="outline" className="w-48 py-2 px-4 rounded-xl">
           <IoLanguageOutline className="text-xl mx-3" />
           languages <FiChevronDown className="mx-2" />

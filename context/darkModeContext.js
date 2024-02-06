@@ -70,6 +70,30 @@ export const DarkModeProvider = ({ children }) => {
   };
 
   useEffect(() => {
+    const fetchLocation = async () => {
+      try {
+        const storedCountry = localStorage.getItem('selectedCountry');
+        if (storedCountry.country) {
+          // If there's a selectedCountry in localStorage, use it
+          setSelectedCountry(JSON.parse(storedCountry));
+        } else {
+            const location = await getLocation();
+            const countryObj = countriesWithCities.find(country => country.country === location.countryName);
+
+          localStorage.setItem('selectedCountry', JSON.stringify({ country: countryObj?.country, code: countryObj?.countryCode }));
+          setSelectedCountry({ country: countryObj?.country, code: countryObj?.countryCode });
+        }
+      } catch (error) {
+        console.error('Error fetching location in popoverCountry:', error);
+      }
+    };
+    
+    if (!selectedCountry?.country) {
+      fetchLocation();
+    }
+  }, []);
+
+  useEffect(() => {
 
     if (isConfettiActive) {
       generateConfetti();

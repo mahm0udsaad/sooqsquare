@@ -2,42 +2,64 @@
 import prisma from "@/prisma/client"
 import { revalidatePath } from "next/cache";
 
-export async function getAllads(searchParams , user){
-    const ads = await prisma.Ad.findMany({
-        include: {
-          Adimages: true,
-          user: true,
-          shop: true,
-          favoritedBy:true
-        },
-        orderBy: {
-          createdAt: 'desc',
-        },
-        where: {
-          AND: [
-            // Existing search parameters...
-            ...(searchParams
-              ? Object.keys(searchParams).map((key) => {
-                  if (key === "carType" && Array.isArray(searchParams["carType"])) {
-                    return searchParams["carType"].map((type) => ({
-                      carType: {
-                        contains: type,
-                      },
-                    }));
-                  }
-                  return { [key]: { contains: searchParams[key] } };
-                }).flat()
-              : []),
-            { adStatus: "active" },
-            {
-              country:
-                user?.country ? (searchParams['country'] ? searchParams['country'] : user.country) : searchParams?.country,
-            },
-          ],
-        },
-      });
-      return ads
+export async function getAllads(searchParams, user) {
+  const ads = await prisma.Ad.findMany({
+    include: {
+      Adimages: true,
+      user: true,
+      shop: true,
+      favoritedBy: true
+    },
+    orderBy: {
+      createdAt: 'desc',
+    },
+    where: {
+      AND: [
+        ...(searchParams
+          ? Object.keys(searchParams).map((key) => {
+              if (key === "carType" && Array.isArray(searchParams["carType"])) {
+                // Modify the logic to include SUV and Hatchback car types
+                return searchParams["carType"].includes("SUV") || searchParams["carType"].includes("Hatchback")
+                  ? {
+                      OR: searchParams["carType"].map((type) => ({
+                        carType: {
+                          contains: type,
+                        },
+                      }))
+                    }
+                  : null;
+              }
+              if (key === 'priceMax' || key === "priceMin") {
+                return {
+                  AND: [
+                    { price: { lte: searchParams.priceMax } },
+                    { price: { gte: searchParams.priceMin } }
+                  ]
+                };
+              }
+              if (key === 'yearMax' || key === "yearMin") {
+                return {
+                  AND: [
+                    { year: { lte: searchParams.yearMax } },
+                    { year: { gte: searchParams.yearMin } }
+                  ]
+                };
+              }
+              return { [key]: { contains: searchParams[key] } };
+            }).filter(Boolean)
+          : []),
+        { adStatus: "active" },
+        {
+          country:
+            user?.country ? (searchParams['country'] ? searchParams['country'] : user.country) : searchParams?.country,
+        }
+      ],
+    },
+  });
+  return ads;
 }
+
+
 export async function getAdById(adId) {
     try {
       const ad = await prisma.Ad.findUnique({
@@ -133,5 +155,30 @@ export async function incrementAdClicks(adId) {
     throw new Error('Error incrementing ad clicks');
   } finally {
     await prisma.$disconnect();
+  }
+}
+export async function deleteAdsWithoutImageOrCountry() {
+  try {
+    // Find ads without images or country information
+    const adsToDelete = await prisma.Ad.findMany({
+      where: {
+        OR: [
+          { Adimages: { none: {} } }, // Ads without images
+          { country: { equals: null } } // Ads without country information
+        ]
+      }
+    });
+
+    // Delete the found ads
+    const deletePromises = adsToDelete.map(ad => prisma.Ad.delete({
+      where: { id: ad.id }
+    }));
+
+    await Promise.all(deletePromises);
+
+    console.log(`${adsToDelete.length} ads without images or country information deleted.`);
+  } catch (error) {
+    console.error("Error deleting ads:", error);
+    throw error; // Propagate the error
   }
 }

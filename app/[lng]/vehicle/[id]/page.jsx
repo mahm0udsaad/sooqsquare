@@ -1,4 +1,4 @@
-import { getAdById, getAllads } from "../actions"
+import {  getAdById, getAllads } from "../actions"
 import { AdPage } from "../../../../components/component/ad-page";
 
 export const dynamic = "force-dynamic"

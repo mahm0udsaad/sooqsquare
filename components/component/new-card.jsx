@@ -12,6 +12,7 @@ import { useEffect, useRef, useState } from "react"
 
 export default function MarketAdCard({ ad , user }) {
   let priceCode = ArabCountriesWithCurrancy.find(country => country.name === ad.country)?.currencyCode;
+
   const [hasViewed, setHasViewed] = useState(() => {
     if (window) {
       const storedValue = localStorage.getItem(`adViewed_${ad.id}`);
@@ -21,7 +22,6 @@ export default function MarketAdCard({ ad , user }) {
   });
 
   const adCardRef = useRef(null);
-  console.log(ad.clicks);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -51,7 +51,7 @@ export default function MarketAdCard({ ad , user }) {
   }, [hasViewed, user]);
 
   return (
-    <Card onClick={()=>incrementAdClicks(ad.id)} ref={adCardRef} className="w-full max-w-md flex flex-col">
+    <Card onClick={()=> incrementAdClicks(ad.id)} ref={adCardRef} className="w-full max-w-md flex flex-col">
        <div className="relative">
        <Link className="hover:opacity-50 relative" href={`/vehicle/${ad.id}`}>
         <Image

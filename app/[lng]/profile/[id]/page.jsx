@@ -15,10 +15,11 @@ export async function generateStaticParams() {
 }
 
 export default async function Vehicle({params , searchParams})  {
-    const user = await getUserById(params.id)
+  
   if(searchParams.shop){
     const shopId = parseInt(searchParams.shop)
     const shop = await getShopById(shopId)
+
     return <>
             <ShopPage shop={shop} />
             </>

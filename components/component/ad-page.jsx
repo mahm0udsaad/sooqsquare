@@ -40,6 +40,7 @@ export function AdPage({ad , lng}) {
   const priceCode = ArabCountriesWithCurrancy.find(country => country.name === ad.country).currencyCode;
 
   const extraFeatures = ad.extraFeatures ? ad.extraFeatures.split(" ") : null
+  
   return (
     (<div
       className="flex justify-around lg:gap-12 items-start max-w-5/6 px-4 mx-auto py-6">
@@ -147,7 +148,7 @@ export function AdPage({ad , lng}) {
           </CardHeader>
           <CardContent className="flex flex-wrap gap-2">
            {extraFeatures && extraFeatures.map((feature)=>(
-             <Badge>{t(`features.${feature}`)}</Badge>
+             <Badge key={feature}>{t(`features.${feature}`)}</Badge>
            ))}
           </CardContent>
         </Card>
