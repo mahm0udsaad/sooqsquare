@@ -2,7 +2,6 @@
 import { revalidatePath } from "next/cache";
 import prisma from "./client";
 import { getServerSession } from "next-auth";
-import { redirect } from "next/navigation";
 
 export async function createAd(data, userId, adStatus) {
   const {
@@ -12,7 +11,6 @@ export async function createAd(data, userId, adStatus) {
     price,
     name,
     RegionalSpecifications,
-    location,
     adImages,
     brand,
     category,
@@ -48,7 +46,6 @@ export async function createAd(data, userId, adStatus) {
       price,
       name,
       RegionalSpecifications,
-      location,
       brand,
       category,
       model,
@@ -111,7 +108,6 @@ export async function createAdForUser(data, userId, adStatus) {
     price,
     name,
     RegionalSpecifications,
-    location,
     adImages,
     brand,
     category,
@@ -150,7 +146,6 @@ export async function createAdForUser(data, userId, adStatus) {
       price,
       name,
       RegionalSpecifications,
-      location,
       brand,
       category,
       model,
@@ -198,7 +193,6 @@ export async function createAdForShop(data, shopId, adStatus) {
     price,
     name,
     RegionalSpecifications,
-    location,
     adImages,
     brand,
     category,
@@ -233,7 +227,6 @@ export async function createAdForShop(data, shopId, adStatus) {
       price,
       name,
       RegionalSpecifications,
-      location,
       brand,
       category,
       model,
