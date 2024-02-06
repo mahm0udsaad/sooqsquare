@@ -12,9 +12,10 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label"
 import { useTranslation } from "@/app/i18n/client";
 import { Button } from "@/components/ui/button"
-import { toast } from "sonner";
+import { useToast } from "../ui/use-toast";
 
 export default function Review({lng ,userId ,  shopId}) {
+    const { toast } = useToast()
     const brand = useSearchParams().get("brand");
     const category = useSearchParams().get("category");
     const model = useSearchParams().get("model");
@@ -92,7 +93,9 @@ export default function Review({lng ,userId ,  shopId}) {
         const ad =  profile === "mainProfile" ? await createAdForUser(data , userId , "active")  : await createAdForShop(data, shopId , "active") 
         if (ad) {
           setAd(ad)
-          toast("Ad Published Successfuly")
+          toast({
+            title:"Ad Published Successfuly"
+          })
           setShowDialog(true)
           setConfettiActive(true);
           // Reset the confetti after a short delay
