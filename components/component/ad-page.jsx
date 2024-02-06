@@ -15,11 +15,12 @@ import { useTranslation } from "@/app/i18n/client";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { ArabCountriesWithCurrancy } from "@/data/staticData";
+import { FaCar, FaCalendarAlt, FaGasPump, FaPalette, FaTachometerAlt, FaCog, FaWrench, FaCarSide, FaPaintRoller } from 'react-icons/fa';
 
 export function AdPage({ad , lng}) {
   const { t } = useTranslation(lng , "tranlsation")
   const router = useRouter()
-
+  console.log(ad.description);
   const getOwnerInfo = () => {
     const ownerInfo = ad.shop || ad.user;
     return ownerInfo;
@@ -67,7 +68,6 @@ export function AdPage({ad , lng}) {
         <Card>
           <CardHeader>
           <CardTitle className='text-4xl font-bold main-color'>{priceCode} {ad.price}</CardTitle>
-            <CardDescription>{ad.description}</CardDescription>
           </CardHeader>
           <CardContent className="text-2xl font-semibold">
           <div className="flex gap-4 items-center">{ad.name}</div>
@@ -83,56 +83,80 @@ export function AdPage({ad , lng}) {
         <CardHeader className='py-8'>
           <CardTitle >{t("Car Detials")}</CardTitle>
           </CardHeader>
-        <CardContent className="grid grid-cols-2 gap-4">
-        <div className="flex justify-between">
-          <h4 className="font-bold">Car Make</h4>
-          <p>{ad.brand}</p>
-        </div>
-        <div className="flex justify-between">
-          <h4 className="font-bold">Model</h4>
-          <p>{ad.model}</p>
-        </div>
-        <div className="flex justify-between">
-          <h4 className="font-bold">Year</h4>
-          <p>{ad.year}</p>
-        </div>
-        <div className="flex justify-between">
-          <h4 className="font-bold">Car Types</h4>
-          <p>{ad.carType}</p>
-        </div>
-        <div className="flex justify-between">
-          <h4 className="font-bold">Fuel</h4>
-          <p>{ad.fuelType}</p>
-        </div>
-        <div className="flex justify-between">
-          <h4 className="font-bold">Regional Specs</h4>
-          <p>{ad.RegionalSpecifications}</p>
-        </div>
-        <div className="flex justify-between">
-          <h4 className="font-bold">Color</h4>
-          <p>{ad.paintType}</p>
-        </div>
-        <div className="flex justify-between">
-          <h4 className="font-bold">Condition</h4>
-          <p>{ad.carStatus}</p>
-        </div>
-        <div className="flex justify-between">
-          <h4 className="font-bold">Paint</h4>
-          <p>{ad.paintType}</p>
-        </div>
-        <div className="flex justify-between">
-          <h4 className="font-bold">Kilometers</h4>
-          <p>{ad.meterRange}</p>
-        </div>
-        <div className="flex justify-between">
-          <h4 className="font-bold">Engine Size ( cc )</h4>
-          <p>{ad.EnginCapacity}</p>
-        </div>
-        <div className="flex justify-between">
-          <h4 className="font-bold">Body Condition</h4>
-          <p>{ad.paintType}</p>
-        </div>
-        </CardContent>
+          <CardContent className="grid grid-cols-2 gap-4">
+            <div className="flex justify-between bg-gray-200 rounded-md p-2">
+              <h4 className="flex gap-2 items-center font-bold">
+                <FaCar />
+                Car Make</h4>
+              <p> {ad.brand}</p>
+            </div>
+            <div className="flex justify-between bg-gray-200 rounded-md p-2">
+              <h4 className="flex gap-2 items-center font-bold">
+                <FaCarSide />
+                Model</h4>
+              <p> {ad.model}</p>
+            </div>
+            <div className="flex justify-between p-2">
+              <h4 className="flex gap-2 items-center font-bold">
+                <FaCalendarAlt />
+                Year</h4>
+              <p> {ad.year}</p>
+            </div>
+            <div className="flex justify-between p-2">
+              <h4 className="flex gap-2 items-center font-bold">
+                <FaCar />
+                Car Types</h4>
+              <p> {ad.carType}</p>
+            </div>
+            <div className="flex justify-between bg-gray-200 rounded-md p-2">
+              <h4 className="flex gap-2 items-center font-bold">
+                <FaGasPump />
+                Fuel</h4>
+              <p> {ad.fuelType}</p>
+            </div>
+            <div className="flex justify-between bg-gray-200 rounded-md p-2">
+              <h4 className="flex gap-2 items-center font-bold">
+                <FaCog />
+                Regional Specs</h4>
+              <p> {ad.RegionalSpecifications}</p>
+            </div>
+            <div className="flex justify-between p-2">
+              <h4 className="flex gap-2 items-center font-bold">
+                <FaPalette />
+                Color</h4>
+              <p> {ad.paintType}</p>
+            </div>
+            <div className="flex justify-between p-2">
+              <h4 className="flex gap-2 items-center font-bold">
+                <FaWrench />
+                Condition</h4>
+              <p> {ad.carStatus}</p>
+            </div>
+            <div className="flex justify-between bg-gray-200 rounded-md p-2">
+              <h4 className="flex gap-2 items-center font-bold">
+                <FaPaintRoller />
+                Paint</h4>
+              <p> {ad.paintType}</p>
+            </div>
+            <div className="flex justify-between bg-gray-200 rounded-md p-2">
+              <h4 className="flex gap-2 items-center font-bold">
+                <FaTachometerAlt />
+                Kilometers</h4>
+              <p> {ad.meterRange}</p>
+            </div>
+            <div className="flex justify-between p-2">
+              <h4 className="flex gap-2 items-center font-bold">
+                <FaCar />
+                Engine Size ( cc )</h4>
+              <p> {ad.EnginCapacity}</p>
+            </div>
+            <div className="flex justify-between p-2">
+              <h4 className="flex gap-2 items-center font-bold">
+                <FaPaintRoller />
+                Body Condition</h4>
+              <p> {ad.paintType}</p>
+            </div>
+          </CardContent>
         </Card>
         <Card>
           <CardHeader>

@@ -81,7 +81,7 @@ export default function MarketAdCard({ ad , user }) {
         <div className="grid gap-1">
           <p className="text-sm text-gray-500 dark:text-gray-400">
             <LocateIcon className="mx-2 inline-block h-4 w-4" />
-            {ad.location}
+            {ad.city}
           </p>
           <p className="text-sm text-gray-500 dark:text-gray-400">
             <CalendarIcon className="mx-2 inline-block h-4 w-4" />

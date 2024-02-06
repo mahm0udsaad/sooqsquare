@@ -1,5 +1,5 @@
 import ShopPage from "@/components/component/shop-page";
-import UserProfile from "../../../../components/component/user-profile";
+import UserProfile from "../../../../components/component/profile";
 import { getAllUsers, getUserById } from "../action";
 import { getShopById } from "../../(traderDashboard)/actions";
 

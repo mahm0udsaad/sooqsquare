@@ -32,6 +32,7 @@ export default function Review({lng ,userId ,  shopId}) {
     const payment = useSearchParams().get("payment");
     const price = useSearchParams().get("price");
     const name = useSearchParams().get("name");
+    const description = useSearchParams().get("description")
     const profile = useSearchParams().get("profile");
     const location = useSearchParams().get("location");
     const {extraFeature , adImages  , setConfettiActive , userLocation} = useDarkMode()
@@ -45,8 +46,8 @@ export default function Review({lng ,userId ,  shopId}) {
 
     const data = {
       name: name,
-      country: userLocation.countryName,
-      city: userLocation.city,
+      country: userLocation?.countryName,
+      city: userLocation?.city,
       carStatus: carStatus,
       price: price,
       payment: payment,
@@ -63,7 +64,8 @@ export default function Review({lng ,userId ,  shopId}) {
       EnginCapacity: EnginCapacity,
       extraFeatures: extraFeatures ,
       RegionalSpecifications: RegionalSpecifications,
-      meterRange: meterRange
+      meterRange: meterRange,
+      description:description
     };
     console.log(profile);
     const handleSave = async () => {

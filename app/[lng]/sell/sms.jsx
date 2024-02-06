@@ -109,7 +109,7 @@ export default function LoginWithPhone ({email}){
             setErrorMessage('OTP Is Wrong')
             console.log(err);
         }finally{
-          router.push('/sell')
+          router.push('/newSell')
         }
     }
     const handleCountryChange = (e) => {
