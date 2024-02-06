@@ -45,7 +45,7 @@ export default function Review({lng ,userId ,  shopId}) {
     const extraFeatures = extraFeature.join(' ')
 
     const data = {
-      name: name,
+    name: name,
       country: userLocation?.countryName,
       city: userLocation?.city,
       carStatus: carStatus,

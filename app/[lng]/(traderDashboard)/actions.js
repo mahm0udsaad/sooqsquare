@@ -413,7 +413,6 @@ export async function getFavoriteAdsByUserId(userId) {
                 price: true,
                 name: true,
                 RegionalSpecifications: true,
-                location: true,
                 extraFeatures: true,
                 user:true,
                 shop:true
