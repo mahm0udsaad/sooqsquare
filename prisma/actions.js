@@ -102,6 +102,7 @@ export async function createAd(data, userId, adStatus) {
 export async function createAdForUser(data, userId, adStatus) {
   userId = parseInt(userId)
   const {
+    city,
     EnginCapacity,
     country,
     paintType,
@@ -139,6 +140,7 @@ export async function createAdForUser(data, userId, adStatus) {
     }
 
     const newAdData = {
+      city,
       EnginCapacity,
       country,
       paintType,
@@ -185,6 +187,7 @@ export async function createAdForUser(data, userId, adStatus) {
 }
 export async function createAdForShop(data, shopId, adStatus) {
   const {
+    city,
     country,
     EnginCapacity,
     paintType,
@@ -218,6 +221,7 @@ export async function createAdForShop(data, shopId, adStatus) {
     }
 
     const newAdData = {
+      city,
       country,
       EnginCapacity,
       paintType,
@@ -358,7 +362,8 @@ export async function getUserByEmail(email) {
             price: true,
             name: true,
             RegionalSpecifications: true,
-            location: true,
+            country: true,
+            city: true,
             extraFeatures: true,
             adStatus: true,
             views: true,
@@ -392,7 +397,8 @@ export async function getUserByEmail(email) {
                 price: true,
                 name: true,
                 RegionalSpecifications: true,
-                location: true,
+                country: true,
+                city: true,
                 extraFeatures: true,
                 adStatus: true,
                 views: true,

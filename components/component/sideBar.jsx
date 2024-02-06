@@ -33,38 +33,40 @@ const ShopSideBar = async ({ lng  }) =>{
         <div className="flex flex-col min-h-[75dvh] justify-between gap-4  px-4 py-2 mt-5">
          <div className="w-full">
 
-            <div className="flex w-[85%] py-2 mx-auto justify-between">
-            <Link className="flex text-sm gap-3 space-y-2  items-center text-gray-700 dark:text-gray-200 hover:dark:text-white hover:text-zinc-900" href="/myProfile">
-                <CgProfile className="w-6 h-6 " />
-                <span className="mx-3">My Profile</span>
-            </Link>
-            </div>
-            {user?.shop.length > 0 &&
+         {user?.shop.length > 0 &&
             <div className="flex w-[85%] py-2 mx-auto justify-between">
             <Link className="flex text-sm gap-3 space-y-2  items-center text-gray-700 dark:text-gray-200 hover:dark:text-white hover:text-zinc-900" href={`/dashboard`}>
                 <FaShop className="w-6 h-6 " />
-                <span className="mx-3">Dashboard</span>
+                <span className="mx-3">{t('Dashboard')}</span>
             </Link>
             </div>
             }
+
+            <div className="flex w-[85%] py-2 mx-auto justify-between">
+            <Link className="flex text-sm gap-3 space-y-2  items-center text-gray-700 dark:text-gray-200 hover:dark:text-white hover:text-zinc-900" href="/myProfile">
+                <CgProfile className="w-6 h-6 " />
+                <span className="mx-3">{t("My Profile")}</span>
+            </Link>
+            </div>
+            
             <div className="flex w-[85%] py-2 mx-auto justify-between">
              <Link className="flex text-sm gap-3 space-y-2  items-center text-gray-700 dark:text-gray-200 hover:dark:text-white hover:text-zinc-900" href="/reports">
                 <TbReportAnalytics className="w-6 h-6 text-orange-600" />
-                <span className="mx-3">Reports</span>
+                <span className="mx-3">{t("Reports")}</span>
              </Link>
             </div>
 
            <div className="flex w-[85%] py-2 mx-auto justify-between">
             <Link className="flex text-sm gap-3 space-y-2  items-center text-gray-700 dark:text-gray-200 hover:dark:text-white hover:text-zinc-900" href="/myAds">
                 <BsThreads className="w-6 h-6 text-sky-600" />
-                <span className="mx-3">My Ads</span>
+                <span className="mx-3"> {t("My Ads")} </span>
             </Link>
             </div>
  
            <div className="flex w-[85%] py-2 mx-auto justify-between">
             <Link className="flex text-sm gap-3 space-y-2  items-center text-gray-700 dark:text-gray-200 hover:dark:text-white hover:text-zinc-900" href="/favorites">
               <HeartIcon className="w-6 h-6 text-rose-600" />
-              Favorites
+              {t("Favorites")}
             </Link>
             </div>
 
@@ -81,19 +83,19 @@ const ShopSideBar = async ({ lng  }) =>{
                   <AccordionContent className="space-y-2 w-[94%] mx-auto">
                   <Link className="flex text-sm gap-3 items-center text-gray-700 dark:text-gray-200 hover:dark:text-white hover:text-zinc-900" href={`/myShopView/${shop.id}`}>
                     <AiOutlineShop className="w-6 h-6 text-rose-400	" />
-                    <span className="mx-3">My Shop</span>
+                    <span className="mx-3">{t("Shop")}</span>
                   </Link>
                   <Link className="flex text-sm gap-3 items-center text-gray-700 dark:text-gray-200 hover:dark:text-white hover:text-zinc-900" href={`/myShop/${shop.id}`}>
                       <CiEdit className="w-6 h-6 w-6 h-6 text-fuchsia-400" />
-                      <span className="mx-3">Shop Details</span>
+                      <span className="mx-3">{t("Shop Details")}</span>
                   </Link>
                   <Link className="flex text-sm gap-3 items-center text-gray-700 dark:text-gray-200 hover:dark:text-white hover:text-zinc-900" href={`/shopReports/${shop.id}`}>
                       <TbReportAnalytics className="w-6 h-6 text-orange-600" />
-                      <span className="mx-3">Shop Reports</span>
+                      <span className="mx-3">{t("Shop Reports")}</span>
                   </Link>
                   <Link className="flex text-sm gap-3 items-center text-gray-700 dark:text-gray-200 hover:dark:text-white hover:text-zinc-900" href={`/shopAds/${shop.id}`}>
                       <BsThreads className="w-6 h-6 text-sky-600" />
-                      <span className="mx-3">Shop Ads</span>
+                      <span className="mx-3">{t("Shop Ads")}</span>
                   </Link>
                  <DeleteDialoag lng={lng} shop={shop}/>
                   </AccordionContent>

@@ -46,6 +46,7 @@ export default function Review({lng ,userId ,  shopId}) {
     const data = {
       name: name,
       country: userLocation.countryName,
+      city: userLocation.city,
       carStatus: carStatus,
       price: price,
       payment: payment,
@@ -54,7 +55,6 @@ export default function Review({lng ,userId ,  shopId}) {
       year: year,
       carType: carType,
       paintType:paintType,
-      location: location,
       adImages: adImages,
       category: category,
       transmission: transmission,
@@ -72,7 +72,9 @@ export default function Review({lng ,userId ,  shopId}) {
       try {
         const ad =  profile === "mainProfile" ? await createAdForUser(data , userId , "inActive")  : await createAdForShop(data, shopId , "inActive") 
         if (ad) {
-          toast("Ad Created Successfuly")
+          toast({
+            title:"Ad Saved Successfuly"
+          })
           setShowDialog(true)
           setConfettiActive(true);
           // Reset the confetti after a short delay

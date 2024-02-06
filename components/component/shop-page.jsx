@@ -3,8 +3,6 @@ import { AvatarImage, AvatarFallback, Avatar } from "@/components/ui/avatar"
 import { timeSince } from "@/helper/timeConversion"
 import Image from "next/image"
 import Link from "next/link"
-import { CardContent, Card } from "@/components/ui/card"
-import {FaMapMarkerAlt } from 'react-icons/fa';
 import { Button } from "../ui/button"
 import { BsChatLeftDots } from "react-icons/bs";
 import { MdOutlineLocalPhone } from "react-icons/md";
@@ -12,10 +10,6 @@ import { FaSnapchat } from "react-icons/fa6";
 import { PiTiktokLogo } from "react-icons/pi";
 import { RiTwitterXFill } from "react-icons/ri";
 import { useTranslation } from "@/app/i18n/client"
-import { useState } from "react"
-import { FaCopy } from 'react-icons/fa';
-import { toast } from "sonner"
-import ShopAdCard from '@/components/component/shop-card'
 import dynamic from "next/dynamic"
 import MarketAdCardSkeleton from "@/components/skeletons/marketSkeleton"
 
@@ -25,7 +19,7 @@ export default function ShopPage({ shop , lng}) {
     ssr:false ,
     loading:()=> <MarketAdCardSkeleton />
   })
-
+  console.log(shop.bgColor);
   return (
     <>
       <section className="relative w-full h-[50dvh] overflow-hidden">
@@ -48,11 +42,15 @@ export default function ShopPage({ shop , lng}) {
           </Avatar>
         </div>
       </section>
-      <main className="container mx-auto px-4 py-8 space-y-4">
+      <main style={{ backgroundColor: shop?.bgColor ? shop.bgColor : ''}} className={`${shop?.bgColor ? `bg-[${shop.bgColor}] text-white` : ""} container mx-auto px-4 py-8 space-y-4`}>
         <h1 className="text-4xl font-bold">{shop?.shopName}</h1>
         <p className="text-lg text-gray-500 dark:text-gray-800 dark:text-gray-200">
         {shop.description}
         </p>
+       {shop?.country && <div className="flex gap-4  items-center">
+        <LocateIcon className="w-4 h-4"/>
+        {t(`${shop?.country}`)} , {t(`${shop?.city}`)}
+        </div>}
         <div className="flex  justify-between space-x-4">
           <div className="flex w-5/6 gap-3">
           {shop.facebookLink || shop.twitterLink || shop.instagramLink ||shop.tiktokLink ||shop.snapchatLink
@@ -140,6 +138,28 @@ function InstagramIcon(props) {
       <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
       <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
       <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
+    </svg>
+  )
+}
+function LocateIcon(props) {
+  return (
+    <svg
+      {...props}
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <line x1="2" x2="5" y1="12" y2="12" />
+      <line x1="19" x2="22" y1="12" y2="12" />
+      <line x1="12" x2="12" y1="2" y2="5" />
+      <line x1="12" x2="12" y1="19" y2="22" />
+      <circle cx="12" cy="12" r="7" />
     </svg>
   )
 }

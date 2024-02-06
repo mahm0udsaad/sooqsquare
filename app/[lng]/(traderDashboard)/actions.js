@@ -161,7 +161,8 @@ export async function getShopById(shopId) {
             price: true,
             name: true,
             RegionalSpecifications: true,
-            location: true,
+            country: true,
+            city: true,
             extraFeatures: true,
             adStatus: true,
             views: true,
@@ -343,6 +344,7 @@ export async function updateShopInfo(shopId, data) {
       },
       data: {
         shopName: data.shopName,
+        bgColor: data.bgColor,
         city: data.city,
         country: data.country,
         description: data.description,
@@ -355,8 +357,6 @@ export async function updateShopInfo(shopId, data) {
         phoneNumber2: data.phoneNumber2,
       },
     });
-
-    console.log('Shop information updated successfully:', updatedShop);
 
     return updatedShop;
   } catch (error) {

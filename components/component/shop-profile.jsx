@@ -8,7 +8,6 @@ import Image from "next/image"
 import { BsCloudUpload } from "react-icons/bs";
 import upload from '../../app/[lng]/(traderDashboard)/myShop/action'
 import { useState } from "react"
-import { toast } from "sonner"
 import { addBgImageToShop, addImageToShop, updateShopInfo } from "@/app/[lng]/(traderDashboard)/actions"
 import { LoadingSpinner } from "@/components/loading-spiner"
 import { useForm, Controller } from 'react-hook-form';
@@ -16,6 +15,8 @@ import { countriesWithCities } from "@/data/staticData"
 import { DropdownMenuTrigger, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuSubTrigger, DropdownMenuItem, DropdownMenuSubContent, DropdownMenuSub, DropdownMenuContent, DropdownMenu } from "@/components/ui/dropdown-menu"
 import { getLocation } from "@/helper/location"
 import { useTranslation } from "../../app/i18n/client"
+import { useToast } from "../ui/use-toast"
+import { Toggle } from "@/components/ui/toggle"
 
 export default function MyShopPage({shop , lng}) {
   const { t } = useTranslation(lng , 'view')
@@ -23,6 +24,9 @@ export default function MyShopPage({shop , lng}) {
   const [uploading, setUploading] = useState(false);
   const { handleSubmit, control , formState , setValue} = useForm();
   const [ loading , setLoading ] = useState(false)
+  const { toast } = useToast()
+
+
 
   const handleBgImageChange = async (e) => {
     const file = e.target.files[0];
@@ -72,19 +76,14 @@ export default function MyShopPage({shop , lng}) {
       setUploading(false);
     }
   };
-  const handleUpdateShop = async (event) => {
-    event.preventDefault(); 
-    const newShop = await updateShopInfo(shop.id, shopName, shopDescription)
-    if(newShop){
-      toast("Shop informaiton updated Successfully")
-    }
-  };
+
   const onSubmit = async (data) => {
     const newShop = await updateShopInfo(shop.id, data)
     if(newShop){
-      toast("Shop informaiton updated Successfully")
+      toast({
+        title:"Shop informaiton updated Successfully"
+      })
     }
-    handleUpdateShop(data);
   };
   const handleShopCityChange = (city , country) =>{
     setValue('city',city)
@@ -97,14 +96,20 @@ export default function MyShopPage({shop , lng}) {
 
       setValue('city',userLocation.city)
       setValue('country',userLocation.countryName)
-
+      toast({
+        title:"We got your Location Successfully"
+      })
     } catch (error) {
       console.error('Error getting location:', error);
     }finally{
       setLoading(false)
     }
   };
-
+  const handleBgColorChange = async (className) => {
+    setValue("bgColor", className)
+  };
+  
+  
   return (
     <>
       <section className="relative w-full h-[50dvh] overflow-hidden">
@@ -145,6 +150,23 @@ export default function MyShopPage({shop , lng}) {
       </section>
       <main className="container mx-auto px-4 py-8 space-y-4">
         <form onSubmit={handleSubmit(onSubmit)}>
+        <div className="flex items-start justify-end gap-4">
+          <Toggle onClick={()=>handleBgColorChange("#ef4444")}  aria-label="Toggle red" className={`focus:border-2 focus:border-black focus:border bg-red-500 ${shop.bgColor === "#ef4444" ? "border border-black border-2":""}`}>
+            <CircleIcon className="h-4 w-4" />
+          </Toggle>
+          <Toggle onClick={()=>handleBgColorChange("#22c55e")}  aria-label="Toggle green" className={`focus:border-2 focus:border-black focus:border bg-green-500 ${shop.bgColor === "#22c55e" ? "border border-black border-2":""}`}>
+            <CircleIcon className="h-4 w-4" />
+          </Toggle>
+          <Toggle onClick={()=>handleBgColorChange("#3b82f6")}  aria-label="Toggle blue" className={`focus:border-2 focus:border-black focus:border bg-blue-500 ${shop.bgColor === "#3b82f6" ? "border border-black border-2":""}`}>
+            <CircleIcon className="h-4 w-4" />
+          </Toggle>
+          <Toggle onClick={()=>handleBgColorChange("#eab308")}  aria-label="Toggle yellow" className={`focus:border-2 focus:border-black focus:border bg-yellow-500 ${shop.bgColor === "#eab308" ? "border border-black border-2":""}`}>
+            <CircleIcon className="h-4 w-4" />
+          </Toggle>
+          <Toggle onClick={()=>handleBgColorChange("bg-purple-500")} aria-label="Toggle purple" className={`bg-purple-500 `}>
+            <CircleIcon className="h-4 w-4" />
+          </Toggle>
+        </div>
         <div className="grid grid-cols-3 gap-4">
           <div className="space-y-2">
             <Label htmlFor="shop-name">Shop Name</Label>
@@ -278,7 +300,7 @@ export default function MyShopPage({shop , lng}) {
         </div>
       
         <Button
-          className="mt-4 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white main-bg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+          className="mt-4 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white main-bg focus:border-2 focus:border-black focus:border:outline-none focus:border-2 focus:border-black focus:border:ring-2 focus:border-2 focus:border-black focus:border:ring-offset-2 focus:border-2 focus:border-black focus:border:ring-indigo-500"
           type="submit"
         >
          {formState.isSubmitting && <LoadingSpinner />}
@@ -287,6 +309,24 @@ export default function MyShopPage({shop , lng}) {
         </form>
       </main>
     </>
+  )
+}
+function CircleIcon(props) {
+  return (
+    <svg
+      {...props}
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <circle cx="12" cy="12" r="10" />
+    </svg>
   )
 }
 

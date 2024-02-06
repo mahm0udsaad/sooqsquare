@@ -11,8 +11,10 @@ import { updateUserPhoneNumber } from "@/prisma/actions";
 import { useDarkMode } from "@/context/darkModeContext";
 import {ArabCountries} from '../../../data/staticData'
 import { LoadingSpinner } from '../../../components/loading-spiner'
+import { useToast } from "@/components/ui/use-toast";
 
 export default function LoginWithPhone ({email}){
+    const { toast } = useToast()
     const {phoneNum , setPhoneNum } = useDarkMode()
     const [otp,setOtp] = useState(['', '', '', '', '', ''])
     const [confirmationRes , setConfirmationRes] = useState(null)
@@ -29,6 +31,7 @@ export default function LoginWithPhone ({email}){
       if(!otpSent){
         return ;
       }
+      
       inputRefs.current[0].focus();
 
     }, [otpSent]);
@@ -83,6 +86,10 @@ export default function LoginWithPhone ({email}){
             setSuccessMessage('OTP has been sent')
             setPhoneNum(formattedPhoneNum)
             setIsLoading(false)
+            toast({
+              title:"OTP Sent Successfully To Your Phone",
+              description:"Please check your phone messages",
+            })
         }catch(err){
           console.log(err);
           setIsLoading(false)

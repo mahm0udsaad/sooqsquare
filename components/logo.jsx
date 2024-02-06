@@ -7,8 +7,13 @@ import { useRouter } from 'next/navigation';
 const Logo = ({ lng }) => {
   const { darkMode } = useDarkMode();
   const router = useRouter()
+
+  const handleGoToHome = () =>{
+    router.push('/')
+  }
+
   return (
-      <div onClick={()=> router.push('/')}>
+    <div onClick={handleGoToHome} style={{ cursor: 'pointer' }}>
       {lng === 'ar' ? (
         darkMode ? <DarkAr /> : <LightAr />
       ) : (

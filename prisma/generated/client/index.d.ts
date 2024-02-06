@@ -2652,6 +2652,7 @@ export namespace Prisma {
     shopCategory: string | null
     shopName: string | null
     city: string | null
+    bgColor: string | null
     country: string | null
     bgImage: string | null
     shopImage: string | null
@@ -2671,6 +2672,7 @@ export namespace Prisma {
     shopCategory: string | null
     shopName: string | null
     city: string | null
+    bgColor: string | null
     country: string | null
     bgImage: string | null
     shopImage: string | null
@@ -2690,6 +2692,7 @@ export namespace Prisma {
     shopCategory: number
     shopName: number
     city: number
+    bgColor: number
     country: number
     bgImage: number
     shopImage: number
@@ -2721,6 +2724,7 @@ export namespace Prisma {
     shopCategory?: true
     shopName?: true
     city?: true
+    bgColor?: true
     country?: true
     bgImage?: true
     shopImage?: true
@@ -2740,6 +2744,7 @@ export namespace Prisma {
     shopCategory?: true
     shopName?: true
     city?: true
+    bgColor?: true
     country?: true
     bgImage?: true
     shopImage?: true
@@ -2759,6 +2764,7 @@ export namespace Prisma {
     shopCategory?: true
     shopName?: true
     city?: true
+    bgColor?: true
     country?: true
     bgImage?: true
     shopImage?: true
@@ -2865,6 +2871,7 @@ export namespace Prisma {
     shopCategory: string
     shopName: string
     city: string | null
+    bgColor: string | null
     country: string | null
     bgImage: string
     shopImage: string | null
@@ -2903,6 +2910,7 @@ export namespace Prisma {
     shopCategory?: boolean
     shopName?: boolean
     city?: boolean
+    bgColor?: boolean
     country?: boolean
     bgImage?: boolean
     shopImage?: boolean
@@ -2925,6 +2933,7 @@ export namespace Prisma {
     shopCategory?: boolean
     shopName?: boolean
     city?: boolean
+    bgColor?: boolean
     country?: boolean
     bgImage?: boolean
     shopImage?: boolean
@@ -2957,6 +2966,7 @@ export namespace Prisma {
       shopCategory: string
       shopName: string
       city: string | null
+      bgColor: string | null
       country: string | null
       bgImage: string
       shopImage: string | null
@@ -3354,6 +3364,7 @@ export namespace Prisma {
     readonly shopCategory: FieldRef<"Shop", 'String'>
     readonly shopName: FieldRef<"Shop", 'String'>
     readonly city: FieldRef<"Shop", 'String'>
+    readonly bgColor: FieldRef<"Shop", 'String'>
     readonly country: FieldRef<"Shop", 'String'>
     readonly bgImage: FieldRef<"Shop", 'String'>
     readonly shopImage: FieldRef<"Shop", 'String'>
@@ -4657,7 +4668,7 @@ export namespace Prisma {
     price: string | null
     name: string | null
     RegionalSpecifications: string | null
-    location: string | null
+    city: string | null
     CarChassis: string | null
     extraFeatures: string | null
     adStatus: string | null
@@ -4687,7 +4698,7 @@ export namespace Prisma {
     price: string | null
     name: string | null
     RegionalSpecifications: string | null
-    location: string | null
+    city: string | null
     CarChassis: string | null
     extraFeatures: string | null
     adStatus: string | null
@@ -4717,7 +4728,7 @@ export namespace Prisma {
     price: number
     name: number
     RegionalSpecifications: number
-    location: number
+    city: number
     CarChassis: number
     extraFeatures: number
     adStatus: number
@@ -4765,7 +4776,7 @@ export namespace Prisma {
     price?: true
     name?: true
     RegionalSpecifications?: true
-    location?: true
+    city?: true
     CarChassis?: true
     extraFeatures?: true
     adStatus?: true
@@ -4795,7 +4806,7 @@ export namespace Prisma {
     price?: true
     name?: true
     RegionalSpecifications?: true
-    location?: true
+    city?: true
     CarChassis?: true
     extraFeatures?: true
     adStatus?: true
@@ -4825,7 +4836,7 @@ export namespace Prisma {
     price?: true
     name?: true
     RegionalSpecifications?: true
-    location?: true
+    city?: true
     CarChassis?: true
     extraFeatures?: true
     adStatus?: true
@@ -4942,7 +4953,7 @@ export namespace Prisma {
     price: string
     name: string
     RegionalSpecifications: string
-    location: string
+    city: string | null
     CarChassis: string | null
     extraFeatures: string | null
     adStatus: string
@@ -4991,7 +5002,7 @@ export namespace Prisma {
     price?: boolean
     name?: boolean
     RegionalSpecifications?: boolean
-    location?: boolean
+    city?: boolean
     CarChassis?: boolean
     extraFeatures?: boolean
     adStatus?: boolean
@@ -5026,7 +5037,7 @@ export namespace Prisma {
     price?: boolean
     name?: boolean
     RegionalSpecifications?: boolean
-    location?: boolean
+    city?: boolean
     CarChassis?: boolean
     extraFeatures?: boolean
     adStatus?: boolean
@@ -5073,7 +5084,7 @@ export namespace Prisma {
       price: string
       name: string
       RegionalSpecifications: string
-      location: string
+      city: string | null
       CarChassis: string | null
       extraFeatures: string | null
       adStatus: string
@@ -5485,7 +5496,7 @@ export namespace Prisma {
     readonly price: FieldRef<"Ad", 'String'>
     readonly name: FieldRef<"Ad", 'String'>
     readonly RegionalSpecifications: FieldRef<"Ad", 'String'>
-    readonly location: FieldRef<"Ad", 'String'>
+    readonly city: FieldRef<"Ad", 'String'>
     readonly CarChassis: FieldRef<"Ad", 'String'>
     readonly extraFeatures: FieldRef<"Ad", 'String'>
     readonly adStatus: FieldRef<"Ad", 'String'>
@@ -8730,6 +8741,7 @@ export namespace Prisma {
     shopCategory: 'shopCategory',
     shopName: 'shopName',
     city: 'city',
+    bgColor: 'bgColor',
     country: 'country',
     bgImage: 'bgImage',
     shopImage: 'shopImage',
@@ -8777,7 +8789,7 @@ export namespace Prisma {
     price: 'price',
     name: 'name',
     RegionalSpecifications: 'RegionalSpecifications',
-    location: 'location',
+    city: 'city',
     CarChassis: 'CarChassis',
     extraFeatures: 'extraFeatures',
     adStatus: 'adStatus',
@@ -8960,6 +8972,7 @@ export namespace Prisma {
     shopCategory?: StringFilter<"Shop"> | string
     shopName?: StringFilter<"Shop"> | string
     city?: StringNullableFilter<"Shop"> | string | null
+    bgColor?: StringNullableFilter<"Shop"> | string | null
     country?: StringNullableFilter<"Shop"> | string | null
     bgImage?: StringFilter<"Shop"> | string
     shopImage?: StringNullableFilter<"Shop"> | string | null
@@ -8981,6 +8994,7 @@ export namespace Prisma {
     shopCategory?: SortOrder
     shopName?: SortOrder
     city?: SortOrderInput | SortOrder
+    bgColor?: SortOrderInput | SortOrder
     country?: SortOrderInput | SortOrder
     bgImage?: SortOrder
     shopImage?: SortOrderInput | SortOrder
@@ -9005,6 +9019,7 @@ export namespace Prisma {
     shopCategory?: StringFilter<"Shop"> | string
     shopName?: StringFilter<"Shop"> | string
     city?: StringNullableFilter<"Shop"> | string | null
+    bgColor?: StringNullableFilter<"Shop"> | string | null
     country?: StringNullableFilter<"Shop"> | string | null
     bgImage?: StringFilter<"Shop"> | string
     shopImage?: StringNullableFilter<"Shop"> | string | null
@@ -9026,6 +9041,7 @@ export namespace Prisma {
     shopCategory?: SortOrder
     shopName?: SortOrder
     city?: SortOrderInput | SortOrder
+    bgColor?: SortOrderInput | SortOrder
     country?: SortOrderInput | SortOrder
     bgImage?: SortOrder
     shopImage?: SortOrderInput | SortOrder
@@ -9053,6 +9069,7 @@ export namespace Prisma {
     shopCategory?: StringWithAggregatesFilter<"Shop"> | string
     shopName?: StringWithAggregatesFilter<"Shop"> | string
     city?: StringNullableWithAggregatesFilter<"Shop"> | string | null
+    bgColor?: StringNullableWithAggregatesFilter<"Shop"> | string | null
     country?: StringNullableWithAggregatesFilter<"Shop"> | string | null
     bgImage?: StringWithAggregatesFilter<"Shop"> | string
     shopImage?: StringNullableWithAggregatesFilter<"Shop"> | string | null
@@ -9138,7 +9155,7 @@ export namespace Prisma {
     price?: StringFilter<"Ad"> | string
     name?: StringFilter<"Ad"> | string
     RegionalSpecifications?: StringFilter<"Ad"> | string
-    location?: StringFilter<"Ad"> | string
+    city?: StringNullableFilter<"Ad"> | string | null
     CarChassis?: StringNullableFilter<"Ad"> | string | null
     extraFeatures?: StringNullableFilter<"Ad"> | string | null
     adStatus?: StringFilter<"Ad"> | string
@@ -9172,7 +9189,7 @@ export namespace Prisma {
     price?: SortOrder
     name?: SortOrder
     RegionalSpecifications?: SortOrder
-    location?: SortOrder
+    city?: SortOrderInput | SortOrder
     CarChassis?: SortOrderInput | SortOrder
     extraFeatures?: SortOrderInput | SortOrder
     adStatus?: SortOrder
@@ -9209,7 +9226,7 @@ export namespace Prisma {
     price?: StringFilter<"Ad"> | string
     name?: StringFilter<"Ad"> | string
     RegionalSpecifications?: StringFilter<"Ad"> | string
-    location?: StringFilter<"Ad"> | string
+    city?: StringNullableFilter<"Ad"> | string | null
     CarChassis?: StringNullableFilter<"Ad"> | string | null
     extraFeatures?: StringNullableFilter<"Ad"> | string | null
     adStatus?: StringFilter<"Ad"> | string
@@ -9243,7 +9260,7 @@ export namespace Prisma {
     price?: SortOrder
     name?: SortOrder
     RegionalSpecifications?: SortOrder
-    location?: SortOrder
+    city?: SortOrderInput | SortOrder
     CarChassis?: SortOrderInput | SortOrder
     extraFeatures?: SortOrderInput | SortOrder
     adStatus?: SortOrder
@@ -9281,7 +9298,7 @@ export namespace Prisma {
     price?: StringWithAggregatesFilter<"Ad"> | string
     name?: StringWithAggregatesFilter<"Ad"> | string
     RegionalSpecifications?: StringWithAggregatesFilter<"Ad"> | string
-    location?: StringWithAggregatesFilter<"Ad"> | string
+    city?: StringNullableWithAggregatesFilter<"Ad"> | string | null
     CarChassis?: StringNullableWithAggregatesFilter<"Ad"> | string | null
     extraFeatures?: StringNullableWithAggregatesFilter<"Ad"> | string | null
     adStatus?: StringWithAggregatesFilter<"Ad"> | string
@@ -9537,6 +9554,7 @@ export namespace Prisma {
     shopCategory?: string
     shopName: string
     city?: string | null
+    bgColor?: string | null
     country?: string | null
     bgImage?: string
     shopImage?: string | null
@@ -9558,6 +9576,7 @@ export namespace Prisma {
     shopCategory?: string
     shopName: string
     city?: string | null
+    bgColor?: string | null
     country?: string | null
     bgImage?: string
     shopImage?: string | null
@@ -9576,6 +9595,7 @@ export namespace Prisma {
     shopCategory?: StringFieldUpdateOperationsInput | string
     shopName?: StringFieldUpdateOperationsInput | string
     city?: NullableStringFieldUpdateOperationsInput | string | null
+    bgColor?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     bgImage?: StringFieldUpdateOperationsInput | string
     shopImage?: NullableStringFieldUpdateOperationsInput | string | null
@@ -9597,6 +9617,7 @@ export namespace Prisma {
     shopCategory?: StringFieldUpdateOperationsInput | string
     shopName?: StringFieldUpdateOperationsInput | string
     city?: NullableStringFieldUpdateOperationsInput | string | null
+    bgColor?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     bgImage?: StringFieldUpdateOperationsInput | string
     shopImage?: NullableStringFieldUpdateOperationsInput | string | null
@@ -9615,6 +9636,7 @@ export namespace Prisma {
     shopCategory?: StringFieldUpdateOperationsInput | string
     shopName?: StringFieldUpdateOperationsInput | string
     city?: NullableStringFieldUpdateOperationsInput | string | null
+    bgColor?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     bgImage?: StringFieldUpdateOperationsInput | string
     shopImage?: NullableStringFieldUpdateOperationsInput | string | null
@@ -9634,6 +9656,7 @@ export namespace Prisma {
     shopCategory?: StringFieldUpdateOperationsInput | string
     shopName?: StringFieldUpdateOperationsInput | string
     city?: NullableStringFieldUpdateOperationsInput | string | null
+    bgColor?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     bgImage?: StringFieldUpdateOperationsInput | string
     shopImage?: NullableStringFieldUpdateOperationsInput | string | null
@@ -9698,7 +9721,7 @@ export namespace Prisma {
     price: string
     name: string
     RegionalSpecifications: string
-    location: string
+    city?: string | null
     CarChassis?: string | null
     extraFeatures?: string | null
     adStatus?: string
@@ -9732,7 +9755,7 @@ export namespace Prisma {
     price: string
     name: string
     RegionalSpecifications: string
-    location: string
+    city?: string | null
     CarChassis?: string | null
     extraFeatures?: string | null
     adStatus?: string
@@ -9761,7 +9784,7 @@ export namespace Prisma {
     price?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     RegionalSpecifications?: StringFieldUpdateOperationsInput | string
-    location?: StringFieldUpdateOperationsInput | string
+    city?: NullableStringFieldUpdateOperationsInput | string | null
     CarChassis?: NullableStringFieldUpdateOperationsInput | string | null
     extraFeatures?: NullableStringFieldUpdateOperationsInput | string | null
     adStatus?: StringFieldUpdateOperationsInput | string
@@ -9795,7 +9818,7 @@ export namespace Prisma {
     price?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     RegionalSpecifications?: StringFieldUpdateOperationsInput | string
-    location?: StringFieldUpdateOperationsInput | string
+    city?: NullableStringFieldUpdateOperationsInput | string | null
     CarChassis?: NullableStringFieldUpdateOperationsInput | string | null
     extraFeatures?: NullableStringFieldUpdateOperationsInput | string | null
     adStatus?: StringFieldUpdateOperationsInput | string
@@ -9824,7 +9847,7 @@ export namespace Prisma {
     price?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     RegionalSpecifications?: StringFieldUpdateOperationsInput | string
-    location?: StringFieldUpdateOperationsInput | string
+    city?: NullableStringFieldUpdateOperationsInput | string | null
     CarChassis?: NullableStringFieldUpdateOperationsInput | string | null
     extraFeatures?: NullableStringFieldUpdateOperationsInput | string | null
     adStatus?: StringFieldUpdateOperationsInput | string
@@ -9854,7 +9877,7 @@ export namespace Prisma {
     price?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     RegionalSpecifications?: StringFieldUpdateOperationsInput | string
-    location?: StringFieldUpdateOperationsInput | string
+    city?: NullableStringFieldUpdateOperationsInput | string | null
     CarChassis?: NullableStringFieldUpdateOperationsInput | string | null
     extraFeatures?: NullableStringFieldUpdateOperationsInput | string | null
     adStatus?: StringFieldUpdateOperationsInput | string
@@ -10195,6 +10218,7 @@ export namespace Prisma {
     shopCategory?: SortOrder
     shopName?: SortOrder
     city?: SortOrder
+    bgColor?: SortOrder
     country?: SortOrder
     bgImage?: SortOrder
     shopImage?: SortOrder
@@ -10219,6 +10243,7 @@ export namespace Prisma {
     shopCategory?: SortOrder
     shopName?: SortOrder
     city?: SortOrder
+    bgColor?: SortOrder
     country?: SortOrder
     bgImage?: SortOrder
     shopImage?: SortOrder
@@ -10238,6 +10263,7 @@ export namespace Prisma {
     shopCategory?: SortOrder
     shopName?: SortOrder
     city?: SortOrder
+    bgColor?: SortOrder
     country?: SortOrder
     bgImage?: SortOrder
     shopImage?: SortOrder
@@ -10342,7 +10368,7 @@ export namespace Prisma {
     price?: SortOrder
     name?: SortOrder
     RegionalSpecifications?: SortOrder
-    location?: SortOrder
+    city?: SortOrder
     CarChassis?: SortOrder
     extraFeatures?: SortOrder
     adStatus?: SortOrder
@@ -10380,7 +10406,7 @@ export namespace Prisma {
     price?: SortOrder
     name?: SortOrder
     RegionalSpecifications?: SortOrder
-    location?: SortOrder
+    city?: SortOrder
     CarChassis?: SortOrder
     extraFeatures?: SortOrder
     adStatus?: SortOrder
@@ -10410,7 +10436,7 @@ export namespace Prisma {
     price?: SortOrder
     name?: SortOrder
     RegionalSpecifications?: SortOrder
-    location?: SortOrder
+    city?: SortOrder
     CarChassis?: SortOrder
     extraFeatures?: SortOrder
     adStatus?: SortOrder
@@ -11307,7 +11333,7 @@ export namespace Prisma {
     price: string
     name: string
     RegionalSpecifications: string
-    location: string
+    city?: string | null
     CarChassis?: string | null
     extraFeatures?: string | null
     adStatus?: string
@@ -11339,7 +11365,7 @@ export namespace Prisma {
     price: string
     name: string
     RegionalSpecifications: string
-    location: string
+    city?: string | null
     CarChassis?: string | null
     extraFeatures?: string | null
     adStatus?: string
@@ -11428,6 +11454,7 @@ export namespace Prisma {
     shopCategory?: string
     shopName: string
     city?: string | null
+    bgColor?: string | null
     country?: string | null
     bgImage?: string
     shopImage?: string | null
@@ -11447,6 +11474,7 @@ export namespace Prisma {
     shopCategory?: string
     shopName: string
     city?: string | null
+    bgColor?: string | null
     country?: string | null
     bgImage?: string
     shopImage?: string | null
@@ -11507,7 +11535,7 @@ export namespace Prisma {
     price?: StringFilter<"Ad"> | string
     name?: StringFilter<"Ad"> | string
     RegionalSpecifications?: StringFilter<"Ad"> | string
-    location?: StringFilter<"Ad"> | string
+    city?: StringNullableFilter<"Ad"> | string | null
     CarChassis?: StringNullableFilter<"Ad"> | string | null
     extraFeatures?: StringNullableFilter<"Ad"> | string | null
     adStatus?: StringFilter<"Ad"> | string
@@ -11633,6 +11661,7 @@ export namespace Prisma {
     shopCategory?: StringFilter<"Shop"> | string
     shopName?: StringFilter<"Shop"> | string
     city?: StringNullableFilter<"Shop"> | string | null
+    bgColor?: StringNullableFilter<"Shop"> | string | null
     country?: StringNullableFilter<"Shop"> | string | null
     bgImage?: StringFilter<"Shop"> | string
     shopImage?: StringNullableFilter<"Shop"> | string | null
@@ -11699,7 +11728,7 @@ export namespace Prisma {
     price: string
     name: string
     RegionalSpecifications: string
-    location: string
+    city?: string | null
     CarChassis?: string | null
     extraFeatures?: string | null
     adStatus?: string
@@ -11731,7 +11760,7 @@ export namespace Prisma {
     price: string
     name: string
     RegionalSpecifications: string
-    location: string
+    city?: string | null
     CarChassis?: string | null
     extraFeatures?: string | null
     adStatus?: string
@@ -11821,7 +11850,7 @@ export namespace Prisma {
     price: string
     name: string
     RegionalSpecifications: string
-    location: string
+    city?: string | null
     CarChassis?: string | null
     extraFeatures?: string | null
     adStatus?: string
@@ -11854,7 +11883,7 @@ export namespace Prisma {
     price: string
     name: string
     RegionalSpecifications: string
-    location: string
+    city?: string | null
     CarChassis?: string | null
     extraFeatures?: string | null
     adStatus?: string
@@ -11898,7 +11927,7 @@ export namespace Prisma {
     price?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     RegionalSpecifications?: StringFieldUpdateOperationsInput | string
-    location?: StringFieldUpdateOperationsInput | string
+    city?: NullableStringFieldUpdateOperationsInput | string | null
     CarChassis?: NullableStringFieldUpdateOperationsInput | string | null
     extraFeatures?: NullableStringFieldUpdateOperationsInput | string | null
     adStatus?: StringFieldUpdateOperationsInput | string
@@ -11931,7 +11960,7 @@ export namespace Prisma {
     price?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     RegionalSpecifications?: StringFieldUpdateOperationsInput | string
-    location?: StringFieldUpdateOperationsInput | string
+    city?: NullableStringFieldUpdateOperationsInput | string | null
     CarChassis?: NullableStringFieldUpdateOperationsInput | string | null
     extraFeatures?: NullableStringFieldUpdateOperationsInput | string | null
     adStatus?: StringFieldUpdateOperationsInput | string
@@ -11978,6 +12007,7 @@ export namespace Prisma {
     shopCategory?: string
     shopName: string
     city?: string | null
+    bgColor?: string | null
     country?: string | null
     bgImage?: string
     shopImage?: string | null
@@ -11998,6 +12028,7 @@ export namespace Prisma {
     shopCategory?: string
     shopName: string
     city?: string | null
+    bgColor?: string | null
     country?: string | null
     bgImage?: string
     shopImage?: string | null
@@ -12101,6 +12132,7 @@ export namespace Prisma {
     shopCategory?: StringFieldUpdateOperationsInput | string
     shopName?: StringFieldUpdateOperationsInput | string
     city?: NullableStringFieldUpdateOperationsInput | string | null
+    bgColor?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     bgImage?: StringFieldUpdateOperationsInput | string
     shopImage?: NullableStringFieldUpdateOperationsInput | string | null
@@ -12121,6 +12153,7 @@ export namespace Prisma {
     shopCategory?: StringFieldUpdateOperationsInput | string
     shopName?: StringFieldUpdateOperationsInput | string
     city?: NullableStringFieldUpdateOperationsInput | string | null
+    bgColor?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     bgImage?: StringFieldUpdateOperationsInput | string
     shopImage?: NullableStringFieldUpdateOperationsInput | string | null
@@ -12228,7 +12261,7 @@ export namespace Prisma {
     price: string
     name: string
     RegionalSpecifications: string
-    location: string
+    city?: string | null
     CarChassis?: string | null
     extraFeatures?: string | null
     adStatus?: string
@@ -12261,7 +12294,7 @@ export namespace Prisma {
     price: string
     name: string
     RegionalSpecifications: string
-    location: string
+    city?: string | null
     CarChassis?: string | null
     extraFeatures?: string | null
     adStatus?: string
@@ -12345,7 +12378,7 @@ export namespace Prisma {
     price?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     RegionalSpecifications?: StringFieldUpdateOperationsInput | string
-    location?: StringFieldUpdateOperationsInput | string
+    city?: NullableStringFieldUpdateOperationsInput | string | null
     CarChassis?: NullableStringFieldUpdateOperationsInput | string | null
     extraFeatures?: NullableStringFieldUpdateOperationsInput | string | null
     adStatus?: StringFieldUpdateOperationsInput | string
@@ -12378,7 +12411,7 @@ export namespace Prisma {
     price?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     RegionalSpecifications?: StringFieldUpdateOperationsInput | string
-    location?: StringFieldUpdateOperationsInput | string
+    city?: NullableStringFieldUpdateOperationsInput | string | null
     CarChassis?: NullableStringFieldUpdateOperationsInput | string | null
     extraFeatures?: NullableStringFieldUpdateOperationsInput | string | null
     adStatus?: StringFieldUpdateOperationsInput | string
@@ -12687,7 +12720,7 @@ export namespace Prisma {
     price?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     RegionalSpecifications?: StringFieldUpdateOperationsInput | string
-    location?: StringFieldUpdateOperationsInput | string
+    city?: NullableStringFieldUpdateOperationsInput | string | null
     CarChassis?: NullableStringFieldUpdateOperationsInput | string | null
     extraFeatures?: NullableStringFieldUpdateOperationsInput | string | null
     adStatus?: StringFieldUpdateOperationsInput | string
@@ -12719,7 +12752,7 @@ export namespace Prisma {
     price?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     RegionalSpecifications?: StringFieldUpdateOperationsInput | string
-    location?: StringFieldUpdateOperationsInput | string
+    city?: NullableStringFieldUpdateOperationsInput | string | null
     CarChassis?: NullableStringFieldUpdateOperationsInput | string | null
     extraFeatures?: NullableStringFieldUpdateOperationsInput | string | null
     adStatus?: StringFieldUpdateOperationsInput | string
@@ -12750,7 +12783,7 @@ export namespace Prisma {
     price?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     RegionalSpecifications?: StringFieldUpdateOperationsInput | string
-    location?: StringFieldUpdateOperationsInput | string
+    city?: NullableStringFieldUpdateOperationsInput | string | null
     CarChassis?: NullableStringFieldUpdateOperationsInput | string | null
     extraFeatures?: NullableStringFieldUpdateOperationsInput | string | null
     adStatus?: StringFieldUpdateOperationsInput | string
@@ -12838,6 +12871,7 @@ export namespace Prisma {
     shopCategory?: StringFieldUpdateOperationsInput | string
     shopName?: StringFieldUpdateOperationsInput | string
     city?: NullableStringFieldUpdateOperationsInput | string | null
+    bgColor?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     bgImage?: StringFieldUpdateOperationsInput | string
     shopImage?: NullableStringFieldUpdateOperationsInput | string | null
@@ -12857,6 +12891,7 @@ export namespace Prisma {
     shopCategory?: StringFieldUpdateOperationsInput | string
     shopName?: StringFieldUpdateOperationsInput | string
     city?: NullableStringFieldUpdateOperationsInput | string | null
+    bgColor?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     bgImage?: StringFieldUpdateOperationsInput | string
     shopImage?: NullableStringFieldUpdateOperationsInput | string | null
@@ -12876,6 +12911,7 @@ export namespace Prisma {
     shopCategory?: StringFieldUpdateOperationsInput | string
     shopName?: StringFieldUpdateOperationsInput | string
     city?: NullableStringFieldUpdateOperationsInput | string | null
+    bgColor?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     bgImage?: StringFieldUpdateOperationsInput | string
     shopImage?: NullableStringFieldUpdateOperationsInput | string | null
@@ -12908,7 +12944,7 @@ export namespace Prisma {
     price?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     RegionalSpecifications?: StringFieldUpdateOperationsInput | string
-    location?: StringFieldUpdateOperationsInput | string
+    city?: NullableStringFieldUpdateOperationsInput | string | null
     CarChassis?: NullableStringFieldUpdateOperationsInput | string | null
     extraFeatures?: NullableStringFieldUpdateOperationsInput | string | null
     adStatus?: StringFieldUpdateOperationsInput | string
@@ -12940,7 +12976,7 @@ export namespace Prisma {
     price?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     RegionalSpecifications?: StringFieldUpdateOperationsInput | string
-    location?: StringFieldUpdateOperationsInput | string
+    city?: NullableStringFieldUpdateOperationsInput | string | null
     CarChassis?: NullableStringFieldUpdateOperationsInput | string | null
     extraFeatures?: NullableStringFieldUpdateOperationsInput | string | null
     adStatus?: StringFieldUpdateOperationsInput | string
@@ -12971,7 +13007,7 @@ export namespace Prisma {
     price?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     RegionalSpecifications?: StringFieldUpdateOperationsInput | string
-    location?: StringFieldUpdateOperationsInput | string
+    city?: NullableStringFieldUpdateOperationsInput | string | null
     CarChassis?: NullableStringFieldUpdateOperationsInput | string | null
     extraFeatures?: NullableStringFieldUpdateOperationsInput | string | null
     adStatus?: StringFieldUpdateOperationsInput | string

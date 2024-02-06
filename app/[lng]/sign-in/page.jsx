@@ -30,6 +30,7 @@ export default async function SginIn() {
   if(user && user?.phoneNumber && user.shop){
     redirect('/dashboard')
   }
+
   if(user && !user.shop){
     redirect('/myProfile')
   }
@@ -37,7 +38,7 @@ export default async function SginIn() {
     <div className="w-full min-h-screen lg:flex">
       <div className="lg:w-1/2 p-6 lg:p-10 bg-gradient-to-r from-purple-700 via-pink-700 to-red-700 lg:flex lg:items-center lg:justify-center">
         <div className="space-y-4 text-center lg:text-left">
-         <Image width={240} height={240} src="/icons/light-en-logo.svg" />
+         <Image width={240} height={240} alt="Logo" src="/icons/light-en-logo.svg" />
           <p className="text-lg text-white opacity-80">Creating a better future</p>
         </div>
       </div>

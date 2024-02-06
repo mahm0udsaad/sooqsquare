@@ -72,7 +72,7 @@ export function AdPage({ad , lng}) {
           <CardContent className="text-2xl font-semibold">
           <div className="flex gap-4 items-center">{ad.name}</div>
           <div className="flex justify-between items-center text-gray-700 dark:text-gray-400">
-          <div className="flex gap-2 items-center text-lg pt-4"><IoLocationOutline /> {ad.location}</div>
+          <div className="flex gap-2 items-center text-lg pt-4"><IoLocationOutline /> {ad.city}</div>
           <p className="text-sm">
             {timeSince(ad.createdAt)}
           </p>

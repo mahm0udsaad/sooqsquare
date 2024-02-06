@@ -32,6 +32,7 @@ model Shop {
   shopCategory        String   @default("cars")
   shopName            String  
   city                String?  
+  bgColor             String?  
   country             String?  
   bgImage             String  @default("https://cloud.elsewedy-automation.com/nextcloud/apps/sharingpath/mahm0ud/upload/Rectangle%2023787.png")
   shopImage           String?  
@@ -78,7 +79,7 @@ model Ad {
   price                  String
   name                   String
   RegionalSpecifications String
-  location               String
+  city                   String?
   CarChassis             String?
   extraFeatures          String?
   adStatus               String       @default("active")

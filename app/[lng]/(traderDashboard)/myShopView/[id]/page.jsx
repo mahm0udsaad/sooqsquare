@@ -20,7 +20,7 @@ export default async function MyShop({params}) {
         redirect('/dashboard')
     }
     return (
-       <div className='flex w-11/12 mx-auto flex-col gap-3'>
+       <div className='flex w-11/12 mx-auto flex-col '>
           <ShopPage shop={shop} lng={params.lng} />
        </div>
   )

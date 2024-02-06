@@ -46,7 +46,7 @@ const CreateShopButton = ({ user , lng}) =>{
         setValue('shopImage' , uploadResult.adImage);
         toast({
           title:"Image Uploaded Successfully"
-        } )
+        })
       }else{
         toast({
           variant: "destructive",
@@ -132,7 +132,7 @@ const CreateShopButton = ({ user , lng}) =>{
                 <Label className="cursor-pointer" htmlFor="avatar-image">
                   <span className="sr-only">Upload an avatar</span>
                   <Avatar className="w-32 h-32 border-4 border-white">
-                    <AvatarImage alt="Shop owner" src={shopImage || "/new-placeholder-avatar.jpg"} />
+                    <AvatarImage alt="Shop owner" src={shopImage || null} />
                     <AvatarFallback>SO</AvatarFallback>
                   </Avatar>
                   <Input  placeholder="Enter your shop name" onChange={handleImageChange} accept="image/*" className="hidden" id="avatar-image" name="avatar-image" type="file" />

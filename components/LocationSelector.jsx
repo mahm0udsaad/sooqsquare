@@ -25,7 +25,7 @@ export default function LocationDetails({lng , locationGiven, user}) {
     const handleCityChange = (city , country) => {
       setSelectedCity(city);
       // Log the selected country and city
-        setUserLocation({countryName:country ,city: city})
+        setUserLocation({countryName:country ,city:city})
         updateUserCountry(user.id , country)
         createQueryString('location' , city)
     };
@@ -54,9 +54,8 @@ export default function LocationDetails({lng , locationGiven, user}) {
       }
     };
     if ( location  || !category || !uploadedImages ) return null;
-    const handleLocationSelection = (city) => {
-      createQueryString('location' , city)
-    }
+
+
     return (
       <>
       <h1 className='text-center font-semibold text-xl'>{t('locationDetails.title')}</h1>

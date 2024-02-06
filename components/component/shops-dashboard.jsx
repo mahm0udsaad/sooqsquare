@@ -4,10 +4,9 @@ import Link from "next/link"
 import { CardTitle, CardHeader, CardContent, Card } from "@/components/ui/card"
 import { FaCar } from "react-icons/fa";
 import { MdOutlineRealEstateAgent } from "react-icons/md";
+import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 
 export default function Dashboard({ shops }) {
-
-  console.log(shops[0].ads);
 
   return (
     <div key="1" className="flex flex-col w-full min-h-screen p-4 md:p-10">
@@ -25,7 +24,10 @@ export default function Dashboard({ shops }) {
             <Card key={index} className="bg-rose-100 dark:bg-rose-900 dark:text-white">
               <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
                 <CardTitle className="text-sm font-medium">{shop.shopName}</CardTitle>
-                {shop.shopCategory === "cars" ? <FaCar className="w-6 h-6"/> :<MdOutlineRealEstateAgent className="w-6 h-6"/>}
+                <Avatar className="w-12 h-12 border-4 border-white">
+                <AvatarImage alt="Shop owner" src={shop?.shopImage} />
+                <AvatarFallback>SO</AvatarFallback>
+              </Avatar>
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">{shop.ads.length ?? 0}</div>

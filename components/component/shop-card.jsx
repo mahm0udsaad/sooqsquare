@@ -13,6 +13,7 @@ import { useToast } from "@/components/ui/use-toast"
 export default function ShopAdCard({ ad , user }) {
     const [copiedState, setCopiedState] = useState({});
      let priceCode = ArabCountriesWithCurrancy.find(country => country.name === ad.country)?.currencyCode;
+     console.log(ad.city);
      const { toast } = useToast();
      const [hasViewed, setHasViewed] = useState(() => {
         if (window) {
@@ -87,13 +88,13 @@ export default function ShopAdCard({ ad , user }) {
   return (
     <Card  ref={adCardRef} className="w-full max-w-md flex flex-col">
        <div className="relative">
-                <Image
-                    alt="Car Image"
-                    className="w-full object-none aspect-square w-full h-[15rem]  rounded-t-lg"
-                    height={200}
-                    width={300}
-                    src={ad.Adimages[0]?.url}
-                />  
+              <Image
+                  alt="Car Image"
+                  className="w-full object-cover aspect-square w-full h-[15rem]  rounded-t-lg"
+                  height={200}
+                  width={300}
+                  src={ad.Adimages[0]?.url}
+              />  
         <HeartIcon
             onClick={()=> addToFavorites(user?.id , ad.id)}
             className={`cursor-pointer z-10 text-gray-300 absolute top-2 right-2 h-6 w-6 ${ user?.favoriteAds.some(favorite => favorite.adId === ad.id) ? 'text-transparent': ''}`}
@@ -113,7 +114,7 @@ export default function ShopAdCard({ ad , user }) {
         <div className="grid gap-1">
           <p className="text-sm text-gray-500 dark:text-gray-400">
             <LocateIcon className="mx-2 inline-block h-4 w-4" />
-            {ad.location}
+            {ad.city}
           </p>
           <p className="text-sm text-gray-500 dark:text-gray-400">
             <CalendarIcon className="mx-2 inline-block h-4 w-4" />
