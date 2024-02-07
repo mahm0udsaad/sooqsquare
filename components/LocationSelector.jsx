@@ -1,10 +1,9 @@
 "use client"
 import {   usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useTranslation } from "../app/i18n/client"
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {getLocation} from '../helper/location'
 import { updateUserCountry } from '@/prisma/actions';
-import { useDarkMode } from '@/context/darkModeContext';
 import { Button } from "@/components/ui/button"
 import { DropdownMenuTrigger, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuSubTrigger, DropdownMenuItem, DropdownMenuSubContent, DropdownMenuSub, DropdownMenuContent, DropdownMenu } from "@/components/ui/dropdown-menu"
 import { countriesWithCities } from "@/data/staticData";
@@ -12,49 +11,66 @@ import "/node_modules/flag-icons/css/flag-icons.min.css";
 
 export default function LocationDetails({lng , locationGiven, user}) {
     const { t } = useTranslation(lng,"view");
-    const [loading , setLoading] = useState(false)
     const router = useRouter();
-    const category = useSearchParams().get("category");
-    const uploadedImages = useSearchParams().get("uploadedImages");
-    const location = useSearchParams().get("location");
     const searchParams = useSearchParams();
     const pathname= usePathname()
-    const [selectedCity, setSelectedCity] = useState(null);
-    const { setUserLocation } = useDarkMode()
+    const [loading , setLoading] = useState(false)
+    const [citiesForCountry, setCitiesForCountry] = useState([]);
 
-    const handleCityChange = (city , country) => {
-      setSelectedCity(city);
-      // Log the selected country and city
-        setUserLocation({countryName:country ,city:city})
-        updateUserCountry(user.id , country)
-        createQueryString('location' , city)
+      useEffect(() => {
+        const fetchLocation = async () => {
+            try {
+                const location = await getLocation();
+                await updateUserCountry(user.id , location.countryName)
+                const userCountry = countriesWithCities.find(country => country.country === user.country);
+                const cities = userCountry?.cities
+
+                setCitiesForCountry(cities);
+            } catch (error) {
+                console.error('Error getting location:', error.message);
+            }
+        };
+
+        if(citiesForCountry.length < 1 && user?.country){
+          fetchLocation();
+        }
+        
+        if(user?.country){
+          const userCountry = countriesWithCities.find(country => country.country === user.country);
+          const cities = userCountry?.cities
+
+          setCitiesForCountry(cities);
+        }
+    }, []);
+
+    const handleCityChange = (city) => {
+        createQueryString({
+          city:city
+        })
     };
+    const createQueryString = (params) => {
+      const updatedParams = new URLSearchParams(searchParams);
 
-    const createQueryString = (name, value) => {
-      const params = new URLSearchParams(searchParams);
-      params.set(name, value);
-      const updatedParams = params.toString();
-      router.push(pathname + '?' + updatedParams);
+      for (const [name, value] of Object.entries(params)) {
+        updatedParams.set(name, value);
+      }
+      router.push(pathname + '?' + updatedParams.toString());
     };
-    if(locationGiven && !location){
-      createQueryString('location' , locationGiven)
-    }
-
     const handleButtonClick = async () => {
       try {
         setLoading(true)
         const userLocation = await getLocation();
-        // Do something with the userLocation, like sending it to an API, etc.
-        setUserLocation(userLocation)
-        updateUserCountry(user.id , userLocation.countryName)
-        createQueryString('location' , userLocation.city)
+
+        createQueryString({
+          city: userLocation.city ,
+        })
+
       } catch (error) {
         console.error('Error getting location:', error);
-        // Handle error, show a message to the user, etc.
       }
     };
-    if ( location  || !category || !uploadedImages ) return null;
 
+    if (searchParams.has("city")  || !searchParams.has("category") || !searchParams.has("uploadedImages") ) return null;
 
     return (
       <>
@@ -66,22 +82,12 @@ export default function LocationDetails({lng , locationGiven, user}) {
             <Button variant="outline" className="w-60 py-2 px-4">{t("Select a country")}</Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-56">
-            <DropdownMenuLabel>Countries</DropdownMenuLabel>
+            <DropdownMenuLabel>Cities</DropdownMenuLabel>
             <DropdownMenuSeparator />
-            {countriesWithCities.map((countryObj, index) => (
-              <DropdownMenuSub key={index}>
-                <DropdownMenuSubTrigger>
-                {countryObj.countryCode && <span className={`mx-2 fi fi-${countryObj.countryCode}`}></span> }
-                  {t(`${countryObj.country}`)}
-                </DropdownMenuSubTrigger>
-                <DropdownMenuSubContent className="p-0">
-                  {countryObj.cities.map((city, cityIndex) => (
-                    <DropdownMenuItem key={cityIndex} onClick={() => handleCityChange(city , countryObj.country)}>
-                      {t(`${city}`)}
-                    </DropdownMenuItem>
-                  ))}
-                </DropdownMenuSubContent>
-              </DropdownMenuSub>
+            {citiesForCountry && citiesForCountry.map((city, index) => (
+                <DropdownMenuItem key={city} onClick={() => handleCityChange(city)}>
+                  {t(`${city}`)}
+                </DropdownMenuItem>
             ))}
           </DropdownMenuContent>
         </DropdownMenu>

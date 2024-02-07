@@ -4653,6 +4653,7 @@ export namespace Prisma {
     createdAt: Date | null
     description: string | null
     country: string | null
+    color: string | null
     brand: string | null
     EnginCapacity: string | null
     category: string | null
@@ -4683,6 +4684,7 @@ export namespace Prisma {
     createdAt: Date | null
     description: string | null
     country: string | null
+    color: string | null
     brand: string | null
     EnginCapacity: string | null
     category: string | null
@@ -4713,6 +4715,7 @@ export namespace Prisma {
     createdAt: number
     description: number
     country: number
+    color: number
     brand: number
     EnginCapacity: number
     category: number
@@ -4761,6 +4764,7 @@ export namespace Prisma {
     createdAt?: true
     description?: true
     country?: true
+    color?: true
     brand?: true
     EnginCapacity?: true
     category?: true
@@ -4791,6 +4795,7 @@ export namespace Prisma {
     createdAt?: true
     description?: true
     country?: true
+    color?: true
     brand?: true
     EnginCapacity?: true
     category?: true
@@ -4821,6 +4826,7 @@ export namespace Prisma {
     createdAt?: true
     description?: true
     country?: true
+    color?: true
     brand?: true
     EnginCapacity?: true
     category?: true
@@ -4938,6 +4944,7 @@ export namespace Prisma {
     createdAt: Date
     description: string | null
     country: string | null
+    color: string | null
     brand: string
     EnginCapacity: string
     category: string
@@ -4987,6 +4994,7 @@ export namespace Prisma {
     createdAt?: boolean
     description?: boolean
     country?: boolean
+    color?: boolean
     brand?: boolean
     EnginCapacity?: boolean
     category?: boolean
@@ -5022,6 +5030,7 @@ export namespace Prisma {
     createdAt?: boolean
     description?: boolean
     country?: boolean
+    color?: boolean
     brand?: boolean
     EnginCapacity?: boolean
     category?: boolean
@@ -5069,6 +5078,7 @@ export namespace Prisma {
       createdAt: Date
       description: string | null
       country: string | null
+      color: string | null
       brand: string
       EnginCapacity: string
       category: string
@@ -5481,6 +5491,7 @@ export namespace Prisma {
     readonly createdAt: FieldRef<"Ad", 'DateTime'>
     readonly description: FieldRef<"Ad", 'String'>
     readonly country: FieldRef<"Ad", 'String'>
+    readonly color: FieldRef<"Ad", 'String'>
     readonly brand: FieldRef<"Ad", 'String'>
     readonly EnginCapacity: FieldRef<"Ad", 'String'>
     readonly category: FieldRef<"Ad", 'String'>
@@ -8774,6 +8785,7 @@ export namespace Prisma {
     createdAt: 'createdAt',
     description: 'description',
     country: 'country',
+    color: 'color',
     brand: 'brand',
     EnginCapacity: 'EnginCapacity',
     category: 'category',
@@ -9140,6 +9152,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Ad"> | Date | string
     description?: StringNullableFilter<"Ad"> | string | null
     country?: StringNullableFilter<"Ad"> | string | null
+    color?: StringNullableFilter<"Ad"> | string | null
     brand?: StringFilter<"Ad"> | string
     EnginCapacity?: StringFilter<"Ad"> | string
     category?: StringFilter<"Ad"> | string
@@ -9174,6 +9187,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     description?: SortOrderInput | SortOrder
     country?: SortOrderInput | SortOrder
+    color?: SortOrderInput | SortOrder
     brand?: SortOrder
     EnginCapacity?: SortOrder
     category?: SortOrder
@@ -9211,6 +9225,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Ad"> | Date | string
     description?: StringNullableFilter<"Ad"> | string | null
     country?: StringNullableFilter<"Ad"> | string | null
+    color?: StringNullableFilter<"Ad"> | string | null
     brand?: StringFilter<"Ad"> | string
     EnginCapacity?: StringFilter<"Ad"> | string
     category?: StringFilter<"Ad"> | string
@@ -9245,6 +9260,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     description?: SortOrderInput | SortOrder
     country?: SortOrderInput | SortOrder
+    color?: SortOrderInput | SortOrder
     brand?: SortOrder
     EnginCapacity?: SortOrder
     category?: SortOrder
@@ -9283,6 +9299,7 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"Ad"> | Date | string
     description?: StringNullableWithAggregatesFilter<"Ad"> | string | null
     country?: StringNullableWithAggregatesFilter<"Ad"> | string | null
+    color?: StringNullableWithAggregatesFilter<"Ad"> | string | null
     brand?: StringWithAggregatesFilter<"Ad"> | string
     EnginCapacity?: StringWithAggregatesFilter<"Ad"> | string
     category?: StringWithAggregatesFilter<"Ad"> | string
@@ -9706,6 +9723,7 @@ export namespace Prisma {
     createdAt?: Date | string
     description?: string | null
     country?: string | null
+    color?: string | null
     brand: string
     EnginCapacity: string
     category: string
@@ -9740,6 +9758,7 @@ export namespace Prisma {
     createdAt?: Date | string
     description?: string | null
     country?: string | null
+    color?: string | null
     brand: string
     EnginCapacity: string
     category: string
@@ -9769,6 +9788,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
+    color?: NullableStringFieldUpdateOperationsInput | string | null
     brand?: StringFieldUpdateOperationsInput | string
     EnginCapacity?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
@@ -9803,6 +9823,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
+    color?: NullableStringFieldUpdateOperationsInput | string | null
     brand?: StringFieldUpdateOperationsInput | string
     EnginCapacity?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
@@ -9832,6 +9853,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
+    color?: NullableStringFieldUpdateOperationsInput | string | null
     brand?: StringFieldUpdateOperationsInput | string
     EnginCapacity?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
@@ -9862,6 +9884,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
+    color?: NullableStringFieldUpdateOperationsInput | string | null
     brand?: StringFieldUpdateOperationsInput | string
     EnginCapacity?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
@@ -10353,6 +10376,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     description?: SortOrder
     country?: SortOrder
+    color?: SortOrder
     brand?: SortOrder
     EnginCapacity?: SortOrder
     category?: SortOrder
@@ -10391,6 +10415,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     description?: SortOrder
     country?: SortOrder
+    color?: SortOrder
     brand?: SortOrder
     EnginCapacity?: SortOrder
     category?: SortOrder
@@ -10421,6 +10446,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     description?: SortOrder
     country?: SortOrder
+    color?: SortOrder
     brand?: SortOrder
     EnginCapacity?: SortOrder
     category?: SortOrder
@@ -11318,6 +11344,7 @@ export namespace Prisma {
     createdAt?: Date | string
     description?: string | null
     country?: string | null
+    color?: string | null
     brand: string
     EnginCapacity: string
     category: string
@@ -11350,6 +11377,7 @@ export namespace Prisma {
     createdAt?: Date | string
     description?: string | null
     country?: string | null
+    color?: string | null
     brand: string
     EnginCapacity: string
     category: string
@@ -11520,6 +11548,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Ad"> | Date | string
     description?: StringNullableFilter<"Ad"> | string | null
     country?: StringNullableFilter<"Ad"> | string | null
+    color?: StringNullableFilter<"Ad"> | string | null
     brand?: StringFilter<"Ad"> | string
     EnginCapacity?: StringFilter<"Ad"> | string
     category?: StringFilter<"Ad"> | string
@@ -11713,6 +11742,7 @@ export namespace Prisma {
     createdAt?: Date | string
     description?: string | null
     country?: string | null
+    color?: string | null
     brand: string
     EnginCapacity: string
     category: string
@@ -11745,6 +11775,7 @@ export namespace Prisma {
     createdAt?: Date | string
     description?: string | null
     country?: string | null
+    color?: string | null
     brand: string
     EnginCapacity: string
     category: string
@@ -11835,6 +11866,7 @@ export namespace Prisma {
     createdAt?: Date | string
     description?: string | null
     country?: string | null
+    color?: string | null
     brand: string
     EnginCapacity: string
     category: string
@@ -11868,6 +11900,7 @@ export namespace Prisma {
     createdAt?: Date | string
     description?: string | null
     country?: string | null
+    color?: string | null
     brand: string
     EnginCapacity: string
     category: string
@@ -11912,6 +11945,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
+    color?: NullableStringFieldUpdateOperationsInput | string | null
     brand?: StringFieldUpdateOperationsInput | string
     EnginCapacity?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
@@ -11945,6 +11979,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
+    color?: NullableStringFieldUpdateOperationsInput | string | null
     brand?: StringFieldUpdateOperationsInput | string
     EnginCapacity?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
@@ -12246,6 +12281,7 @@ export namespace Prisma {
     createdAt?: Date | string
     description?: string | null
     country?: string | null
+    color?: string | null
     brand: string
     EnginCapacity: string
     category: string
@@ -12279,6 +12315,7 @@ export namespace Prisma {
     createdAt?: Date | string
     description?: string | null
     country?: string | null
+    color?: string | null
     brand: string
     EnginCapacity: string
     category: string
@@ -12363,6 +12400,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
+    color?: NullableStringFieldUpdateOperationsInput | string | null
     brand?: StringFieldUpdateOperationsInput | string
     EnginCapacity?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
@@ -12396,6 +12434,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
+    color?: NullableStringFieldUpdateOperationsInput | string | null
     brand?: StringFieldUpdateOperationsInput | string
     EnginCapacity?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
@@ -12705,6 +12744,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
+    color?: NullableStringFieldUpdateOperationsInput | string | null
     brand?: StringFieldUpdateOperationsInput | string
     EnginCapacity?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
@@ -12737,6 +12777,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
+    color?: NullableStringFieldUpdateOperationsInput | string | null
     brand?: StringFieldUpdateOperationsInput | string
     EnginCapacity?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
@@ -12768,6 +12809,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
+    color?: NullableStringFieldUpdateOperationsInput | string | null
     brand?: StringFieldUpdateOperationsInput | string
     EnginCapacity?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
@@ -12929,6 +12971,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
+    color?: NullableStringFieldUpdateOperationsInput | string | null
     brand?: StringFieldUpdateOperationsInput | string
     EnginCapacity?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
@@ -12961,6 +13004,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
+    color?: NullableStringFieldUpdateOperationsInput | string | null
     brand?: StringFieldUpdateOperationsInput | string
     EnginCapacity?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
@@ -12992,6 +13036,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
+    color?: NullableStringFieldUpdateOperationsInput | string | null
     brand?: StringFieldUpdateOperationsInput | string
     EnginCapacity?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string

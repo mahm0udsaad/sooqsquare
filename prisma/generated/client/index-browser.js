@@ -147,6 +147,7 @@ exports.Prisma.AdScalarFieldEnum = {
   createdAt: 'createdAt',
   description: 'description',
   country: 'country',
+  color: 'color',
   brand: 'brand',
   EnginCapacity: 'EnginCapacity',
   category: 'category',

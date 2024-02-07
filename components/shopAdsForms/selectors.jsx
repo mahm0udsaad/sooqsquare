@@ -22,6 +22,7 @@ const SelectionComp =  withGenericSelection(GenericSelection);
         shouldOpen: true,
         paramNameToSet:'transmission',
         paramsToCheck: [
+          'color',
           'category',
           'uploadedImages',
           'brand',
@@ -47,7 +48,7 @@ const SelectionComp =  withGenericSelection(GenericSelection);
           'brand',
           'category',
           'uploadedImages',
-          'location',
+          'city',
           'carType',
           'year',
           'carStatus',
@@ -67,7 +68,7 @@ const SelectionComp =  withGenericSelection(GenericSelection);
         paramNameToSet: 'fuelType',
         paramsToCheck: [
           'brand',
-          'location',
+          'city',
           'category',
           'model',
           'year',
@@ -172,7 +173,7 @@ const SelectionComp =  withGenericSelection(GenericSelection);
        paramsToCheck: [
          'category',
          'uploadedImages',
-         'location',
+         'city',
          "brand"
        ],
      };
@@ -184,7 +185,7 @@ const SelectionComp =  withGenericSelection(GenericSelection);
        paramsToCheck: [
          'category',
          'uploadedImages',
-         'location',
+         'city',
          "brand"
        ],
      };
@@ -196,7 +197,7 @@ const SelectionComp =  withGenericSelection(GenericSelection);
        paramsToCheck: [
          'category',
          'uploadedImages',
-         'location',
+         'city',
          "brand"
        ],
      };

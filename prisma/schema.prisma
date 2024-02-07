@@ -64,6 +64,7 @@ model Ad {
   Adimages               Image[]
   description            String?
   country                String?
+  color                  String?
   brand                  String
   EnginCapacity          String
   category               String

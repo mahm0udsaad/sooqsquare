@@ -163,7 +163,7 @@ export function AdPage({ad , lng}) {
             <CardTitle>{t("Description")}</CardTitle>
           </CardHeader>
           <CardContent className="text-2xl font-semibold">
-          <p>
+          <p className="text-lg font-base">
             {ad.description}
           </p>
           </CardContent>

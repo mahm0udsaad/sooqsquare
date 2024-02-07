@@ -14,7 +14,7 @@ import { useTranslation } from "@/app/i18n/client";
 import { Button } from "@/components/ui/button"
 import { useToast } from "../ui/use-toast";
 
-export default function Review({lng , user ,  shopId}) {
+export default function Review({lng ,userId ,  shopId}) {
     const { toast } = useToast()
     const brand = useSearchParams().get("brand");
     const category = useSearchParams().get("category");
@@ -23,6 +23,7 @@ export default function Review({lng , user ,  shopId}) {
     const carType = useSearchParams().get("carType");
     const carStatus = useSearchParams().get("carStatus");
     const transmission = useSearchParams().get("transmission");
+    const uploadedImages = useSearchParams().get("uploadedImages");
     const RegionalSpecifications = useSearchParams().get("RegionalSpecifications");
     const fuelType = useSearchParams().get("fuelType");
     const EnginCapacity = useSearchParams().get("EnginCapacity");
@@ -31,49 +32,17 @@ export default function Review({lng , user ,  shopId}) {
     const payment = useSearchParams().get("payment");
     const price = useSearchParams().get("price");
     const name = useSearchParams().get("name");
-    const description = useSearchParams().get("description")
     const profile = useSearchParams().get("profile");
-    const city = useSearchParams().get("city");
-    const color = useSearchParams().get("color");
+    const location = useSearchParams().get("location");
     const {extraFeature , adImages  , setConfettiActive , userLocation} = useDarkMode()
     const carChassis = useSearchParams().get("carChassis");
-    const [loading , setLoading] = useState(false)
-    const [PublishIsLoading , setPublishIsLoading] = useState(false)
-    const [showDialog, setShowDialog] = useState(false);
-    const [ad, setAd] = useState(null);
     const { t } = useTranslation(lng , "translation")
     const extraFeatures = extraFeature.join(' ')
-
-    const data = {
-      name: name,
-      color: color,
-      country: user?.country,
-      city: city,
-      carStatus: carStatus,
-      price: price,
-      payment: payment,
-      brand: brand,
-      model: model,
-      year: year,
-      carType: carType,
-      paintType:paintType,
-      adImages: adImages,
-      category: category,
-      transmission: transmission,
-      fuelType: fuelType,
-      CarChassis: carChassis ,
-      EnginCapacity: EnginCapacity,
-      extraFeatures: extraFeatures ,
-      RegionalSpecifications: RegionalSpecifications,
-      meterRange: meterRange,
-      description:description
-    };
-
+    
     const handleSave = async () => {
-      setLoading(true);
     
       try {
-        const ad =  profile === "mainProfile" ? await createAdForUser(data , user.id , "inActive")  : await createAdForShop(data, shopId , "inActive") 
+        const ad =  profile === "mainProfile" ? await createAdForUser(data , userId , "inActive")  : await createAdForShop(data, shopId , "inActive") 
         if (ad) {
           toast({
             title:"Ad Saved Successfuly"
@@ -87,21 +56,19 @@ export default function Review({lng , user ,  shopId}) {
         }
       } catch (error) {
         console.error('Error creating ad:', error);
-      } finally {
-        setLoading(false);
-      }
+      } 
     };
+
     const handlePublish = async () => {
       setPublishIsLoading(true);
     
       try {
-        const ad =  profile === "mainProfile" ? await createAdForUser(data , user.id , "active")  : await createAdForShop(data, shopId , "active") 
+        const ad =  profile === "mainProfile" ? await createAdForUser(data , userId , "active")  : await createAdForShop(data, shopId , "active") 
         if (ad) {
-          setAd(ad)
           toast({
             title:"Ad Published Successfuly"
           })
-          setShowDialog(true)
+
           setConfettiActive(true);
           // Reset the confetti after a short delay
           setTimeout(() => {
@@ -110,8 +77,6 @@ export default function Review({lng , user ,  shopId}) {
         }
       } catch (error) {
         console.error('Error creating ad:', error);
-      } finally {
-        setPublishIsLoading(false);
       }
     };
   
@@ -135,7 +100,6 @@ export default function Review({lng , user ,  shopId}) {
       { label: 'Meter Range', value: meterRange },
       { label : "Extra Features" ,value:extraFeatures},
     ];
-   const searchParams = useSearchParams()
     
     return (
       <main className="">
@@ -144,11 +108,11 @@ export default function Review({lng , user ,  shopId}) {
             step.value !== 'null'  && 
             <div key={i}>
               <Label htmlFor={`step-${i}`}>{step.label}</Label>
-              <Input readOnly id={`step-${i}`} type="text" value={step.value || ''} />
+              <Input id={`step-${i}`} type="text" value={step.value || ''} />
             </div>
              ))}
            
-          <Dialog open={showDialog}>
+          {/* <Dialog open={showDialog}>
             <DialogContent className="bg-gradient-to-r from-green-400 to-blue-500 shadow-2xl max-w-md mx-auto bg-white dark:bg-gray-800 rounded-lg overflow-hidden">
               <DialogHeader className=" p-6 sm:p-8">
                 <DialogTitle className="text-white text-2xl font-semibold">Congratulations!</DialogTitle>
@@ -171,21 +135,23 @@ export default function Review({lng , user ,  shopId}) {
                 </Link>
               </DialogFooter>
             </DialogContent>
-          </Dialog>
+          </Dialog> */}
+
         </div>
         <div className="flex w-[35%] gap-4 mx-8 justify-start items-center">
-        <Button onClick={handleSave} disabled={loading} className="flex h-14 w-full rounded-md self-end justify-around rounded-md bg-gray-900  text-sm font-medium text-gray-50 shadow transition-colors hover:bg-gray-900/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-950 disabled:pointer-events-none disabled:opacity-50 dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-50/90 dark:focus-visible:ring-gray-300">
+        {/* <Button onClick={handleSave} disabled={loading} className="flex h-14 w-full rounded-md self-end justify-around rounded-md bg-gray-900  text-sm font-medium text-gray-50 shadow transition-colors hover:bg-gray-900/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-950 disabled:pointer-events-none disabled:opacity-50 dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-50/90 dark:focus-visible:ring-gray-300">
               {loading ? 'saving...' :  t('saveAd')}
               <HardDriveIcon className="ml-2 h-4 w-4 mx-3" />
             </Button>
             <Button onClick={handlePublish} className="flex h-14 w-full rounded-md self-end rounded-md bg-green-500   text-sm font-medium text-gray-50 shadow transition-colors hover:bg-green-600 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-green-600 disabled:pointer-events-none disabled:opacity-50 dark:bg-green-500 dark:text-white dark:hover:bg-gray-50/90 dark:focus-visible:ring-gray-300">
             {PublishIsLoading ? 'Publishing...' : t('publishAd')}
               <PlaneIcon className="ml-2 h-4 w-4 mx-3" />
-            </Button>
+            </Button> */}
         </div>
       </main>
     );
   }
+
   function PlaneIcon(props) {
     return (
       <svg

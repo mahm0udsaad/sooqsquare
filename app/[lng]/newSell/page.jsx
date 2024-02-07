@@ -8,6 +8,7 @@ import SkeletonScreen from '@/components/skeletons/brandsSkeleton'
 import DropdownSkeleton from '@/components/skeletons/selectorSkeleton'
 
 const SellForm = async ({ params : { lng} , searchParams  }) =>{
+
     const CategoriesForm = dynamic(() => import(`@/components/shopAdsForms/categoryForm`),{
         ssr: false,
         loading:()=> <p>CategoriesForm...</p>
@@ -48,8 +49,14 @@ const SellForm = async ({ params : { lng} , searchParams  }) =>{
       ssr: false,
       loading:()=> <DropdownSkeleton />
       });
+       const ColorPicker = dynamic(() => import(`@/components/shopAdsForms/colorPicker`) ,{
+      ssr: false,
+      loading:()=> <DropdownSkeleton />
+      });
+
       const LogedInUser = await getServerSession() 
       const user = await getUserByEmail(LogedInUser?.user.email)
+
       if (!user?.phoneNumber || !user) redirect('/sign-in')
       let profile ;
       if(searchParams.profile == "mainProfile"){
@@ -58,24 +65,26 @@ const SellForm = async ({ params : { lng} , searchParams  }) =>{
         const shopId = searchParams.profile?.split('=')[1];
        profile = user.shop?.find(shop => shop.id === parseInt(shopId));
       }
+
     return (
       <div className='relative w-11/12 mx-auto pt-8 min-h-screen flex lg:flex-row flex-col-reverse'>
            <OverView lng={lng} />
         <div className="flex flex-col w-11/12 mx-8">
           <div className="w-full">
-        <div className="w-full">
-        {!searchParams.profile ? <SelectProfile lng={lng} user={user}/> : null}
-        {!searchParams.category && searchParams.profile && <CategoriesForm lng={lng} />}
-        {!searchParams.uploadedImages && searchParams.category && searchParams.profile && <MultiImageForm  lng={lng} />}
-        {!searchParams.brand && searchParams.carStatus && <CarBrandSelector lng={lng} />}
-        {!searchParams.carChassis && searchParams.carStatus && <CarChassis lng={lng} />}
-        {!searchParams.price && searchParams.carChassis && <PriceSelection lng={lng} />}
-        {!searchParams.name && searchParams.price && <NameDescriptionSelector lng={lng} />}
-        {searchParams.paintType && <ExtraFeatures lng={lng} />}
-        {searchParams.carStatus && <LocationDetails user={user} lng={lng}/>}
-        {searchParams.uploadedImages && <Selectors lng={lng}/>}
-        {searchParams.name && <Review userId={user?.id} shopId={profile?.id} lng={lng}/>}
-        </div>
+            <div className="w-full">
+              {!searchParams.profile ? <SelectProfile lng={lng} user={user}/> : null}
+              {!searchParams.category && searchParams.profile && <CategoriesForm lng={lng} />}
+              {!searchParams.uploadedImages && searchParams.category && searchParams.profile && <MultiImageForm  lng={lng} />}
+              {!searchParams.brand && searchParams.city && <CarBrandSelector lng={lng} />}
+              {!searchParams.color && searchParams.model && <ColorPicker  lng={lng}/>}
+              {!searchParams.carChassis && searchParams.carStatus && <CarChassis lng={lng} />}
+              {!searchParams.price && searchParams.carChassis && <PriceSelection lng={lng} />}
+              {!searchParams.name && searchParams.price && <NameDescriptionSelector lng={lng} />}
+              {searchParams.paintType && <ExtraFeatures lng={lng} />}
+              {searchParams.carStatus && <LocationDetails user={user} lng={lng}/>}
+              {searchParams.uploadedImages && <Selectors lng={lng}/>}
+              {searchParams.name && searchParams.description && <Review user={user} shopId={profile?.id} lng={lng}/>}
+            </div>
           </div>
         </div>
       </div>

@@ -14,30 +14,11 @@ import {
 export default function PriceSelection({lng}) {
     const router = useRouter();
     const searchParams = useSearchParams()
-    const brand = useSearchParams().get("brand");
-    const category = useSearchParams().get("category");
-    const model = useSearchParams().get("model");
-    const year = useSearchParams().get("year");
-    const carType = useSearchParams().get("carType");
-    const carStatus = useSearchParams().get("carStatus");
-    const transmission = useSearchParams().get("transmission");
-    const uploadedImages = useSearchParams().get("uploadedImages");
-    const RegionalSpecifications = useSearchParams().get("RegionalSpecifications");
-    const fuelType = useSearchParams().get("fuelType");
-    const EnginCapacity = useSearchParams().get("EnginCapacity");
-    const meterRange = useSearchParams().get("meterRange");
-    const paintType = useSearchParams().get("paintType");
-    const location = useSearchParams().get("location");
     const { t } = useTranslation(lng , "translation")
-    const payment = useSearchParams().get("payment");
-    const price = useSearchParams().get("price");
-    const extraFeatures = useSearchParams().get("extraFeatures");
-    const carChassis = useSearchParams().get("carChassis");
     const [selectedPaymentMethod, setSelectedPaymentMethod] = useState("cash");
     const [pricestate, setPrice] = useState(null)
     const { setErrorMessage } = useDarkMode()
   
-    if (!brand || !category || !model || !year || !carType || !carStatus || !transmission || !fuelType || !paintType || price && payment || !extraFeatures ||  !carChassis) return null;
 
     const pathname = usePathname()
     const createQueryString = (params) => {
@@ -66,12 +47,11 @@ export default function PriceSelection({lng}) {
         <h1 className=" text-center text-xl pb-4 font-semibold">{t('price')}</h1>
          <form className="grid w-full  items-center gap-8 pt-4" onSubmit={handleSubmit}>
         <div className="flex items-center gap-2">
-          <span className="text-lg w-[20%]">{category == "CarsForRent"  ? `${t('day')}/` : '$'}</span>
           <Input
             id="price"
             placeholder="Enter price"
             type="number"
-            value={price}
+            value={pricestate}
             onChange={(e) => setPrice(e.target.value)}
           />
         </div>

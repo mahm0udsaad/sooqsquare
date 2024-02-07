@@ -5,13 +5,9 @@ import { useTranslation } from "../app/i18n/client"
 import Image from 'next/image';
  
 const CarBrandSelector = ({lng}) => {
+  
   const { t } = useTranslation(lng,"translation");
   const router = useRouter();
-  const category = useSearchParams().get("category");
-  const brand = useSearchParams().get("brand");
-  const uploadedImages = useSearchParams().get("uploadedImages");
-  const carStatus = useSearchParams().get("carStatus");
-  const location = useSearchParams().get("location");
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
@@ -21,8 +17,6 @@ const CarBrandSelector = ({lng}) => {
     const updatedParams = params.toString();
     router.push(pathname + '?' + updatedParams);
   };
-  
-  if (!category || !carStatus ||!location ) return null;
   
   function handleSelectBrand(selectedBrand) {
     createQueryString('brand' , selectedBrand)

@@ -9,6 +9,7 @@ export default function CategoriesForm ({lng}) {
     const { t } = useTranslation(lng , "translation")
     const searchParams = useSearchParams()
    if(!searchParams.has('profile')) return ;
+   
    return (
        <>
         <h1 className="text-center text-2xl font-semibold sm:py-8">

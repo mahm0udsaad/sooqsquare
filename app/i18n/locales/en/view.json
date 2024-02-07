@@ -1,6 +1,7 @@
 {
   "Name":"Name",
   "Select a country":"Select a country",
+  "Choose Car's Color":"Choose Car's Color",
     "locationDetails": {
         "title": "Location Details",
         "selectCity": "Select a city",
