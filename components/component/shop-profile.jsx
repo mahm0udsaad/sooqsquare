@@ -109,7 +109,6 @@ export default function MyShopPage({shop , lng}) {
     setValue("bgColor", className)
   };
   
-  
   return (
     <>
       <section className="relative w-full h-[50dvh] overflow-hidden">
@@ -163,7 +162,7 @@ export default function MyShopPage({shop , lng}) {
           <Toggle onClick={()=>handleBgColorChange("#eab308")}  aria-label="Toggle yellow" className={`focus:border-2 focus:border-black focus:border bg-yellow-500 ${shop.bgColor === "#eab308" ? "border border-black border-2":""}`}>
             <CircleIcon className="h-4 w-4" />
           </Toggle>
-          <Toggle onClick={()=>handleBgColorChange("bg-purple-500")} aria-label="Toggle purple" className={`bg-purple-500 `}>
+          <Toggle onClick={()=>handleBgColorChange("#f3f4f6")}  aria-label="Toggle yellow" className={`focus:border-2 focus:border-black focus:border bg-f3f4f6-500 ${shop.bgColor === "#f3f4f6" ? "border border-black border-2":""}`}>
             <CircleIcon className="h-4 w-4" />
           </Toggle>
         </div>

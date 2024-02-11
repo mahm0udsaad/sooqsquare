@@ -155,6 +155,7 @@ export default function Market({lng , ads , user}) {
     router.push(pathname + '?' + updatedParams);
   };
 
+  console.log(searchParams.get('country'));
   useEffect(() => {
       if(!selectedCountry?.country && !user?.country && !searchParams.has('country') || searchParams.get('country') == "undefined"){
         setOpen(true)
@@ -162,7 +163,7 @@ export default function Market({lng , ads , user}) {
         setOpen(false)
         createQueryString('country',selectedCountry?.country)
       }
-  }, [selectedCountry]);
+  }, [selectedCountry , searchParams.has('country')]);
   
   const resetFileters = () =>{
     router.push(`${pathname}?country=${selectedCountry.country}`)

@@ -1,12 +1,13 @@
 "use server"
 import sharp from "sharp";
 import { createAdapter  } from "webdav-fs";
-const username = 'mahm0ud';
-const password = 'dbEMY-soQg6-JKq4H-4S832-MRSPN';
-const remotePath = `https://cloud.elsewedy-automation.com/nextcloud/remote.php/dav/files/${username}`;
+const username = 'nextcloud';
+const password = 'EXZMx-yYLMY-DXjt8-onetF-4rMbf';
+const remotePath = `https://cloud.sooqsquare.com/remote.php/dav/files/${username}`;
+
 function extractUploadPath(url) {
   // Replace the base URL and decode the remaining path
-  const decodedPath = decodeURIComponent(url.replace('https://cloud.elsewedy-automation.com', ''));
+  const decodedPath = decodeURIComponent(url.replace('https://cloud.sooqsquare.com', ''));
 
   // Find the index of "/upload/" and get the substring after it
   const uploadIndex = decodedPath.indexOf('/upload/');
@@ -20,7 +21,6 @@ function extractUploadPath(url) {
 }
 export default async function upload(data) {
   const imageFile = await data.get('file');
-
   if (!imageFile) {
     console.error('No image file provided for upload');
     return null;
@@ -76,7 +76,7 @@ export default async function upload(data) {
       }
     });
 
-    const imageUrl = `https://cloud.elsewedy-automation.com/nextcloud/apps/sharingpath/mahm0ud/upload/${encodeURIComponent(imageFile.name)}`;
+    const imageUrl = `https://cloud.sooqsquare.com/apps/sharingpath/nextcloud/upload/${encodeURIComponent(imageFile.name)}`;
     console.log(imageUrl);
     return { adImage: imageUrl };
   } catch (error) {

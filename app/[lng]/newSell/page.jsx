@@ -65,9 +65,8 @@ const SellForm = async ({ params : { lng} , searchParams  }) =>{
         const shopId = searchParams.profile?.split('=')[1];
        profile = user.shop?.find(shop => shop.id === parseInt(shopId));
       }
-
     return (
-      <div className='relative w-11/12 mx-auto pt-8 min-h-screen flex lg:flex-row flex-col-reverse'>
+      <div className='relative w-11/12 mx-auto pt-8 min-h-screen flex lg:flex-row lg:flex-col-reverse'>
            <OverView lng={lng} />
         <div className="flex flex-col w-11/12 mx-8">
           <div className="w-full">

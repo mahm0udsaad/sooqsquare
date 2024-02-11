@@ -2,13 +2,6 @@
 import { CiEdit } from "react-icons/ci";
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import {
-    Carousel,
-    CarouselContent,
-    CarouselItem,
-    CarouselNext,
-    CarouselPrevious,
-  } from "@/components/ui/carousel"
   import {
     Drawer,
     DrawerClose,
@@ -20,23 +13,21 @@ import {
     DrawerTrigger,
   } from "@/components/ui/drawer"
 import { Button } from "@/components/ui/button"
-import { CardContent, Card } from "@/components/ui/card"
 import { Controller, useForm } from "react-hook-form";
-import { useRef } from "react";
 import { useTranslation } from "../../../app/i18n/client";
-import  { deleteImage, updateAd, updateAdImage } from "../../../app/[lng]/(traderDashboard)/actions";
-import upload, { deleteCloudImage } from "../../../app/[lng]/sell/imageUploadAction";
+import  { updateAd, updateAdImage } from "../../../app/[lng]/(traderDashboard)/actions";
 import { carBrands, carTypesArray, yearsArray } from "@/data/staticData"
 import {  SelectTrigger, SelectItem, SelectGroup, SelectContent, Select , SelectValue} from "@/components/ui/select"
 import { Textarea } from "@/components/ui/textarea"
 import { LoadingSpinner } from "@/components/loading-spiner"
-import { toast } from "sonner";
+import { useRef } from "react";
+import { useToast } from "../../ui/use-toast";
 
 export default function EditBtn({ lng , ad}){
     const isArabic = lng === 'ar';
-    const carouselStyle = isArabic ? { direction: 'ltr' } : {};
     const models = carBrands[`${ad.brand}`]
     const { t } = useTranslation(lng , 'view')
+    const { toast } = useToast()
     const transmissionProps = {
       title: t('transmission'),
       itemsArray: [
@@ -112,44 +103,21 @@ export default function EditBtn({ lng , ad}){
      title: t('cartype'),
      itemsArray: carTypesArray,
    };
-
+   const cancelRef = useRef(null)
    const { register, handleSubmit, setValue , control , formState} = useForm();
-   const fileInputRef = useRef(null)
-   const handleChangeImage = async (adId, existingImageUrl, newImage) => {
-    try {
-      // Delete the existing image
-      await deleteImage(existingImageUrl);
-      deleteCloudImage(existingImageUrl.url)
-      // Upload the new image
-      const formData = new FormData();
-      formData.append('file', newImage);
-      const result = await upload(formData);
-        
-      // Update the ad with the new image URL
-      if (result && result.adImage) {
-        const newImageUrl = result.adImage;
-        const updatedAd = await updateAdImage(adId, { Adimages: { create: [{ url: newImageUrl }] } });
-  
-        // Handle the updated ad as needed
-        console.log('Updated Ad:', updatedAd);
-      }
-  
-      // Handle the result as needed
-      console.log('Upload Result:', result);
-    } catch (error) {
-      console.error('Error handling image change:', error);
-    }
-  }
+
    const onSubmit = async (data) => {
       const updatedAd = await updateAd(ad.id , data)
       if(updatedAd){
+        cancelRef.current.click()
         toast('ad updated Successfully')
       }
     };
+    
     return(
         <>
         <Drawer>
-          <DrawerTrigger className="w-1/2">
+          <DrawerTrigger className="w-1/2" asChild>
           <Button className="bg-transparent border border-black text-black hover:text-white dark:border-white dark:text-white hover:dark:bg-white hover:dark:border-black hover:dark:text-black  flex justify-center items-center space-x-2">
             <CiEdit className="w-4 h-4 mx-2" />
             <span>Edit</span>
@@ -160,29 +128,6 @@ export default function EditBtn({ lng , ad}){
               <DrawerTitle>Are you absolutely sure?</DrawerTitle>
             </DrawerHeader>
             <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col justify-center gap-x-4 w-11/12 mx-auto">
-            <Carousel style={carouselStyle} className="w-lg mx-auto flex ">
-              <CarouselContent className="dark:bg-zinc-800 ">
-                {ad.Adimages.map((image, index) => (
-                  <>
-                  <CarouselItem className="relative" key={index}>
-                  <div className="absolute top-0 right-0">
-                  <CiEdit onClick={()=> fileInputRef.current.click()} className="cursor-pointer hover:bg-red-700 hover:text-white border border-red-700 rounded-md w-6 h-6 w-6 h-6 text-black" />
-                  <input onChange={(e)=> handleChangeImage(ad.id, image , e.target.files[0])} className="hidden" ref={fileInputRef} type="file"  />
-                  </div>
-                    <div className="p-1">
-                      <Card> 
-                        <CardContent className="flex dark:bg-zinc-800 aspect-square items-center justify-center p-6">
-                          <img className="w-32" src={image.url} alt="adImage"  />
-                        </CardContent>
-                      </Card>
-                    </div>
-                  </CarouselItem>
-                  </>
-                ))}
-                </CarouselContent>
-                <CarouselPrevious />
-                <CarouselNext />
-              </Carousel>
               <div className="grid grid-cols-3 gap-4">
                 
             <div>
@@ -385,7 +330,7 @@ export default function EditBtn({ lng , ad}){
               Submit
               </Button>
               <DrawerClose className="dark:text-black mx-2">
-                <Button type="button" variant="outline">Cancel</Button>
+                <Button ref={cancelRef} type="button" variant="outline">Cancel</Button>
               </DrawerClose>
             </DrawerFooter>
             </form>

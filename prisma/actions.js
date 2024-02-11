@@ -2,6 +2,7 @@
 import { revalidatePath } from "next/cache";
 import prisma from "./client";
 import { getServerSession } from "next-auth";
+import upload from "@/app/[lng]/(traderDashboard)/myShop/action";
 
 export async function createAd(data, userId, adStatus) {
   const {
@@ -101,6 +102,7 @@ export async function createAdForUser(data, userId, adStatus) {
   const {
     description,
     city,
+    color,
     EnginCapacity,
     country,
     paintType,
@@ -137,6 +139,7 @@ export async function createAdForUser(data, userId, adStatus) {
     }
 
     const newAdData = {
+      color,
       description,
       city,
       EnginCapacity,
@@ -184,6 +187,7 @@ export async function createAdForUser(data, userId, adStatus) {
 }
 export async function createAdForShop(data, shopId, adStatus) {
   const {
+    color,
     description,
     city,
     country,
@@ -218,6 +222,7 @@ export async function createAdForShop(data, shopId, adStatus) {
     }
 
     const newAdData = {
+      color,
      description,
       city,
       country,
@@ -490,5 +495,32 @@ export async function updateUserCountry(userId, newCountry) {
     // Handle errors
     console.error('Error updating user country:', error);
     return { success: false, message: 'Internal server error.' };
+  }
+}
+export async function replaceAdImage(adId, existingImageId, newImage) {
+  try {
+    // Upload the new image
+    const formData = new FormData();
+    formData.append('file', newImage);
+    const result = await upload(formData);
+
+    if (!result || !result.adImage) {
+      throw new Error('Failed to upload new image');
+    }
+
+    const newImageUrl = result.adImage;
+
+    // Update the ad with the new image URL
+    const updatedAd = await updateAdImage(adId, { Adimages: { update: [{ where: { url: existingImageUrl }, data: { url: newImageUrl } }] } });
+
+    // Handle the updated ad as needed
+    console.log('Updated Ad:', updatedAd);
+
+    return newImageUrl;
+  } catch (error) {
+    console.error('Error replacing ad image:', error);
+    throw error;
+  }finally{
+    revalidatePath('/dashboard')
   }
 }

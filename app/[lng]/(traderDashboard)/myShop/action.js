@@ -1,8 +1,9 @@
 "use server"
 import { createAdapter  } from "webdav-fs";
-const username = 'mahm0ud';
-const password = 'dbEMY-soQg6-JKq4H-4S832-MRSPN';
-const remotePath = `https://cloud.elsewedy-automation.com/nextcloud/remote.php/dav/files/${username}`;
+const username = 'nextcloud';
+const password = 'AdycJ-35aaF-yRbrc-cPYbk-xEJF9';
+const remotePath = `https://cloud.sooqsquare.com/nextcloud/remote.php/dav/files/${username}`;
+
 
 export default async function upload(data) {
   const imageFile = await data.get('file');
@@ -29,7 +30,7 @@ export default async function upload(data) {
       }
     });
 
-    const imageUrl = `https://cloud.elsewedy-automation.com/nextcloud/apps/sharingpath/mahm0ud/upload/${encodeURIComponent(imageFile.name)}`;
+    const imageUrl = `https://cloud.sooqsquare.com/nextcloud/apps/sharingpath/nextcloud/upload/${encodeURIComponent(imageFile.name)}`;
     console.log(imageUrl);
     return { adImage: imageUrl };
   } catch (error) {

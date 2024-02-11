@@ -44,18 +44,22 @@ const NavBar = async  ({ lng })=> {
 
           <PopoverLanguage lng={lng} />
           <PopoverCountry lng={lng} />
-
-          <Link href={'/chat'} className="chat dark:bg-zinc-900 hover:opacity-50 bg-white border dark:border-zinc-800 p-2 rounded-md">
-          <BsChatLeftDots className="text-xl"/>
-          </Link>
          
-          <div className="userAvatar">
-          {user &&
-               <UserButton lng={lng} user={user}/>
+          {user ?
+              <>
+                <Link href={'/chat'} className="chat dark:bg-zinc-900 hover:opacity-50 bg-white border dark:border-zinc-800 p-2 rounded-md">
+                  <BsChatLeftDots className="text-xl"/>
+                </Link>
+              <div className="userAvatar">
+                <UserButton lng={lng} user={user}/>
+              </div>
+              </>
+               :
+               <Link className='py-2 px-4 primary-bg rounded-md' href={'/sign-in'}>
+                Sign In
+               </Link>
             }
-          </div>
          
-      
         </div>
     </nav>
     {/* Mobile NavBar */}

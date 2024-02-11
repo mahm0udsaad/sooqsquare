@@ -13,13 +13,14 @@ import { useTranslation } from "@/app/i18n/client"
 import dynamic from "next/dynamic"
 import MarketAdCardSkeleton from "@/components/skeletons/marketSkeleton"
 
-export default function ShopPage({ shop , lng}) {
+export default function ShopPage({ shop , user, lng}) {
   const { t } = useTranslation(lng , "view")
+
   const ShopAdCard = dynamic(()=> import("@/components/component/shop-card") , {
     ssr:false ,
     loading:()=> <MarketAdCardSkeleton />
   })
-  console.log(shop.bgColor);
+
   return (
     <>
       <section className="relative w-full h-[50dvh] overflow-hidden">
@@ -42,7 +43,7 @@ export default function ShopPage({ shop , lng}) {
           </Avatar>
         </div>
       </section>
-      <main style={{ backgroundColor: shop?.bgColor ? shop.bgColor : ''}} className={`${shop?.bgColor ? `bg-[${shop.bgColor}] text-white` : ""} container mx-auto px-4 py-8 space-y-4`}>
+      <main style={{ backgroundColor: shop?.bgColor ? shop.bgColor : ''}} className={`${shop?.bgColor !== "#f3f4f6" ? `text-white` : ""} container mx-auto px-4 py-8 space-y-4`}>
         <h1 className="text-4xl font-bold">{shop?.shopName}</h1>
         <p className="text-lg text-gray-500 dark:text-gray-800 dark:text-gray-200">
         {shop.description}
@@ -94,7 +95,7 @@ export default function ShopPage({ shop , lng}) {
         {shop?.ads?.length > 0 && <h2 className="text-2xl font-bold">{t("Featured Ads")} :</h2>}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {shop.ads.map((ad)=>(
-         <ShopAdCard key={ad.id} ad={ad}/>
+         <ShopAdCard key={ad.id} ad={ad} user={user}/>
           ))}
         </div>
         </section>

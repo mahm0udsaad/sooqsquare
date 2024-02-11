@@ -149,6 +149,18 @@ display: none !important;
   background-color: transparent !important;
   color: white;
 }
+
+.primary-bg{
+  transition: all 0.1s ease-in-out;
+  background-color: transparent;
+  border: 1px solid #fe2635 !important;
+  color: #fe2635;
+}
+.primary-bg:hover{
+  background-color: #fe2635;
+  border: 1px solid #fe2635 !important;
+  color: white;
+}
 .dark .main-bg:hover {
   background-color: transparent;
   color: white;

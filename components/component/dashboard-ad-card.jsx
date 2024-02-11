@@ -11,7 +11,7 @@ import { Button } from "@/components/ui/button"
 import { CardContent, Card } from "@/components/ui/card"
 import { FaRegStopCircle } from "react-icons/fa";
 import { changeAdStatus, deleteAd, updateAd } from "@/app/[lng]/(traderDashboard)/actions";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   Dialog,
   DialogContent,
@@ -20,13 +20,19 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
-
+import { useToast } from "@/components/ui/use-toast"
 import { useTranslation } from "@/app/i18n/client"
-import { toast } from "sonner"
 import EditBtn from "./buttons/editDailoag"
+import { updateAdImage, updateAdImageURL } from "../../app/[lng]/(traderDashboard)/actions"
+import upload from "../../app/[lng]/sell/imageUploadAction"
+import { CiEdit } from "react-icons/ci"
+import { BsCloudUpload } from "react-icons/bs"
+import { replaceAdImage } from "../../prisma/actions"
+import { useCarousel } from "../ui/carousel"
 
 export const AdCard = ({lng, ad }) => {
     const { t } = useTranslation(lng ,"translation")
+    const { toast } = useToast()
     const [deleteLoading , setDeleteLoading ] = useState(false)
     const [adStatusLoading , setAdStatusLoading ] = useState(false)
     const isArabic = lng === 'ar';
@@ -52,14 +58,16 @@ export const AdCard = ({lng, ad }) => {
       fuelType,
       meterRange,
     } = ad;
- 
-    console.log(ad.views);
+
     function extractAdDataViewMore(ad) {
       const {RegionalSpecifications ,payment ,category , country,shopId ,description , carStatus , fuelType , meterRange, Adimages, user, userId,createdAt,id, ...adData } = ad;
       return adData;
     }
     const updatedAd = extractAdDataViewMore(ad)
-   
+    const fileInputRefs = useRef([]);
+    const fileInputRef = useRef(null);
+    const carouselRef = useRef(null)
+
     const handleDelete = async (adId) =>{
         setDeleteLoading(true)
         adId = parseInt(adId)
@@ -77,23 +85,89 @@ export const AdCard = ({lng, ad }) => {
         toast("Ad Status Changing Successfully")
       }
     }
+    const handleReplaceImage = async (existingImageId, newImage) => {
+      try {
+        // Upload the new image
+        console.log(existingImageId);
+        const formData = new FormData();
+        formData.append('file', newImage);
+        const result = await upload(formData);
+    
+        if (!result || !result.adImage) {
+          throw new Error('Failed to upload new image');
+        }
+    
+        const newImageUrl = result.adImage;
+    
+        // Update the ad with the new image URL
+        const updatedAd = await updateAdImageURL(existingImageId, newImageUrl);
+    
+        if(updatedAd){
+          toast({
+            title:'image uploaded Succesfully'
+          })
+        }
+    
+      } catch (error) {
+        console.error('Error replacing ad image:', error);
+        throw error;
+      }
+    }
+
+    const handleChangeImage = async (adId, newImage) => {
+      try {
+        // Upload the new image
+        const formData = new FormData();
+        formData.append('file', newImage);
+        const result = await upload(formData);
+    
+        // Update the ad with the new image URL
+        if (result && result.adImage) {
+          const newImageUrl = result.adImage;
+          const updatedAd = await updateAdImage(adId, { Adimages: { create: [{ url: newImageUrl }] } });
+          
+          // Handle the updated ad as needed
+          console.log('Updated Ad:', updatedAd);
+    
+         
+          toast({
+            title: 'Image replaced successfully'
+          });
+        }
+      } catch (error) {
+        console.error('Error handling image change:', error);
+      }
+    };
+
 
   return (
       <div className="flex flex-col md:flex-row items-center justify-between lg:w-11/12 w-full lg:mx-auto mx-3 p-8 rounded-lg shadow-md bg-white dark:bg-zinc-800">
-      <Carousel style={carouselStyle} className="w-full max-w-xs mx-auto ">
+      <Carousel ref={carouselRef} style={carouselStyle} className="w-full max-w-xs mx-auto ">
+      <BsCloudUpload onClick={()=> fileInputRef.current.click()} className="absolute right-0 z-20 cursor-pointer hover:bg-red-700 hover:text-white border border-red-700 rounded-md w-8 h-8  w-6 h-6 text-black" />
+      <input onChange={(e)=> handleChangeImage(ad.id ,e.target.files[0])} className="hidden" ref={fileInputRef} type="file"  />
       <CarouselContent className="dark:bg-zinc-800">
         {Adimages.map((image, index) => (
           <CarouselItem key={index}>
-            <div className="p-1">
-              <Card> 
+            <div className="p-1 relative">
+              <CiEdit
+                onClick={() => fileInputRefs.current[index].click()}
+                className="cursor-pointer absolute bottom-0 z-20 hover:bg-red-700 hover:text-white border border-red-700 rounded-md w-6 h-6 w-6 h-6 text-black"
+              />
+              <input
+                onChange={(e) => handleReplaceImage(image.id, e.target.files[0])}
+                className="hidden"
+                ref={(element) => (fileInputRefs.current[index] = element)}
+                type="file"
+              />
+              <Card>
                 <CardContent className="flex dark:bg-zinc-800 aspect-square items-center justify-center p-6">
-                  <img className="w-48" src={image.url} alt="adImage"  />
+                  <img className="w-48" src={image.url} alt="adImage" />
                 </CardContent>
               </Card>
             </div>
           </CarouselItem>
         ))}
-        </CarouselContent>
+      </CarouselContent>
         <CarouselPrevious />
         <CarouselNext />
       </Carousel>
@@ -101,7 +175,7 @@ export const AdCard = ({lng, ad }) => {
           <h2 className="text-2xl font-bold">{name}</h2>
           <p className="text-lg text-gray-500 dark:text-gray-400">
                 {description}
-              </p>
+          </p>
           <h3 className="text-xl font-semibold">Specifications:</h3>
           <ul className="list-disc list-inside space-y-2 text-gray-500 dark:text-gray-400">
           <div className="grid grid-cols-2  w-full gap-2">
@@ -144,8 +218,8 @@ export const AdCard = ({lng, ad }) => {
           </ul>
           {/* Show More Dialoag */}
             <Dialog >
-          <DialogTrigger >
-          <Button className="mt-4 hidden" size="lg" variant="solid">
+          <DialogTrigger asChild>
+          <Button className="mt-4" size="lg" variant="solid">
             Show More
           </Button>
           </DialogTrigger>
@@ -165,7 +239,6 @@ export const AdCard = ({lng, ad }) => {
           </DialogContent>
              </Dialog>
           <div className="p-4 flex gap-3">
-          {/* Edit Dialog */}
           <EditBtn ad={ad} lng={lng} />
           <Button onClick={()=> handleDelete(ad.id)} className="bg-transparent border border-rose-600 text-rose-600 hover:bg-rose-600 hover:text-white w-1/2 flex justify-center items-center space-x-2">
             <TrashIcon className="w-4 h-4 mx-2" />

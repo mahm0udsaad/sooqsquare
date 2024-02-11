@@ -13,7 +13,7 @@ import { useToast } from "@/components/ui/use-toast"
 export default function ShopAdCard({ ad , user }) {
     const [copiedState, setCopiedState] = useState({});
      let priceCode = ArabCountriesWithCurrancy.find(country => country.name === ad.country)?.currencyCode;
-     console.log(ad.city);
+
      const { toast } = useToast();
      const [hasViewed, setHasViewed] = useState(() => {
         if (window) {
@@ -24,6 +24,7 @@ export default function ShopAdCard({ ad , user }) {
         });
 
     const adCardRef = useRef(null);
+    
     useEffect(() => {
         const observer = new IntersectionObserver(
         ([entry]) => {

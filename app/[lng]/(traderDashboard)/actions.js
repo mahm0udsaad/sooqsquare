@@ -363,9 +363,8 @@ export async function updateShopInfo(shopId, data) {
     console.error('Error updating shop information:', error);
     return null;
   } finally {
-    // Close the Prisma connection
-    revalidatePath(`/myShop/${shopId}`);
-    await prisma.$disconnect();
+    revalidatePath(`/myShopView/${shopId}`);
+    redirect(`/myShopView/${shopId}`);
   }
 }
 export async function changeAdStatus(adId , adStatus) {
@@ -464,5 +463,24 @@ export async function deleteImage(imageUrl) {
   } catch (error) {
     console.error('Error deleting image:', error);
     throw error;
+  }
+}
+export async function updateAdImageURL(existingImageId, newImageUrl) {
+  try {
+    const updatedAd = await prisma.image.update({
+      where: { id: existingImageId },
+      data: {
+        url: newImageUrl
+      }
+    });
+
+    console.log('ad', updatedAd); // Corrected 'updateAd' to 'updatedAd'
+
+    return updatedAd;
+  } catch (error) {
+    console.error('Error updating ad image URL:', error);
+    throw error;
+  } finally {
+    revalidatePath('/myAds');
   }
 }

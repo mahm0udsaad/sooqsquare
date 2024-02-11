@@ -32,8 +32,6 @@ export default function Dashboard({ shops }) {
               <CardContent>
                 <div className="text-2xl font-bold">{shop.ads.length ?? 0}</div>
                 <p className="text-xs text-gray-500 dark:text-gray-400">Total Ads</p>
-                <div className="text-2xl font-bold">{shop.numberOfOrders ?? 0}</div>
-                <p className="text-xs text-gray-500 dark:text-gray-400">Number of Orders</p>
                 <div className="text-2xl font-bold">{shop.averageCustomerRating ?? 0}</div>
                 <p className="text-xs text-gray-500 dark:text-gray-400">Average Customer Rating</p>
                 <div className="text-2xl font-bold">{ shop.ads.reduce((acc, ad) => acc + ad.views, 0) ?? 0}</div>

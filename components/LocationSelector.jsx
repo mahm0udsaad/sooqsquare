@@ -31,14 +31,12 @@ export default function LocationDetails({lng , locationGiven, user}) {
             }
         };
 
-        if(citiesForCountry.length < 1 && user?.country){
+        if(citiesForCountry.length < 1 && !user.country){
           fetchLocation();
         }
-        
         if(user?.country){
           const userCountry = countriesWithCities.find(country => country.country === user.country);
           const cities = userCountry?.cities
-
           setCitiesForCountry(cities);
         }
     }, []);

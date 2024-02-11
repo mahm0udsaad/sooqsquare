@@ -28,6 +28,12 @@ export default function ColorPicker({ lng }){
           <Toggle onClick={()=>setColor('red')} aria-label="Toggle red" className={`bg-red-500 ${color == "red" ? "border border-2 border-black":""}`}>
             <CarIcon className="h-4 w-4" />
           </Toggle>
+          <Toggle onClick={()=>setColor('white')} aria-label="Toggle white" className={`bg-white ${color == "white" ? "border border-2 border-black":""}`}>
+            <CarIcon className="h-4 w-4" />
+          </Toggle>
+          <Toggle onClick={()=>setColor('black')} aria-label="Toggle black" className={`bg-black text-white ${color == "black" ? "border border-2 border-black":""}`}>
+            <CarIcon className="h-4 w-4" />
+          </Toggle>
           <Toggle onClick={()=>setColor('green')} aria-label="Toggle green" className={`bg-green-500 ${color == 'green' ? "border border-2 border-black":""}`}>
             <CarIcon className="h-4 w-4" />
           </Toggle>

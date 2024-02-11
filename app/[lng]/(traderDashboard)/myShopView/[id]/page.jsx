@@ -16,12 +16,15 @@ export async function generateStaticParams() {
 
 export default async function MyShop({params}) {
     const shop = await getShopById(params.id)
+    const logedUser = await getServerSession()
+    const user = await getUserByEmail(logedUser?.user.email)
+    
     if(!shop){
         redirect('/dashboard')
     }
     return (
        <div className='flex w-11/12 mx-auto flex-col '>
-          <ShopPage shop={shop} lng={params.lng} />
+          <ShopPage user={user} shop={shop} lng={params.lng} />
        </div>
   )
 }

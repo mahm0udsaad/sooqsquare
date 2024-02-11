@@ -212,7 +212,7 @@ const SelectionComp =  withGenericSelection(GenericSelection);
         {!searchParams.has('meterRange') && <SelectionComp {...meterRangeSelectionProps} />}
         {!searchParams.has('paintType') && <SelectionComp {...paintTypeSelectorProps} />}
         {!searchParams.has('model') || !searchParams.has('year') || !searchParams.has('carType')  ?
-            <div className='grid grid-cols-3 gap-4 mx-8 pt-8'>
+            <div className='lg:grid lg:grid-cols-3 gap-4 mx-8 pt-8'>
             <SelectionComp {...modelSelectionProps} />
             <SelectionComp {...yearSelectionProps} />
             <SelectionComp {...carTypeSelectionProps} />

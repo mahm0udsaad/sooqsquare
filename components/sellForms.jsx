@@ -771,7 +771,7 @@ export const OverView = ({ lng }) =>{
   const { t } = useTranslation(lng , "translation")
   if(!category)return ;
   return (
-  <div className="flex flex-col gap-4  lg:max-w-xs">
+  <div className="lg:flex hidden flex-col gap-4  lg:max-w-xs ">
      <MutliSteps lng={lng}/>
     <div className="flex py-3 border-b-2">
     <p className="font-semibold">{t('category')}</p>

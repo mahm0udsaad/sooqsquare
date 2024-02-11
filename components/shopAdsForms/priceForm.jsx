@@ -71,6 +71,12 @@ export default function PriceSelection({lng}) {
                       {t('installment')}
   
               </ToggleGroupItem>
+              <ToggleGroupItem
+              className={`border  transition rounded-full ${selectedPaymentMethod == "cash & Installment" ? 'bg-zinc-800 dark:bg-zinc-600 text-white' : ''}`}
+              onClick={()=> setSelectedPaymentMethod("cash & Installment")}
+            >
+                      {t('cash & Installment')}
+              </ToggleGroupItem>
           </ToggleGroup> 
               </div>
         <Button type="submit">
