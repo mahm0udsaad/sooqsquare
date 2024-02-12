@@ -2,7 +2,7 @@
 import { Button } from "@/components/ui/button"
 import { AvatarImage, AvatarFallback, Avatar } from "@/components/ui/avatar"
 import { Input } from "@/components/ui/input"
-import { useState, useEffect ,useRef } from 'react';
+import { useState, useEffect, useRef  } from 'react';
 import { createMessage, fetchMessagesFromDatabase } from '../../app/[lng]/chat/action'
 import socket from "../../lib/chat";
 import Link from "next/link";
@@ -18,11 +18,9 @@ export function ChatCom({chat , user}) {
 
   const owner = chat.users[0]
   const currentUser = chat.users[1]
-  let lastMessage = chat.messages.length - 1 ;
   const reciver = currentUser.email === user.email ? owner.email : currentUser.email;
 
 
-  const ref = useRef(null)
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -33,6 +31,9 @@ export function ChatCom({chat , user}) {
     }
   };
   
+  const lastMessageRef = useRef(null)
+  const messagesContainerRef = useRef(null);
+
   const handleMessageChange = (e) => {
     setMessage(e.target.value);
   };
@@ -42,13 +43,12 @@ export function ChatCom({chat , user}) {
       try {
         // Fetch messages from the database on component mount
         const fetchedMessages = await fetchMessagesFromDatabase(chat);
-  
         // Check if there are no messages
         if (fetchedMessages.length == 0) {
           setMessages(null);
         } else {
-          // Set the messages in the state
           setMessages(fetchedMessages.map((message) => ({ chatId: chat.id, message })));
+
         }
       } catch (error) {
         console.error('Error fetching messages:', error);
@@ -62,19 +62,28 @@ export function ChatCom({chat , user}) {
     });
   
     socket.on('chat message', ({ chatId, message }) => {
-      setMessages((prev) => [...prev, { chatId, message }]);
+      // Check if the message is already present in the state
+      const isMessageAlreadyExists = messages.some(msg => msg.chatId === chatId && msg.message.id === message.id);
+      if (!isMessageAlreadyExists) {
+        setMessages(prev => [...prev, { chatId, message }]);
+   
+      }
     });
-  
+    
     return () => {
       socket.off("chat message");
     };
-  }, [chat, socket]);
-  
-  console.log(chat.users);
+  }, []);
 
+  useEffect(() => {
+    // Scroll to the bottom of the messages container when messages change
+    if (messagesContainerRef.current) {
+      messagesContainerRef.current.scrollTop = messagesContainerRef.current.scrollHeight;
+    }
+  }, [messages]);
   return (
     (<div className="flex pb-8 bg-gray-100 dark:bg-zinc-950">
-       <div className={`contact bg-white dark:bg-zinc-950 overflow-y-auto  ${sidebarOpen ? "transition-width w-1/3 ":"transition-width w-[5%] "}`}>
+       <div  className={`contact bg-white dark:bg-zinc-950 overflow-y-auto  ${sidebarOpen ? "transition-width w-1/3 ":"transition-width w-[5%] "}`}>
         <div className="p-4 flex items-center justify-between">
           <h2 className={`${sidebarOpen ? 'text-lg':"hidden"} font-semibold text-gray-900 dark:text-gray-100`}>Inbox</h2>
           <Button size="icon" variant="ghost" onClick={toggleSidebar}>
@@ -102,9 +111,9 @@ export function ChatCom({chat , user}) {
           </Button>
         </div>
 
-        <div ref={ref}  className="flex flex-col space-y-4 p-4 h-[70dvh] overflow-y-scroll">
-          {messages && messages.map((chat) => (
-          <div key={chat.message.id} className={`flex items-end gap-2  ${chat.message.sender.email === user.email ? 'justify-end' : 'justify-end flex-row-reverse'}`}>
+        <div ref={messagesContainerRef} className="relative flex flex-col space-y-4 p-4 h-[70dvh] overflow-y-scroll">
+          {messages && messages.map((chat , index) => (
+          <div  ref={index === messages.length - 1 ? lastMessageRef : null}  key={chat.message.id} className={`flex items-end gap-2 max-w-1/2  ${chat.message.sender.email === user.email ? 'justify-end' : 'justify-end flex-row-reverse'}`}>
             <div>
               <span
                 className={`px-4 py-2 rounded-lg inline-block  ${
@@ -118,6 +127,7 @@ export function ChatCom({chat , user}) {
           </div>
         ))}
         </div>
+
           <form onSubmit={handleSubmit} className="form border-t-[1px] border-gray-200 px-4 py-4  sm:mb-0">
           <div className="relative flex">
             <Input

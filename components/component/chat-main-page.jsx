@@ -22,7 +22,7 @@ export function ChatMainPage({chats}) {
         </div>
       <div className={`divide-y divide-zinc-200 dark:divide-zinc-700 `}>
           {chats.map((chat)=>(
-          <Link href={`/chat/${chat.id}?chat=${chat.id}`} className="flex cursor-pointer hover:bg-[#fe2635] hover:text-white items-center p-4 space-x-4">
+          <Link href={`/chat/${chat.id}`} className="flex cursor-pointer hover:bg-[#fe2635] hover:text-white items-center p-4 space-x-4">
             <Avatar>
             <img src={chat.users[0].image} alt="" />
             </Avatar>

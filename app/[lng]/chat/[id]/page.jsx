@@ -1,14 +1,13 @@
 import { unstable_noStore } from "next/cache"
 import { ChatCom } from "../../../../components/component/chatpage"
-import { deleteChats, getChatById } from '../action'
+import { getChatById } from '../action'
 import { getServerSession } from "next-auth"
-import { headers } from "next/headers";
 import { getUserByEmail } from "@/prisma/actions"
 
-const ChatPage = async ({searchParams}) =>{
+const ChatPage = async ({params ,searchParams}) =>{
     unstable_noStore()
 
-    const chatId = searchParams["chat"]
+    const chatId = params.id
     const chat = await getChatById(chatId) 
     const currentUser = await getServerSession()
     const user = await getUserByEmail(currentUser?.user.email)
