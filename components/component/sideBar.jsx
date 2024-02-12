@@ -85,15 +85,15 @@ const ShopSideBar = async ({ lng  }) =>{
                     <AiOutlineShop className="w-6 h-6 text-rose-400	" />
                     <span className="mx-3">{t("Shop")}</span>
                   </Link>
-                  <Link className="flex text-sm gap-3 items-center text-gray-700 dark:text-gray-200 hover:dark:text-white hover:text-zinc-900" href={`/myShop/${shop.id}`}>
+                  <Link className="flex text-sm gap-3 items-center text-gray-700 dark:text-gray-200 hover:dark:text-white hover:text-zinc-900" href={`/dashboard/myShop/${shop.id}`}>
                       <CiEdit className="w-6 h-6 w-6 h-6 text-fuchsia-400" />
                       <span className="mx-3">{t("Shop Details")}</span>
                   </Link>
-                  <Link className="flex text-sm gap-3 items-center text-gray-700 dark:text-gray-200 hover:dark:text-white hover:text-zinc-900" href={`/shopReports/${shop.id}`}>
+                  <Link className="flex text-sm gap-3 items-center text-gray-700 dark:text-gray-200 hover:dark:text-white hover:text-zinc-900" href={`/dashboard/shopReports/${shop.id}`}>
                       <TbReportAnalytics className="w-6 h-6 text-orange-600" />
                       <span className="mx-3">{t("Shop Reports")}</span>
                   </Link>
-                  <Link className="flex text-sm gap-3 items-center text-gray-700 dark:text-gray-200 hover:dark:text-white hover:text-zinc-900" href={`/shopAds/${shop.id}`}>
+                  <Link className="flex text-sm gap-3 items-center text-gray-700 dark:text-gray-200 hover:dark:text-white hover:text-zinc-900" href={`/dashboard/shopAds/${shop.id}`}>
                       <BsThreads className="w-6 h-6 text-sky-600" />
                       <span className="mx-3">{t("Shop Ads")}</span>
                   </Link>

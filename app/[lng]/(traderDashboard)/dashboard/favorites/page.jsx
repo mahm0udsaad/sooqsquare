@@ -1,4 +1,4 @@
-import { getFavoriteAdsByUserId } from '../actions';
+import { getFavoriteAdsByUserId } from '../../actions';
 import { FavoriteCard } from '@/components/component/favorite-cards'
 import { redirect } from 'next/navigation';
 import { getServerSession } from 'next-auth'

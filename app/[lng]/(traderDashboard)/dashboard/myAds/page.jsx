@@ -1,5 +1,5 @@
 import { getUserByEmail } from '@/prisma/actions'
-import { getAdsByUserId } from '../actions';
+import { getAdsByUserId } from '../../actions';
 import { AdCard } from '@/components/component/dashboard-ad-card';
 import { getServerSession } from 'next-auth'
 

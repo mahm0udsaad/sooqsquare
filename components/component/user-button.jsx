@@ -35,7 +35,7 @@ export default  function UserButton({ user , lng }) {
       <PopoverContent className="w-80 dark:bg-zinc-950 dark:text-white">
         <div className="grid gap-4">
           <div className="space-y-2">
-            <Link onClick={()=> setOpen(false)} className="flex py-3  items-center " href="/myProfile">
+            <Link onClick={()=> setOpen(false)} className="flex py-3  items-center " href="/dashboard/myProfile">
               <UserIcon className="w-6 h-6 " />
              <span className="mx-3 ">
                Profile
@@ -47,13 +47,13 @@ export default  function UserButton({ user , lng }) {
              <span className="mx-3">Dashboard</span>
             </Link>
             }
-            <Link onClick={()=> setOpen(false)} className="flex py-3  items-center " href="/myAds">
+            <Link onClick={()=> setOpen(false)} className="flex py-3  items-center " href="/dashboard/myAds">
               <AtSignIcon className="w-6 h-6 text-sky-600" />
              <span className="mx-3 ">
                My Ads
              </span>
             </Link>
-            <Link onClick={()=> setOpen(false)} className="flex py-3  items-center " href="/favorites">
+            <Link onClick={()=> setOpen(false)} className="flex py-3  items-center " href="/dashboard/favorites">
               <HeartIcon className="w-6 h-6 text-rose-600" />
              <span className="mx-3">
                Favorites

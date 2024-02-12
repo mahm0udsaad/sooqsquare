@@ -1,4 +1,4 @@
-import { getAllShops, getShopById, updateShopCategory } from '../../actions'
+import { getAllShops, getShopById, updateShopCategory } from '../../../actions'
 import { AdCard } from '@/components/component/dashboard-ad-card';
 import ReportPage from '@/components/component/reports'
 export const dynamic = "force-dynamic"

@@ -1,6 +1,6 @@
 import { getServerSession } from 'next-auth';
 import { getUserByEmail } from '@/prisma/actions'
-import UserProfile from '../../../../components/component/user-profile';
+import UserProfile from '@/components/component/user-profile';
 import { redirect } from 'next/navigation';
 
 export default async function MyProfile({params:{lng}}) {

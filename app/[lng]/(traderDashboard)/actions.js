@@ -363,7 +363,8 @@ export async function updateShopInfo(shopId, data) {
     console.error('Error updating shop information:', error);
     return null;
   } finally {
-    redirect(`/myShopView/${shopId}`);
+    revalidatePath('/dashboard')
+    redirect(`/dashboard/myShopView/${shopId}`);
   }
 }
 export async function changeAdStatus(adId , adStatus) {

@@ -2,7 +2,7 @@
 import { revalidatePath } from "next/cache";
 import prisma from "./client";
 import { getServerSession } from "next-auth";
-import upload from "@/app/[lng]/(traderDashboard)/myShop/action";
+import upload from "@/app/[lng]/(traderDashboard)/dashboard/myShop/action";
 
 export async function createAd(data, userId, adStatus) {
   const {

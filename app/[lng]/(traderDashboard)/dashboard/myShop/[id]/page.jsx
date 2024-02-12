@@ -1,9 +1,8 @@
 
 import { getServerSession } from 'next-auth';
 import { getUserByEmail } from '@/prisma/actions'
-import ShopPage from '@/components/component/shop-page'
-import { getAllShops, getShopById } from '../../actions'
-import { redirect } from 'next/navigation';
+import MyShopPage from '@/components/component/shop-profile'
+import { getAllShops, getShopById } from '../../../actions'
 
 export const dynamic = "force-dynamic"
 
@@ -15,16 +14,14 @@ export async function generateStaticParams() {
 }
 
 export default async function MyShop({params}) {
+
     const shop = await getShopById(params.id)
-    const logedUser = await getServerSession()
-    const user = await getUserByEmail(logedUser?.user.email)
-    
     if(!shop){
         redirect('/dashboard')
     }
     return (
-       <div className='flex w-11/12 mx-auto flex-col '>
-          <ShopPage user={user} shop={shop} lng={params.lng} />
+       <div className='flex w-11/12 mx-auto flex-col gap-3'>
+          {shop ? <MyShopPage shop={shop} lng={params.lng}/> : <h1 className='text-center text-xl'>you have no shop</h1>}
        </div>
   )
 }
