@@ -364,7 +364,6 @@ export async function updateShopInfo(shopId, data) {
     return null;
   } finally {
     revalidatePath('/dashboard')
-    redirect(`/dashboard/myShopView/${shopId}`);
   }
 }
 export async function changeAdStatus(adId , adStatus) {

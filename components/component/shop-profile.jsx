@@ -17,6 +17,7 @@ import { getLocation } from "@/helper/location"
 import { useTranslation } from "../../app/i18n/client"
 import { useToast } from "../ui/use-toast"
 import { Toggle } from "@/components/ui/toggle"
+import { useRouter } from "next/navigation"
 
 export default function MyShopPage({shop , lng}) {
   const { t } = useTranslation(lng , 'view')
@@ -76,13 +77,14 @@ export default function MyShopPage({shop , lng}) {
       setUploading(false);
     }
   };
-
+  const router = useRouter()
   const onSubmit = async (data) => {
     const newShop = await updateShopInfo(shop.id, data)
     if(newShop){
       toast({
         title:"Shop informaiton updated Successfully"
       })
+      router.push(`/dashboard/myShopView/${shop.id}`)
     }
   };
   const handleShopCityChange = (city , country) =>{
