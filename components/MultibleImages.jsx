@@ -128,8 +128,8 @@ function TrashIcon(props) {
             <div className="grid grid-cols-4 gap-3">
             {Array.from({ length: 20 }).map((_, index) => (
             <div key={index} className="border flex flex-col gap-4 p-3 rounded">
-              <Label htmlFor={`image${index}`} className="block mb-1 font-semibold text-center">
-                {index == 0 ? <Badge>Cover</Badge> :`Slide ${index + 1}`}
+              <Label htmlFor={`image${index}`} className="z-30 block mb-1 font-semibold text-center">
+                {index == 0 ? <Badge className="z-30">Cover</Badge> :`Slide ${index + 1}`}
               </Label>
               <div className="relative">
               <input

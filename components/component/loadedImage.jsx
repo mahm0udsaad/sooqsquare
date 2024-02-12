@@ -1,7 +1,7 @@
 
 const UploadedImage = ({ images, index }) => {
     return (
-        <div className='flex items-center z-20 justify-center h-[6rem]'>
+        <div className='flex items-center z-20 justify-center max-h-[6rem]'>
             <img
                 alt={`Uploaded image ${index + 1}`}
                 className='object-cover aspect-auto'

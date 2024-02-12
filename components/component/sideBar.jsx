@@ -81,7 +81,7 @@ const ShopSideBar = async ({ lng  }) =>{
                     {shop.shopName}
                   </AccordionTrigger>
                   <AccordionContent className="space-y-2 w-[94%] mx-auto">
-                  <Link className="flex text-sm gap-3 items-center text-gray-700 dark:text-gray-200 hover:dark:text-white hover:text-zinc-900" href={`/myShopView/${shop.id}`}>
+                  <Link className="flex text-sm gap-3 items-center text-gray-700 dark:text-gray-200 hover:dark:text-white hover:text-zinc-900" href={`/dashboard/myShopView/${shop.id}`}>
                     <AiOutlineShop className="w-6 h-6 text-rose-400	" />
                     <span className="mx-3">{t("Shop")}</span>
                   </Link>
