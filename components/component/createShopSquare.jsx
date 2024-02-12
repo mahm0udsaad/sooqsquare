@@ -8,7 +8,7 @@ import { Textarea } from "@/components/ui/textarea"
 import { GiDrippingStar } from "react-icons/gi";
 import { AvatarImage, AvatarFallback, Avatar } from "@/components/ui/avatar"
 import { useRef, useState } from "react";
-import upload from "@/app/[lng]/(traderDashboard)/myShop/action";
+import upload from "@/app/[lng]/(traderDashboard)/dashboard/myShop/action";
 import { createShop } from "@/app/[lng]/(traderDashboard)/actions";
 import { SelectTrigger, SelectItem, SelectContent, Select } from "@/components/ui/select";
 import { useForm, Controller } from "react-hook-form";
