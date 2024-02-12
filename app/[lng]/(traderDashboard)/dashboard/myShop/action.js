@@ -1,8 +1,8 @@
 "use server"
 import { createAdapter  } from "webdav-fs";
 const username = 'nextcloud';
-const password = 'AdycJ-35aaF-yRbrc-cPYbk-xEJF9';
-const remotePath = `https://cloud.sooqsquare.com/nextcloud/remote.php/dav/files/${username}`;
+const password = 'EXZMx-yYLMY-DXjt8-onetF-4rMbf';
+const remotePath = `https://cloud.sooqsquare.com/remote.php/dav/files/${username}`;
 
 
 export default async function upload(data) {
