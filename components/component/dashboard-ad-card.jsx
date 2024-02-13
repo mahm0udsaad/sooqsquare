@@ -154,7 +154,7 @@ export const AdCard = ({lng, ad }) => {
         <Carousel ref={carouselRef} style={carouselStyle} className="w-full max-w-xs mx-auto ">
           <Tooltip className="w-full">
             <TooltipTrigger>
-               <BsCloudUpload onClick={()=> fileInputRef.current.click()} className=" z-20 cursor-pointer hover:bg-red-700 hover:text-white border border-red-700 rounded-md w-8 h-8  w-6 h-6 text-black" />
+               <BsCloudUpload onClick={()=> fileInputRef.current.click()} className=" z-20 cursor-pointer hover:bg-red-700 hover:text-white border border-red-700 rounded-md w-8 h-8  w-6 h-6 text-black dark:text-white" />
             </TooltipTrigger>
             <TooltipContent className="absolute right-4 w-40">
               <p>{t("Add New Image")}</p>
@@ -167,7 +167,7 @@ export const AdCard = ({lng, ad }) => {
             <div className="p-1 relative">
                 <CiEdit
                   onClick={() => fileInputRefs.current[index].click()}
-                 className="cursor-pointer absolute bottom-0 z-20 hover:bg-red-700 hover:text-white border border-red-700 rounded-md w-6 h-6 w-6 h-6 text-black"
+                 className="cursor-pointer absolute bottom-0 z-20 hover:bg-red-700 hover:text-white border border-red-700 rounded-md w-6 h-6 w-6 h-6 text-black dark:text-white"
                  />
        
               <input
@@ -202,6 +202,7 @@ export const AdCard = ({lng, ad }) => {
           <p className="text-lg text-gray-500 dark:text-gray-400">
                 {description}
           </p>
+
           <h3 className="text-xl font-semibold">{t("Specifications")}:</h3>
           <ul className="list-disc list-inside space-y-2 text-gray-500 dark:text-gray-400">
           <div className="grid grid-cols-2  w-full gap-2">
@@ -245,26 +246,27 @@ export const AdCard = ({lng, ad }) => {
           {/* Show More Dialoag */}
             <div className="w-full flex justify-between items-center">
             <Dialog >
-          <DialogTrigger asChild>
-          <Button className="mt-4" size="lg" variant="solid">
-            {t("Show More")}
-          </Button>
-          </DialogTrigger>
-          <DialogContent className="dark:bg-zinc-800 dark:text-white ">
-            <DialogHeader className="dark:bg-zinc-800 dark:text-white">
-              <DialogTitle>Details for {name}</DialogTitle>
-            </DialogHeader>
-            <Card>
-            <CardContent className="grid  gap-2">
-              {Object.entries(updatedAd).map(([key, value]) => (
-                  <div className="flex items-center gap-2 justify-start" key={key}>
-                    <strong>{t(`${key}`)}:</strong> <span>{value}</span>
-                  </div>
-                ))}
-              </CardContent>
-            </Card>
-          </DialogContent>
+              <DialogTrigger asChild>
+              <Button className="mt-4" size="lg" variant="solid">
+                {t("Show More")}
+              </Button>
+              </DialogTrigger>
+              <DialogContent className="dark:bg-zinc-800 dark:text-white ">
+                <DialogHeader className="dark:bg-zinc-800 dark:text-white">
+                  <DialogTitle>Details for {name}</DialogTitle>
+                </DialogHeader>
+                <Card>
+                <CardContent className="grid  gap-2">
+                  {Object.entries(updatedAd).map(([key, value]) => (
+                      <div className="flex items-center gap-2 justify-start" key={key}>
+                        <strong>{t(`${key}`)}:</strong> <span>{value}</span>
+                      </div>
+                    ))}
+                  </CardContent>
+                </Card>
+              </DialogContent>
              </Dialog>
+
              <div className="flex gap-2">
                <div className="flex items-center gap-2">
                 <span className="text-sm">
@@ -280,7 +282,7 @@ export const AdCard = ({lng, ad }) => {
                </div>
                <div className="flex items-center gap-2">
                 <span className="text-sm">
-                  {ad.favoritedBy.length - 1}
+                  {ad.favoritedBy.length}
                 </span>
                 <HeartIcon className="w-4 h-4 fill-none" />
                </div>

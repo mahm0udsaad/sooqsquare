@@ -47,7 +47,7 @@ const NavBar = async  ({ lng })=> {
          
           {user ?
               <>
-                <Link href={'/chat'} className="chat dark:bg-zinc-900 hover:opacity-50 bg-white border dark:border-zinc-800 p-2 rounded-md">
+                <Link href={'/chat'} className="chat dark:bg-zinc-900 hover:opacity-50 bg-white border dark:border-none p-2 rounded-md">
                   <BsChatLeftDots className="text-xl"/>
                 </Link>
               <div className="userAvatar">

@@ -43,7 +43,7 @@ export default function ShopPage({ shop , user, lng}) {
           </Avatar>
         </div>
       </section>
-      <main style={{ backgroundColor: shop?.bgColor ? shop.bgColor : ''}} className={`${shop.bgColor && shop?.bgColor !== "#f3f4f6"  ? `text-white` : ""} container mx-auto px-4 py-8 space-y-4`}>
+      <main style={{ backgroundColor: shop?.bgColor ? shop.bgColor : ''}} className={`${shop.bgColor && shop?.bgColor !== "#f3f4f6"  ? `text-white` : "text-black"} container mx-auto px-4 py-8 space-y-4`}>
         <h1 className="text-4xl font-bold">{shop?.shopName}</h1>
         <p className="text-lg text-gray-500 dark:text-gray-800 dark:text-gray-200">
         {shop.description}
