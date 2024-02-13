@@ -30,9 +30,8 @@ const PopoverLanguage = ({ lng }) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-      <Button variant="outline" className="py-2 px-2 rounded-xl">
+      <Button variant="outline" className="py-2 px-2 rounded-xl dark:bg-zinc-800 dark:border-zinc-800">
           <IoLanguageOutline className="text-xl" />
-           <FiChevronDown className="mx-2" />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-80 dark:bg-zinc-950 dark:text-white">

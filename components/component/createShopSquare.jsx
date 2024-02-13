@@ -88,9 +88,9 @@ const CreateShopSquare = ({ user , lng}) =>{
         <Drawer>
           <DrawerTrigger  asChild>
           <Button className="bg-transparent hover:bg-transparent py-0 px-0 h-full">
-          <div className="flex justify-between self-start lg:w-auto w-full px-20 hover:opacity-70 cursor-pointer py-12 rounded-[35px] hover:text-black main-bg items-center ">
-              <RiTimerFlashLine className='text-4xl text-white'/>
-              <div className="text-white text-2xl font-bold leading-10 my-auto">
+          <div className="flex justify-between self-start lg:w-auto w-full px-20  cursor-pointer py-12 rounded-[35px]  main-bg items-center ">
+              <RiTimerFlashLine className='text-4xl '/>
+              <div className=" text-2xl font-bold leading-10 my-auto">
               {t('Create Shop')}
             </div>
               </div>

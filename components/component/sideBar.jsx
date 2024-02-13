@@ -64,7 +64,7 @@ const ShopSideBar = async ({ lng  }) =>{
             </div>
  
            <div className="flex w-[85%] py-2 mx-auto justify-between">
-            <Link className="flex text-sm gap-3 space-y-2  items-center text-gray-700 dark:text-gray-200 hover:dark:text-white hover:text-zinc-900" href="/favorites">
+            <Link className="flex text-sm gap-3 space-y-2  items-center text-gray-700 dark:text-gray-200 hover:dark:text-white hover:text-zinc-900" href="/dashboard/favorites">
               <HeartIcon className="w-6 h-6 text-rose-600" />
               {t("Favorites")}
             </Link>

@@ -26,9 +26,9 @@ const HomePage= async ({ user ,lng })=> {
           <div className="flex flex-col items-stretch lg:w-4/5 ml-5 max-md:w-full max-md:ml-0">
             <div className="relative grid grid-cols-2 gap-4">
               <CreateShopSquare lng={lng} user={user}/>
-              <div className="flex justify-between lg:w-auto w-full px-20 hover:opacity-70 cursor-pointer py-12 rounded-[35px] bg-[#FFDD83] text-black items-center ">
-              <RiTimerFlashLine className='text-4xl text-white'/>
-              <div className="text-white text-2xl font-bold leading-10 my-auto">
+              <div className="flex justify-between lg:w-auto w-full px-20 hover:opacity-70 cursor-pointer py-12 rounded-[35px] hover:bg-transparent text-white hover:text-black dark:hover:text-white bg-[#FFDD83] border border-[#FFDD83] text-black items-center ">
+              <RiTimerFlashLine className='text-4xl '/>
+              <div className=" text-2xl font-bold leading-10 my-auto">
               {t('QuickSell')}
             </div>
               </div>

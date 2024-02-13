@@ -39,7 +39,7 @@ const PopoverCountry = ({ lng  }) => {
   return (
     <DropdownMenu>
     <DropdownMenuTrigger asChild>
-      <Button variant="outline" className="py-2 px-2 rounded-xl">
+      <Button variant="outline" className="py-2 px-2 rounded-xl dark:bg-zinc-800 dark:border-zinc-800">
           {selectedCountry?.country ? (
             <>
             <span className={`mx-2 fi fi-${selectedCountry.code}`}></span>
@@ -47,9 +47,9 @@ const PopoverCountry = ({ lng  }) => {
             ) : 
             <>
             <TfiWorld className="text-xl" />
+            <FiChevronDown className="mx-2" />
             </>
             }
-            <FiChevronDown className="mx-2" />
       </Button>
     </DropdownMenuTrigger>
     <DropdownMenuContent className="w-56">

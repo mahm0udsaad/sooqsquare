@@ -163,12 +163,9 @@ display: none !important;
 }
 .dark .main-bg:hover {
   background-color: transparent;
-  color: white;
+  color: white !important;
 }
-.main-bg:hover{
-  background-color: transparent;
-  color: black;
-}
+
 .force-flex{
   display: flex !important;
 }
