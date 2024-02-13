@@ -12,6 +12,7 @@ export async function getAdsByUserId(userId) {
         },
         include: {
           Adimages: true, 
+          favoritedBy:true,
           user: true,    
         },
         orderBy: {
@@ -107,7 +108,7 @@ export async function createShop(userId, data) {
           shopName: data.shopName,
           city: data.city,
           country: data.country,
-          description: data.description,
+          description: data.shopDescription,
       },
     });
     
@@ -164,6 +165,7 @@ export async function getShopById(shopId) {
             country: true,
             city: true,
             extraFeatures: true,
+            favoritedBy:true,
             adStatus: true,
             views: true,
             clicks: true,

@@ -6,7 +6,6 @@ import { Label } from "@/components/ui/label"
     Drawer,
     DrawerClose,
     DrawerContent,
-    DrawerDescription,
     DrawerFooter,
     DrawerHeader,
     DrawerTitle,
@@ -15,7 +14,7 @@ import { Label } from "@/components/ui/label"
 import { Button } from "@/components/ui/button"
 import { Controller, useForm } from "react-hook-form";
 import { useTranslation } from "../../../app/i18n/client";
-import  { updateAd, updateAdImage } from "../../../app/[lng]/(traderDashboard)/actions";
+import  { updateAd } from "../../../app/[lng]/(traderDashboard)/actions";
 import { carBrands, carTypesArray, yearsArray } from "@/data/staticData"
 import {  SelectTrigger, SelectItem, SelectGroup, SelectContent, Select , SelectValue} from "@/components/ui/select"
 import { Textarea } from "@/components/ui/textarea"
@@ -28,6 +27,7 @@ export default function EditBtn({ lng , ad}){
     const models = carBrands[`${ad.brand}`]
     const { t } = useTranslation(lng , 'view')
     const { toast } = useToast()
+
     const transmissionProps = {
       title: t('transmission'),
       itemsArray: [
@@ -103,8 +103,9 @@ export default function EditBtn({ lng , ad}){
      title: t('cartype'),
      itemsArray: carTypesArray,
    };
+
    const cancelRef = useRef(null)
-   const { register, handleSubmit, setValue , control , formState} = useForm();
+   const { handleSubmit, setValue , control , formState} = useForm();
 
    const onSubmit = async (data) => {
       const updatedAd = await updateAd(ad.id , data)
@@ -115,7 +116,6 @@ export default function EditBtn({ lng , ad}){
     };
     
     return(
-        <>
         <Drawer>
           <DrawerTrigger className="w-1/2" asChild>
           <Button className="bg-transparent border border-black text-black hover:text-white dark:border-white dark:text-white hover:dark:bg-white hover:dark:border-black hover:dark:text-black  flex justify-center items-center space-x-2">
@@ -129,40 +129,37 @@ export default function EditBtn({ lng , ad}){
             </DrawerHeader>
             <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col justify-center gap-x-4 w-11/12 mx-auto">
               <div className="grid grid-cols-3 gap-4">
-                
-            <div>
-            <Label htmlFor="name">{t("Name")}:</Label>
-            <Controller
-                name="name"
-                control={control}
-                defaultValue={ad.name || ''}
-                render={({ field }) => <Input {...field} type="text" />}
-            />
-            </div>
-
-            <div>
-            <Label htmlFor="price">{t("Price")}:</Label>
-            <Controller
-                name="price"
-                control={control}
-                defaultValue={ad.price}
-                render={({ field }) => <Input {...field} type="number" />}
-            />
-            </div>
-
-            <div>
-            <Label htmlFor="CarChassis">{t('CarChassisTitle')}:</Label>
-            <Controller
-                name="CarChassis"
-                control={control}
-                defaultValue={ad.CarChassis || '0'}
-                render={({ field }) => <Input {...field} type="text" />}
-            />
-            </div>
+                <div>
+                <Label htmlFor="name">{t("Name")}:</Label>
+                <Controller
+                    name="name"
+                    control={control}
+                    defaultValue={ad.name || ''}
+                    render={({ field }) => <Input {...field} type="text" />}
+                />
+                </div>
+                <div>
+                <Label htmlFor="price">{t("Price")}:</Label>
+                <Controller
+                    name="price"
+                    control={control}
+                    defaultValue={ad.price}
+                    render={({ field }) => <Input {...field} type="number" />}
+                />
+                </div>
+                <div>
+                <Label htmlFor="CarChassis">{t('CarChassisTitle')}:</Label>
+                <Controller
+                    name="CarChassis"
+                    control={control}
+                    defaultValue={ad.CarChassis || '0'}
+                    render={({ field }) => <Input {...field} type="text" />}
+                />
+                </div>
             <Select onValueChange={(e)=> setValue('model' , e)} className="">
                 <SelectTrigger>
                   <div className="w-full py-3 text-xl font-semibold flex justify-around items-center">
-                  <SelectValue   placeholder={`${t('model')} : ${ad.model}`} />
+                  <SelectValue   placeholder={`${ad.model}`} />
                   </div>  
                   </SelectTrigger>
                 <SelectContent className="max-h-[12rem] overflow-y-scroll">
@@ -336,6 +333,5 @@ export default function EditBtn({ lng , ad}){
             </form>
           </DrawerContent>
         </Drawer>
-        </>
     )
 }

@@ -36,14 +36,14 @@ export default function ShopPage({ shop , user, lng}) {
           }}
         />
         <div className="absolute inset-0 bg-black/40" />
-        <div className="relative h-full flex items-end justify-center pb-8 pr-8">
+        <div className="relative h-full flex items-end justify-center pb-4 pr-8">
           <Avatar className="w-32 h-32 border-4 border-white">
             <AvatarImage alt="Shop owner" src={shop?.shopImage} />
             <AvatarFallback>SO</AvatarFallback>
           </Avatar>
         </div>
       </section>
-      <main style={{ backgroundColor: shop?.bgColor ? shop.bgColor : ''}} className={`${shop?.bgColor !== "#f3f4f6" ? `text-white` : ""} container mx-auto px-4 py-8 space-y-4`}>
+      <main style={{ backgroundColor: shop?.bgColor ? shop.bgColor : ''}} className={`${shop.bgColor && shop?.bgColor !== "#f3f4f6"  ? `text-white` : ""} container mx-auto px-4 py-8 space-y-4`}>
         <h1 className="text-4xl font-bold">{shop?.shopName}</h1>
         <p className="text-lg text-gray-500 dark:text-gray-800 dark:text-gray-200">
         {shop.description}

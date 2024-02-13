@@ -43,21 +43,21 @@ const ShopSideBar = async ({ lng  }) =>{
             }
 
             <div className="flex w-[85%] py-2 mx-auto justify-between">
-            <Link className="flex text-sm gap-3 space-y-2  items-center text-gray-700 dark:text-gray-200 hover:dark:text-white hover:text-zinc-900" href="/myProfile">
+            <Link className="flex text-sm gap-3 space-y-2  items-center text-gray-700 dark:text-gray-200 hover:dark:text-white hover:text-zinc-900" href="/dashboard/myProfile">
                 <CgProfile className="w-6 h-6 " />
                 <span className="mx-3">{t("My Profile")}</span>
             </Link>
             </div>
             
             <div className="flex w-[85%] py-2 mx-auto justify-between">
-             <Link className="flex text-sm gap-3 space-y-2  items-center text-gray-700 dark:text-gray-200 hover:dark:text-white hover:text-zinc-900" href="/reports">
+             <Link className="flex text-sm gap-3 space-y-2  items-center text-gray-700 dark:text-gray-200 hover:dark:text-white hover:text-zinc-900" href="/dashboard/reports">
                 <TbReportAnalytics className="w-6 h-6 text-orange-600" />
                 <span className="mx-3">{t("Reports")}</span>
              </Link>
             </div>
 
            <div className="flex w-[85%] py-2 mx-auto justify-between">
-            <Link className="flex text-sm gap-3 space-y-2  items-center text-gray-700 dark:text-gray-200 hover:dark:text-white hover:text-zinc-900" href="/myAds">
+            <Link className="flex text-sm gap-3 space-y-2  items-center text-gray-700 dark:text-gray-200 hover:dark:text-white hover:text-zinc-900" href="/dashboard/myAds">
                 <BsThreads className="w-6 h-6 text-sky-600" />
                 <span className="mx-3"> {t("My Ads")} </span>
             </Link>

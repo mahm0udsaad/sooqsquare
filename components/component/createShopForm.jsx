@@ -19,16 +19,17 @@ import { countriesWithCities } from "@/data/staticData"
 import { DropdownMenuTrigger, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuSubTrigger, DropdownMenuItem, DropdownMenuSubContent, DropdownMenuSub, DropdownMenuContent, DropdownMenu } from "@/components/ui/dropdown-menu"
 import { getLocation } from "@/helper/location"
 import "/node_modules/flag-icons/css/flag-icons.min.css";
+import { useRouter } from "next/navigation"
 
 const CreateShopButton = ({ user , lng}) =>{
   const [shopImage, setShopImage] = useState(null);
   const { t } = useTranslation(lng , "translation")
   const { register, handleSubmit, setValue, control, formState: { errors, isSubmitting , isSubmitted ,isSubmitSuccessful} } = useForm();
-  const { setConfettiActive , isConfettiActive } = useDarkMode()
+  const { setConfettiActive } = useDarkMode()
   const [ loading , setLoading ] = useState(false)
   const { toast } = useToast();
   const drawerCloseRef = useRef(null);
-
+  const router = useRouter()
   const handleImageChange = async (e) => {
     const file = e.target.files[0];
     try {
@@ -76,14 +77,9 @@ const CreateShopButton = ({ user , lng}) =>{
         toast({
           title:"Shop Created Successfully"
         });
-      }else if(!shop){
-        toast({
-          variant: "destructive",
-          title: "Uh oh! Something went wrong.",
-          description: "There was a problem with your Internet Connecti",
-        })
+        router.push(`/dashboard/myShopView/${shop.id}`)
       }
-      console.log(shop);
+
     } catch (error) {
       toast({
         variant: "destructive",
@@ -132,7 +128,7 @@ const CreateShopButton = ({ user , lng}) =>{
                 <Label className="cursor-pointer" htmlFor="avatar-image">
                   <span className="sr-only">Upload an avatar</span>
                   <Avatar className="w-32 h-32 border-4 border-white">
-                    <AvatarImage alt="Shop owner" src={shopImage || null} />
+                    <AvatarImage alt="Shop owner" src={shopImage ? shopImage : null} />
                     <AvatarFallback>SO</AvatarFallback>
                   </Avatar>
                   <Input  placeholder="Enter your shop name" onChange={handleImageChange} accept="image/*" className="hidden" id="avatar-image" name="avatar-image" type="file" />

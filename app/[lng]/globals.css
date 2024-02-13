@@ -147,7 +147,7 @@ display: none !important;
 }
 .main-bg:hover{
   background-color: transparent !important;
-  color: white;
+  color: rgb(0, 0, 0) !important;
 }
 
 .primary-bg{

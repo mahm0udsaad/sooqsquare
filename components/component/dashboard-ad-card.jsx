@@ -10,16 +10,22 @@ import {
 import { Button } from "@/components/ui/button"
 import { CardContent, Card } from "@/components/ui/card"
 import { FaRegStopCircle } from "react-icons/fa";
-import { changeAdStatus, deleteAd, updateAd } from "@/app/[lng]/(traderDashboard)/actions";
-import { useEffect, useRef, useState } from "react";
+import { changeAdStatus, deleteAd } from "@/app/[lng]/(traderDashboard)/actions";
+import { TbClick } from "react-icons/tb";
+import {  useRef, useState } from "react";
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip"
 import { useToast } from "@/components/ui/use-toast"
 import { useTranslation } from "@/app/i18n/client"
 import EditBtn from "./buttons/editDailoag"
@@ -27,8 +33,10 @@ import { updateAdImage, updateAdImageURL } from "../../app/[lng]/(traderDashboar
 import upload from "../../app/[lng]/sell/imageUploadAction"
 import { CiEdit } from "react-icons/ci"
 import { BsCloudUpload } from "react-icons/bs"
-import { replaceAdImage } from "../../prisma/actions"
-import { useCarousel } from "../ui/carousel"
+import { IoEyeOutline } from "react-icons/io5";
+import Link from "next/link"
+import {calculateRemainingTime } from '@/helper/remainingTime'
+import { CiTimer } from "react-icons/ci";
 
 export const AdCard = ({lng, ad }) => {
     const { t } = useTranslation(lng ,"translation")
@@ -60,9 +68,10 @@ export const AdCard = ({lng, ad }) => {
     } = ad;
 
     function extractAdDataViewMore(ad) {
-      const {RegionalSpecifications ,payment ,category , country,shopId ,description , carStatus , fuelType , meterRange, Adimages, user, userId,createdAt,id, ...adData } = ad;
+      const {RegionalSpecifications,name ,payment ,category ,favoritedBy, country,shopId ,description , carStatus , fuelType , meterRange, Adimages, user, userId,createdAt,id, ...adData } = ad;
       return adData;
     }
+
     const updatedAd = extractAdDataViewMore(ad)
     const fileInputRefs = useRef([]);
     const fileInputRef = useRef(null);
@@ -113,7 +122,6 @@ export const AdCard = ({lng, ad }) => {
         throw error;
       }
     }
-
     const handleChangeImage = async (adId, newImage) => {
       try {
         // Upload the new image
@@ -138,21 +146,30 @@ export const AdCard = ({lng, ad }) => {
         console.error('Error handling image change:', error);
       }
     };
-
+    const remainingTime = calculateRemainingTime(ad.createdAt)
 
   return (
       <div className="flex flex-col md:flex-row items-center justify-between lg:w-11/12 w-full lg:mx-auto mx-3 p-8 rounded-lg shadow-md bg-white dark:bg-zinc-800">
-      <Carousel ref={carouselRef} style={carouselStyle} className="w-full max-w-xs mx-auto ">
-      <BsCloudUpload onClick={()=> fileInputRef.current.click()} className="absolute right-0 z-20 cursor-pointer hover:bg-red-700 hover:text-white border border-red-700 rounded-md w-8 h-8  w-6 h-6 text-black" />
+        <TooltipProvider>
+        <Carousel ref={carouselRef} style={carouselStyle} className="w-full max-w-xs mx-auto ">
+          <Tooltip className="w-full">
+            <TooltipTrigger>
+               <BsCloudUpload onClick={()=> fileInputRef.current.click()} className=" z-20 cursor-pointer hover:bg-red-700 hover:text-white border border-red-700 rounded-md w-8 h-8  w-6 h-6 text-black" />
+            </TooltipTrigger>
+            <TooltipContent className="absolute right-4 w-40">
+              <p>{t("Add New Image")}</p>
+            </TooltipContent>
+          </Tooltip>
       <input onChange={(e)=> handleChangeImage(ad.id ,e.target.files[0])} className="hidden" ref={fileInputRef} type="file"  />
       <CarouselContent className="dark:bg-zinc-800">
         {Adimages.map((image, index) => (
           <CarouselItem key={index}>
             <div className="p-1 relative">
-              <CiEdit
-                onClick={() => fileInputRefs.current[index].click()}
-                className="cursor-pointer absolute bottom-0 z-20 hover:bg-red-700 hover:text-white border border-red-700 rounded-md w-6 h-6 w-6 h-6 text-black"
-              />
+                <CiEdit
+                  onClick={() => fileInputRefs.current[index].click()}
+                 className="cursor-pointer absolute bottom-0 z-20 hover:bg-red-700 hover:text-white border border-red-700 rounded-md w-6 h-6 w-6 h-6 text-black"
+                 />
+       
               <input
                 onChange={(e) => handleReplaceImage(image.id, e.target.files[0])}
                 className="hidden"
@@ -171,56 +188,66 @@ export const AdCard = ({lng, ad }) => {
         <CarouselPrevious />
         <CarouselNext />
       </Carousel>
+      </TooltipProvider>
         <div className="flex flex-col items-start justify-center space-y-4 md:w-1/2 md:pl-8">
+          <div className="flex w-full items-center justify-between">
           <h2 className="text-2xl font-bold">{name}</h2>
+           <div className="flex gap-4 items-center">
+           <CiTimer className="w-4 h-4"/>
+           <p className="text-gray-500">
+           {remainingTime} {t("day")}
+           </p>
+           </div>
+          </div>
           <p className="text-lg text-gray-500 dark:text-gray-400">
                 {description}
           </p>
-          <h3 className="text-xl font-semibold">Specifications:</h3>
+          <h3 className="text-xl font-semibold">{t("Specifications")}:</h3>
           <ul className="list-disc list-inside space-y-2 text-gray-500 dark:text-gray-400">
           <div className="grid grid-cols-2  w-full gap-2">
 
                 <div>
-                  <Badge className={'dark:bg-white dark:text-black mx-3 '}>price</Badge>
+                  <Badge className={'dark:bg-white dark:text-black mx-3 '}>{t('price')}</Badge>
                   <span className="dark:text-gray-300 ml-2">{price}</span>
                 </div>
 
                 <div>
-                  <Badge className={'dark:bg-white dark:text-black mx-3 '}>brand</Badge>
+                  <Badge className={'dark:bg-white dark:text-black mx-3 '}>{t('brand')}</Badge>
                   <span className="dark:text-gray-300 ml-2">{brand}</span>
                 </div>
 
                 <div>
-                  <Badge className={'dark:bg-white dark:text-black mx-3 '}>category</Badge>
+                  <Badge className={'dark:bg-white dark:text-black mx-3 '}>{t('category')}</Badge>
                   <span className="dark:text-gray-300 ml-2">{category}</span>
                 </div>
 
                 <div>
-                  <Badge className={'dark:bg-white dark:text-black mx-3 '}>model</Badge>
+                  <Badge className={'dark:bg-white dark:text-black mx-3 '}>{t('model')}</Badge>
                   <span className="dark:text-gray-300 ml-2">{model}</span>
                 </div>
 
                 <div>
-                  <Badge className={'dark:bg-white dark:text-black mx-3 '}>year</Badge>
+                  <Badge className={'dark:bg-white dark:text-black mx-3 '}>{t('year')}</Badge>
                   <span className="dark:text-gray-300 ml-2">{year}</span>
                 </div>
 
                 <div>
-                  <Badge className={'dark:bg-white dark:text-black mx-3 '}>carType</Badge>
+                  <Badge className={'dark:bg-white dark:text-black mx-3 '}>{t('carType')}</Badge>
                   <span className="dark:text-gray-300 ml-2">{carType}</span>
                 </div>
 
                 <div>
-                  <Badge className={'dark:bg-white dark:text-black mx-3 '}>carStatus</Badge>
+                  <Badge className={'dark:bg-white dark:text-black mx-3 '}>{t('carStatus')}</Badge>
                   <span className="dark:text-gray-300 ml-2">{carStatus}</span>
                 </div>
             </div>
           </ul>
           {/* Show More Dialoag */}
+            <div className="w-full flex justify-between items-center">
             <Dialog >
           <DialogTrigger asChild>
           <Button className="mt-4" size="lg" variant="solid">
-            Show More
+            {t("Show More")}
           </Button>
           </DialogTrigger>
           <DialogContent className="dark:bg-zinc-800 dark:text-white ">
@@ -230,14 +257,35 @@ export const AdCard = ({lng, ad }) => {
             <Card>
             <CardContent className="grid  gap-2">
               {Object.entries(updatedAd).map(([key, value]) => (
-                  <p key={key}>
-                    <strong>{key}:</strong> {value}
-                  </p>
+                  <div className="flex items-center gap-2 justify-start" key={key}>
+                    <strong>{t(`${key}`)}:</strong> <span>{value}</span>
+                  </div>
                 ))}
               </CardContent>
             </Card>
           </DialogContent>
              </Dialog>
+             <div className="flex gap-2">
+               <div className="flex items-center gap-2">
+                <span className="text-sm">
+                  {ad.clicks}
+                </span>
+                <TbClick className="w-4 h-4 fill-none" />
+               </div>
+               <div className="flex items-center gap-2">  
+                <span className="text-sm">
+                  {ad.views}
+                </span>
+               <IoEyeOutline className="w-4 h-4" />
+               </div>
+               <div className="flex items-center gap-2">
+                <span className="text-sm">
+                  {ad.favoritedBy.length - 1}
+                </span>
+                <HeartIcon className="w-4 h-4 fill-none" />
+               </div>
+             </div>
+            </div>
           <div className="p-4 flex gap-3">
           <EditBtn ad={ad} lng={lng} />
           <Button onClick={()=> handleDelete(ad.id)} className="bg-transparent border border-rose-600 text-rose-600 hover:bg-rose-600 hover:text-white w-1/2 flex justify-center items-center space-x-2">
@@ -299,8 +347,12 @@ export const AdCard = ({lng, ad }) => {
                       <span>Publish Ad</span>
                     </>
               }
-         </Button> 
+            </Button> 
         }
+         <Link href={`/vehicle/${ad.id}`} className="bg-transparent border py-2 px-4 rounded-md border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white w-1/2 flex justify-center items-center space-x-2">
+            <IoEyeOutline className="w-4 h-4 mx-2" />
+            <span>View</span>
+          </Link>
         </div>
         </div>
       </div>
@@ -345,4 +397,22 @@ function TrashIcon(props) {
       <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
     </svg>
   )
+}
+function HeartIcon(props) {
+  return (
+    (<svg
+      {...props}
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="red"
+      stroke="red"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round">
+      <path
+        d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
+    </svg>)
+  );
 }

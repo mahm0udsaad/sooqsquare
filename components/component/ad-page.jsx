@@ -12,34 +12,22 @@ import { MdOutlineLocalPhone } from "react-icons/md";
 import { Badge } from "@/components/ui/badge"
 import { IoLocationOutline } from "react-icons/io5";
 import { useTranslation } from "@/app/i18n/client";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { ArabCountriesWithCurrancy } from "@/data/staticData";
-import { FaCar, FaCalendarAlt, FaGasPump, FaPalette, FaTachometerAlt, FaCog, FaWrench, FaCarSide, FaPaintRoller } from 'react-icons/fa';
+import { FaGasPump, FaTachometerAlt, FaCog, FaWrench, FaPaintRoller } from 'react-icons/fa';
+import { Toggle } from "@/components/ui/toggle"
+import { PiEngine } from "react-icons/pi";
+import { IoColorPaletteOutline } from "react-icons/io5";
+import { CiCalendarDate } from "react-icons/ci";
+import { IoCarOutline } from "react-icons/io5";
+import { LuFuel } from "react-icons/lu";
+import { AiOutlineFormatPainter } from "react-icons/ai";
+import { IoSpeedometerOutline } from "react-icons/io5";
+import { IoSettingsOutline } from "react-icons/io5";
 
 export function AdPage({ad , lng}) {
   const { t } = useTranslation(lng , "tranlsation")
-  const router = useRouter()
-  console.log(ad.description);
-  const getOwnerInfo = () => {
-    const ownerInfo = ad.shop || ad.user;
-    return ownerInfo;
-  };
-  const linkToChat = () => {
-    const owner = getOwnerInfo();
-
-    if (owner && owner.id) {
-      router.push({
-        pathname: "/chat",
-        query: { owner: owner.id },
-      });
-    } else {
-      console.error("Invalid owner ID");
-    }
-  };
-  const owner = getOwnerInfo();
   const priceCode = ArabCountriesWithCurrancy.find(country => country.name === ad.country).currencyCode;
-
   const extraFeatures = ad.extraFeatures ? ad.extraFeatures.split(" ") : null
   
   return (
@@ -86,75 +74,73 @@ export function AdPage({ad , lng}) {
           <CardContent className="grid grid-cols-2 gap-4">
             <div className="flex justify-between bg-gray-200 rounded-md p-2">
               <h4 className="flex gap-2 items-center font-bold">
-                <FaCar />
-                Car Make</h4>
+                <IoCarOutline />
+                {t("brand")}</h4>
               <p> {ad.brand}</p>
             </div>
             <div className="flex justify-between bg-gray-200 rounded-md p-2">
               <h4 className="flex gap-2 items-center font-bold">
-                <FaCarSide />
-                Model</h4>
+                <IoCarOutline />
+                {t("model")}</h4>
               <p> {ad.model}</p>
             </div>
             <div className="flex justify-between p-2">
               <h4 className="flex gap-2 items-center font-bold">
-                <FaCalendarAlt />
-                Year</h4>
-              <p> {ad.year}</p>
+                <IoCarOutline />
+                {t("carStatus")}</h4>
+              <p> {ad.carStatus}</p>
             </div>
+          
             <div className="flex justify-between p-2">
               <h4 className="flex gap-2 items-center font-bold">
-                <FaCar />
-                Car Types</h4>
+                <IoCarOutline />
+                {t("carType")}</h4>
               <p> {ad.carType}</p>
             </div>
             <div className="flex justify-between bg-gray-200 rounded-md p-2">
               <h4 className="flex gap-2 items-center font-bold">
-                <FaGasPump />
-                Fuel</h4>
+                <LuFuel />
+                {t("Fuel")}</h4>
               <p> {ad.fuelType}</p>
             </div>
             <div className="flex justify-between bg-gray-200 rounded-md p-2">
               <h4 className="flex gap-2 items-center font-bold">
-                <FaCog />
-                Regional Specs</h4>
+                <IoSettingsOutline />
+                {t('RegionalSpecifications')}</h4>
               <p> {ad.RegionalSpecifications}</p>
             </div>
             <div className="flex justify-between p-2">
               <h4 className="flex gap-2 items-center font-bold">
-                <FaPalette />
-                Color</h4>
-              <p> {ad.paintType}</p>
-            </div>
-            <div className="flex justify-between p-2">
-              <h4 className="flex gap-2 items-center font-bold">
-                <FaWrench />
-                Condition</h4>
-              <p> {ad.carStatus}</p>
-            </div>
-            <div className="flex justify-between bg-gray-200 rounded-md p-2">
-              <h4 className="flex gap-2 items-center font-bold">
-                <FaPaintRoller />
-                Paint</h4>
-              <p> {ad.paintType}</p>
-            </div>
-            <div className="flex justify-between bg-gray-200 rounded-md p-2">
-              <h4 className="flex gap-2 items-center font-bold">
-                <FaTachometerAlt />
-                Kilometers</h4>
-              <p> {ad.meterRange}</p>
-            </div>
-            <div className="flex justify-between p-2">
-              <h4 className="flex gap-2 items-center font-bold">
-                <FaCar />
-                Engine Size ( cc )</h4>
+                <PiEngine />
+                {t("EnginCapacity")}</h4>
               <p> {ad.EnginCapacity}</p>
             </div>
             <div className="flex justify-between p-2">
               <h4 className="flex gap-2 items-center font-bold">
-                <FaPaintRoller />
-                Body Condition</h4>
+                <CiCalendarDate />
+                {t("year")}</h4>
+              <p> {ad.year}</p>
+            </div>
+            <div className="flex justify-between bg-gray-200 rounded-md p-2">
+              <h4 className="flex gap-2 items-center font-bold">
+                <AiOutlineFormatPainter />
+                {t("Paint")}</h4>
               <p> {ad.paintType}</p>
+            </div>
+            <div className="flex justify-between bg-gray-200 rounded-md p-2">
+              <h4 className="flex gap-2 items-center font-bold">
+                <IoSpeedometerOutline />
+                {t("Kilometers")}</h4>
+              <p> {ad.meterRange}</p>
+            </div>
+          
+            <div className="flex justify-between p-2">
+              <h4 className="flex gap-2 items-center font-bold">
+                <IoColorPaletteOutline />
+                {t("Color")}</h4>
+                <Toggle  aria-label="Toggle red" className="text-white my-0" style={{ background: `${ad.color}`}}>
+                <CarIcon className="h-4 w-4" />
+              </Toggle>
             </div>
           </CardContent>
         </Card>
@@ -235,4 +221,25 @@ function UserIcon(props) {
       <circle cx="12" cy="7" r="4" />
     </svg>)
   );
+}
+function CarIcon(props) {
+  return (
+    <svg
+      {...props}
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2" />
+      <circle cx="7" cy="17" r="2" />
+      <path d="M9 17h6" />
+      <circle cx="17" cy="17" r="2" />
+    </svg>
+  )
 }
