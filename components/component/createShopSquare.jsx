@@ -20,6 +20,7 @@ import { countriesWithCities } from "@/data/staticData"
 import { DropdownMenuTrigger, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuSubTrigger, DropdownMenuItem, DropdownMenuSubContent, DropdownMenuSub, DropdownMenuContent, DropdownMenu } from "@/components/ui/dropdown-menu"
 import { getLocation } from "@/helper/location"
 import "/node_modules/flag-icons/css/flag-icons.min.css";
+import { redirect, useRouter } from "next/navigation"
 
 const CreateShopSquare = ({ user , lng}) =>{
   const [shopImage, setShopImage] = useState(null);
@@ -27,10 +28,13 @@ const CreateShopSquare = ({ user , lng}) =>{
   const { register, handleSubmit, setValue, control, formState: { errors, isSubmitting , isSubmitted ,isSubmitSuccessful} } = useForm();
   const { setConfettiActive , isConfettiActive } = useDarkMode()
   const [ loading , setLoading ] = useState(false)
-
+  const router = useRouter()
   const drawerCloseRef = useRef(null);
 
   const handleImageChange = async (e) => {
+    if(!user){
+      router.push('/sign-in')
+     }
     const file = e.target.files[0];
     try {
       if (!file) {
@@ -52,6 +56,7 @@ const CreateShopSquare = ({ user , lng}) =>{
     }
   };
   const onSubmit = async (data) => {
+ 
     try {
       if (!data.shopName || !data.shopImage) {
         return;

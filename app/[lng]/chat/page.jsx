@@ -18,7 +18,7 @@ import { redirect } from "next/navigation"
     }
 
     if(!chat){
-        return <ChatMainPage chats={user.chats}/>
+        return <ChatMainPage user={user} chats={user.chats}/>
     }
     
     return(

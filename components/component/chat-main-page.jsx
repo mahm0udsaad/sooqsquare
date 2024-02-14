@@ -4,13 +4,14 @@ import { AvatarImage, AvatarFallback, Avatar } from "@/components/ui/avatar"
 import { MdOutlineMarkChatRead } from "react-icons/md";
 import Link from "next/link";
 import { useState } from "react";
-import { FaRegUser } from "react-icons/fa6";
-export function ChatMainPage({chats}) {
+
+  export function ChatMainPage({ chats , user}) {
     const [sidebarOpen, setSidebarOpen] = useState(true);
 
     const toggleSidebar = () => {
       setSidebarOpen(!sidebarOpen);
     };
+
   return (
     (<div className="flex pb-8 bg-gray-100 dark:bg-zinc-950">
          <div className={`contact bg-white dark:bg-zinc-950 overflow-y-auto  ${sidebarOpen ? "transition-width w-1/3 ":"transition-width w-[5%] "}`}>
@@ -22,12 +23,12 @@ export function ChatMainPage({chats}) {
         </div>
       <div className={`divide-y divide-zinc-200 dark:divide-zinc-700 `}>
           {chats.map((chat)=>(
-          <Link href={`/chat/${chat.id}`} className="flex cursor-pointer hover:bg-[#fe2635] hover:text-white items-center p-4 space-x-4">
+          <Link key={chat.id} href={`/chat/${chat.id}`} className="flex cursor-pointer hover:bg-[#fe2635] hover:text-white items-center p-4 space-x-4">
             <Avatar>
-            <img src={chat.users[0].image} alt="" />
+            <img src={chat.users[0].email === user.email ? chat.users[1].image : chat.users[0].image} alt="" />
             </Avatar>
             {sidebarOpen && 
-              <div className="font-medium px-4">{chat.users[0].username}</div>
+              <div className="font-medium px-4">{chat.users[0].email === user.email ? chat.users[1].username : chat.users[0].username}</div>
             }
           </Link>
           ))}

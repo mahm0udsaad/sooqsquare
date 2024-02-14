@@ -26,7 +26,7 @@ const NavBar = async  ({ lng })=> {
         <Logo lng={lng} />
       </Link>
 
-        <form className="flex items-center dark:bg-zinc-900 border dark:border-zinc-800 rounded-xl px-4 w-[30%]">
+        <form className="flex items-center  dark:bg-zinc-900 border dark:border-zinc-800 rounded-xl px-4 w-[30%]">
           <BiSearch className="w-4 h-4 text-gray-700 dark:text-gray-200" />
           <input
             className="ml-2 p-2 bg-transparent rounded-xl focus:outline-none text-gray-700 dark:text-gray-200"
@@ -47,10 +47,10 @@ const NavBar = async  ({ lng })=> {
          
           {user ?
               <>
-                <Link href={'/chat'} className="chat dark:bg-zinc-900 hover:opacity-50 bg-white border dark:border-none p-2 rounded-md">
+                <Link href={'/chat'} className="chat dark:bg-zinc-800 hover:bg-gray-100 hover:dark:text-black hover:dark:bg-white bg-white border dark:border-none p-2 rounded-md">
                   <BsChatLeftDots className="text-xl"/>
                 </Link>
-              <div className="userAvatar">
+            <div className="userAvatar">
                 <UserButton lng={lng} user={user}/>
               </div>
               </>
