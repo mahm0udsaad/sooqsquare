@@ -114,6 +114,14 @@ exports.Prisma.UserScalarFieldEnum = {
   email: 'email'
 };
 
+exports.Prisma.SubscriptionScalarFieldEnum = {
+  id: 'id',
+  endpoint: 'endpoint',
+  p256dh: 'p256dh',
+  auth: 'auth',
+  userId: 'userId'
+};
+
 exports.Prisma.ShopScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
@@ -204,6 +212,7 @@ exports.Prisma.NullsOrder = {
 
 exports.Prisma.ModelName = {
   User: 'User',
+  Subscription: 'Subscription',
   Shop: 'Shop',
   Image: 'Image',
   Ad: 'Ad',

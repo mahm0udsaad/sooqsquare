@@ -8,7 +8,8 @@ const middleware = (req, res) => {
     req.nextUrl.pathname.startsWith('/upload') ||
     req.nextUrl.pathname.startsWith('/brandLogos') ||
     req.nextUrl.pathname.startsWith('/site') ||
-    req.nextUrl.pathname.startsWith('/auth') ||
+    req.nextUrl.pathname.startsWith('/site') ||
+    req.nextUrl.pathname.startsWith('/service-worker.js') ||
     req.nextUrl.pathname.startsWith('/icons')
   ) {
     return NextResponse.next();

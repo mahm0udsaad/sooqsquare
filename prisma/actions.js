@@ -414,6 +414,7 @@ export async function getUserByEmail(email) {
           },
         },
         favoriteAds:true,
+        subscriptions:true
       },
     });
 

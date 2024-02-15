@@ -2,7 +2,65 @@
 
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
-import prisma from "../../../prisma/client";
+import prisma from "@/prisma/client";
+
+// Function to add subscription to a user
+export async function addSubscriptionToUser(userId, subscriptionData) {
+  console.log(userId);
+  try {
+    // Use Prisma to find the user by userId
+    const user = await prisma.user.findUnique({
+      where: {
+        id: userId
+      }
+    });
+
+    if (!user) {
+      throw new Error('User not found');
+    }
+    
+    
+    // Create a new subscription record associated with the user
+    const newSubscription = await prisma.subscription.create({
+      data: {
+        endpoint: subscriptionData.endpoint,
+        p256dh: subscriptionData.keys.p256dh,
+        auth: subscriptionData.keys.auth,
+        user: {
+          connect: {
+            id: userId
+          }
+        }
+      }
+    });
+
+    console.log('Subscription added to user:', newSubscription);
+    return newSubscription;
+  } catch (error) {
+    console.error('Error adding subscription to user:', error);
+    throw error;
+  }
+}
+
+async function storeSubscription(subscriptionData) {
+  try {
+    // Use Prisma to create a new subscription record in the database
+    const newSubscription = await prisma.subscription.create({
+      data: {
+        // Assuming your subscription model has fields for endpoint, keys, and user ID
+        endpoint: subscriptionData.endpoint,
+        keys: JSON.stringify(subscriptionData.keys),
+        userId: subscriptionData.userId // Assuming you have a field for user ID
+      }
+    });
+    console.log('Subscription stored in the database:', newSubscription);
+    return newSubscription;
+  } catch (error) {
+    console.error('Error storing subscription:', error);
+    throw error;
+  }
+}
+
 
 export async function createMessage(content, senderEmail, receiverEmail, chatId) {
   try {

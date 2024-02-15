@@ -22,7 +22,17 @@ model User {
   messagesSent       Message[]    @relation("sentMessages")
   messagesReceived   Message[]    @relation("receivedMessages")
   favoriteAds        FavoriteAd[]
-  shop               Shop[]   
+  shop               Shop[]
+  subscriptions      Subscription[]
+}
+
+model Subscription {
+  id                 Int          @id @default(autoincrement())
+  endpoint           String
+  p256dh             String
+  auth               String
+  userId             Int
+  user               User         @relation(fields: [userId], references: [id])
 }
 
 model Shop {
