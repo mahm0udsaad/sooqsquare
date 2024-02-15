@@ -8,8 +8,8 @@ export function ChatMainPage() {
 
   useEffect(() => {
     // Listen for user status updates
-    socket.on('user status', (status) => {
-      setUserStatus(status);
+    socket.on('user status', ({ id, status }) => {
+      console.log(`User ${id} is now ${status}`);
     });
 
     // Cleanup: Remove event listener when component unmounts
