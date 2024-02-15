@@ -4,7 +4,7 @@ const applicationServerKey = 'BK3k4umk71d0mq9x1RHS9FOGLc6zHt8fFVnPg2dKxYpZwLURqg
 
 const subscribeToPushNotifications = async (userId) => {
     try {
-      const registration = await navigator.serviceWorker.register('/service-worker.js', { scope: '/chat' });
+      const registration = await navigator.serviceWorker.register('/service-worker.js', { scope: '/' });
       const subscription = await registration.pushManager.subscribe({
         userVisibleOnly: true,
         applicationServerKey: applicationServerKey

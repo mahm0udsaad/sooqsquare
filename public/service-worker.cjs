@@ -1,5 +1,3 @@
-import { addSubscriptionToUser } from '../app/[lng]/(chat)/chat/action'
-
 const cacheName = 'v1';
 self.addEventListener('install', (event) => {
   console.log('Service worker installed');
@@ -14,7 +12,7 @@ self.addEventListener('fetch', (event) => {
   const url = new URL(event.request.url);
 
   // Cache only requests to /ar/chat/id
-  if (url.pathname.startsWith('/chat/')) {
+  if (url.pathname.startsWith('/')) {
     event.respondWith(
       caches.open(cacheName).then((cache) => {
         return cache.match(event.request).then((response) => {
