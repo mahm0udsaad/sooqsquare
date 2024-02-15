@@ -21,6 +21,8 @@ export function ChatCom({ chat, user }) {
     }
   };
 
+ 
+
   // Function to handle message change
   const handleMessageChange = (e) => {
     setMessage(e.target.value);
@@ -73,7 +75,7 @@ export function ChatCom({ chat, user }) {
 
   const owner = chat.users[0]
   const currentUser = chat.users[1]
-  const reciver = currentUser.email === user.email ? owner.email : currentUser.email;
+  const reciver = currentUser.email === user.email ? owner : currentUser;
 
 
   return (

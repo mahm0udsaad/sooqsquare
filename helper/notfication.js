@@ -2,7 +2,6 @@ import { addSubscriptionToUser } from "@/app/[lng]/(chat)/chat/action";
 
 const applicationServerKey = 'BK3k4umk71d0mq9x1RHS9FOGLc6zHt8fFVnPg2dKxYpZwLURqgazKGX4sx1T8INcWd3onjw1cve6cTseW7ojCXo'
 
-
 const subscribeToPushNotifications = async (userId) => {
     try {
       const registration = await navigator.serviceWorker.register('/service-worker.js', { scope: '/chat' });
@@ -11,10 +10,7 @@ const subscribeToPushNotifications = async (userId) => {
         applicationServerKey: applicationServerKey
       });
 
-      console.log(userId);
-
       const addedSubscription = await addSubscriptionToUser(userId, subscription);
-      console.log('added Subscription');
 
       if (Notification.permission === 'granted') {
         const notificationOptions = {

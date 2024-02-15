@@ -3,6 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import prisma from "@/prisma/client";
+import webPush from 'web-push'; // Import the web-push library for sending push notifications
 
 // Function to add subscription to a user
 export async function addSubscriptionToUser(userId, subscriptionData) {
@@ -42,29 +43,10 @@ export async function addSubscriptionToUser(userId, subscriptionData) {
   }
 }
 
-async function storeSubscription(subscriptionData) {
-  try {
-    // Use Prisma to create a new subscription record in the database
-    const newSubscription = await prisma.subscription.create({
-      data: {
-        // Assuming your subscription model has fields for endpoint, keys, and user ID
-        endpoint: subscriptionData.endpoint,
-        keys: JSON.stringify(subscriptionData.keys),
-        userId: subscriptionData.userId // Assuming you have a field for user ID
-      }
-    });
-    console.log('Subscription stored in the database:', newSubscription);
-    return newSubscription;
-  } catch (error) {
-    console.error('Error storing subscription:', error);
-    throw error;
-  }
-}
 
-
-export async function createMessage(content, senderEmail, receiverEmail, chatId) {
+export async function createMessage(content, senderEmail, receiver, chatId) {
   try {
-    const sender = await prisma.user.findUnique({ where: { email: senderEmail } });
+    const currentReceiver = await prisma.user.findUnique({ where: { email: receiver.email }, include: { subscriptions: true } });
 
     const message = await prisma.message.create({
       data: {
@@ -73,7 +55,7 @@ export async function createMessage(content, senderEmail, receiverEmail, chatId)
           connect: { email: senderEmail }
         },
         receiver: {
-          connect: { email: receiverEmail }
+          connect: { email: receiver.email }
         },
         chat: {
           connect: { id: chatId }
@@ -84,7 +66,17 @@ export async function createMessage(content, senderEmail, receiverEmail, chatId)
       },
     });
 
-   
+    // Send push notification to the receiver if they have a subscription
+    if (currentReceiver.subscriptions && currentReceiver.subscriptions.length > 0) {
+      const originalSubscription = {
+        endpoint: currentReceiver.subscriptions[currentReceiver.subscriptions.length - 1].endpoint,
+        keys: {
+          p256dh: currentReceiver.subscriptions[currentReceiver.subscriptions.length - 1].p256dh,
+          auth: currentReceiver.subscriptions[currentReceiver.subscriptions.length - 1].auth
+        }
+      };
+      sendPushNotification(originalSubscription, message , receiver.email);
+    }
     return message;
   } catch (error) {
     console.error('Error creating message:', error);
@@ -93,6 +85,29 @@ export async function createMessage(content, senderEmail, receiverEmail, chatId)
     revalidatePath(`/chat/${chatId}`) // Close the Prisma client connection
   }
 }
+
+const vapidKeys = {
+  publicKey: 'BK3k4umk71d0mq9x1RHS9FOGLc6zHt8fFVnPg2dKxYpZwLURqgazKGX4sx1T8INcWd3onjw1cve6cTseW7ojCXo',
+  privateKey: '8bw9PpNnTxHagt6mpEAbZH4HRPDd0iPo2M3mYuc85Sc',
+ };
+
+
+const sendPushNotification = async (subscription, message , receiverEmail) => {
+  const pushPayload = {
+    title: 'New Message',
+    body: `${message.sender.username}: ${message.content}`,
+    icon: '',
+    data: { chatId: message.chatId, messageId: message.id }
+  };
+
+  try {
+    const notf = await webPush.sendNotification(subscription, JSON.stringify(pushPayload), { TTL: 60, vapidDetails: {...vapidKeys , subject:`mailto:${receiverEmail}`} });
+    console.log(notf.statusCode);
+  } catch (error) {
+    console.error('Error sending push notification:', error);
+  }
+};
+
 
 export async function getOrCreateChat(user1Id, user2Id) {
   let newChat;
