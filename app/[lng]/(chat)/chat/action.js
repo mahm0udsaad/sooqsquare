@@ -113,7 +113,8 @@ export async function getOrCreateChat(user1Id, user2Id) {
   let newChat;
 
   const parsedUser1Id = parseInt(user1Id);
-  const parsedUser2Id = parseInt(user2Id);
+  const parsedUser2Id = user2Id;
+  console.log(user2Id);
 
   try {
     // Find users with the provided ids
