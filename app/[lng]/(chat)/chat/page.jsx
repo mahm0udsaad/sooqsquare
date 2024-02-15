@@ -5,7 +5,7 @@ import { getServerSession } from "next-auth"
 import { getUserByEmail } from "@/prisma/actions"
 import { redirect } from "next/navigation"
 
- const ChatPage = async ({ lng }) =>{
+ const ChatPage = async () =>{
     unstable_noStore()
     const user1 = await getServerSession()
     const user = await getUserByEmail(user1?.user.email)
