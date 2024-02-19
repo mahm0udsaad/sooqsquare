@@ -45,7 +45,7 @@ export default async function DetailsForm({ user, lng, searchParams }) {
         </p>
       </div>
       <div className="w-full flex items-center justify-center">
-        <LogoForm />
+        <LogoForm user={user} />
       </div>
       <div className="grid grid-cols-2 gap-4 w-full">
         <div className="space-y-2">

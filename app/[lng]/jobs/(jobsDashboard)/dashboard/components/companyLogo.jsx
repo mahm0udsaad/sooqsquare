@@ -1,13 +1,29 @@
 "use client";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { useState } from "react";
 import upload from "../../../../(traderDashboard)/dashboard/myShop/action";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
+import { getLocation } from "@/helper/location";
+import { useEffect } from "react";
+import { updateUserCountry } from "@/prisma/actions";
 
-const LogoForm = ({ companyLogo }) => {
+const LogoForm = ({ companyLogo, user }) => {
+  useEffect(() => {
+    const fetchLocation = async () => {
+      try {
+        const location = await getLocation();
+        await updateUserCountry(user?.id, location.countryName);
+      } catch (error) {
+        console.error("Error getting location:", error.message);
+      }
+    };
+    if (!user.country) {
+      fetchLocation();
+    }
+  }, [user?.id]);
+
   const { toast } = useToast();
   const handleCompanyLogoChange = async (e) => {
     const file = e.target.files[0];
@@ -40,6 +56,7 @@ const LogoForm = ({ companyLogo }) => {
     const updatedParams = params.toString();
     router.push(pathname + "?" + updatedParams);
   };
+
   console.log(logo);
   return (
     <div className="relative h-full flex items-centy justify-centy pb-8 pr-8">
