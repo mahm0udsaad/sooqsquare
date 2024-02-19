@@ -28,7 +28,7 @@ export default async function DetailsForm({ user, lng, searchParams }) {
         name="userId"
         id="userId"
         className="hidden"
-        value={user.id}
+        value={user?.id}
       />
       <input
         type="text"
@@ -70,7 +70,7 @@ export default async function DetailsForm({ user, lng, searchParams }) {
                 <SelectValue placeholder={t("select_city_placeholder")} />
               </SelectTrigger>
               <SelectContent>
-                {cities.map((city, i) => (
+                {cities?.map((city, i) => (
                   <SelectItem key={i} value={city}>
                     {t(`${city}`)}
                   </SelectItem>
