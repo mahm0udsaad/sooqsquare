@@ -15,7 +15,7 @@ export default function Footer({ user }) {
     const fetchLocation = async () => {
       try {
         const location = await getLocation();
-        await updateUserCountry(user.id, location.countryName);
+        await updateUserCountry(user?.id, location.countryName);
       } catch (error) {
         console.error("Error getting location:", error.message);
       }
