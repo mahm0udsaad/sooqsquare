@@ -17,11 +17,11 @@ exports.$Enums = {}
 
 /**
  * Prisma Client JS version: 5.8.1
- * Query Engine version: 78caf6feeaed953168c64e15a249c3e9a033ebe2
+ * Query Engine version: 0ca5ccbcfa6bdc81c003cf549abe4269f59c41e5
  */
 Prisma.prismaVersion = {
   client: "5.8.1",
-  engine: "78caf6feeaed953168c64e15a249c3e9a033ebe2"
+  engine: "0ca5ccbcfa6bdc81c003cf549abe4269f59c41e5"
 }
 
 Prisma.PrismaClientKnownRequestError = () => {
@@ -122,6 +122,39 @@ exports.Prisma.SubscriptionScalarFieldEnum = {
   userId: 'userId'
 };
 
+exports.Prisma.JobPostScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  companyId: 'companyId',
+  description: 'description',
+  city: 'city',
+  jobCategory: 'jobCategory',
+  salary: 'salary',
+  experience: 'experience',
+  applicantsCount: 'applicantsCount',
+  postedAt: 'postedAt',
+  careerLevel: 'careerLevel',
+  languages: 'languages',
+  nationality: 'nationality',
+  benefits: 'benefits',
+  skills: 'skills',
+  gender: 'gender',
+  employmentType: 'employmentType',
+  educationLevel: 'educationLevel',
+  cvRequired: 'cvRequired'
+};
+
+exports.Prisma.CompanyScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  phone: 'phone',
+  industry: 'industry',
+  city: 'city',
+  logoUrl: 'logoUrl',
+  userId: 'userId'
+};
+
 exports.Prisma.ShopScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
@@ -213,6 +246,8 @@ exports.Prisma.NullsOrder = {
 exports.Prisma.ModelName = {
   User: 'User',
   Subscription: 'Subscription',
+  JobPost: 'JobPost',
+  Company: 'Company',
   Shop: 'Shop',
   Image: 'Image',
   Ad: 'Ad',

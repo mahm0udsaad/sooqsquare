@@ -3,14 +3,14 @@ import {   usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label"
 import { Badge } from "@/components/ui/badge"
-import React, { useEffect, useState } from 'react';
-import { useDarkMode } from '@/context/darkModeContext';
+import React from 'react';
 import  upload  from '../app/[lng]/sell/imageUploadAction'
 import { CiImageOn } from "react-icons/ci";
 import { MdOutlineRocketLaunch } from "react-icons/md";
 import { useTranslation } from '../app/i18n/client';
 import { Progress } from "@/components/ui/progress"
 import dynamic from 'next/dynamic';
+
 function TrashIcon(props) {
     return (
       <svg
@@ -33,20 +33,17 @@ function TrashIcon(props) {
   }
 
  const MultiImageForm = ({lng}) => {
-    const { setAdImages , adImages ,setErrorMessage } = useDarkMode()
-    const [images, setImages] = useState([]);
-    const [uploadingStates, setUploadingStates] = useState(Array.from({ length: 20 }, () => false));
     const { t } = useTranslation(lng , "translation")
-    const [progress, setProgress] = useState(0)
+    const searchParams = useSearchParams();
+    const router = useRouter()
+    const pathname= usePathname()
 
     const UploadedImage = dynamic(()=> import('./component/loadedImage'),{
       ssr:false,
-      loading:()=><div className="absolute inset-0 flex items-center justify-center bg-transparent h-full bg-opacity-50 text-white">
+      loading:()=><div className="absolute inset-0 flex flex-col items-center justify-center bg-transparent h-auto bg-opacity-50 text-white">
                     <Progress value={40} className="w-[60%]" />
                   </div>
     })
-
-
     const handleImageChange = async (e, index) => {
       const files = e.target.files;
     
@@ -54,13 +51,7 @@ function TrashIcon(props) {
         if (!files) {
           throw new Error('No files uploaded');
         }
-    
-        setUploadingStates((prevStates) => {
-          const updatedStates = [...prevStates];
-          updatedStates[index] = true;
-          return updatedStates;
-        });
-
+  
         const uploadPromises = [];
     
         for (let i = 0; i < files.length; i++) {
@@ -73,31 +64,14 @@ function TrashIcon(props) {
     
         const uploadedImages = await Promise.all(uploadPromises);
     
-        setImages((prevImages) => {
-          const updatedImages = [...prevImages];
-          uploadedImages.forEach((uploadedImage, i) => {
-            updatedImages[index + i] = uploadedImage.adImage;
-          });
-          return updatedImages;
+        uploadedImages.forEach((uploadedImage, i) => {
+          createQueryString(`uploadedImage${index + i}`, uploadedImage.adImage);
         });
-        setUploadingStates((prevStates) => {
-          const updatedStates = [...prevStates];
-          updatedStates[index] = false;
-          return updatedStates;
-        });
+
       } catch (error) {
         console.error(error.message);
-        setUploadingStates((prevStates) => {
-          const updatedStates = [...prevStates];
-          updatedStates[index] = false;
-          return updatedStates;
-        });
       }
     };
-
-    const searchParams = useSearchParams();
-    const router = useRouter()
-    const pathname= usePathname()
     
     if(!searchParams.has('category')) return ;
 
@@ -107,21 +81,46 @@ function TrashIcon(props) {
       const updatedParams = params.toString();
       router.push(pathname + '?' + updatedParams);
     };
+    
     const handleImageRemove = (indexToRemove) => {
-      setImages((prevImages) => prevImages.filter((_, index) => index !== indexToRemove));
+      // Remove the corresponding image URL from the URL query parameters
+      const updatedSearchParams = new URLSearchParams();
+      for (const [key, value] of searchParams.entries()) {
+        if (key.startsWith('uploadedImage')) {
+          const imageIndex = parseInt(key.replace('uploadedImage', ''), 10);
+          if (imageIndex !== indexToRemove) {
+            const updatedIndex = imageIndex > indexToRemove ? imageIndex - 1 : imageIndex;
+            updatedSearchParams.set(`uploadedImage${updatedIndex}`, value);
+          }
+        } else {
+          updatedSearchParams.set(key, value);
+        }
+      }
+      const updatedParams = updatedSearchParams.toString();
+      router.push(pathname + '?' + updatedParams);
     };
+
     const handleSubmit = (e) => {
       e.preventDefault();
-      setAdImages(images)
-      createQueryString('uploadedImages',images.length)
+      const extractUploadedImages = () => {
+        // Iterate through searchParams to find parameters related to uploaded images
+        for (const [key, value] of searchParams.entries()) {
+          // Check if the parameter key starts with the pattern for uploaded images
+          if (key.startsWith("uploadedImage") && key !== "uploadedImages") {
+            uploadedImages.push(value); // Push the value (image URL) into the uploadedImages array
+          }
+        }
+      };
+      
+      const uploadedImages = [];
+      extractUploadedImages();
+      
+      createQueryString('uploadedImages',uploadedImages.length)
     };
   
     return (
       <div className="bg-white border rounded p-8 shadow-md  dark:bg-zinc-950">
        <div className="title relative">
-        <div className="absolute  w-8 h-8 border dark:bg-[#0a0a0a] dark:border-white rounded-full flex items-center justify-center">
-        <span className="font-semibold text-rose-500 text-lg">{images.length}</span>
-        </div>
         <h1 className="text-3xl font-bold pb-6 text-center">{t('uploadImages')}</h1>
         </div>
         <form  className="space-y-4">
@@ -141,20 +140,21 @@ function TrashIcon(props) {
                 onChange={(e) => handleImageChange(e, index)}
                 multiple={true}
               />
-                {images[index] && (
-                    <div className="flex flex-col items-center justify-center gap-6">
-                    <UploadedImage index={index} images={images} />
-                    <Button
-                        onClick={() => handleImageRemove(index)}
-                        type="button"
-                        className="w-full text-black text-black justify-around text-center font-normal"
-                        variant="outline"
-                    >
-                        <TrashIcon className="w-4 h-4" />
-                    </Button>   
-                    </div>
-                )}
-                {!images[index] && !uploadingStates[index] && (
+              {searchParams.has(`uploadedImage${index}`) && (
+                  <div className="flex flex-col items-center justify-center gap-6">
+                      <UploadedImage index={index} />
+                      <Button
+                          onClick={() => handleImageRemove(index)}
+                          type="button"
+                          className="w-full text-black text-black justify-around text-center font-normal"
+                          variant="outline"
+                      >
+                          <TrashIcon className="w-4 h-4" />
+                      </Button>
+                  </div>
+              )}
+
+                {!searchParams.has(`uploadedImage${index}`) && (
                     <Label htmlFor={`image${index}`} className="cursor-pointer flex items-center justify-center">
                     <CiImageOn className="w-8 h-8 mt-3" />
                     </Label>

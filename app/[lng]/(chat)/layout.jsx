@@ -5,7 +5,7 @@ import { getUserByEmail } from "@/prisma/actions"
 import { redirect } from "next/navigation"
 
 
-export default async function DashboardLayout({ children , params: { lng } , searchParams}) {
+export default async function DashboardLayout({ children }) {
   const ChatSideBar = dynamic(() => import('@/components/component/chat-side-bar'), {
     loading: () => <LoadingSideBar />,
   });

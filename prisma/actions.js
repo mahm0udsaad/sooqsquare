@@ -1,104 +1,104 @@
-"use server"
+"use server";
 import { revalidatePath } from "next/cache";
 import prisma from "./client";
 import { getServerSession } from "next-auth";
 import upload from "@/app/[lng]/(traderDashboard)/dashboard/myShop/action";
 
-export async function createAd(data, userId, adStatus) {
-  const {
-    EnginCapacity,
-    paintType,
-    payment,
-    price,
-    name,
-    RegionalSpecifications,
-    adImages,
-    brand,
-    category,
-    model,
-    year,
-    carType,
-    carStatus,
-    transmission,
-    fuelType,
-    meterRange,
-    extraFeatures,
-  } = data;
+// export async function createAd(data, userId, adStatus) {
+//   const {
+//     EnginCapacity,
+//     paintType,
+//     payment,
+//     price,
+//     name,
+//     RegionalSpecifications,
+//     adImages,
+//     brand,
+//     category,
+//     model,
+//     year,
+//     carType,
+//     carStatus,
+//     transmission,
+//     fuelType,
+//     meterRange,
+//     extraFeatures,
+//   } = data;
 
-  try {
-    const user = await prisma.user.findUnique({
-      where: {
-        id: userId,
-      },
-      include: {
-        shop: true,
-      },
-    });
+//   try {
+//     const user = await prisma.user.findUnique({
+//       where: {
+//         id: userId,
+//       },
+//       include: {
+//         shop: true,
+//       },
+//     });
 
-    if (!user) {
-      console.error('User not found');
-      return null;
-    }
+//     if (!user) {
+//       console.error('User not found');
+//       return null;
+//     }
 
-    const newAdData = {
-      EnginCapacity,
-      paintType,
-      payment,
-      price,
-      name,
-      RegionalSpecifications,
-      brand,
-      category,
-      model,
-      year,
-      carType,
-      carStatus,
-      transmission,
-      fuelType,
-      meterRange,
-      extraFeatures,
-      adStatus,
-      Adimages: {
-        create: adImages.map((image) => ({ url: image })),
-      },
-    };
+//     const newAdData = {
+//       EnginCapacity,
+//       paintType,
+//       payment,
+//       price,
+//       name,
+//       RegionalSpecifications,
+//       brand,
+//       category,
+//       model,
+//       year,
+//       carType,
+//       carStatus,
+//       transmission,
+//       fuelType,
+//       meterRange,
+//       extraFeatures,
+//       adStatus,
+//       Adimages: {
+//         create: adImages.map((image) => ({ url: image })),
+//       },
+//     };
 
-    // If the user has a shop, associate the ad with that shop
-    if (user.shop) {
-      newAdData.shop = {
-        connect: {
-          id: user.shop.id,
-        },
-      };
-    } else {
-      // If the user doesn't have a shop, connect the ad to the user's profile
-      newAdData.user = {
-        connect: {
-          id: userId,
-        },
-      };
-    }
+//     // If the user has a shop, associate the ad with that shop
+//     if (user.shop) {
+//       newAdData.shop = {
+//         connect: {
+//           id: user.shop.id,
+//         },
+//       };
+//     } else {
+//       // If the user doesn't have a shop, connect the ad to the user's profile
+//       newAdData.user = {
+//         connect: {
+//           id: userId,
+//         },
+//       };
+//     }
 
-    const newAd = await prisma.ad.create({
-      data: newAdData,
-      include: {
-        user: true,
-        shop: true,
-      },
-    });
-    console.log(newAd);
-    return newAd;
-  } catch (error) {
-    console.error('Error creating ad:', error);
-    return null;
-  } finally {
-    revalidatePath('/myAds');
-    revalidatePath('/shopAds');
-    revalidatePath('/vehicle');
-  }
-}
+//     const newAd = await prisma.ad.create({
+//       data: newAdData,
+//       include: {
+//         user: true,
+//         shop: true,
+//       },
+//     });
+//     console.log(newAd);
+//     return newAd;
+//   } catch (error) {
+//     console.error('Error creating ad:', error);
+//     return null;
+//   } finally {
+//     revalidatePath('/myAds');
+//     revalidatePath('/shopAds');
+//     revalidatePath('/vehicle');
+//   }
+// }
 export async function createAdForUser(data, userId, adStatus) {
-  userId = parseInt(userId)
+  userId = parseInt(userId);
   const {
     description,
     city,
@@ -134,7 +134,7 @@ export async function createAdForUser(data, userId, adStatus) {
     });
 
     if (!user) {
-      console.error('User not found');
+      console.error("User not found");
       return null;
     }
 
@@ -165,11 +165,11 @@ export async function createAdForUser(data, userId, adStatus) {
       },
     };
 
-      newAdData.user = {
-        connect: {
-          id: userId,
-        },
-    }
+    newAdData.user = {
+      connect: {
+        id: userId,
+      },
+    };
 
     const newAd = await prisma.ad.create({
       data: newAdData,
@@ -180,12 +180,63 @@ export async function createAdForUser(data, userId, adStatus) {
     console.log(newAd);
     return newAd;
   } catch (error) {
-    console.error('Error creating ad:', error);
+    console.error("Error creating ad:", error);
   } finally {
-    revalidatePath('/myAds');
+    revalidatePath("/myAds");
+  }
+}
+
+export async function createAd(formData) {
+  try {
+    // Extracting data from formData
+    const data = {};
+    for (const [key, value] of formData) {
+      if (key !== "profile" || key !== "adStatus" || key !== "profile")
+        data[key] = value;
+    }
+
+    // Extracting adImages from formData
+    const adImages = data.adImages.split(",");
+    data.adImages = adImages;
+
+    // Extracting userId and adStatus if they are part of formData
+    let shop = formData.get("shop");
+    let user = formData.get("user");
+    const ad = user
+      ? await createAdForUser(data, user, "active")
+      : await createAdForShop(data, shop, "active");
+    return ad;
+  } catch (error) {
+    console.error("Error creating ad:", error);
+  }
+}
+
+export async function saveAd(formData) {
+  try {
+    // Extracting data from formData
+    const data = {};
+    for (const [key, value] of formData) {
+      if (key !== "profile" || key !== "adStatus" || key !== "profile")
+        data[key] = value;
+    }
+
+    // Extracting adImages from formData
+    const adImages = data.adImages.split(",");
+    data.adImages = adImages;
+
+    // Extracting userId and adStatus if they are part of formData
+    const shop = formData.get("shop");
+    const user = formData.get("user");
+    const ad = user
+      ? await createAdForUser(data, user, "inActive")
+      : await createAdForShop(data, shop, "inActive");
+    return ad;
+  } catch (error) {
+    console.error("Error creating ad:", error);
   }
 }
 export async function createAdForShop(data, shopId, adStatus) {
+  shopId = parseInt(shopId);
   const {
     color,
     description,
@@ -217,13 +268,13 @@ export async function createAdForShop(data, shopId, adStatus) {
     });
 
     if (!shop) {
-      console.error('Shop not found');
+      console.error("Shop not found");
       return null;
     }
 
     const newAdData = {
       color,
-     description,
+      description,
       city,
       country,
       EnginCapacity,
@@ -261,27 +312,27 @@ export async function createAdForShop(data, shopId, adStatus) {
     });
     return newAd;
   } catch (error) {
-    console.error('Error creating ad:', error);
+    console.error("Error creating ad:", error);
     return null;
   } finally {
     revalidatePath(`/dashboard`);
   }
 }
-export  async function createUserIfNotExists(userData) {
+export async function createUserIfNotExists(userData) {
   try {
-      const {email , image , name} = userData.user
-      const newUser = await prisma.User.create({
-        data: {
-          email:email,
-          username:name,
-          image:image,
-        },
-      });
+    const { email, image, name } = userData.user;
+    const newUser = await prisma.User.create({
+      data: {
+        email: email,
+        username: name,
+        image: image,
+      },
+    });
 
-      console.log('New user created:', newUser);
-      return newUser;
+    console.log("New user created:", newUser);
+    return newUser;
   } catch (error) {
-    console.error('Error creating user if Not Exists:', error);
+    console.error("Error creating user if Not Exists:", error);
     return null;
   }
 }
@@ -291,12 +342,12 @@ export async function getUserByUseremail(email) {
       where: {
         email,
       },
-      include:{
-        image:true ,
-        username:true,
-        phoneNumber:true,
-        shop:true 
-      }
+      include: {
+        image: true,
+        username: true,
+        phoneNumber: true,
+        shop: true,
+      },
     });
 
     return user;
@@ -304,7 +355,7 @@ export async function getUserByUseremail(email) {
     throw new Error(`Unable to fetch user: ${error.message}`);
   }
 }
-export async function updateUserPhoneNumber(newPhoneNumber , email) {
+export async function updateUserPhoneNumber(newPhoneNumber, email) {
   try {
     const user = await prisma.User.findUnique({
       where: {
@@ -313,7 +364,7 @@ export async function updateUserPhoneNumber(newPhoneNumber , email) {
     });
 
     if (!user) {
-      throw new Error('User not found');
+      throw new Error("User not found");
     }
     const updatedUser = await prisma.User.update({
       where: {
@@ -323,14 +374,14 @@ export async function updateUserPhoneNumber(newPhoneNumber , email) {
         phoneNumber: newPhoneNumber,
       },
     });
-    console.log("updated Phone Numbem :"+ updatedUser.phoneNumber);
+    console.log("updated Phone Numbem :" + updatedUser.phoneNumber);
     return updatedUser;
   } catch (error) {
     console.error(`Failed to update user's phone number: ${error.message}`);
   }
 }
 export async function getUserByEmail(email) {
-  if(!email) return;
+  if (!email) return;
   try {
     const existingUser = await prisma.user.findUnique({
       where: {
@@ -370,10 +421,10 @@ export async function getUserByEmail(email) {
             adStatus: true,
             views: true,
             clicks: true,
-            favoritedBy:true
+            favoritedBy: true,
           },
           orderBy: {
-            createdAt: 'desc', // Order by createdAt in descending order (newest first)
+            createdAt: "desc", // Order by createdAt in descending order (newest first)
           },
         },
         shop: {
@@ -405,24 +456,25 @@ export async function getUserByEmail(email) {
                 adStatus: true,
                 views: true,
                 clicks: true,
-               favoritedBy:true
+                favoritedBy: true,
               },
               orderBy: {
-                createdAt: 'desc', // Order by createdAt in descending order (newest first)
+                createdAt: "desc", // Order by createdAt in descending order (newest first)
               },
             },
           },
         },
-        favoriteAds:true,
-        subscriptions:true
+        company: true,
+        favoriteAds: true,
+        subscriptions: true,
       },
     });
 
     return existingUser;
   } catch (error) {
     console.log("Error fetching user:", error);
-  }finally{
-    prisma.$disconnect()
+  } finally {
+    prisma.$disconnect();
   }
 }
 export async function getUserShopsByEmail() {
@@ -430,7 +482,7 @@ export async function getUserShopsByEmail() {
     const logedUser = await getServerSession();
 
     if (!logedUser) {
-      console.error('User not logged in.');
+      console.error("User not logged in.");
       return null;
     }
 
@@ -459,7 +511,7 @@ export async function getUserIdByEmail(email) {
     });
 
     if (!user) {
-      console.error('User not found with email:', email);
+      console.error("User not found with email:", email);
       return null;
     }
 
@@ -467,7 +519,7 @@ export async function getUserIdByEmail(email) {
     console.log(`User ID for email ${email}: ${userId}`);
     return userId;
   } catch (error) {
-    console.error('Error getting user ID by email:', error);
+    console.error("Error getting user ID by email:", error);
   } finally {
     // Close the Prisma client connection
     await prisma.$disconnect();
@@ -482,7 +534,7 @@ export async function updateUserCountry(userId, newCountry) {
 
     if (!user) {
       // Handle user not found
-      return { success: false, message: 'User not found.' };
+      return { success: false, message: "User not found." };
     }
 
     // Update the user's country
@@ -491,37 +543,43 @@ export async function updateUserCountry(userId, newCountry) {
       data: { country: newCountry },
     });
     // Return success
-    return { success: true, message: 'User country updated successfully.' };
+    return { success: true, message: "User country updated successfully." };
   } catch (error) {
     // Handle errors
-    console.error('Error updating user country:', error);
-    return { success: false, message: 'Internal server error.' };
+    console.error("Error updating user country:", error);
+    return { success: false, message: "Internal server error." };
   }
 }
 export async function replaceAdImage(adId, existingImageId, newImage) {
   try {
     // Upload the new image
     const formData = new FormData();
-    formData.append('file', newImage);
+    formData.append("file", newImage);
     const result = await upload(formData);
 
     if (!result || !result.adImage) {
-      throw new Error('Failed to upload new image');
+      throw new Error("Failed to upload new image");
     }
 
     const newImageUrl = result.adImage;
 
     // Update the ad with the new image URL
-    const updatedAd = await updateAdImage(adId, { Adimages: { update: [{ where: { url: existingImageUrl }, data: { url: newImageUrl } }] } });
+    const updatedAd = await updateAdImage(adId, {
+      Adimages: {
+        update: [
+          { where: { url: existingImageUrl }, data: { url: newImageUrl } },
+        ],
+      },
+    });
 
     // Handle the updated ad as needed
-    console.log('Updated Ad:', updatedAd);
+    console.log("Updated Ad:", updatedAd);
 
     return newImageUrl;
   } catch (error) {
-    console.error('Error replacing ad image:', error);
+    console.error("Error replacing ad image:", error);
     throw error;
-  }finally{
-    revalidatePath('/dashboard')
+  } finally {
+    revalidatePath("/dashboard");
   }
 }

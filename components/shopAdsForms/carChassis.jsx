@@ -9,37 +9,26 @@ import { useTranslation } from "@/app/i18n/client";
  const CarChassis = ({ lng }) =>{
     const router = useRouter()
     const searchParams = useSearchParams();
-
+    const pathname= usePathname()
     const {setErrorMessage} = useDarkMode()
-    const brand = searchParams.get("brand");
-    const category = searchParams.get("category");
-    const model = searchParams.get("model");
-    const year = searchParams.get("year"); 
-    const carType = searchParams.get("carType");
-    const carStatus = searchParams.get("carStatus");
-    const transmission = searchParams.get("transmission");
-    const fuelType = searchParams.get("fuelType");
-    const paintType = searchParams.get("paintType");
     const { t } = useTranslation(lng , "translation")
-    const extraFeatures = searchParams.get("extraFeatures");
-    const carChassis = searchParams.get("carChassis");
     const [chassisNum , setChassisNum] = useState(null)
+    
     if (
-      !brand ||
-      !category ||
-      !model ||
-      !year ||
-      !carType ||
-      !carStatus ||
-      !transmission ||
-      !fuelType ||
-      !paintType ||
-      !extraFeatures ||
-      carChassis
+      !searchParams.has("brand") ||
+      !searchParams.has("category") ||
+      !searchParams.has("model") ||
+      !searchParams.has("year") ||
+      !searchParams.has("carType") ||
+      !searchParams.has("carStatus") ||
+      !searchParams.has("transmission") ||
+      !searchParams.has("fuelType") ||
+      !searchParams.has("paintType") ||
+      !searchParams.has("extraFeatures") ||
+      searchParams.has("carChassis")
     ) {
       return null; 
     }
-    const pathname= usePathname()
     const createQueryString = (name, value) => {
       const params = new URLSearchParams(searchParams);
       params.set(name, value);

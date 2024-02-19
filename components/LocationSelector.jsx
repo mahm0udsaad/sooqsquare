@@ -7,7 +7,6 @@ import { updateUserCountry } from '@/prisma/actions';
 import { Button } from "@/components/ui/button"
 import { DropdownMenuTrigger, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuSubTrigger, DropdownMenuItem, DropdownMenuSubContent, DropdownMenuSub, DropdownMenuContent, DropdownMenu } from "@/components/ui/dropdown-menu"
 import { countriesWithCities } from "@/data/staticData";
-import "/node_modules/flag-icons/css/flag-icons.min.css";
 
 export default function LocationDetails({lng , locationGiven, user}) {
     const { t } = useTranslation(lng,"view");
@@ -77,7 +76,7 @@ export default function LocationDetails({lng , locationGiven, user}) {
         <div className="w-1/2  flex max-w-md items-center gap-4">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="outline" className="w-60 py-2 px-4">{t("Select a country")}</Button>
+            <Button variant="outline" className="w-60 py-2 px-4 dark:text-black">{t("locationDetails.selectCity")}</Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-56">
             <DropdownMenuLabel>Cities</DropdownMenuLabel>

@@ -24,6 +24,7 @@ model User {
   favoriteAds        FavoriteAd[]
   shop               Shop[]
   subscriptions      Subscription[]
+  company            Company?     
 }
 
 model Subscription {
@@ -33,6 +34,42 @@ model Subscription {
   auth               String
   userId             Int
   user               User         @relation(fields: [userId], references: [id])
+}
+
+model JobPost {
+  id                 Int       @id @default(autoincrement())
+  title              String
+  company            Company   @relation(fields: [companyId], references: [id])
+  companyId          Int
+  description        String
+  city               String?
+  jobCategory        String
+  salary             String?
+  experience         String
+  applicantsCount    Int?
+  postedAt           DateTime @default(now())
+  careerLevel        String?
+  languages          String?
+  nationality        String?
+  benefits           String?
+  skills             String?
+  gender             String?
+  employmentType     String?
+  educationLevel     String?
+  cvRequired         Boolean?
+}
+
+model Company {
+  id                 Int       @id @default(autoincrement())
+  name               String
+  description        String
+  phone              String
+  industry           String
+  city               String
+  logoUrl            String?
+  jobPosts           JobPost[]
+  user               User       @relation(fields: [userId], references: [id]) 
+  userId             Int        @unique
 }
 
 model Shop {

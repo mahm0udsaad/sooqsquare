@@ -1,30 +1,37 @@
-import Link from 'next/link';
-import {  BiSearch } from 'react-icons/bi';
+import Link from "next/link";
+import { BiSearch } from "react-icons/bi";
 import { BsChatLeftDots } from "react-icons/bs";
-import { useTranslation } from '@/app/i18n';
-import { getUserByEmail } from '@/prisma/actions';
-import { getServerSession } from 'next-auth';
-import UserButton from '@/components/component/user-button';
-import PopoverLanguage from '@/components/navBarBtns/PopoverLanguage';
-import dynamic from 'next/dynamic';
-import BtnSkeleton from '@/components/skeletons/btnSkeleton'
-import UserAvatarSkeleton from '@/components/skeletons/userAvatarSkeleton'
+import { useTranslation } from "@/app/i18n";
+import { getUserByEmail } from "@/prisma/actions";
+import { getServerSession } from "next-auth";
+import PopoverLanguage from "@/components/navBarBtns/PopoverLanguage";
+import dynamic from "next/dynamic";
+import BtnSkeleton from "@/components/skeletons/btnSkeleton";
+import UserAvatarSkeleton from "@/components/skeletons/userAvatarSkeleton";
 
-const NavBar = async  ({ lng })=> { 
-
-  const { t } = await useTranslation(lng , "translation")
-  const logedUser = await getServerSession()
-  const user = await getUserByEmail(logedUser?.user.email)
-  const PopoverCountry = dynamic(()=> import('@/components/navBarBtns/PopoverCountry'),{ ssr:false , loading:()=> <BtnSkeleton />})
-  const UserButton = dynamic(()=> import('@/components/component/user-button'),{ ssr:false , loading:()=> <UserAvatarSkeleton />})
-  const Logo = dynamic(()=> import('./logo'),{ ssr:false , loading:()=> <UserAvatarSkeleton />})
+const NavBar = async ({ lng }) => {
+  const { t } = await useTranslation(lng, "translation");
+  const logedUser = await getServerSession();
+  const user = await getUserByEmail(logedUser?.user.email);
+  const PopoverCountry = dynamic(
+    () => import("@/components/navBarBtns/PopoverCountry"),
+    { ssr: false, loading: () => <BtnSkeleton /> }
+  );
+  const UserButton = dynamic(
+    () => import("@/components/component/user-button"),
+    { ssr: false, loading: () => <UserAvatarSkeleton /> }
+  );
+  const Logo = dynamic(() => import("./logo"), {
+    ssr: false,
+    loading: () => <UserAvatarSkeleton />,
+  });
 
   return (
     <>
-    <nav className="hidden z-50 lg:flex fixed py-2 shadow-lg w-full  items-center justify-between px-6  bg-white dark:text-white dark:bg-zinc-950">
-      <Link className="flex items-center" href="#">
-        <Logo lng={lng} />
-      </Link>
+      <nav className="hidden z-50 lg:flex fixed py-2 shadow-lg w-full  items-center justify-between px-6  bg-white dark:text-white dark:bg-zinc-950">
+        <Link className="flex items-center" href="#">
+          <Logo lng={lng} />
+        </Link>
 
         <form className="flex items-center  dark:bg-zinc-900 border dark:border-zinc-800 rounded-xl px-4 w-[30%]">
           <BiSearch className="w-4 h-4 text-gray-700 dark:text-gray-200" />
@@ -36,34 +43,39 @@ const NavBar = async  ({ lng })=> {
             name="search"
           />
         </form>
-        
+
         <div className="flex items-center gap-3 ">
-          <Link href={'/newSell'} className="border  px-8 main-bg py-2 rounded-xl flex items-center">
+          <Link
+            href={"/newSell"}
+            className="border  px-8 main-bg py-2 rounded-xl flex items-center"
+          >
             {t("Sell")}
-            </Link>
+          </Link>
 
           <PopoverLanguage lng={lng} />
           <PopoverCountry lng={lng} />
-         
-          {user ?
-              <>
-                <Link href={'/chat'} className="chat dark:bg-zinc-800 hover:bg-gray-100 hover:dark:text-black hover:dark:bg-white bg-white border dark:border-none p-2 rounded-md">
-                  <BsChatLeftDots className="text-xl"/>
-                </Link>
-            <div className="userAvatar">
-                <UserButton lng={lng} user={user}/>
+
+          {user ? (
+            <>
+              <Link
+                href={"/chat"}
+                className="chat dark:bg-zinc-800 hover:bg-gray-100 hover:dark:text-black hover:dark:bg-white bg-white border dark:border-none p-2 rounded-md"
+              >
+                <BsChatLeftDots className="text-xl" />
+              </Link>
+              <div className="userAvatar">
+                <UserButton lng={lng} user={user} />
               </div>
-              </>
-               :
-               <Link className='py-2 px-4 primary-bg rounded-md' href={'/sign-in'}>
-                Sign In
-               </Link>
-            }
-         
+            </>
+          ) : (
+            <Link className="py-2 px-4 primary-bg rounded-md" href={"/sign-in"}>
+              Sign In
+            </Link>
+          )}
         </div>
-    </nav>
-    {/* Mobile NavBar */}
-    {/* <nav className="flex flex-col lg:hidden z-50 fixed py-2 shadow-lg w-full  px-6  bg-white dark:bg-zinc-950">
+      </nav>
+      {/* Mobile NavBar */}
+      {/* <nav className="flex flex-col lg:hidden z-50 fixed py-2 shadow-lg w-full  px-6  bg-white dark:bg-zinc-950">
       <div className="flex  items-center justify-between">
       <Link className="flex items-center" href="#">
         <Logo lng={lng} darkMode={darkMode}/>
@@ -141,6 +153,6 @@ const NavBar = async  ({ lng })=> {
         </div>
     </nav> */}
     </>
-  )
-}
-export default  NavBar
+  );
+};
+export default NavBar;

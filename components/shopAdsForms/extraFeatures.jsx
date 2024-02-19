@@ -44,9 +44,20 @@ export const ExtraFeatures = ({ lng }) =>{
         router.push(pathname + '?' + updatedParams);
       };
     if (!brand || !category || !model || !year || !carType || !carStatus || !transmission || !fuelType || !paintType || extraFeatures ) return null;
+   
     const handleSubmit = () => {
-        createQueryString('extraFeatures',extraFeature.length)
+      try {
+        extraFeature.forEach((feature, index) => {
+          createQueryString(`extraFeature${index}`, feature);
+        });
+        createQueryString(`extraFeatures`, extraFeature.length);
+    
+      } catch (error) {
+        console.error('Error submitting form:', error);
+        // Optionally handle error cases
+      }
     };
+
     return (
       <div className='w-4/5 mx-auto'>
       <h1 className="text-center text-xl font-semibold py-6">
@@ -58,7 +69,7 @@ export const ExtraFeatures = ({ lng }) =>{
           key={index}
           value={key}
           aria-label={`Toggle ${key}`}
-          className={`border border-sky-800 transition rounded-full ${extraFeature?.includes(key) ? 'bg-sky-600 text-white' : 'bg-[#0284c71c] text-[#005795]'}`}
+          className={`border border-sky-800 transition rounded-full ${extraFeature?.includes(key) ? 'bg-sky-600 text-white ' : 'bg-[#0284c71c] dark:border-[#84d2ff] dark:text-[#84d2ff] text-[#005795]'}`}
           onClick={() => handleSelect(key)}
         >
             <p className="p-3 px-2 ">

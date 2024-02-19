@@ -11,8 +11,8 @@ const HomePage= async ({ user ,lng })=> {
 
   return (
     <>
-        <main className='mx-auto w-[95%]'>
-        <div className="grid lg:grid-cols-4  grid-cols-2 lg:gap-6 gap-3 w-11/12 mx-auto py-8">
+        <section  className='mx-auto w-[95%]'>
+        <div className="grid lg:grid-cols-4  grid-cols-2 lg:gap-6 gap-3 w-[96%] mx-auto py-8">
         {categoriesData.map((item, i) => (
         <CategroyLink key={i} icon={item.icon} link={item.link} text={t(`categories.${item.text}`)} />
         ))}
@@ -100,7 +100,7 @@ const HomePage= async ({ user ,lng })=> {
             </div>
             </div>
             </div>
-        </main>
+        </section>
     </>
   )
 }
