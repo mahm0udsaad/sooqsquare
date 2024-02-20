@@ -9,6 +9,7 @@ export default async function Jobs({ params: { lng } }) {
   const logedUser = await getServerSession();
   const user = await getUserByEmail(logedUser?.user.email);
   const jobs = await getAllJobPosts();
+
   return (
     <>
       <MainSection />

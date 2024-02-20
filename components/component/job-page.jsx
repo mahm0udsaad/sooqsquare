@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import { timeSince } from "@/helper/timeConversion";
 
 export default function JobPage({ job, user }) {

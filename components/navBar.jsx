@@ -13,6 +13,7 @@ const NavBar = async ({ lng }) => {
   const { t } = await useTranslation(lng, "translation");
   const logedUser = await getServerSession();
   const user = await getUserByEmail(logedUser?.user.email);
+
   const PopoverCountry = dynamic(
     () => import("@/components/navBarBtns/PopoverCountry"),
     { ssr: false, loading: () => <BtnSkeleton /> }
