@@ -7,15 +7,17 @@ import { usePathname } from "next/navigation";
 import { getLocation } from "@/helper/location";
 import { useEffect } from "react";
 import { updateUserCountry } from "@/prisma/actions";
+import { useDarkMode } from "@/context/darkModeContext";
 
 export default function Footer({ user }) {
   const pathname = usePathname();
-
+  const { setSelectedCountry } = useDarkMode();
   useEffect(() => {
     const fetchLocation = async () => {
       try {
         const location = await getLocation();
-        await updateUserCountry(user?.id, location.countryName);
+        setSelectedCountry({ country: location.countryName });
+        await updateUserCountry(user?.id, location?.countryName);
       } catch (error) {
         console.error("Error getting location:", error.message);
       }
