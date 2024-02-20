@@ -54,7 +54,7 @@ const NavBar = async ({ lng }) => {
           </Link>
 
           <PopoverLanguage lng={lng} />
-          <PopoverCountry lng={lng} />
+          <PopoverCountry user={user} lng={lng} />
 
           {user ? (
             <>

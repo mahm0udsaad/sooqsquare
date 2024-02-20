@@ -20,8 +20,9 @@ import { countriesWithCities } from "@/data/staticData";
 import { Button } from "../ui/button";
 import "/node_modules/flag-icons/css/flag-icons.min.css";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { updateUserCountry } from "@/prisma/actions";
 
-const PopoverCountry = ({ lng }) => {
+const PopoverCountry = ({ lng, user }) => {
   const { t } = useTranslation(lng, "view");
   const pathname = usePathname();
   const { selectedCountry, setSelectedCountry } = useDarkMode();
@@ -32,6 +33,20 @@ const PopoverCountry = ({ lng }) => {
     // Store selectedCountry in localStorage
     localStorage.setItem("selectedCountry", JSON.stringify({ country, code }));
   };
+  useEffect(() => {
+    const fetchLocation = async () => {
+      try {
+        const location = await getLocation();
+        await updateUserCountry(user?.id, location.countryName);
+      } catch (error) {
+        console.error("Error getting location:", error.message);
+      }
+    };
+
+    if (!user?.country) {
+      fetchLocation();
+    }
+  }, []);
 
   const router = useRouter();
   const searchParams = useSearchParams();
