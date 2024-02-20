@@ -149,3 +149,22 @@ export async function updateCompany(formData) {
     throw new Error(`Failed to update company: ${error}`);
   }
 }
+export async function getJobPostById(id) {
+  try {
+    id = parseInt(id);
+    const jobPost = await prisma.jobPost.findUnique({
+      where: {
+        id: id,
+      },
+      include: {
+        company: true,
+      },
+    });
+    if (!jobPost) {
+      throw new Error(`Job post with ID ${id} not found.`);
+    }
+    return jobPost;
+  } catch (error) {
+    throw new Error(`Failed to fetch job post by ID ${id}: ${error}`);
+  }
+}

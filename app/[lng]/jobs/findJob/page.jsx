@@ -2,15 +2,8 @@ import FilterSideBar from "./components/filter-bar";
 import { getServerSession } from "next-auth";
 import { getUserByEmail } from "@/prisma/actions";
 import MainSection from "./components/main-section";
-import { getAllJobPosts, getUserCompany } from "../action";
-import {
-  CardTitle,
-  CardDescription,
-  CardContent,
-  CardFooter,
-  Card,
-} from "@/components/ui/card";
-import Link from "next/link";
+import { getAllJobPosts } from "../action";
+import JobCard from "../findJob/components/job-post-card";
 
 export default async function Jobs({ params: { lng } }) {
   const logedUser = await getServerSession();
@@ -23,38 +16,7 @@ export default async function Jobs({ params: { lng } }) {
         <FilterSideBar lng={lng} user={user} />
         <div className="grid gap-4 grid-cols-2 max-w-[73%] max-h-screen chats overflow-y-scroll overflow-x-hidden">
           {jobs.map((job) => (
-            <Card key={job.id} className="min-h-[12rem] block">
-              <CardContent className="grid gap-2">
-                <p className="text-sm font-medium tracking-wide uppercase text-gray-500">
-                  {job.jobCategory}
-                </p>
-                <CardTitle className="text-2xl font-bold text-[#fe2635]">
-                  {job.title}
-                </CardTitle>
-                <CardDescription className="cardDescription">
-                  {job.description}
-                </CardDescription>
-                <div className="flex items-center gap-2">
-                  <MapPinIcon className="w-4 h-4 flex-shrink-0" />
-                  <p className="text-sm text-gray-500">{job.city}</p>
-                </div>
-                <div className="flex items-center gap-2">
-                  <DollarSignIcon className="w-4 h-4 flex-shrink-0" />
-                  <p className="text-sm text-gray-500 ">
-                    {job.salary?.split("-")[0]} - {job.salary?.split("-")[1]}
-                  </p>
-                </div>
-              </CardContent>
-              <CardFooter className="border-t">
-                <Link
-                  className="inline-flex items-center underline hover:no-underline"
-                  href="#"
-                >
-                  View Details
-                  <ChevronRightIcon className="ml-1 h-3 w-3" />
-                </Link>
-              </CardFooter>
-            </Card>
+            <JobCard key={job.id} job={job} />
           ))}
         </div>
       </div>

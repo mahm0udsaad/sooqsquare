@@ -1,49 +1,202 @@
-import Link from "next/link"
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { timeSince } from "@/helper/timeConversion";
 
-export default function Component() {
+export default function JobPage({ job, user }) {
   return (
-    <section className="w-full py-6 md:py-12 lg:py-16">
-      <div className="container grid gap-6 px-4 md:px-6 lg:grid-cols-2 xl:gap-12">
-        <div className="flex flex-col justify-center space-y-4">
-          <div className="space-y-2">
-            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">Senior Software Engineer</h2>
-            <p className="text-gray-500 dark:text-gray-400">at</p>
-            <h3 className="inline-block text-2xl font-bold tracking-tighter text-gray-900 dark:text-gray-50">TechCo</h3>
-          </div>
-          <div className="grid gap-4 sm:gap-2">
+    <main className="flex-1 max-w-4/5">
+      <div className="container py-8 px-4 md:py-14 md:px-6">
+        <div className="space-y-4 lg:space-y-6">
+          <div className="flex items-center space-x-4">
             <div className="space-y-2">
-              <h4 className="inline-block text-xl font-semibold tracking-tight">Responsibilities</h4>
-              <p className="text-gray-500 dark:text-gray-400">
-                Build scalable frontend architecture to support the growth of the platform. Collaborate with
-                cross-functional teams to translate business requirements into elegant technical solutions. Implement
-                best practices for performance and accessibility.
-              </p>
-            </div>
-            <div className="space-y-2">
-              <h4 className="inline-block text-xl font-semibold tracking-tight">Requirements</h4>
-              <p className="text-gray-500 dark:text-gray-400">
-                5+ years of experience in frontend development. Expertise in modern web technologies such as React and
-                Next.js. Strong understanding of UI/UX principles. Experience with testing frameworks like Jest and
-                React Testing Library is a plus.
-              </p>
+              <h1 className="text-3xl font-bold tracking-tighter lg:text-4xl">
+                {job.title}
+              </h1>
+              <div className="flex items-center space-x-2">
+                <img
+                  alt="Company logo"
+                  className="rounded-full object-cover"
+                  height="40"
+                  src={job.company.logoUrl}
+                  style={{
+                    aspectRatio: "40/40",
+                    objectFit: "cover",
+                  }}
+                  width="40"
+                />
+                <span className="text-base font-bold">{job.company.name}</span>
+              </div>
             </div>
           </div>
-          <Link
-            className="inline-flex h-10 items-center justify-center rounded-md border border-gray-200 border-gray-200 bg-white px-8 text-sm font-medium shadow-sm transition-colors hover:bg-gray-100 hover:text-gray-900 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-950 disabled:pointer-events-none disabled:opacity-50 dark:border-gray-800 dark:border-gray-800 dark:bg-gray-950 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus-visible:ring-gray-300"
-            href="#"
-          >
-            Apply Now
-          </Link>
+          <div className="space-y-4 text-sm leading-loose lg:space-y-6 lg:text-base xl:text-lg">
+            <p className="text-gray-500 dark:text-gray-400">
+              {job.description}
+            </p>
+            <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
+              <div>
+                <h3 className="font-semibold">Location</h3>
+                <p>{job.company.city}</p>
+              </div>
+              <div>
+                <h3 className="font-semibold">Category</h3>
+                <p>{job.jobCategory}</p>
+              </div>
+              <div>
+                <h3 className="font-semibold">Salary</h3>
+                <p>{job.salary}</p>
+              </div>
+              <div>
+                <h3 className="font-semibold">Experience</h3>
+                <p>{job.experience}</p>
+              </div>
+              <div className="col-span-2">
+                <h3 className="font-semibold">Posted</h3>
+                <p>{timeSince(job.postedAt)}</p>
+              </div>
+              <div className="col-span-2">
+                <h3 className="font-semibold">Career Level</h3>
+                <p>{job.educationLevel}</p>
+              </div>
+            </div>
+            <div className="flex items-center gap-2">
+              <Badge>UX Design</Badge>
+              <Badge>UI Design</Badge>
+              <Badge>Interaction Design</Badge>
+            </div>
+            <div className="flex items-center gap-2">
+              <HeartIcon className="w-4 h-4" />
+              <span className="font-semibold">Benefits</span>
+            </div>
+            <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
+              <div>
+                <h3 className="font-semibold">Skills</h3>
+                <ul className="list-disc list-inside">
+                  <li>Wireframing</li>
+                  <li>Prototyping</li>
+                  <li>Usability Testing</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="font-semibold">Gender</h3>
+                <p>{job.gender}</p>
+              </div>
+              <div>
+                <h3 className="font-semibold">Employment Type</h3>
+                <p>{job.employmentType}</p>
+              </div>
+              <div>
+                <h3 className="font-semibold">Education</h3>
+                <p>{job.educationLevel}</p>
+              </div>
+            </div>
+            <div className="flex items-center gap-2">
+              <FileIcon className="w-4 h-4" />
+              <span className="font-semibold">CV Required</span>
+            </div>
+          </div>
         </div>
-        <img
-          alt="Image"
-          className="aspect-video overflow-hidden rounded-xl object-cover object-center"
-          height="450"
-          src="/placeholder.svg"
-          width="800"
-        />
       </div>
-    </section>
-  )
+    </main>
+  );
 }
 
+function FileIcon(props) {
+  return (
+    <svg
+      {...props}
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z" />
+      <polyline points="14 2 14 8 20 8" />
+    </svg>
+  );
+}
+
+function FlagIcon(props) {
+  return (
+    <svg
+      {...props}
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z" />
+      <line x1="4" x2="4" y1="22" y2="15" />
+    </svg>
+  );
+}
+
+function HeartIcon(props) {
+  return (
+    <svg
+      {...props}
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
+    </svg>
+  );
+}
+
+function MenuIcon(props) {
+  return (
+    <svg
+      {...props}
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <line x1="4" x2="20" y1="12" y2="12" />
+      <line x1="4" x2="20" y1="6" y2="6" />
+      <line x1="4" x2="20" y1="18" y2="18" />
+    </svg>
+  );
+}
+
+function UserIcon(props) {
+  return (
+    <svg
+      {...props}
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+      <circle cx="12" cy="7" r="4" />
+    </svg>
+  );
+}

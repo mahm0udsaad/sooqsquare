@@ -101,7 +101,7 @@ body::-webkit-scrollbar-thumb {
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
-  -webkit-line-clamp: 2; /* Number of lines to show */
+  -webkit-line-clamp: 1; /* Number of lines to show */
   max-height: 3rem; /* Adjust based on font size and line height */
 }
 
