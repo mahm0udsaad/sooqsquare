@@ -1,8 +1,10 @@
 import { timeSince } from "@/helper/timeConversion";
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
+import { useTranslation } from "@/app/i18n/";
 
-export default function JobPage({ job }) {
+export default async function JobPage({ job, lng }) {
+  const { t } = await useTranslation(lng, "jobs");
   return (
     <div className="grid gap-4 px-4 lg:gap-6 xl:gap-8 bg-white pt-4">
       <div className="p-4 rounded-xl shadow-lg space-y-4  bg-gray-100 dark:bg-gray-800">
@@ -25,31 +27,31 @@ export default function JobPage({ job }) {
             width="80"
           />
           <div className="grid grid-cols-3 gap-4 mt-4">
-            <div className="flex items-center space-x-2">
+            <div className="flex items-center gap-4">
               <MapPinIcon className="w-4 h-4 text-gray-500 dark:text-gray-400" />
               <span className="text-sm text-gray-500 dark:text-gray-400">
                 {job.company.city}
               </span>
             </div>
-            <div className="flex items-center space-x-2">
+            <div className="flex items-center gap-4">
               <DollarSignIcon className="w-4 h-4 text-gray-500 dark:text-gray-400" />
               <span className="text-sm text-gray-500 dark:text-gray-400">
                 {job.salary}
               </span>
             </div>
-            <div className="flex items-center space-x-2">
+            <div className="flex items-center gap-4">
               <BriefcaseIcon className="w-4 h-4 text-gray-500 dark:text-gray-400" />
               <span className="text-sm text-gray-500 dark:text-gray-400">
                 {job.educationLevel}
               </span>
             </div>
-            <div className="flex items-center space-x-2">
+            <div className="flex items-center gap-4">
               <UsersIcon className="w-4 h-4 text-gray-500 dark:text-gray-400" />
               <span className="text-sm text-gray-500 dark:text-gray-400">
                 12 applicants
               </span>
             </div>
-            <div className="flex items-center space-x-2">
+            <div className="flex items-center gap-4">
               <CalendarIcon className="w-4 h-4 text-gray-500 dark:text-gray-400" />
               <span className="text-sm text-gray-500 dark:text-gray-400">
                 {timeSince(job.postedAt)}
@@ -68,20 +70,20 @@ export default function JobPage({ job }) {
               className="inline-flex h-10 items-center justify-center rounded-md main-bg px-8 text-sm font-medium text-gray-50 shadow transition-colors hover:bg-gray-900/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-950 disabled:pointer-events-none disabled:opacity-50 dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-50/90 dark:focus-visible:ring-gray-300"
               href="#"
             >
-              Apply Now
+              {t("apply_now")}
             </Link>
           </div>
         </div>
       </div>
       <div className="p-4 space-y-4">
         <div className="grid gap-1.5">
-          <h3 className="text-lg font-semibold">Description</h3>
-          <p className="text-sm text-gray-500 leading-relaxed md:text-base/relaxed dark:text-gray-400 md:leading-relaxed">
+          <h3 className="text-lg font-semibold">{t("description_lable")}</h3>
+          <p className="text-sm text-gray-500 text-justify leading-relaxed md:text-base/relaxed dark:text-gray-400 md:leading-relaxed">
             {job.description}
           </p>
         </div>
         <div className="grid gap-1.5">
-          <h3 className="text-lg font-semibold">Details</h3>
+          <h3 className="text-lg font-semibold">{t("details")}</h3>
           <div className="grid gap-1.5 md:grid-cols-2">
             <div className="flex items-center gap-2">
               <LocateIcon className="w-4 h-4 flex-shrink-0" />
@@ -102,32 +104,20 @@ export default function JobPage({ job }) {
           </div>
         </div>
         <div className="grid gap-1.5">
-          <h3 className="text-lg font-semibold">Requirements</h3>
+          <h3 className="text-lg font-semibold">{t("requirements")}</h3>
           <ul className="list-disc list-inside space-y-1.5">
-            <li className="text-sm">
-              3+ years of software engineering experience
-            </li>
-            <li className="text-sm">
-              Proficiency in one or more programming languages (e.g., Java,
-              Python, JavaScript)
-            </li>
-            <li className="text-sm">
-              Experience with cloud platforms (e.g., AWS, Azure, GCP)
-            </li>
-            <li className="text-sm">
-              Strong communication and collaboration skills
-            </li>
-            <li className="text-sm">
-              Bachelor’s or Master’s degree in Computer Science or a related
-              field
-            </li>
+            {job.requirements?.split(",").map((req, i) => (
+              <li key={i} className="text-sm">
+                {req}
+              </li>
+            ))}
           </ul>
         </div>
         <div className="grid  gap-1.5">
-          <h3 className="text-lg font-semibold">Additional Information</h3>
+          <h3 className="text-lg font-semibold">{t("additional_info")}</h3>
           <div className="grid grid-cols-2 gap-4">
             <div className="flex items-center gap-2">
-              <span className="text-sm font-semibold">Languages:</span>
+              <span className="text-sm font-semibold">{t("languages")}:</span>
               <div className="flex gap-1.5">
                 {job.languages.split(",").map((lang) => (
                   <Badge
@@ -140,7 +130,7 @@ export default function JobPage({ job }) {
               </div>
             </div>
             <div className="flex items-center gap-2">
-              <span className="text-sm font-semibold">Benefits:</span>
+              <span className="text-sm font-semibold">{t("benefits")}:</span>
               <div className="flex gap-1.5">
                 {job.benefits.split(",").map((benefit) => (
                   <Badge
@@ -153,7 +143,7 @@ export default function JobPage({ job }) {
               </div>
             </div>
             <div className="flex items-center gap-2">
-              <span className="text-sm font-semibold">Nationality:</span>
+              <span className="text-sm font-semibold">{t("nationality")}:</span>
               <FlagIcon className="w-4 h-4" />
               {job.nationality}
             </div>
@@ -162,9 +152,9 @@ export default function JobPage({ job }) {
       </div>
       <div className="grid gap-4 px-4 py-2 text-sm lg:gap-6 lg:grid-cols-3 lg:py-4">
         <div className="space-y-1.5">
-          <h3 className="text-base font-medium">About the company</h3>
+          <h3 className="text-base font-medium">{t("about_company")}</h3>
           <p className="text-sm text-gray-500 leading-relaxed md:text-base/relaxed dark:text-gray-400 md:leading-relaxed">
-            {job.company.description}
+            {job.company?.description}
           </p>
         </div>
       </div>

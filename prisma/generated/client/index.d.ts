@@ -3921,6 +3921,7 @@ export namespace Prisma {
     employmentType: string | null
     educationLevel: string | null
     cvRequired: boolean | null
+    requirements: string | null
   }
 
   export type JobPostMaxAggregateOutputType = {
@@ -3943,6 +3944,7 @@ export namespace Prisma {
     employmentType: string | null
     educationLevel: string | null
     cvRequired: boolean | null
+    requirements: string | null
   }
 
   export type JobPostCountAggregateOutputType = {
@@ -3965,6 +3967,7 @@ export namespace Prisma {
     employmentType: number
     educationLevel: number
     cvRequired: number
+    requirements: number
     _all: number
   }
 
@@ -4001,6 +4004,7 @@ export namespace Prisma {
     employmentType?: true
     educationLevel?: true
     cvRequired?: true
+    requirements?: true
   }
 
   export type JobPostMaxAggregateInputType = {
@@ -4023,6 +4027,7 @@ export namespace Prisma {
     employmentType?: true
     educationLevel?: true
     cvRequired?: true
+    requirements?: true
   }
 
   export type JobPostCountAggregateInputType = {
@@ -4045,6 +4050,7 @@ export namespace Prisma {
     employmentType?: true
     educationLevel?: true
     cvRequired?: true
+    requirements?: true
     _all?: true
   }
 
@@ -4154,6 +4160,7 @@ export namespace Prisma {
     employmentType: string | null
     educationLevel: string | null
     cvRequired: boolean | null
+    requirements: string | null
     _count: JobPostCountAggregateOutputType | null
     _avg: JobPostAvgAggregateOutputType | null
     _sum: JobPostSumAggregateOutputType | null
@@ -4195,6 +4202,7 @@ export namespace Prisma {
     employmentType?: boolean
     educationLevel?: boolean
     cvRequired?: boolean
+    requirements?: boolean
     company?: boolean | CompanyDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["jobPost"]>
 
@@ -4218,6 +4226,7 @@ export namespace Prisma {
     employmentType?: boolean
     educationLevel?: boolean
     cvRequired?: boolean
+    requirements?: boolean
   }
 
   export type JobPostInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4250,6 +4259,7 @@ export namespace Prisma {
       employmentType: string | null
       educationLevel: string | null
       cvRequired: boolean | null
+      requirements: string | null
     }, ExtArgs["result"]["jobPost"]>
     composites: {}
   }
@@ -4648,6 +4658,7 @@ export namespace Prisma {
     readonly employmentType: FieldRef<"JobPost", 'String'>
     readonly educationLevel: FieldRef<"JobPost", 'String'>
     readonly cvRequired: FieldRef<"JobPost", 'Boolean'>
+    readonly requirements: FieldRef<"JobPost", 'String'>
   }
     
 
@@ -12104,7 +12115,8 @@ export namespace Prisma {
     gender: 'gender',
     employmentType: 'employmentType',
     educationLevel: 'educationLevel',
-    cvRequired: 'cvRequired'
+    cvRequired: 'cvRequired',
+    requirements: 'requirements'
   };
 
   export type JobPostScalarFieldEnum = (typeof JobPostScalarFieldEnum)[keyof typeof JobPostScalarFieldEnum]
@@ -12446,6 +12458,7 @@ export namespace Prisma {
     employmentType?: StringNullableFilter<"JobPost"> | string | null
     educationLevel?: StringNullableFilter<"JobPost"> | string | null
     cvRequired?: BoolNullableFilter<"JobPost"> | boolean | null
+    requirements?: StringNullableFilter<"JobPost"> | string | null
     company?: XOR<CompanyRelationFilter, CompanyWhereInput>
   }
 
@@ -12469,6 +12482,7 @@ export namespace Prisma {
     employmentType?: SortOrderInput | SortOrder
     educationLevel?: SortOrderInput | SortOrder
     cvRequired?: SortOrderInput | SortOrder
+    requirements?: SortOrderInput | SortOrder
     company?: CompanyOrderByWithRelationInput
   }
 
@@ -12495,6 +12509,7 @@ export namespace Prisma {
     employmentType?: StringNullableFilter<"JobPost"> | string | null
     educationLevel?: StringNullableFilter<"JobPost"> | string | null
     cvRequired?: BoolNullableFilter<"JobPost"> | boolean | null
+    requirements?: StringNullableFilter<"JobPost"> | string | null
     company?: XOR<CompanyRelationFilter, CompanyWhereInput>
   }, "id">
 
@@ -12518,6 +12533,7 @@ export namespace Prisma {
     employmentType?: SortOrderInput | SortOrder
     educationLevel?: SortOrderInput | SortOrder
     cvRequired?: SortOrderInput | SortOrder
+    requirements?: SortOrderInput | SortOrder
     _count?: JobPostCountOrderByAggregateInput
     _avg?: JobPostAvgOrderByAggregateInput
     _max?: JobPostMaxOrderByAggregateInput
@@ -12548,6 +12564,7 @@ export namespace Prisma {
     employmentType?: StringNullableWithAggregatesFilter<"JobPost"> | string | null
     educationLevel?: StringNullableWithAggregatesFilter<"JobPost"> | string | null
     cvRequired?: BoolNullableWithAggregatesFilter<"JobPost"> | boolean | null
+    requirements?: StringNullableWithAggregatesFilter<"JobPost"> | string | null
   }
 
   export type CompanyWhereInput = {
@@ -13287,6 +13304,7 @@ export namespace Prisma {
     employmentType?: string | null
     educationLevel?: string | null
     cvRequired?: boolean | null
+    requirements?: string | null
     company: CompanyCreateNestedOneWithoutJobPostsInput
   }
 
@@ -13310,6 +13328,7 @@ export namespace Prisma {
     employmentType?: string | null
     educationLevel?: string | null
     cvRequired?: boolean | null
+    requirements?: string | null
   }
 
   export type JobPostUpdateInput = {
@@ -13330,6 +13349,7 @@ export namespace Prisma {
     employmentType?: NullableStringFieldUpdateOperationsInput | string | null
     educationLevel?: NullableStringFieldUpdateOperationsInput | string | null
     cvRequired?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    requirements?: NullableStringFieldUpdateOperationsInput | string | null
     company?: CompanyUpdateOneRequiredWithoutJobPostsNestedInput
   }
 
@@ -13353,6 +13373,7 @@ export namespace Prisma {
     employmentType?: NullableStringFieldUpdateOperationsInput | string | null
     educationLevel?: NullableStringFieldUpdateOperationsInput | string | null
     cvRequired?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    requirements?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type JobPostUpdateManyMutationInput = {
@@ -13373,6 +13394,7 @@ export namespace Prisma {
     employmentType?: NullableStringFieldUpdateOperationsInput | string | null
     educationLevel?: NullableStringFieldUpdateOperationsInput | string | null
     cvRequired?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    requirements?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type JobPostUncheckedUpdateManyInput = {
@@ -13395,6 +13417,7 @@ export namespace Prisma {
     employmentType?: NullableStringFieldUpdateOperationsInput | string | null
     educationLevel?: NullableStringFieldUpdateOperationsInput | string | null
     cvRequired?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    requirements?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type CompanyCreateInput = {
@@ -14221,6 +14244,7 @@ export namespace Prisma {
     employmentType?: SortOrder
     educationLevel?: SortOrder
     cvRequired?: SortOrder
+    requirements?: SortOrder
   }
 
   export type JobPostAvgOrderByAggregateInput = {
@@ -14249,6 +14273,7 @@ export namespace Prisma {
     employmentType?: SortOrder
     educationLevel?: SortOrder
     cvRequired?: SortOrder
+    requirements?: SortOrder
   }
 
   export type JobPostMinOrderByAggregateInput = {
@@ -14271,6 +14296,7 @@ export namespace Prisma {
     employmentType?: SortOrder
     educationLevel?: SortOrder
     cvRequired?: SortOrder
+    requirements?: SortOrder
   }
 
   export type JobPostSumOrderByAggregateInput = {
@@ -16226,6 +16252,7 @@ export namespace Prisma {
     employmentType?: string | null
     educationLevel?: string | null
     cvRequired?: boolean | null
+    requirements?: string | null
   }
 
   export type JobPostUncheckedCreateWithoutCompanyInput = {
@@ -16247,6 +16274,7 @@ export namespace Prisma {
     employmentType?: string | null
     educationLevel?: string | null
     cvRequired?: boolean | null
+    requirements?: string | null
   }
 
   export type JobPostCreateOrConnectWithoutCompanyInput = {
@@ -16331,6 +16359,7 @@ export namespace Prisma {
     employmentType?: StringNullableFilter<"JobPost"> | string | null
     educationLevel?: StringNullableFilter<"JobPost"> | string | null
     cvRequired?: BoolNullableFilter<"JobPost"> | boolean | null
+    requirements?: StringNullableFilter<"JobPost"> | string | null
   }
 
   export type UserUpsertWithoutCompanyInput = {
@@ -17722,6 +17751,7 @@ export namespace Prisma {
     employmentType?: NullableStringFieldUpdateOperationsInput | string | null
     educationLevel?: NullableStringFieldUpdateOperationsInput | string | null
     cvRequired?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    requirements?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type JobPostUncheckedUpdateWithoutCompanyInput = {
@@ -17743,6 +17773,7 @@ export namespace Prisma {
     employmentType?: NullableStringFieldUpdateOperationsInput | string | null
     educationLevel?: NullableStringFieldUpdateOperationsInput | string | null
     cvRequired?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    requirements?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type JobPostUncheckedUpdateManyWithoutCompanyInput = {
@@ -17764,6 +17795,7 @@ export namespace Prisma {
     employmentType?: NullableStringFieldUpdateOperationsInput | string | null
     educationLevel?: NullableStringFieldUpdateOperationsInput | string | null
     cvRequired?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    requirements?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type AdUpdateWithoutShopInput = {

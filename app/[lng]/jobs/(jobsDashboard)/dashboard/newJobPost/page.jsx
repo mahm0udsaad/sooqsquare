@@ -13,7 +13,7 @@ import ExperienceAndEducationSelection from "../components/min-experince_educati
 import ToggleGroups from "../components/toggles";
 import { SubmitBtn } from "../components/btns/submit";
 import Link from "next/link";
-
+import RequirementsForm from "../components/req-form";
 export default async function JobPostForm({ params: { lng }, searchParams }) {
   const { t } = await useTranslation(lng, "jobs");
 
@@ -89,7 +89,10 @@ export default async function JobPostForm({ params: { lng }, searchParams }) {
           {searchParams.educationLevel && !searchParams.salary && (
             <SalarySelection lng={lng} />
           )}
-          {searchParams.salary && !searchParams.benefits && (
+          {searchParams.salary && !searchParams.requirements && (
+            <RequirementsForm lng={lng} />
+          )}
+          {searchParams.requirements && !searchParams.benefits && (
             <ToggleGroups lng={lng} />
           )}
 

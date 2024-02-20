@@ -84,5 +84,15 @@
   "customer_service_support": "Customer Service / Support",
   "human_resources": "Human Resources",
   "information_technology": "Information Technology",
-  "select_job_category_placeholder": "Select Job Category"
+  "select_job_category_placeholder": "Select Job Category",
+  "employmentType": "Emploiyment Type",
+  "about_company": "About Description",
+  "salary": "Salary",
+  "additional_info": "Additional Information",
+  "educationLevel": "Education Level",
+  "requirements": "Requirements",
+  "languages": "Languages",
+  "details": "Detailes",
+  "apply_now": "Apply Now",
+  "nationality": "Nationality"
 }

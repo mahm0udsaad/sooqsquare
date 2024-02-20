@@ -57,7 +57,9 @@ model JobPost {
   employmentType     String?
   educationLevel     String?
   cvRequired         Boolean?
+  requirements       String?
 }
+
 
 model Company {
   id                 Int       @id @default(autoincrement())

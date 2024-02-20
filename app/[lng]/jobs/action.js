@@ -92,12 +92,14 @@ export async function createJobPost(formData) {
     const jobCategory = formData.get("jobCategory");
     const companyId = formData.get("companyId");
     const salary = formData.get("salary");
+    const requirements = formData.get("requirements");
 
     // Create a new job post using Prisma client
     const newJobPost = await prisma.jobPost.create({
       data: {
         title,
         jobCategory,
+        requirements,
         description,
         gender,
         city,

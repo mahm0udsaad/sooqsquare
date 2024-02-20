@@ -16,7 +16,7 @@ export default async function Vehicle({ params }) {
   const job = await getJobPostById(params.id);
   return (
     <>
-      <JobPage job={job} />
+      <JobPage job={job} lng={params.lng} />
     </>
   );
 }

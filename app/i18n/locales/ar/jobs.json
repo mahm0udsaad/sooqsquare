@@ -44,6 +44,7 @@
   "full_time": "دوام كامل",
   "part_time": "دوام جزئي",
   "contract": "عقد",
+  "details": "التفاصيل",
   "freelance": "عمل حر",
   "entry_level": "مستوى الدخول",
   "mid_level": "مستوى متوسط",
@@ -84,5 +85,15 @@
   "customer_service_support": "خدمة العملاء / الدعم",
   "human_resources": "الموارد البشرية",
   "information_technology": "تقنية المعلومات",
-  "select_job_category_placeholder": "نوع الوظيفه"
+  "select_job_category_placeholder": "نوع الوظيفه",
+  "title": "عنوان الوظيفة",
+  "employmentType": "نوع التوظيف",
+  "about_company": "عن الشركة",
+  "salary": "المرتب",
+  "additional_info": "معلومات اضافيه",
+  "educationLevel": "مستوي التعليم",
+  "requirements": "المتطلبات",
+  "languages": "اللغات",
+  "apply_now": "قدم الان",
+  "nationality": "الجنسيه"
 }

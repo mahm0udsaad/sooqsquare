@@ -2,11 +2,11 @@ import { getServerSession } from "next-auth";
 import { getUserByEmail } from "@/prisma/actions";
 import dynamic from "next/dynamic";
 import { redirect } from "next/navigation";
+import { getUserCompany } from "../action";
 
 const NewCompanyForm = async ({ params: { lng }, searchParams }) => {
   const currentUser = await getServerSession();
   const user = await getUserByEmail(currentUser?.user.email);
-
   const DetailsForm = dynamic(() => import("./components/detailsForm"), {
     ssr: false,
   });

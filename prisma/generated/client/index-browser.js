@@ -141,7 +141,8 @@ exports.Prisma.JobPostScalarFieldEnum = {
   gender: 'gender',
   employmentType: 'employmentType',
   educationLevel: 'educationLevel',
-  cvRequired: 'cvRequired'
+  cvRequired: 'cvRequired',
+  requirements: 'requirements'
 };
 
 exports.Prisma.CompanyScalarFieldEnum = {
