@@ -7,7 +7,7 @@ import { getOrCreateChat } from "./action";
 
 const ChatPage = async ({ searchParams }) => {
   unstable_noStore();
-  const owner = searchParams.owner;
+  const owner = searchParams?.owner;
   const currentUser = await getServerSession();
   const user = await getUserByEmail(currentUser?.user.email);
   const chat = await getOrCreateChat(user.id, owner);
