@@ -9,6 +9,7 @@ import {
 import { useTranslation } from "@/app/i18n/client";
 import { ArabCountriesWithCurrancy } from "@/data/staticData"; // Import the array
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import "/node_modules/flag-icons/css/flag-icons.min.css";
 
 export default function SequentialSelection({ lng }) {
   const { t } = useTranslation(lng, "jobs");
@@ -34,7 +35,6 @@ export default function SequentialSelection({ lng }) {
   };
 
   const genderSelected = searchParams.has("gender");
-  const nationalitySelected = searchParams.has("nationality");
 
   return (
     <div className="w-4/5 mx-auto grid grid-cols-1 lg:grid-cols-2 gap-4">
@@ -50,7 +50,6 @@ export default function SequentialSelection({ lng }) {
         <SelectContent>
           <SelectItem value="male">{t("male")}</SelectItem>
           <SelectItem value="female">{t("female")}</SelectItem>
-          <SelectItem value="other">{t("other")}</SelectItem>
         </SelectContent>
       </Select>
       <Select
@@ -65,6 +64,9 @@ export default function SequentialSelection({ lng }) {
         <SelectContent>
           {ArabCountriesWithCurrancy.map((country, i) => (
             <SelectItem key={i} value={country.name}>
+              {country?.countryCode && (
+                <span className={`mx-2 fi fi-${country?.countryCode}`}></span>
+              )}
               {t(`${country.name}`)}
             </SelectItem>
           ))}

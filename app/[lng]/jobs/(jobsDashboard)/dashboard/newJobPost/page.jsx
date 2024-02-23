@@ -15,6 +15,17 @@ import { SubmitBtn } from "../components/btns/submit";
 import Link from "next/link";
 import RequirementsForm from "../components/req-form";
 import GenerateAIContent from "@/components/component/buttons/generate-ai-content";
+import {
+  DialogTitle,
+  DialogDescription,
+  DialogHeader,
+  DialogFooter,
+  DialogContent,
+  Dialog,
+} from "@/components/ui/dialog";
+import { FaStoreAlt } from "react-icons/fa";
+import { BsThreads } from "react-icons/bs";
+
 export default async function JobPostForm({ params: { lng }, searchParams }) {
   const { t } = await useTranslation(lng, "jobs");
 
@@ -55,7 +66,6 @@ export default async function JobPostForm({ params: { lng }, searchParams }) {
                 name="title"
                 id="title"
                 placeholder={t("title_placeholder")}
-                required
               />
             </div>
             <div className="space-y-2 w-full">
@@ -72,7 +82,7 @@ export default async function JobPostForm({ params: { lng }, searchParams }) {
             <div className="flex justify-start gap-4">
               <Link
                 className="inline-flex items-center justify-center py-2 px-4 main-bg whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50"
-                href={`?jobCategory=${searchParams.jobCategory}&title_desc=true`}
+                href={`?jobCategory=${searchParams.jobCategory}&title_desc=true&description=${searchParams.description}`}
               >
                 {t("next_button_text")}
               </Link>
@@ -108,7 +118,11 @@ export default async function JobPostForm({ params: { lng }, searchParams }) {
                 {Object.entries(searchParams).map(([key, value]) => (
                   <div
                     className={`${
-                      key === "userId" || key === "title_desc" ? "hidden" : ""
+                      key === "userId" ||
+                      key === "title_desc" ||
+                      key === "title"
+                        ? "hidden"
+                        : ""
                     }`}
                     key={key}
                   >
@@ -129,7 +143,36 @@ export default async function JobPostForm({ params: { lng }, searchParams }) {
           <input type="hidden" name={"companyId"} value={company.id} />
         </form>
       )}
-      {searchParams.success && <h1>Ad Created Successfully</h1>}
+      {searchParams.success && (
+        <Dialog open={open}>
+          <DialogContent className="bg-gradient-to-r from-green-400 to-blue-500 shadow-2xl max-w-md mx-auto bg-white dark:bg-gray-800 rounded-lg overflow-hidden">
+            <DialogHeader className=" p-6 sm:p-8">
+              <DialogTitle className="text-white text-2xl font-semibold">
+                Congratulations!
+              </DialogTitle>
+              <DialogDescription className="text-white text-lg mt-2">
+                Your Post is created successfully!
+              </DialogDescription>
+            </DialogHeader>
+            <DialogFooter className="flex justify-center space-x-4 p-6 sm:p-8">
+              <Link
+                className="inline-flex h-10 items-center justify-center rounded-md bg-green-500 px-8 text-sm font-medium text-white shadow transition-colors hover:bg-green-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-700 disabled:pointer-events-none disabled:opacity-50"
+                href={`/jobs/dashboard`}
+              >
+                <BsThreads className="h-5 w-5 mr-2" />
+                My Posts
+              </Link>
+              <Link
+                className="inline-flex h-10 items-center justify-center rounded-md bg-blue-500 px-8 text-sm font-medium text-white shadow transition-colors hover:bg-blue-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-700 disabled:pointer-events-none disabled:opacity-50"
+                href="/jobs/findJob"
+              >
+                <FaStoreAlt className="h-5 w-5 mr-2" />
+                Market
+              </Link>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
+      )}
     </div>
   );
 }
