@@ -36,6 +36,7 @@ model Subscription {
   user               User         @relation(fields: [userId], references: [id])
 }
 
+
 model JobPost {
   id                 Int       @id @default(autoincrement())
   title              String

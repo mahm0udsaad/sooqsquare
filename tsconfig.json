@@ -32,7 +32,8 @@
     "app/[lng]/(traderDashboard)/layout.jsx",
     "app/[lng]/test/page.jsx",
     "app/[lng]/(traderDashboard)/layout.jsx",
-    "app/api/completion/route.js"
+    "app/api/completion/route.js",
+    "utils/cn.js"
   ],
   "exclude": ["node_modules"]
 }

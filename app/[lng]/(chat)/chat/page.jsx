@@ -10,16 +10,16 @@ const ChatPage = async ({ searchParams }) => {
   const owner = searchParams?.owner;
   const currentUser = await getServerSession();
   const user = await getUserByEmail(currentUser?.user.email);
-  const chat = await getOrCreateChat(user.id, owner);
 
-  if (chat) {
-    redirect(`/chat/${chat.id}`);
-  }
   if (!user) {
     redirect("/sign-in");
   }
-
-  return <ChatMainPage />;
+  if (!owner) {
+    return <ChatMainPage />;
+  } else {
+    const chat = await getOrCreateChat(user.id, owner);
+    redirect(`/chat/${chat.id}`);
+  }
 };
 
 export default ChatPage;

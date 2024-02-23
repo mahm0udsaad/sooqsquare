@@ -1,8 +1,6 @@
 import JobPage from "../../../../../components/component/job-page1";
 import { getAllJobPosts, getJobPostById } from "../../action";
 
-export const dynamic = "force-dynamic";
-
 export async function generateStaticParams() {
   const jobs = await getAllJobPosts();
   const jobPosts = [];
@@ -12,7 +10,7 @@ export async function generateStaticParams() {
   return jobPosts;
 }
 
-export default async function Vehicle({ params }) {
+export default async function Vehicle({ params, searchParams }) {
   const job = await getJobPostById(params.id);
   return (
     <>
