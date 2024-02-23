@@ -73,8 +73,7 @@ export default function JopPostsPage({ company, lng }) {
           <h1 className="font-semibold text-lg md:text-2xl">Job Posts</h1>
           <Link
             href={"/jobs/dashboard/newJobPost"}
-            className="main-bg py-2 px-4"
-            size="sm"
+            className="main-bg py-2 font-semibold px-4 rounded-xl"
           >
             New job post
           </Link>
@@ -98,7 +97,12 @@ export default function JopPostsPage({ company, lng }) {
                     </CardDescription>
                   </div>
                 </div>
-                <Button size="sm">View</Button>
+                <Link
+                  href={`/jobs/findJob/${post.id}`}
+                  className="main-bg py-2 font-semibold px-4 rounded-xl"
+                >
+                  View
+                </Link>
               </CardContent>
             </Card>
           ))}
