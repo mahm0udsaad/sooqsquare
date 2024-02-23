@@ -19,7 +19,7 @@ const LogoForm = ({ companyLogo, user }) => {
         console.error("Error getting location:", error.message);
       }
     };
-    if (!user.country) {
+    if (!user?.country) {
       fetchLocation();
     }
   }, [user?.id]);

@@ -527,6 +527,9 @@ export async function getUserIdByEmail(email) {
 }
 export async function updateUserCountry(userId, newCountry) {
   try {
+    if (!parseInt(userId)) {
+      return;
+    }
     // Find the user by ID
     const user = await prisma.user.findUnique({
       where: { id: userId },

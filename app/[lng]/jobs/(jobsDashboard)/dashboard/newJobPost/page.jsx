@@ -14,6 +14,7 @@ import ToggleGroups from "../components/toggles";
 import { SubmitBtn } from "../components/btns/submit";
 import Link from "next/link";
 import RequirementsForm from "../components/req-form";
+import GenerateAIContent from "@/components/component/buttons/generate-ai-content";
 export default async function JobPostForm({ params: { lng }, searchParams }) {
   const { t } = await useTranslation(lng, "jobs");
 
@@ -62,16 +63,21 @@ export default async function JobPostForm({ params: { lng }, searchParams }) {
               <Textarea
                 id="description"
                 name="description"
+                className={"h-60"}
+                value={searchParams?.description || ""}
                 placeholder={t("description_placeholder")}
                 required
               />
             </div>
-            <Link
-              className="inline-flex items-center justify-center py-2 px-4 main-bg whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50"
-              href={`?jobCategory=${searchParams.jobCategory}&title_desc=true`}
-            >
-              {t("next_button_text")}
-            </Link>
+            <div className="flex justify-start gap-4">
+              <Link
+                className="inline-flex items-center justify-center py-2 px-4 main-bg whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50"
+                href={`?jobCategory=${searchParams.jobCategory}&title_desc=true`}
+              >
+                {t("next_button_text")}
+              </Link>
+              <GenerateAIContent company={company} lng={lng} />
+            </div>
           </div>
           {!searchParams.jobCategory && <JobCategorySelect lng={lng} />}
           {searchParams.title_desc && !searchParams.city && (

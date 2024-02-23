@@ -46,7 +46,6 @@ const NameDescriptionSelector = ({ lng }) => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         carIformation: updatedParams.toString(),
-        lng: lng,
       }),
     };
 

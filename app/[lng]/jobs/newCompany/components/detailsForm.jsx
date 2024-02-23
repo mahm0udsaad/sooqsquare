@@ -17,7 +17,7 @@ import LogoForm from "../../(jobsDashboard)/dashboard/components/companyLogo";
 export default async function DetailsForm({ user, lng, searchParams }) {
   const { t } = await useTranslation(lng, "jobs");
   const userCountry = countriesWithCities.find(
-    (country) => country.country === user.country
+    (country) => country.country === user?.country
   );
   const cities = userCountry?.cities;
 

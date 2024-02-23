@@ -12,7 +12,11 @@ export async function POST(req) {
     .getGenerativeModel({ model: "gemini-pro" })
     .generateContent([
       `you are an copy writer write an eye catching and SEO friendley description we excepect a profisional description
-       not only returning the details talk about the ad like you are a profisnal seller about this car in ${lng} language`,
+        return the complete description about the car without missing any part not only returning the details talk about 
+        the ad like you are a profisnal seller about this car in Arabic language
+       if the provided information is about job post so please write a descirption for the job with requiremnts and a basic 
+       explination about the role in for job post information like salary and careerLevel please return only the description
+        about the job i will also send some company information the owner of the job post `,
       carIformation,
     ]);
   // Convert the response into a friendly text-stream

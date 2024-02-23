@@ -173,16 +173,6 @@ export default async function JobPage({ job, lng }) {
             </div>
           </div>
         </div>
-        <div className="grid gap-1.5">
-          <h3 className="text-lg font-semibold">{t("requirements")}</h3>
-          <ul className="list-disc list-inside space-y-1.5">
-            {job.requirements?.split(",").map((req, i) => (
-              <li key={i} className="text-sm">
-                {req}
-              </li>
-            ))}
-          </ul>
-        </div>
         <div className="grid  gap-1.5">
           <h3 className="text-lg font-semibold">{t("additional_info")}</h3>
           <div className="grid grid-cols-2 gap-4">
