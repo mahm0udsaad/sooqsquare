@@ -1,4 +1,3 @@
-"use client";
 import {
   CardTitle,
   CardHeader,
@@ -8,96 +7,55 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
-import { timeSince } from "@/helper/timeConversion";
 import { BsChatLeftDots } from "react-icons/bs";
 import { MdOutlineLocalPhone } from "react-icons/md";
-import {
-  addToFavorites,
-  incrementAdClicks,
-  incrementAdViews,
-} from "@/app/[lng]/vehicle/actions";
-import { ArabCountriesWithCurrancy } from "@/data/staticData";
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { SparklesCore } from "@/components/ui/sparkles";
 
-export default function MarketAdCard({ ad, user }) {
-  let priceCode = ArabCountriesWithCurrancy.find(
-    (country) => country.name === ad.country
-  )?.currencyCode;
-
-  const [hasViewed, setHasViewed] = useState(() => {
-    if (window) {
-      const storedValue = localStorage.getItem(`adViewed_${ad.id}`);
-      return storedValue ? JSON.parse(storedValue) : false;
-    }
-    return null;
-  });
-
-  const adCardRef = useRef(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        // Check if the ad card is in the viewport
-        if (entry.isIntersecting) {
-          // Log "hasViewed" when the ad card is first viewed
-          if (!hasViewed) {
-            setHasViewed(true);
-            incrementAdViews(ad.id);
-            localStorage.setItem(`adViewed_${ad.id}`, JSON.stringify(true));
-          }
-        }
-      },
-      { threshold: 0.5 }
-    );
-
-    if (adCardRef.current) {
-      observer.observe(adCardRef.current);
-    }
-
-    return () => {
-      if (adCardRef.current) {
-        observer.unobserve(adCardRef.current);
-      }
-    };
-  }, [hasViewed, user]);
+export default async function MarketAdCard({ searchParams }) {
+  let colorData;
+  colorData = await sendPostRequest(searchParams.uploadedImage0);
 
   return (
     <Card
-      onClick={() => incrementAdClicks(ad.id)}
-      ref={adCardRef}
-      className="w-full max-w-md flex flex-col"
+      className={`w-full max-w-md flex flex-col `}
+      style={{
+        backgroundColor: colorData.bgColor,
+        color: colorData?.textColor,
+      }}
     >
       <div className="relative">
-        <Link className="hover:opacity-50 relative" href={`/vehicle/${ad.id}`}>
+        <Link className="hover:opacity-50 relative" href={`#`}>
           <Image
             alt="Car Image"
-            className="w-full object-none aspect-square w-full h-[15rem]  rounded-t-lg"
+            className="w-full object-none aspect-square w-full h-[15rem] rounded-t-lg"
             height={200}
             width={300}
-            src={ad.Adimages[0]?.url}
+            src={searchParams.uploadedImage0}
           />
+          {!colorData?.bgColor && (
+            <SparklesCore
+              background="transparent"
+              minSize={0.4}
+              maxSize={1}
+              particleDensity={1200}
+              className="w-full h-48 absolute top-5"
+              particleColor="#FFFFFF"
+            />
+          )}
         </Link>
         <HeartIcon
-          onClick={() => addToFavorites(user?.id, ad.id)}
-          className={`cursor-pointer z-10 text-gray-300 absolute top-2 right-2 h-6 w-6 ${
-            user?.favoriteAds.some((favorite) => favorite.adId === ad.id)
-              ? "text-transparent"
-              : ""
-          }`}
+          className={`cursor-pointer z-10 text-gray-300 absolute top-2 right-2 h-6 w-6`}
           style={{
-            fill: user?.favoriteAds.some((favorite) => favorite.adId === ad.id)
-              ? "red"
-              : "",
+            fill: colorData?.iconColor, // Assuming iconColor is present in the response data
           }}
         />
       </div>
       <CardHeader>
-        <CardTitle>{ad.name}</CardTitle>
+        <CardTitle>{searchParams.name}</CardTitle>
         <div className="my-4 flex items-center">
           <p className="main-color text-lg font-semibold">
             <TagIcon className="mx-2 inline-block h-6 w-6" />
-            {ad.price} {priceCode}
           </p>
         </div>
       </CardHeader>
@@ -105,28 +63,37 @@ export default function MarketAdCard({ ad, user }) {
         <div className="grid gap-1">
           <p className="text-sm text-gray-500 dark:text-gray-400">
             <LocateIcon className="mx-2 inline-block h-4 w-4" />
-            {ad.city}
           </p>
           <p className="text-sm text-gray-500 dark:text-gray-400">
             <CalendarIcon className="mx-2 inline-block h-4 w-4" />
-            {timeSince(ad.createdAt)}
           </p>
           <p className="text-sm text-gray-500 dark:text-gray-400">
             <CarIcon className="mx-2 inline-block h-4 w-4" />
-            Brand: {ad.brand}
           </p>
           <p className="text-sm text-gray-500 dark:text-gray-400">
             <CarIcon className="mx-2 inline-block h-4 w-4" />
-            Model: {ad.model}
           </p>
         </div>
       </CardContent>
       <CardFooter className="flex justify-center gap-2">
-        <Button className="w-[40%] mr-1 flex items-center justify-center gap-2 inset-0 z-10  dark:hover:text-white hover:text-black bg-[#fe2635] hover:bg-transparent border border-[#fe2635]">
+        <Button
+          className="w-[40%] mr-1 flex items-center justify-center gap-2 inset-0 z-10  dark:hover:text-white hover:text-black bg-[#fe2635] hover:bg-transparent border border-[#fe2635]"
+          style={{
+            backgroundColor: colorData?.chatBtnBg,
+            color: colorData?.textColor,
+            // Remove the callBtnTextColor style
+          }}
+        >
           <BsChatLeftDots className="w-4 h-4" />
           Chat
         </Button>
-        <Button className="w-[40%] ml-1 flex items-center justify-center gap-2 border dark:hover:text-white hover:text-black  hover:bg-transparent  dark:border-white dark:bg-white dark:text-black">
+        <Button
+          className="w-[40%] ml-1 flex items-center justify-center gap-2 border dark:hover:text-white hover:text-black  hover:bg-transparent  dark:border-white dark:bg-white dark:text-black"
+          style={{
+            backgroundColor: colorData?.callBtnBg,
+            color: colorData?.textColor,
+          }}
+        >
           <MdOutlineLocalPhone className="h-4 w-4" />
           Call
         </Button>
@@ -255,7 +222,6 @@ function LocateIcon(props) {
     </svg>
   );
 }
-
 function TagIcon(props) {
   return (
     <svg

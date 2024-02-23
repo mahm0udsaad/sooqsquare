@@ -24,7 +24,7 @@ import {
 import Link from "next/link";
 import { BsThreads } from "react-icons/bs";
 import { FaStoreAlt } from "react-icons/fa";
-
+import DesingBtn from "../../../components/component/buttons/design-with-AI";
 
 const SellForm = async ({ params: { lng }, searchParams }) => {
   const open = searchParams.sucess;
@@ -96,14 +96,6 @@ const SellForm = async ({ params: { lng }, searchParams }) => {
       loading: () => <DropdownSkeleton />,
     }
   );
-  const MarketAdCard = dynamic(
-    () => import("@/components/component/new-card"),
-    {
-      loading: () => "loading...",
-      ssr: false,
-    }
-  );
-
   const extractUploadedImages = () => {
     // Iterate through searchParams to find parameters related to uploaded images
     for (const key in searchParams) {
@@ -162,12 +154,6 @@ const SellForm = async ({ params: { lng }, searchParams }) => {
     meterRange: searchParams.meterRange,
     description: searchParams.description,
   };
-  const Adimages = [];
-  Adimages.push({
-    url: searchParams.uploadedImage0,
-  });
-  const ad = { Adimages: Adimages };
-
 
   return (
     <div className="relative w-11/12 mx-auto pt-6 min-h-screen flex">
@@ -206,11 +192,6 @@ const SellForm = async ({ params: { lng }, searchParams }) => {
             {searchParams.uploadedImages && <Selectors lng={lng} />}
             {searchParams.name && searchParams.description && (
               <>
-                <Dialog open={true}>
-                  <DialogContent className="max-w-md mx-auto bg-white dark:bg-gray-800 rounded-lg overflow-hidden">
-                    <MarketAdCard ad={ad} />
-                  </DialogContent>
-                </Dialog>
                 <div className="grid grid-cols-3 gap-2">
                   {Object.keys(data).map((key) => (
                     <div
@@ -271,7 +252,6 @@ const SellForm = async ({ params: { lng }, searchParams }) => {
                     ))}
                     <SaveBtn lng={lng} />
                   </form>
-
                   <form action={createAd}>
                     {searchParams.profile === "mainProfile" ? (
                       <Input
@@ -306,11 +286,11 @@ const SellForm = async ({ params: { lng }, searchParams }) => {
                     ))}
                     <PublishBtn lng={lng} />
                   </form>
+                  <DesingBtn searchParams={searchParams} />
                 </div>
               </>
             )}
           </div>
-
           <Dialog open={open}>
             <DialogContent className="bg-gradient-to-r from-green-400 to-blue-500 shadow-2xl max-w-md mx-auto bg-white dark:bg-gray-800 rounded-lg overflow-hidden">
               <DialogHeader className=" p-6 sm:p-8">

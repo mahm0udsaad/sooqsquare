@@ -11,10 +11,10 @@ export async function POST(req) {
   const geminiStream = await genAI
     .getGenerativeModel({ model: "gemini-pro" })
     .generateContent([
-      `you are an copy writer write an eye catching and SEO friendley description about this car in ${lng} language`,
+      `you are an copy writer write an eye catching and SEO friendley description we excepect a profisional description
+       not only returning the details talk about the ad like you are a profisnal seller about this car in ${lng} language`,
       carIformation,
     ]);
-  console.log(geminiStream.response.candidates[0].content.parts[0].text);
   // Convert the response into a friendly text-stream
   return Response.json({
     generated_content:
