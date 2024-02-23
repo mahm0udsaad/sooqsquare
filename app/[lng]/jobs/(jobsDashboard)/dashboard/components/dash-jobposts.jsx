@@ -71,13 +71,17 @@ export default function JopPostsPage({ company, lng }) {
       <main className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-6">
         <div className="flex items-center gap-8">
           <h1 className="font-semibold text-lg md:text-2xl">Job Posts</h1>
-          <Button className="main-bg" size="sm">
+          <Link
+            href={"/jobs/dashboard/newJobPost"}
+            className="main-bg py-2 px-4"
+            size="sm"
+          >
             New job post
-          </Button>
+          </Link>
         </div>
         <div className="grid gap-4 md:gap-8">
           {company.jobPosts.map((post) => (
-            <Card>
+            <Card key={post.id}>
               <CardContent className="flex items-center justify-between w-full gap-4 py-4 md:gap-8 md:py-6">
                 <div className="flex items-center justify-between gap-4">
                   <BriefcaseIcon className="h-8 w-8" />
