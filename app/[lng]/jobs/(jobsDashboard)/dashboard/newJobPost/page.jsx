@@ -144,7 +144,7 @@ export default async function JobPostForm({ params: { lng }, searchParams }) {
         </form>
       )}
       {searchParams.success && (
-        <Dialog open={open}>
+        <Dialog open={true}>
           <DialogContent className="bg-gradient-to-r from-green-400 to-blue-500 shadow-2xl max-w-md mx-auto bg-white dark:bg-gray-800 rounded-lg overflow-hidden">
             <DialogHeader className=" p-6 sm:p-8">
               <DialogTitle className="text-white text-2xl font-semibold">

@@ -9,6 +9,7 @@ import Markdown from "react-markdown";
 export default function ChatWithAI({ user }) {
   const { messages, input, handleInputChange, handleSubmit } = useChat();
   const messagesContainerRef = useRef(null);
+
   useEffect(() => {
     if (messagesContainerRef.current) {
       messagesContainerRef.current.scrollTop =
