@@ -39,7 +39,7 @@ const PopoverCountry = ({ lng, user }) => {
         const location = await getLocation();
         await updateUserCountry(user?.id, location.countryName);
       } catch (error) {
-        console.error("Error getting location:", error.message);
+        console.error("Error getting location:", error?.message);
       }
     };
 

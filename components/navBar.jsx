@@ -6,8 +6,10 @@ import { getUserByEmail } from "@/prisma/actions";
 import { getServerSession } from "next-auth";
 import PopoverLanguage from "@/components/navBarBtns/PopoverLanguage";
 import dynamic from "next/dynamic";
-import BtnSkeleton from "@/components/skeletons/btnSkeleton";
 import UserAvatarSkeleton from "@/components/skeletons/userAvatarSkeleton";
+import { MdOutlineBookmarkAdded } from "react-icons/md";
+import { Button } from "./ui/button";
+import { IoIosStarOutline } from "react-icons/io";
 
 const NavBar = async ({ lng }) => {
   const { t } = await useTranslation(lng, "translation");
@@ -16,7 +18,7 @@ const NavBar = async ({ lng }) => {
 
   const PopoverCountry = dynamic(
     () => import("@/components/navBarBtns/PopoverCountry"),
-    { ssr: false, loading: () => <BtnSkeleton /> }
+    { ssr: false, loading: () => <UserAvatarSkeleton /> }
   );
   const UserButton = dynamic(
     () => import("@/components/component/user-button"),
@@ -48,13 +50,25 @@ const NavBar = async ({ lng }) => {
         <div className="flex items-center gap-3 ">
           <Link
             href={"/newSell"}
-            className="border  px-8 main-bg py-2 rounded-xl flex items-center"
+            className="border mr-4 px-8 main-bg py-2 rounded-xl flex items-center"
           >
             {t("Sell")}
           </Link>
-
+          <Link
+            href={"/spaces"}
+            className="py-2 px-2 rounded-xl border dark:bg-zinc-800 dark:border-zinc-800"
+          >
+            <IoIosStarOutline className="w-6 h-6" />
+          </Link>
           <PopoverLanguage lng={lng} />
           <PopoverCountry user={user} lng={lng} />
+          <Link
+            href={"/following"}
+            variant="outline"
+            className="py-2 px-2 rounded-xl dark:bg-zinc-800 dark:border-zinc-800"
+          >
+            <MdOutlineBookmarkAdded className="h-6 w-6" />
+          </Link>
 
           {user ? (
             <>
@@ -64,7 +78,7 @@ const NavBar = async ({ lng }) => {
               >
                 <BsChatLeftDots className="text-xl" />
               </Link>
-              <div className="userAvatar">
+              <div className="userAvatar ml-4">
                 <UserButton lng={lng} user={user} />
               </div>
             </>

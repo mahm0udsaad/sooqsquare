@@ -53,7 +53,7 @@ export function AdPage({ ad, lng }) {
                     <div className="relative h-full w-full">
                       <Image
                         alt={`Ad Image ${image.id}`}
-                        className="object-cover w-full h-full rounded-lg overflow-hidden"
+                        className="object-cover w-full h-full rounded-md-lg overflow-hidden"
                         src={image.url}
                         layout="fill" // Use layout="fill" to fill the parent container
                         objectFit="contain" // Use objectFit="contain" to ensure the entire image is visible
@@ -87,14 +87,14 @@ export function AdPage({ ad, lng }) {
             <CardTitle>{t("Car Detials")}</CardTitle>
           </CardHeader>
           <CardContent className="grid grid-cols-2 gap-4">
-            <div className="flex justify-between bg-gray-200 rounded-md p-2">
+            <div className="flex justify-between bg-gray-200 rounded-md-md p-2">
               <h4 className="flex gap-2 items-center font-bold">
                 <IoCarOutline />
                 {t("brand")}
               </h4>
               <p> {ad.brand}</p>
             </div>
-            <div className="flex justify-between bg-gray-200 rounded-md p-2">
+            <div className="flex justify-between bg-gray-200 rounded-md-md p-2">
               <h4 className="flex gap-2 items-center font-bold">
                 <IoCarOutline />
                 {t("model")}
@@ -116,14 +116,14 @@ export function AdPage({ ad, lng }) {
               </h4>
               <p> {ad.carType}</p>
             </div>
-            <div className="flex justify-between bg-gray-200 rounded-md p-2">
+            <div className="flex justify-between bg-gray-200 rounded-md-md p-2">
               <h4 className="flex gap-2 items-center font-bold">
                 <LuFuel />
                 {t("Fuel")}
               </h4>
               <p> {ad.fuelType}</p>
             </div>
-            <div className="flex justify-between bg-gray-200 rounded-md p-2">
+            <div className="flex justify-between bg-gray-200 rounded-md-md p-2">
               <h4 className="flex gap-2 items-center font-bold">
                 <IoSettingsOutline />
                 {t("RegionalSpecifications")}
@@ -144,14 +144,14 @@ export function AdPage({ ad, lng }) {
               </h4>
               <p> {ad.year}</p>
             </div>
-            <div className="flex justify-between bg-gray-200 rounded-md p-2">
+            <div className="flex justify-between bg-gray-200 rounded-md-md p-2">
               <h4 className="flex gap-2 items-center font-bold">
                 <AiOutlineFormatPainter />
                 {t("Paint")}
               </h4>
               <p> {ad.paintType}</p>
             </div>
-            <div className="flex justify-between bg-gray-200 rounded-md p-2">
+            <div className="flex justify-between bg-gray-200 rounded-md-md p-2">
               <h4 className="flex gap-2 items-center font-bold">
                 <IoSpeedometerOutline />
                 {t("Kilometers")}
@@ -227,28 +227,28 @@ export function AdPage({ ad, lng }) {
                 ? ad.user?.createdAt && memberSince(ad.user.createdAt)
                 : ad.shop?.createdAt && memberSince(ad.shop.createdAt)}
             </p>
-            <div className="flex justify-between items-center mt-2">
+            <div className="flex justify-between gap-2 items-center mt-2">
+              <Button className="w-28 px-2 py-4 flex items-center justify-center gap-2 text-sky-600 bg-trasparent hover:bg-sky-600 border border-sky-600 hover:text-white ">
+                <MdOutlineLocalPhone className="h-4 w-4" />
+                {t("Call")}
+              </Button>
               <Link
                 href={{
                   pathname: "/chat",
                   query: { owner: ad.userId ? ad.user?.id : ad.shop.id },
                 }}
-                className="w-1/2 mx-1 rounded text-white p-2  flex items-center justify-center gap-2 inset-0 z-10 bg-[#fe2635] hover:bg-[#fe26355e]"
+                className="w-28 rounded-md p-2 flex items-center justify-center gap-2 inset-0 z-10 border text-[#fe2635] border-[#fe2635] hover:text-white hover:bg-[#fe2635]"
               >
                 <BsChatLeftDots className="w-4 h-4" />
                 {t("Chat")}
               </Link>
-              <Button className="w-1/2 ml-1 flex items-center justify-center gap-2 dark:bg-white dark:text-black dark:hover:text-white">
-                <MdOutlineLocalPhone className="h-4 w-4" />
-                {t("Call")}
-              </Button>
               <Link
                 href={`/profile/${
                   ad.userId
                     ? ad.userId
                     : `${ad.shop.userId}?shop=${ad.shop?.id}`
                 }`}
-                className="w-1/2 py-2 px-4 rounded-md hover:bg-zinc-900 hover:text-white dark:hover:bg-white dark:hover:text-black mx-1 flex items-center border border-black dark:border-white dark:text-white justify-center gap-2 transition"
+                className="w-28 py-2 px-4 rounded-md hover:bg-zinc-900 hover:text-white dark:hover:bg-white dark:hover:text-black flex items-center border border-black dark:border-white dark:text-white justify-center gap-2 transition"
               >
                 <UserIcon className="h-4 w-4" />
                 {t("profile")}

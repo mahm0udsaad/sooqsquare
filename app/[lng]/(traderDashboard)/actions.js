@@ -108,7 +108,7 @@ export async function createShop(userId, data) {
           shopName: data.shopName,
           city: data.city,
           country: data.country,
-          description: data.shopDescription,
+          description: data.description,
       },
     });
     

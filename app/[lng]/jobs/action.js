@@ -170,3 +170,25 @@ export async function getJobPostById(id) {
     throw new Error(`Failed to fetch job post by ID ${id}: ${error}`);
   }
 }
+export async function addJobApplication(formData) {
+  try {
+    const userId = formData.get("userId");
+    const jobId = formData.get("jobId");
+    const cvUrl = formData.get("cvUrl");
+    const coverLetter = formData.get("coverLetter");
+
+    const jobApplication = await prisma.jobApplication.create({
+      data: {
+        userId: parseInt(userId),
+        jobId: parseInt(jobId),
+        cvUrl: cvUrl,
+        coverLetter: coverLetter,
+      },
+    });
+    console.log("Job application added:", jobApplication);
+    return jobApplication;
+  } catch (error) {
+    console.error("Error adding job application:", error);
+    throw error;
+  }
+}

@@ -6,11 +6,9 @@ export default async function MainSection({ lng }) {
   const { t } = await useTranslation(lng, "jobs");
   return (
     <div className="relative h-[70vh] shadow-xl rounded-lg">
-      <Image
+      <img
         src="/ar/job-header.jpg"
-        className="opacity-30  rounded-lg"
-        layout="fill"
-        objectFit="cover"
+        className="opacity-30 object-cover h-full w-full rounded-lg"
         alt="Job Header"
       />
       <div className="absolute inset-0 flex items-center justify-center">
