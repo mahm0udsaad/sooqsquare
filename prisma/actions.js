@@ -380,6 +380,7 @@ export async function updateUserPhoneNumber(newPhoneNumber, email) {
     console.error(`Failed to update user's phone number: ${error.message}`);
   }
 }
+
 export async function getUserByEmail(email) {
   if (!email) return;
   try {
@@ -392,6 +393,13 @@ export async function getUserByEmail(email) {
           select: {
             id: true,
             users: true,
+            shop: {
+              select: {
+                shopImage: true,
+                userId: true,
+                shopName: true,
+              },
+            },
           },
         },
         ads: {
@@ -460,6 +468,13 @@ export async function getUserByEmail(email) {
               },
               orderBy: {
                 createdAt: "desc", // Order by createdAt in descending order (newest first)
+              },
+            },
+            chats: {
+              select: {
+                id: true,
+                users: true,
+                messages: true,
               },
             },
           },
@@ -584,5 +599,128 @@ export async function replaceAdImage(adId, existingImageId, newImage) {
     throw error;
   } finally {
     revalidatePath("/dashboard");
+  }
+}
+export async function getUserFollowingByEmail(email) {
+  if (!email) return;
+  try {
+    const existingUser = await prisma.user.findUnique({
+      where: {
+        email: email,
+      },
+      include: {
+        following: {
+          include: {
+            followedUser: {
+              select: {
+                ads: {
+                  select: {
+                    id: true,
+                    Adimages: true,
+                    name: true,
+                    description: true,
+                    user: {
+                      select: {
+                        image: true,
+                      },
+                    },
+                  },
+                },
+              },
+            },
+            followedShop: {
+              select: {
+                ads: {
+                  select: {
+                    id: true,
+                    Adimages: true,
+                    name: true,
+                    description: true,
+                    shop: {
+                      select: {
+                        shopImage: true,
+                      },
+                    },
+                  },
+                },
+              },
+            }, // Include the ads from the followed shop
+          },
+        },
+      },
+    });
+
+    const ads = existingUser.following.flatMap((follow) => {
+      if (follow.followedUser) {
+        return follow.followedUser.ads;
+      } else if (follow.followedShop) {
+        return follow.followedShop.ads;
+      } else {
+        return [];
+      }
+    });
+
+    return ads;
+  } catch (error) {
+    console.log("Error fetching user:", error);
+  } finally {
+    prisma.$disconnect();
+  }
+}
+export async function addRating(ownerId, ratedById, ratingValue) {
+  try {
+    // Check if a rating already exists for the specified owner and ratedBy user
+    const existingRating = await prisma.rating.findFirst({
+      where: {
+        userId: parseInt(ownerId),
+        ratedUserId: parseInt(ratedById),
+      },
+    });
+
+    if (existingRating) {
+      // Update the existing rating
+      const updatedRating = await prisma.rating.update({
+        where: {
+          id: existingRating.id,
+        },
+        data: {
+          rating: ratingValue,
+        },
+      });
+
+      return updatedRating;
+    } else {
+      // Create a new rating entry
+      const newRating = await prisma.rating.create({
+        data: {
+          userId: parseInt(ownerId), // ID of the user being rated (owner)
+          ratedUserId: parseInt(ratedById), // ID of the user who provided the rating (ratedBy)
+          rating: ratingValue, // The actual rating value
+        },
+      });
+
+      return newRating;
+    }
+  } catch (error) {
+    // Handle errors
+    console.error("Error adding/updating rating:", error.message);
+    throw error;
+  }
+}
+export async function getRating(ownerId, ratedById) {
+  try {
+    // Find the rating entry for the specified owner and ratedBy user
+    const rating = await prisma.rating.findFirst({
+      where: {
+        userId: parseInt(ownerId),
+        ratedUserId: parseInt(ratedById),
+      },
+    });
+
+    return rating ? rating.rating : null; // Return the rating value or null if not found
+  } catch (error) {
+    // Handle errors
+    console.error("Error getting rating:", error.message);
+    throw error;
   }
 }

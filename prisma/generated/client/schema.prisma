@@ -8,8 +8,9 @@ generator client {
   provider = "prisma-client-js"
   output   = "./generated/client"
 }
+
 model Account {
-  id                 String  @id @default(cuid())
+  id                 String   @id @default(cuid())
   userId             Int
   type               String
   provider           String
@@ -42,6 +43,7 @@ model VerificationToken {
 
   @@unique([identifier, token])
 }
+
 model User {
   id                 Int          @id @default(autoincrement())
   createdAt          DateTime     @default(now())
@@ -60,11 +62,13 @@ model User {
   shop               Shop[]
   subscriptions      Subscription[]
   company            Company?    
-  jobApplications    JobApplication[]   // Add this line
+  jobApplications    JobApplication[]  
   following          Follow[]         @relation("UserFollowing")
   followers          Follow[]         @relation("UserFollowers")
-
+  ratings            Rating[]   // Ratings provided by the user
+  ratedUsers         Rating[]   @relation("UserRatings") // Users rated by this user
 }
+
 model Subscription {
   id                 Int          @id @default(autoincrement())
   endpoint           String
@@ -73,7 +77,7 @@ model Subscription {
   userId             Int
   user               User         @relation(fields: [userId], references: [id])
 }
-//jobs schema
+
 model JobPost {
   id                 Int       @id @default(autoincrement())
   title              String
@@ -98,6 +102,7 @@ model JobPost {
   requirements       String?
   JobApplications    JobApplication[]
 }
+
 model JobApplication {
   id          Int      @id @default(autoincrement())
   user        User     @relation(fields: [userId], references: [id])
@@ -122,7 +127,6 @@ model Company {
   user               User       @relation(fields: [userId], references: [id]) 
   userId             Int        @unique
 }
-//Ads Schemas
 
 model Shop {
   id                  Int      @id @default(autoincrement())
@@ -145,18 +149,36 @@ model Shop {
   phoneNumber2        String?
   ads                 Ad[]
   followers           Follow[] @relation("ShopFollowers")
+  ratings             Rating[]
+  chats               Chat[]
+  sentMessages      Message[] @relation("sentMessages")
+  receivedMessages  Message[] @relation("receivedMessages")
 }
 
 model Follow {
-  id        Int      @id @default(autoincrement())
-  follower  User     @relation(name: "UserFollowing", fields: [followerId], references: [id])
-  followerId Int
-  followedUser  User?  @relation(name: "UserFollowers", fields: [followedUserId], references: [id])
-  followedUserId Int?
-  followedShop  Shop?  @relation(name: "ShopFollowers", fields: [followedShopId], references: [id])
-  followedShopId Int?
+  id              Int      @id @default(autoincrement())
+  follower        User     @relation(name: "UserFollowing", fields: [followerId], references: [id])
+  followerId      Int
+  followedUser    User?    @relation(name: "UserFollowers", fields: [followedUserId], references: [id])
+  followedUserId  Int?
+  followedShop    Shop?    @relation(name: "ShopFollowers", fields: [followedShopId], references: [id])
+  followedShopId  Int?
   @@unique([followerId, followedUserId])
   @@unique([followerId, followedShopId])
+}
+
+model Rating {
+  id            Int      @id @default(autoincrement())
+  user          User     @relation(fields: [userId], references: [id]) // User who provided the rating
+  userId        Int      // ID of the user who provided the rating
+  ratedUser     User     @relation("UserRatings", fields: [ratedUserId], references: [id]) // User being rated
+  ratedUserId   Int      // ID of the user being rated
+  shop          Shop?    @relation(fields: [shopId], references: [id]) // Shop being rated
+  shopId        Int?     // ID of the shop being rated
+  rating        Float    // The actual rating value
+  createdAt     DateTime @default(now())
+
+  @@unique([userId, ratedUserId]) 
 }
 
 model Image {
@@ -165,6 +187,7 @@ model Image {
   ad   Ad     @relation(fields: [adId], references: [id])
   adId Int
 }
+
 model Ad {
   id                     Int          @id @default(autoincrement())
   user                   User?        @relation(fields: [userId], references: [id])
@@ -199,6 +222,7 @@ model Ad {
   views                  Int          @default(0)
   clicks                 Int          @default(0)
 }
+
 model FavoriteAd {
   id        Int      @id @default(autoincrement())
   user      User     @relation(fields: [userId], references: [id])
@@ -207,20 +231,27 @@ model FavoriteAd {
   adId      Int
   createdAt DateTime @default(now())
 }
+
 model Chat {
-  id       Int       @id @default(autoincrement())
-  users    User[]
-  messages Message[]
+  id          Int       @id @default(autoincrement())
+  users       User[]    // Users involved in the chat
+  shop        Shop?     @relation(fields: [shopId], references: [id])
+  shopId      Int?      // Shop involved in the chat (optional)
+  messages    Message[] // Messages exchanged in the chat
 }
+
 model Message {
   id            Int      @id @default(autoincrement())
   content       String
-  sender        User     @relation("sentMessages", fields: [senderEmail], references: [email])
-  senderEmail   String
-  receiver      User?    @relation("receivedMessages", fields: [receiverEmail], references: [email])
-  receiverEmail String?
-  createdAt     DateTime @default(now())
-  chatId        Int
-  chat          Chat     @relation(fields: [chatId], references: [id])
-}
+  senderShop    Shop?    @relation("sentMessages", fields: [shopId], references: [id])
+  receiverShop  Shop?    @relation("receivedMessages", fields: [shopId], references: [id])
 
+  sender        User?     @relation("sentMessages", fields: [senderId], references: [id]) 
+  senderId      Int?
+  receiver      User?    @relation("receivedMessages", fields: [receiverId], references: [id])
+  receiverId    Int?
+  createdAt     DateTime @default(now())
+  chat          Chat     @relation(fields: [chatId], references: [id])
+  chatId        Int
+  shopId        Int?
+}

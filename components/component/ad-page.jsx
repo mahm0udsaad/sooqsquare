@@ -30,8 +30,9 @@ import { IoSpeedometerOutline } from "react-icons/io5";
 import { IoSettingsOutline } from "react-icons/io5";
 import Markdown from "react-markdown";
 import "@/app/[lng]/css/markdown.css";
+import RateCard from "./rate-card";
 
-export function AdPage({ ad, lng }) {
+export function AdPage({ ad, lng, user, isFollowed }) {
   const { t } = useTranslation(lng, "tranlsation");
   const priceCode = ArabCountriesWithCurrancy.find(
     (country) => country.name === ad.country
@@ -63,10 +64,10 @@ export function AdPage({ ad, lng }) {
                 )
             )}
           </CarouselContent>
-          <CarouselPrevious />
-          <CarouselNext />
+          <CarouselPrevious className="shadow-lg" />
+          <CarouselNext className="shadow-lg" />
         </Carousel>
-        <Card>
+        <Card className="shadow-lg">
           <CardHeader>
             <CardTitle className="text-4xl font-bold main-color">
               {priceCode} {ad.price}
@@ -82,19 +83,19 @@ export function AdPage({ ad, lng }) {
             </div>
           </CardContent>
         </Card>
-        <Card>
+        <Card className="shadow-lg">
           <CardHeader className="py-8">
             <CardTitle>{t("Car Detials")}</CardTitle>
           </CardHeader>
           <CardContent className="grid grid-cols-2 gap-4">
-            <div className="flex justify-between bg-gray-200 rounded-md-md p-2">
+            <div className="flex justify-between bg-gray-200 dark:bg-zinc-700 rounded rounded-md-md p-2">
               <h4 className="flex gap-2 items-center font-bold">
                 <IoCarOutline />
                 {t("brand")}
               </h4>
               <p> {ad.brand}</p>
             </div>
-            <div className="flex justify-between bg-gray-200 rounded-md-md p-2">
+            <div className="flex justify-between bg-gray-200 dark:bg-zinc-700 rounded rounded-md-md p-2">
               <h4 className="flex gap-2 items-center font-bold">
                 <IoCarOutline />
                 {t("model")}
@@ -116,14 +117,14 @@ export function AdPage({ ad, lng }) {
               </h4>
               <p> {ad.carType}</p>
             </div>
-            <div className="flex justify-between bg-gray-200 rounded-md-md p-2">
+            <div className="flex justify-between bg-gray-200 dark:bg-zinc-700 rounded rounded-md-md p-2">
               <h4 className="flex gap-2 items-center font-bold">
                 <LuFuel />
                 {t("Fuel")}
               </h4>
               <p> {ad.fuelType}</p>
             </div>
-            <div className="flex justify-between bg-gray-200 rounded-md-md p-2">
+            <div className="flex justify-between bg-gray-200 dark:bg-zinc-700 rounded rounded-md-md p-2">
               <h4 className="flex gap-2 items-center font-bold">
                 <IoSettingsOutline />
                 {t("RegionalSpecifications")}
@@ -144,14 +145,14 @@ export function AdPage({ ad, lng }) {
               </h4>
               <p> {ad.year}</p>
             </div>
-            <div className="flex justify-between bg-gray-200 rounded-md-md p-2">
+            <div className="flex justify-between bg-gray-200 dark:bg-zinc-700 rounded rounded-md-md p-2">
               <h4 className="flex gap-2 items-center font-bold">
                 <AiOutlineFormatPainter />
                 {t("Paint")}
               </h4>
               <p> {ad.paintType}</p>
             </div>
-            <div className="flex justify-between bg-gray-200 rounded-md-md p-2">
+            <div className="flex justify-between bg-gray-200 dark:bg-zinc-700 rounded rounded-md-md p-2">
               <h4 className="flex gap-2 items-center font-bold">
                 <IoSpeedometerOutline />
                 {t("Kilometers")}
@@ -174,7 +175,7 @@ export function AdPage({ ad, lng }) {
             </div>
           </CardContent>
         </Card>
-        <Card>
+        <Card className="shadow-lg">
           <CardHeader>
             <CardTitle>{t("Description")}</CardTitle>
           </CardHeader>
@@ -190,7 +191,7 @@ export function AdPage({ ad, lng }) {
             </CardContent>
           </CardContent>
         </Card>
-        <Card>
+        <Card className="shadow-lg">
           <CardHeader>
             <CardTitle>{t("features.title")}</CardTitle>
           </CardHeader>
@@ -203,7 +204,7 @@ export function AdPage({ ad, lng }) {
         </Card>
       </div>
       <div className="w-[30%] grid gap-6 md:gap-3 items-start">
-        <Card>
+        <Card className="shadow-lg">
           <CardHeader>
             <CardTitle>{t("Owner Information")}</CardTitle>
           </CardHeader>
@@ -232,16 +233,29 @@ export function AdPage({ ad, lng }) {
                 <MdOutlineLocalPhone className="h-4 w-4" />
                 {t("Call")}
               </Button>
-              <Link
-                href={{
-                  pathname: "/chat",
-                  query: { owner: ad.userId ? ad.user?.id : ad.shop.id },
-                }}
-                className="w-28 rounded-md p-2 flex items-center justify-center gap-2 inset-0 z-10 border text-[#fe2635] border-[#fe2635] hover:text-white hover:bg-[#fe2635]"
-              >
-                <BsChatLeftDots className="w-4 h-4" />
-                {t("Chat")}
-              </Link>
+              {ad.userId ? (
+                <Link
+                  href={{
+                    pathname: "/chat",
+                    query: { owner: ad.user?.id },
+                  }}
+                  className="w-28 rounded-md p-2 flex items-center justify-center gap-2 inset-0 z-10 border text-[#fe2635] border-[#fe2635] hover:text-white hover:bg-[#fe2635]"
+                >
+                  <BsChatLeftDots className="w-4 h-4" />
+                  {t("Chat")}
+                </Link>
+              ) : (
+                <Link
+                  href={{
+                    pathname: "/chat",
+                    query: { shop: ad.shop.id },
+                  }}
+                  className="w-28 rounded-md p-2 flex items-center justify-center gap-2 inset-0 z-10 border text-[#fe2635] border-[#fe2635] hover:text-white hover:bg-[#fe2635]"
+                >
+                  <BsChatLeftDots className="w-4 h-4" />
+                  {t("Chat")}
+                </Link>
+              )}
               <Link
                 href={`/profile/${
                   ad.userId
@@ -256,6 +270,7 @@ export function AdPage({ ad, lng }) {
             </div>
           </CardContent>
         </Card>
+        <RateCard user={user} owner={ad.user} isFollowed={isFollowed} />
       </div>
     </div>
   );

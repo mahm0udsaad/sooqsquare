@@ -8,7 +8,6 @@ import PopoverLanguage from "@/components/navBarBtns/PopoverLanguage";
 import dynamic from "next/dynamic";
 import UserAvatarSkeleton from "@/components/skeletons/userAvatarSkeleton";
 import { MdOutlineBookmarkAdded } from "react-icons/md";
-import { Button } from "./ui/button";
 import { IoIosStarOutline } from "react-icons/io";
 
 const NavBar = async ({ lng }) => {
@@ -31,7 +30,7 @@ const NavBar = async ({ lng }) => {
 
   return (
     <>
-      <nav className="hidden z-50 lg:flex fixed py-2 shadow-lg w-full  items-center justify-between px-6  bg-white dark:text-white dark:bg-zinc-950">
+      <nav className="hidden z-50  lg:flex fixed py-2 shadow w-full  items-center justify-between px-6  bg-white dark:text-white dark:bg-zinc-950">
         <Link className="flex items-center" href="#">
           <Logo lng={lng} />
         </Link>
@@ -50,22 +49,22 @@ const NavBar = async ({ lng }) => {
         <div className="flex items-center gap-3 ">
           <Link
             href={"/newSell"}
-            className="border mr-4 px-8 main-bg py-2 rounded-xl flex items-center"
+            className="border mr-4 px-8 hover:shadow-inner main-bg py-2 rounded-xl flex items-center"
           >
             {t("Sell")}
           </Link>
           <Link
             href={"/spaces"}
-            className="py-2 px-2 rounded-xl border dark:bg-zinc-800 dark:border-zinc-800"
+            className="py-2 px-2 shadow hover:shadow-inner rounded-xl border dark:bg-zinc-800 dark:border-zinc-800"
           >
-            <IoIosStarOutline className="w-6 h-6" />
+            <IoIosStarOutline className="w-6 h-6 " />
           </Link>
           <PopoverLanguage lng={lng} />
           <PopoverCountry user={user} lng={lng} />
           <Link
             href={"/following"}
             variant="outline"
-            className="py-2 px-2 rounded-xl dark:bg-zinc-800 dark:border-zinc-800"
+            className="py-2 px-2 shadow rounded-xl border hover:shadow-inner hover:bg-gray-200 dark:border-none dark:bg-zinc-800 hover:text-zinc-800"
           >
             <MdOutlineBookmarkAdded className="h-6 w-6" />
           </Link>
@@ -74,9 +73,9 @@ const NavBar = async ({ lng }) => {
             <>
               <Link
                 href={"/chat"}
-                className="chat dark:bg-zinc-800 hover:bg-gray-100 hover:dark:text-black hover:dark:bg-white bg-white border dark:border-none p-2 rounded-md"
+                className="chat shadow dark:bg-zinc-800 hover:bg-gray-100 hover:dark:text-black hover:dark:bg-white bg-white border dark:border-none px-2 py-2 rounded-xl"
               >
-                <BsChatLeftDots className="text-xl" />
+                <BsChatLeftDots className="w-5 h-5 m-[2px]" />
               </Link>
               <div className="userAvatar ml-4">
                 <UserButton lng={lng} user={user} />
@@ -90,7 +89,7 @@ const NavBar = async ({ lng }) => {
         </div>
       </nav>
       {/* Mobile NavBar */}
-      {/* <nav className="flex flex-col lg:hidden z-50 fixed py-2 shadow-lg w-full  px-6  bg-white dark:bg-zinc-950">
+      {/* <nav className="flex flex-col lg:hidden z-50 fixed py-2 shadow w-full  px-6  bg-white dark:bg-zinc-950">
       <div className="flex  items-center justify-between">
       <Link className="flex items-center" href="#">
         <Logo lng={lng} darkMode={darkMode}/>

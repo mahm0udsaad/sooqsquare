@@ -221,6 +221,15 @@ exports.Prisma.FollowScalarFieldEnum = {
   followedShopId: 'followedShopId'
 };
 
+exports.Prisma.RatingScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  ratedUserId: 'ratedUserId',
+  shopId: 'shopId',
+  rating: 'rating',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.ImageScalarFieldEnum = {
   id: 'id',
   url: 'url',
@@ -266,16 +275,18 @@ exports.Prisma.FavoriteAdScalarFieldEnum = {
 };
 
 exports.Prisma.ChatScalarFieldEnum = {
-  id: 'id'
+  id: 'id',
+  shopId: 'shopId'
 };
 
 exports.Prisma.MessageScalarFieldEnum = {
   id: 'id',
   content: 'content',
-  senderEmail: 'senderEmail',
-  receiverEmail: 'receiverEmail',
+  senderId: 'senderId',
+  receiverId: 'receiverId',
   createdAt: 'createdAt',
-  chatId: 'chatId'
+  chatId: 'chatId',
+  shopId: 'shopId'
 };
 
 exports.Prisma.SortOrder = {
@@ -300,6 +311,7 @@ exports.Prisma.ModelName = {
   Company: 'Company',
   Shop: 'Shop',
   Follow: 'Follow',
+  Rating: 'Rating',
   Image: 'Image',
   Ad: 'Ad',
   FavoriteAd: 'FavoriteAd',

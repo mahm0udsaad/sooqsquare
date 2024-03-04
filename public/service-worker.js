@@ -1,4 +1,4 @@
-const cacheName = "v1";
+const cacheName = "v2";
 self.addEventListener("install", (event) => {
   console.log("Service worker installed");
 });
@@ -25,4 +25,22 @@ self.addEventListener("fetch", (event) => {
       })
     );
   }
+});
+
+self.addEventListener("push", (event) => {
+  console.log("Push event received:", event);
+
+  const data = event.data.json();
+  const title = data.title || "SooqSquare";
+  const body = data.message || "Default Body";
+  const icon =
+    "https://cloud.sooqsquare.com/apps/sharingpath/nextcloud/upload/Logo.png";
+  const notificationOptions = {
+    body: body,
+    icon: icon,
+  };
+
+  event.waitUntil(
+    self.registration.showNotification(title, notificationOptions)
+  );
 });

@@ -1,6 +1,5 @@
 "use client";
 import React from "react";
-import { FiChevronDown } from "react-icons/fi";
 import { IoLanguageOutline } from "react-icons/io5";
 import { usePathname } from "next/navigation";
 import { useRouter } from "next/navigation";
@@ -32,7 +31,7 @@ const PopoverLanguage = ({ lng }) => {
       <DropdownMenuTrigger asChild>
         <Button
           variant="outline"
-          className="py-2 px-2 rounded-xl dark:bg-zinc-800 dark:border-zinc-800"
+          className="py-2 px-2 shadow rounded-xl dark:bg-zinc-800 dark:border-zinc-800"
         >
           <IoLanguageOutline className="text-xl font-semibold" />
         </Button>

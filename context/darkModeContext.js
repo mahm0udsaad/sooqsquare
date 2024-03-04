@@ -24,6 +24,7 @@ export const DarkModeProvider = ({ children }) => {
   const [successMessage, setSuccessMessage] = useState(null);
   const [userStatuses, setUserStatuses] = useState({});
   const [requirements, setRequirements] = useState([""]); // Initialize with an empty requirement
+  const [shopChats, setShopChats] = useState(null);
 
   useEffect(() => {
     const handleUserStatus = ({ id, status }) => {
@@ -169,6 +170,8 @@ export const DarkModeProvider = ({ children }) => {
   return (
     <DarkModeContext.Provider
       value={{
+        shopChats,
+        setShopChats,
         requirements,
         setRequirements,
         userStatuses,

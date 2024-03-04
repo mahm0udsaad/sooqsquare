@@ -41,6 +41,58 @@ export async function addSubscriptionToUser(userId, subscriptionData) {
     throw error;
   }
 }
+export async function createShopMessage(
+  content,
+  senderId,
+  receiverId,
+  chatId,
+  isShop
+) {
+  try {
+    const message = await prisma.message.create({
+      data: {
+        content,
+        // Determine whether the sender is a shop or a user
+        ...(isShop
+          ? { senderShop: { connect: { id: senderId } } }
+          : { sender: { connect: { id: senderId } } }),
+        // Determine whether the receiver is a shop or a user
+        ...(isShop
+          ? { receiver: { connect: { id: receiverId } } }
+          : { receiverShop: { connect: { id: receiverId } } }),
+        chat: {
+          connect: { id: chatId },
+        },
+      },
+      include: {
+        sender: true,
+        senderShop: {
+          select: {
+            shopImage: true,
+            id: true,
+            userId: true,
+          },
+        },
+        receiverShop: {
+          select: {
+            shopImage: true,
+            id: true,
+            userId: true,
+          },
+        },
+      },
+    });
+
+    // You can add additional logic here, such as sending notifications to the receiver
+
+    return message;
+  } catch (error) {
+    console.error("Error creating message:", error);
+    throw error;
+  } finally {
+    revalidatePath(`/chat/${chatId}`); // Close the Prisma client connection
+  }
+}
 
 export async function createMessage(content, senderEmail, receiver, chatId) {
   try {
@@ -127,41 +179,22 @@ const sendPushNotification = async (subscription, message, receiverEmail) => {
   }
 };
 
-export async function getOrCreateChat(user1Id, user2Id) {
+export async function getOrCreateChat(user1Id, user2Id, shopId) {
   let newChat;
 
   const parsedUser1Id = parseInt(user1Id);
-  const parsedUser2Id = parseInt(user2Id);
+  const parsedUser2Id = user2Id ? parseInt(user2Id) : null;
+  const parsedShopId = shopId ? parseInt(shopId) : null;
 
   try {
-    // Find users with the provided ids
-    const existingChat = await prisma.chat.findFirst({
-      where: {
-        AND: [
-          { users: { some: { id: parsedUser1Id } } },
-          { users: { some: { id: parsedUser2Id } } },
-        ],
-      },
-      include: {
-        messages: {
-          include: {
-            sender: true,
-            receiver: true,
-          },
-        },
-      },
-    });
-
-    if (existingChat) {
-      // Chat already exists
-      newChat = existingChat;
-    } else {
-      // Create a new chat with the found users
-      newChat = await prisma.chat.create({
-        data: {
-          users: {
-            connect: [{ id: parsedUser1Id }, { id: parsedUser2Id }],
-          },
+    if (!parsedUser2Id && parsedShopId) {
+      // If user2Id is null and shopId is provided, create a chat with the user and shop
+      const existingShopChat = await prisma.chat.findFirst({
+        where: {
+          AND: [
+            { users: { some: { id: parsedUser1Id } } },
+            { shopId: parsedShopId },
+          ],
         },
         include: {
           messages: {
@@ -170,10 +203,97 @@ export async function getOrCreateChat(user1Id, user2Id) {
               receiver: true,
             },
           },
+          shop: {
+            select: {
+              id: true,
+              shopImage: true,
+              shopName: true,
+              userId: true,
+            },
+          },
         },
       });
 
-      console.log("New chat created with id: " + newChat.id);
+      if (existingShopChat) {
+        // Chat with the shop already exists
+        newChat = existingShopChat;
+      } else {
+        // Create a new chat with the user and shop
+        newChat = await prisma.chat.create({
+          data: {
+            users: { connect: [{ id: parsedUser1Id }] },
+            shop: { connect: { id: parsedShopId } },
+          },
+          include: {
+            messages: {
+              include: {
+                sender: true,
+                receiver: true,
+              },
+            },
+            select: {
+              id: true,
+              shopImage: true,
+              shopName: true,
+              userId: true,
+            },
+          },
+        });
+
+        console.log("New chat created with id: " + newChat.id);
+      }
+    } else {
+      // Find or create chat between two users
+      const existingChat = await prisma.chat.findFirst({
+        where: {
+          AND: [
+            { users: { some: { id: parsedUser1Id } } },
+            { users: { some: { id: parsedUser2Id } } },
+          ],
+        },
+        include: {
+          messages: {
+            include: {
+              sender: true,
+              receiver: true,
+            },
+          },
+          select: {
+            id: true,
+            shopImage: true,
+            shopName: true,
+            userId: true,
+          },
+        },
+      });
+
+      if (existingChat) {
+        // Chat already exists
+        newChat = existingChat;
+      } else {
+        // Create a new chat with the two users
+        newChat = await prisma.chat.create({
+          data: {
+            users: { connect: [{ id: parsedUser1Id }, { id: parsedUser2Id }] },
+          },
+          include: {
+            messages: {
+              include: {
+                sender: true,
+                receiver: true,
+              },
+            },
+            select: {
+              id: true,
+              shopImage: true,
+              shopName: true,
+              userId: true,
+            },
+          },
+        });
+
+        console.log("New chat created with id: " + newChat.id);
+      }
     }
 
     return newChat;
@@ -188,6 +308,7 @@ export async function getOrCreateChat(user1Id, user2Id) {
     await prisma.$disconnect();
   }
 }
+
 export const fetchMessagesFromDatabase = async (chat) => {
   try {
     const fetchedMessages = await prisma.message.findMany({
@@ -214,8 +335,32 @@ export async function getChatById(chatId) {
         users: true,
         messages: {
           include: {
-            sender: true,
-            receiver: true,
+            senderShop: true,
+            receiverShop: true,
+            sender: {
+              select: {
+                email: true,
+                id: true,
+                username: true,
+                image: true,
+              },
+            },
+            receiver: {
+              select: {
+                email: true,
+                id: true,
+                username: true,
+                image: true,
+              },
+            },
+          },
+        },
+        shop: {
+          select: {
+            id: true,
+            userId: true,
+            shopImage: true,
+            shopName: true,
           },
         },
       },
@@ -228,5 +373,42 @@ export async function getChatById(chatId) {
     return chat;
   } catch (error) {
     throw new Error(`Failed to get chat by ID: ${error.message}`);
+  } finally {
+    revalidatePath("/chat");
+  }
+}
+export async function getShopById(shopId) {
+  try {
+    const parsedShopId = parseInt(shopId);
+
+    // Query the shop by its ID
+    const shop = await prisma.shop.findUnique({
+      where: {
+        id: parsedShopId,
+      },
+    });
+
+    return shop;
+  } catch (error) {
+    console.error("Error getting shop by id:", error);
+    return null;
+  }
+}
+export async function deleteMessagesWithoutSender() {
+  try {
+    const deletedMessages = await prisma.message.deleteMany({
+      where: {
+        NOT: {
+          senderId: {
+            not: null,
+          },
+        },
+      },
+    });
+
+    return deletedMessages;
+  } catch (error) {
+    console.error("Error deleting messages without sender:", error);
+    throw error;
   }
 }

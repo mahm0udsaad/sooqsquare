@@ -64,6 +64,11 @@ export type Shop = $Result.DefaultSelection<Prisma.$ShopPayload>
  */
 export type Follow = $Result.DefaultSelection<Prisma.$FollowPayload>
 /**
+ * Model Rating
+ * 
+ */
+export type Rating = $Result.DefaultSelection<Prisma.$RatingPayload>
+/**
  * Model Image
  * 
  */
@@ -310,6 +315,16 @@ export class PrismaClient<
     * ```
     */
   get follow(): Prisma.FollowDelegate<ExtArgs>;
+
+  /**
+   * `prisma.rating`: Exposes CRUD operations for the **Rating** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Ratings
+    * const ratings = await prisma.rating.findMany()
+    * ```
+    */
+  get rating(): Prisma.RatingDelegate<ExtArgs>;
 
   /**
    * `prisma.image`: Exposes CRUD operations for the **Image** model.
@@ -840,6 +855,7 @@ export namespace Prisma {
     Company: 'Company',
     Shop: 'Shop',
     Follow: 'Follow',
+    Rating: 'Rating',
     Image: 'Image',
     Ad: 'Ad',
     FavoriteAd: 'FavoriteAd',
@@ -861,7 +877,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     meta: {
-      modelProps: 'account' | 'session' | 'verificationToken' | 'user' | 'subscription' | 'jobPost' | 'jobApplication' | 'company' | 'shop' | 'follow' | 'image' | 'ad' | 'favoriteAd' | 'chat' | 'message'
+      modelProps: 'account' | 'session' | 'verificationToken' | 'user' | 'subscription' | 'jobPost' | 'jobApplication' | 'company' | 'shop' | 'follow' | 'rating' | 'image' | 'ad' | 'favoriteAd' | 'chat' | 'message'
       txIsolationLevel: Prisma.TransactionIsolationLevel
     },
     model: {
@@ -1485,6 +1501,68 @@ export namespace Prisma {
           }
         }
       }
+      Rating: {
+        payload: Prisma.$RatingPayload<ExtArgs>
+        fields: Prisma.RatingFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.RatingFindUniqueArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$RatingPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.RatingFindUniqueOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$RatingPayload>
+          }
+          findFirst: {
+            args: Prisma.RatingFindFirstArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$RatingPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.RatingFindFirstOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$RatingPayload>
+          }
+          findMany: {
+            args: Prisma.RatingFindManyArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$RatingPayload>[]
+          }
+          create: {
+            args: Prisma.RatingCreateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$RatingPayload>
+          }
+          delete: {
+            args: Prisma.RatingDeleteArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$RatingPayload>
+          }
+          update: {
+            args: Prisma.RatingUpdateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$RatingPayload>
+          }
+          deleteMany: {
+            args: Prisma.RatingDeleteManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          updateMany: {
+            args: Prisma.RatingUpdateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          upsert: {
+            args: Prisma.RatingUpsertArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$RatingPayload>
+          }
+          aggregate: {
+            args: Prisma.RatingAggregateArgs<ExtArgs>,
+            result: $Utils.Optional<AggregateRating>
+          }
+          groupBy: {
+            args: Prisma.RatingGroupByArgs<ExtArgs>,
+            result: $Utils.Optional<RatingGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.RatingCountArgs<ExtArgs>,
+            result: $Utils.Optional<RatingCountAggregateOutputType> | number
+          }
+        }
+      }
       Image: {
         payload: Prisma.$ImagePayload<ExtArgs>
         fields: Prisma.ImageFieldRefs
@@ -1966,6 +2044,8 @@ export namespace Prisma {
     jobApplications: number
     following: number
     followers: number
+    ratings: number
+    ratedUsers: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -1981,6 +2061,8 @@ export namespace Prisma {
     jobApplications?: boolean | UserCountOutputTypeCountJobApplicationsArgs
     following?: boolean | UserCountOutputTypeCountFollowingArgs
     followers?: boolean | UserCountOutputTypeCountFollowersArgs
+    ratings?: boolean | UserCountOutputTypeCountRatingsArgs
+    ratedUsers?: boolean | UserCountOutputTypeCountRatedUsersArgs
   }
 
   // Custom InputTypes
@@ -2092,6 +2174,22 @@ export namespace Prisma {
   }
 
 
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountRatingsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: RatingWhereInput
+  }
+
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountRatedUsersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: RatingWhereInput
+  }
+
+
 
   /**
    * Count Type JobPostCountOutputType
@@ -2168,11 +2266,19 @@ export namespace Prisma {
   export type ShopCountOutputType = {
     ads: number
     followers: number
+    ratings: number
+    chats: number
+    sentMessages: number
+    receivedMessages: number
   }
 
   export type ShopCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     ads?: boolean | ShopCountOutputTypeCountAdsArgs
     followers?: boolean | ShopCountOutputTypeCountFollowersArgs
+    ratings?: boolean | ShopCountOutputTypeCountRatingsArgs
+    chats?: boolean | ShopCountOutputTypeCountChatsArgs
+    sentMessages?: boolean | ShopCountOutputTypeCountSentMessagesArgs
+    receivedMessages?: boolean | ShopCountOutputTypeCountReceivedMessagesArgs
   }
 
   // Custom InputTypes
@@ -2201,6 +2307,38 @@ export namespace Prisma {
    */
   export type ShopCountOutputTypeCountFollowersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: FollowWhereInput
+  }
+
+
+  /**
+   * ShopCountOutputType without action
+   */
+  export type ShopCountOutputTypeCountRatingsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: RatingWhereInput
+  }
+
+
+  /**
+   * ShopCountOutputType without action
+   */
+  export type ShopCountOutputTypeCountChatsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ChatWhereInput
+  }
+
+
+  /**
+   * ShopCountOutputType without action
+   */
+  export type ShopCountOutputTypeCountSentMessagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MessageWhereInput
+  }
+
+
+  /**
+   * ShopCountOutputType without action
+   */
+  export type ShopCountOutputTypeCountReceivedMessagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MessageWhereInput
   }
 
 
@@ -5262,6 +5400,8 @@ export namespace Prisma {
     jobApplications?: boolean | User$jobApplicationsArgs<ExtArgs>
     following?: boolean | User$followingArgs<ExtArgs>
     followers?: boolean | User$followersArgs<ExtArgs>
+    ratings?: boolean | User$ratingsArgs<ExtArgs>
+    ratedUsers?: boolean | User$ratedUsersArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -5289,6 +5429,8 @@ export namespace Prisma {
     jobApplications?: boolean | User$jobApplicationsArgs<ExtArgs>
     following?: boolean | User$followingArgs<ExtArgs>
     followers?: boolean | User$followersArgs<ExtArgs>
+    ratings?: boolean | User$ratingsArgs<ExtArgs>
+    ratedUsers?: boolean | User$ratedUsersArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
 
@@ -5309,6 +5451,8 @@ export namespace Prisma {
       jobApplications: Prisma.$JobApplicationPayload<ExtArgs>[]
       following: Prisma.$FollowPayload<ExtArgs>[]
       followers: Prisma.$FollowPayload<ExtArgs>[]
+      ratings: Prisma.$RatingPayload<ExtArgs>[]
+      ratedUsers: Prisma.$RatingPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -5692,6 +5836,10 @@ export namespace Prisma {
     following<T extends User$followingArgs<ExtArgs> = {}>(args?: Subset<T, User$followingArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FollowPayload<ExtArgs>, T, 'findMany'> | Null>;
 
     followers<T extends User$followersArgs<ExtArgs> = {}>(args?: Subset<T, User$followersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FollowPayload<ExtArgs>, T, 'findMany'> | Null>;
+
+    ratings<T extends User$ratingsArgs<ExtArgs> = {}>(args?: Subset<T, User$ratingsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RatingPayload<ExtArgs>, T, 'findMany'> | Null>;
+
+    ratedUsers<T extends User$ratedUsersArgs<ExtArgs> = {}>(args?: Subset<T, User$ratedUsersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RatingPayload<ExtArgs>, T, 'findMany'> | Null>;
 
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -6292,6 +6440,48 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: FollowScalarFieldEnum | FollowScalarFieldEnum[]
+  }
+
+
+  /**
+   * User.ratings
+   */
+  export type User$ratingsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Rating
+     */
+    select?: RatingSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: RatingInclude<ExtArgs> | null
+    where?: RatingWhereInput
+    orderBy?: RatingOrderByWithRelationInput | RatingOrderByWithRelationInput[]
+    cursor?: RatingWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: RatingScalarFieldEnum | RatingScalarFieldEnum[]
+  }
+
+
+  /**
+   * User.ratedUsers
+   */
+  export type User$ratedUsersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Rating
+     */
+    select?: RatingSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: RatingInclude<ExtArgs> | null
+    where?: RatingWhereInput
+    orderBy?: RatingOrderByWithRelationInput | RatingOrderByWithRelationInput[]
+    cursor?: RatingWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: RatingScalarFieldEnum | RatingScalarFieldEnum[]
   }
 
 
@@ -10613,6 +10803,10 @@ export namespace Prisma {
     user?: boolean | UserDefaultArgs<ExtArgs>
     ads?: boolean | Shop$adsArgs<ExtArgs>
     followers?: boolean | Shop$followersArgs<ExtArgs>
+    ratings?: boolean | Shop$ratingsArgs<ExtArgs>
+    chats?: boolean | Shop$chatsArgs<ExtArgs>
+    sentMessages?: boolean | Shop$sentMessagesArgs<ExtArgs>
+    receivedMessages?: boolean | Shop$receivedMessagesArgs<ExtArgs>
     _count?: boolean | ShopCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["shop"]>
 
@@ -10640,6 +10834,10 @@ export namespace Prisma {
     user?: boolean | UserDefaultArgs<ExtArgs>
     ads?: boolean | Shop$adsArgs<ExtArgs>
     followers?: boolean | Shop$followersArgs<ExtArgs>
+    ratings?: boolean | Shop$ratingsArgs<ExtArgs>
+    chats?: boolean | Shop$chatsArgs<ExtArgs>
+    sentMessages?: boolean | Shop$sentMessagesArgs<ExtArgs>
+    receivedMessages?: boolean | Shop$receivedMessagesArgs<ExtArgs>
     _count?: boolean | ShopCountOutputTypeDefaultArgs<ExtArgs>
   }
 
@@ -10650,6 +10848,10 @@ export namespace Prisma {
       user: Prisma.$UserPayload<ExtArgs>
       ads: Prisma.$AdPayload<ExtArgs>[]
       followers: Prisma.$FollowPayload<ExtArgs>[]
+      ratings: Prisma.$RatingPayload<ExtArgs>[]
+      chats: Prisma.$ChatPayload<ExtArgs>[]
+      sentMessages: Prisma.$MessagePayload<ExtArgs>[]
+      receivedMessages: Prisma.$MessagePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -11023,6 +11225,14 @@ export namespace Prisma {
     ads<T extends Shop$adsArgs<ExtArgs> = {}>(args?: Subset<T, Shop$adsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AdPayload<ExtArgs>, T, 'findMany'> | Null>;
 
     followers<T extends Shop$followersArgs<ExtArgs> = {}>(args?: Subset<T, Shop$followersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FollowPayload<ExtArgs>, T, 'findMany'> | Null>;
+
+    ratings<T extends Shop$ratingsArgs<ExtArgs> = {}>(args?: Subset<T, Shop$ratingsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RatingPayload<ExtArgs>, T, 'findMany'> | Null>;
+
+    chats<T extends Shop$chatsArgs<ExtArgs> = {}>(args?: Subset<T, Shop$chatsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ChatPayload<ExtArgs>, T, 'findMany'> | Null>;
+
+    sentMessages<T extends Shop$sentMessagesArgs<ExtArgs> = {}>(args?: Subset<T, Shop$sentMessagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MessagePayload<ExtArgs>, T, 'findMany'> | Null>;
+
+    receivedMessages<T extends Shop$receivedMessagesArgs<ExtArgs> = {}>(args?: Subset<T, Shop$receivedMessagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MessagePayload<ExtArgs>, T, 'findMany'> | Null>;
 
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -11407,6 +11617,90 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: FollowScalarFieldEnum | FollowScalarFieldEnum[]
+  }
+
+
+  /**
+   * Shop.ratings
+   */
+  export type Shop$ratingsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Rating
+     */
+    select?: RatingSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: RatingInclude<ExtArgs> | null
+    where?: RatingWhereInput
+    orderBy?: RatingOrderByWithRelationInput | RatingOrderByWithRelationInput[]
+    cursor?: RatingWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: RatingScalarFieldEnum | RatingScalarFieldEnum[]
+  }
+
+
+  /**
+   * Shop.chats
+   */
+  export type Shop$chatsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Chat
+     */
+    select?: ChatSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ChatInclude<ExtArgs> | null
+    where?: ChatWhereInput
+    orderBy?: ChatOrderByWithRelationInput | ChatOrderByWithRelationInput[]
+    cursor?: ChatWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ChatScalarFieldEnum | ChatScalarFieldEnum[]
+  }
+
+
+  /**
+   * Shop.sentMessages
+   */
+  export type Shop$sentMessagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Message
+     */
+    select?: MessageSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: MessageInclude<ExtArgs> | null
+    where?: MessageWhereInput
+    orderBy?: MessageOrderByWithRelationInput | MessageOrderByWithRelationInput[]
+    cursor?: MessageWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: MessageScalarFieldEnum | MessageScalarFieldEnum[]
+  }
+
+
+  /**
+   * Shop.receivedMessages
+   */
+  export type Shop$receivedMessagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Message
+     */
+    select?: MessageSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: MessageInclude<ExtArgs> | null
+    where?: MessageWhereInput
+    orderBy?: MessageOrderByWithRelationInput | MessageOrderByWithRelationInput[]
+    cursor?: MessageWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: MessageScalarFieldEnum | MessageScalarFieldEnum[]
   }
 
 
@@ -12389,6 +12683,983 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well.
      */
     include?: FollowInclude<ExtArgs> | null
+  }
+
+
+
+  /**
+   * Model Rating
+   */
+
+  export type AggregateRating = {
+    _count: RatingCountAggregateOutputType | null
+    _avg: RatingAvgAggregateOutputType | null
+    _sum: RatingSumAggregateOutputType | null
+    _min: RatingMinAggregateOutputType | null
+    _max: RatingMaxAggregateOutputType | null
+  }
+
+  export type RatingAvgAggregateOutputType = {
+    id: number | null
+    userId: number | null
+    ratedUserId: number | null
+    shopId: number | null
+    rating: number | null
+  }
+
+  export type RatingSumAggregateOutputType = {
+    id: number | null
+    userId: number | null
+    ratedUserId: number | null
+    shopId: number | null
+    rating: number | null
+  }
+
+  export type RatingMinAggregateOutputType = {
+    id: number | null
+    userId: number | null
+    ratedUserId: number | null
+    shopId: number | null
+    rating: number | null
+    createdAt: Date | null
+  }
+
+  export type RatingMaxAggregateOutputType = {
+    id: number | null
+    userId: number | null
+    ratedUserId: number | null
+    shopId: number | null
+    rating: number | null
+    createdAt: Date | null
+  }
+
+  export type RatingCountAggregateOutputType = {
+    id: number
+    userId: number
+    ratedUserId: number
+    shopId: number
+    rating: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type RatingAvgAggregateInputType = {
+    id?: true
+    userId?: true
+    ratedUserId?: true
+    shopId?: true
+    rating?: true
+  }
+
+  export type RatingSumAggregateInputType = {
+    id?: true
+    userId?: true
+    ratedUserId?: true
+    shopId?: true
+    rating?: true
+  }
+
+  export type RatingMinAggregateInputType = {
+    id?: true
+    userId?: true
+    ratedUserId?: true
+    shopId?: true
+    rating?: true
+    createdAt?: true
+  }
+
+  export type RatingMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    ratedUserId?: true
+    shopId?: true
+    rating?: true
+    createdAt?: true
+  }
+
+  export type RatingCountAggregateInputType = {
+    id?: true
+    userId?: true
+    ratedUserId?: true
+    shopId?: true
+    rating?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type RatingAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Rating to aggregate.
+     */
+    where?: RatingWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Ratings to fetch.
+     */
+    orderBy?: RatingOrderByWithRelationInput | RatingOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: RatingWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Ratings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Ratings.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Ratings
+    **/
+    _count?: true | RatingCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: RatingAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: RatingSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: RatingMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: RatingMaxAggregateInputType
+  }
+
+  export type GetRatingAggregateType<T extends RatingAggregateArgs> = {
+        [P in keyof T & keyof AggregateRating]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateRating[P]>
+      : GetScalarType<T[P], AggregateRating[P]>
+  }
+
+
+
+
+  export type RatingGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: RatingWhereInput
+    orderBy?: RatingOrderByWithAggregationInput | RatingOrderByWithAggregationInput[]
+    by: RatingScalarFieldEnum[] | RatingScalarFieldEnum
+    having?: RatingScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: RatingCountAggregateInputType | true
+    _avg?: RatingAvgAggregateInputType
+    _sum?: RatingSumAggregateInputType
+    _min?: RatingMinAggregateInputType
+    _max?: RatingMaxAggregateInputType
+  }
+
+  export type RatingGroupByOutputType = {
+    id: number
+    userId: number
+    ratedUserId: number
+    shopId: number | null
+    rating: number
+    createdAt: Date
+    _count: RatingCountAggregateOutputType | null
+    _avg: RatingAvgAggregateOutputType | null
+    _sum: RatingSumAggregateOutputType | null
+    _min: RatingMinAggregateOutputType | null
+    _max: RatingMaxAggregateOutputType | null
+  }
+
+  type GetRatingGroupByPayload<T extends RatingGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<RatingGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof RatingGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], RatingGroupByOutputType[P]>
+            : GetScalarType<T[P], RatingGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type RatingSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    ratedUserId?: boolean
+    shopId?: boolean
+    rating?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    ratedUser?: boolean | UserDefaultArgs<ExtArgs>
+    shop?: boolean | Rating$shopArgs<ExtArgs>
+  }, ExtArgs["result"]["rating"]>
+
+  export type RatingSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    ratedUserId?: boolean
+    shopId?: boolean
+    rating?: boolean
+    createdAt?: boolean
+  }
+
+  export type RatingInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    ratedUser?: boolean | UserDefaultArgs<ExtArgs>
+    shop?: boolean | Rating$shopArgs<ExtArgs>
+  }
+
+
+  export type $RatingPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Rating"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+      ratedUser: Prisma.$UserPayload<ExtArgs>
+      shop: Prisma.$ShopPayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      userId: number
+      ratedUserId: number
+      shopId: number | null
+      rating: number
+      createdAt: Date
+    }, ExtArgs["result"]["rating"]>
+    composites: {}
+  }
+
+
+  type RatingGetPayload<S extends boolean | null | undefined | RatingDefaultArgs> = $Result.GetResult<Prisma.$RatingPayload, S>
+
+  type RatingCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<RatingFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: RatingCountAggregateInputType | true
+    }
+
+  export interface RatingDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Rating'], meta: { name: 'Rating' } }
+    /**
+     * Find zero or one Rating that matches the filter.
+     * @param {RatingFindUniqueArgs} args - Arguments to find a Rating
+     * @example
+     * // Get one Rating
+     * const rating = await prisma.rating.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUnique<T extends RatingFindUniqueArgs<ExtArgs>>(
+      args: SelectSubset<T, RatingFindUniqueArgs<ExtArgs>>
+    ): Prisma__RatingClient<$Result.GetResult<Prisma.$RatingPayload<ExtArgs>, T, 'findUnique'> | null, null, ExtArgs>
+
+    /**
+     * Find one Rating that matches the filter or throw an error  with `error.code='P2025'` 
+     *     if no matches were found.
+     * @param {RatingFindUniqueOrThrowArgs} args - Arguments to find a Rating
+     * @example
+     * // Get one Rating
+     * const rating = await prisma.rating.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUniqueOrThrow<T extends RatingFindUniqueOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, RatingFindUniqueOrThrowArgs<ExtArgs>>
+    ): Prisma__RatingClient<$Result.GetResult<Prisma.$RatingPayload<ExtArgs>, T, 'findUniqueOrThrow'>, never, ExtArgs>
+
+    /**
+     * Find the first Rating that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RatingFindFirstArgs} args - Arguments to find a Rating
+     * @example
+     * // Get one Rating
+     * const rating = await prisma.rating.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirst<T extends RatingFindFirstArgs<ExtArgs>>(
+      args?: SelectSubset<T, RatingFindFirstArgs<ExtArgs>>
+    ): Prisma__RatingClient<$Result.GetResult<Prisma.$RatingPayload<ExtArgs>, T, 'findFirst'> | null, null, ExtArgs>
+
+    /**
+     * Find the first Rating that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RatingFindFirstOrThrowArgs} args - Arguments to find a Rating
+     * @example
+     * // Get one Rating
+     * const rating = await prisma.rating.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirstOrThrow<T extends RatingFindFirstOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, RatingFindFirstOrThrowArgs<ExtArgs>>
+    ): Prisma__RatingClient<$Result.GetResult<Prisma.$RatingPayload<ExtArgs>, T, 'findFirstOrThrow'>, never, ExtArgs>
+
+    /**
+     * Find zero or more Ratings that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RatingFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Ratings
+     * const ratings = await prisma.rating.findMany()
+     * 
+     * // Get first 10 Ratings
+     * const ratings = await prisma.rating.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const ratingWithIdOnly = await prisma.rating.findMany({ select: { id: true } })
+     * 
+    **/
+    findMany<T extends RatingFindManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, RatingFindManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RatingPayload<ExtArgs>, T, 'findMany'>>
+
+    /**
+     * Create a Rating.
+     * @param {RatingCreateArgs} args - Arguments to create a Rating.
+     * @example
+     * // Create one Rating
+     * const Rating = await prisma.rating.create({
+     *   data: {
+     *     // ... data to create a Rating
+     *   }
+     * })
+     * 
+    **/
+    create<T extends RatingCreateArgs<ExtArgs>>(
+      args: SelectSubset<T, RatingCreateArgs<ExtArgs>>
+    ): Prisma__RatingClient<$Result.GetResult<Prisma.$RatingPayload<ExtArgs>, T, 'create'>, never, ExtArgs>
+
+    /**
+     * Delete a Rating.
+     * @param {RatingDeleteArgs} args - Arguments to delete one Rating.
+     * @example
+     * // Delete one Rating
+     * const Rating = await prisma.rating.delete({
+     *   where: {
+     *     // ... filter to delete one Rating
+     *   }
+     * })
+     * 
+    **/
+    delete<T extends RatingDeleteArgs<ExtArgs>>(
+      args: SelectSubset<T, RatingDeleteArgs<ExtArgs>>
+    ): Prisma__RatingClient<$Result.GetResult<Prisma.$RatingPayload<ExtArgs>, T, 'delete'>, never, ExtArgs>
+
+    /**
+     * Update one Rating.
+     * @param {RatingUpdateArgs} args - Arguments to update one Rating.
+     * @example
+     * // Update one Rating
+     * const rating = await prisma.rating.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    update<T extends RatingUpdateArgs<ExtArgs>>(
+      args: SelectSubset<T, RatingUpdateArgs<ExtArgs>>
+    ): Prisma__RatingClient<$Result.GetResult<Prisma.$RatingPayload<ExtArgs>, T, 'update'>, never, ExtArgs>
+
+    /**
+     * Delete zero or more Ratings.
+     * @param {RatingDeleteManyArgs} args - Arguments to filter Ratings to delete.
+     * @example
+     * // Delete a few Ratings
+     * const { count } = await prisma.rating.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+    **/
+    deleteMany<T extends RatingDeleteManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, RatingDeleteManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Ratings.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RatingUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Ratings
+     * const rating = await prisma.rating.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    updateMany<T extends RatingUpdateManyArgs<ExtArgs>>(
+      args: SelectSubset<T, RatingUpdateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Rating.
+     * @param {RatingUpsertArgs} args - Arguments to update or create a Rating.
+     * @example
+     * // Update or create a Rating
+     * const rating = await prisma.rating.upsert({
+     *   create: {
+     *     // ... data to create a Rating
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Rating we want to update
+     *   }
+     * })
+    **/
+    upsert<T extends RatingUpsertArgs<ExtArgs>>(
+      args: SelectSubset<T, RatingUpsertArgs<ExtArgs>>
+    ): Prisma__RatingClient<$Result.GetResult<Prisma.$RatingPayload<ExtArgs>, T, 'upsert'>, never, ExtArgs>
+
+    /**
+     * Count the number of Ratings.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RatingCountArgs} args - Arguments to filter Ratings to count.
+     * @example
+     * // Count the number of Ratings
+     * const count = await prisma.rating.count({
+     *   where: {
+     *     // ... the filter for the Ratings we want to count
+     *   }
+     * })
+    **/
+    count<T extends RatingCountArgs>(
+      args?: Subset<T, RatingCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], RatingCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Rating.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RatingAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends RatingAggregateArgs>(args: Subset<T, RatingAggregateArgs>): Prisma.PrismaPromise<GetRatingAggregateType<T>>
+
+    /**
+     * Group by Rating.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RatingGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends RatingGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: RatingGroupByArgs['orderBy'] }
+        : { orderBy?: RatingGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, RatingGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetRatingGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Rating model
+   */
+  readonly fields: RatingFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Rating.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__RatingClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: 'PrismaPromise';
+
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, 'findUniqueOrThrow'> | Null, Null, ExtArgs>;
+
+    ratedUser<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, 'findUniqueOrThrow'> | Null, Null, ExtArgs>;
+
+    shop<T extends Rating$shopArgs<ExtArgs> = {}>(args?: Subset<T, Rating$shopArgs<ExtArgs>>): Prisma__ShopClient<$Result.GetResult<Prisma.$ShopPayload<ExtArgs>, T, 'findUniqueOrThrow'> | null, null, ExtArgs>;
+
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>;
+  }
+
+
+
+  /**
+   * Fields of the Rating model
+   */ 
+  interface RatingFieldRefs {
+    readonly id: FieldRef<"Rating", 'Int'>
+    readonly userId: FieldRef<"Rating", 'Int'>
+    readonly ratedUserId: FieldRef<"Rating", 'Int'>
+    readonly shopId: FieldRef<"Rating", 'Int'>
+    readonly rating: FieldRef<"Rating", 'Float'>
+    readonly createdAt: FieldRef<"Rating", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+
+  /**
+   * Rating findUnique
+   */
+  export type RatingFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Rating
+     */
+    select?: RatingSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: RatingInclude<ExtArgs> | null
+    /**
+     * Filter, which Rating to fetch.
+     */
+    where: RatingWhereUniqueInput
+  }
+
+
+  /**
+   * Rating findUniqueOrThrow
+   */
+  export type RatingFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Rating
+     */
+    select?: RatingSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: RatingInclude<ExtArgs> | null
+    /**
+     * Filter, which Rating to fetch.
+     */
+    where: RatingWhereUniqueInput
+  }
+
+
+  /**
+   * Rating findFirst
+   */
+  export type RatingFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Rating
+     */
+    select?: RatingSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: RatingInclude<ExtArgs> | null
+    /**
+     * Filter, which Rating to fetch.
+     */
+    where?: RatingWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Ratings to fetch.
+     */
+    orderBy?: RatingOrderByWithRelationInput | RatingOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Ratings.
+     */
+    cursor?: RatingWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Ratings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Ratings.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Ratings.
+     */
+    distinct?: RatingScalarFieldEnum | RatingScalarFieldEnum[]
+  }
+
+
+  /**
+   * Rating findFirstOrThrow
+   */
+  export type RatingFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Rating
+     */
+    select?: RatingSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: RatingInclude<ExtArgs> | null
+    /**
+     * Filter, which Rating to fetch.
+     */
+    where?: RatingWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Ratings to fetch.
+     */
+    orderBy?: RatingOrderByWithRelationInput | RatingOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Ratings.
+     */
+    cursor?: RatingWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Ratings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Ratings.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Ratings.
+     */
+    distinct?: RatingScalarFieldEnum | RatingScalarFieldEnum[]
+  }
+
+
+  /**
+   * Rating findMany
+   */
+  export type RatingFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Rating
+     */
+    select?: RatingSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: RatingInclude<ExtArgs> | null
+    /**
+     * Filter, which Ratings to fetch.
+     */
+    where?: RatingWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Ratings to fetch.
+     */
+    orderBy?: RatingOrderByWithRelationInput | RatingOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Ratings.
+     */
+    cursor?: RatingWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Ratings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Ratings.
+     */
+    skip?: number
+    distinct?: RatingScalarFieldEnum | RatingScalarFieldEnum[]
+  }
+
+
+  /**
+   * Rating create
+   */
+  export type RatingCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Rating
+     */
+    select?: RatingSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: RatingInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Rating.
+     */
+    data: XOR<RatingCreateInput, RatingUncheckedCreateInput>
+  }
+
+
+  /**
+   * Rating update
+   */
+  export type RatingUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Rating
+     */
+    select?: RatingSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: RatingInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Rating.
+     */
+    data: XOR<RatingUpdateInput, RatingUncheckedUpdateInput>
+    /**
+     * Choose, which Rating to update.
+     */
+    where: RatingWhereUniqueInput
+  }
+
+
+  /**
+   * Rating updateMany
+   */
+  export type RatingUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Ratings.
+     */
+    data: XOR<RatingUpdateManyMutationInput, RatingUncheckedUpdateManyInput>
+    /**
+     * Filter which Ratings to update
+     */
+    where?: RatingWhereInput
+  }
+
+
+  /**
+   * Rating upsert
+   */
+  export type RatingUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Rating
+     */
+    select?: RatingSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: RatingInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Rating to update in case it exists.
+     */
+    where: RatingWhereUniqueInput
+    /**
+     * In case the Rating found by the `where` argument doesn't exist, create a new Rating with this data.
+     */
+    create: XOR<RatingCreateInput, RatingUncheckedCreateInput>
+    /**
+     * In case the Rating was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<RatingUpdateInput, RatingUncheckedUpdateInput>
+  }
+
+
+  /**
+   * Rating delete
+   */
+  export type RatingDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Rating
+     */
+    select?: RatingSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: RatingInclude<ExtArgs> | null
+    /**
+     * Filter which Rating to delete.
+     */
+    where: RatingWhereUniqueInput
+  }
+
+
+  /**
+   * Rating deleteMany
+   */
+  export type RatingDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Ratings to delete
+     */
+    where?: RatingWhereInput
+  }
+
+
+  /**
+   * Rating.shop
+   */
+  export type Rating$shopArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Shop
+     */
+    select?: ShopSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ShopInclude<ExtArgs> | null
+    where?: ShopWhereInput
+  }
+
+
+  /**
+   * Rating without action
+   */
+  export type RatingDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Rating
+     */
+    select?: RatingSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: RatingInclude<ExtArgs> | null
   }
 
 
@@ -15523,44 +16794,54 @@ export namespace Prisma {
 
   export type ChatAvgAggregateOutputType = {
     id: number | null
+    shopId: number | null
   }
 
   export type ChatSumAggregateOutputType = {
     id: number | null
+    shopId: number | null
   }
 
   export type ChatMinAggregateOutputType = {
     id: number | null
+    shopId: number | null
   }
 
   export type ChatMaxAggregateOutputType = {
     id: number | null
+    shopId: number | null
   }
 
   export type ChatCountAggregateOutputType = {
     id: number
+    shopId: number
     _all: number
   }
 
 
   export type ChatAvgAggregateInputType = {
     id?: true
+    shopId?: true
   }
 
   export type ChatSumAggregateInputType = {
     id?: true
+    shopId?: true
   }
 
   export type ChatMinAggregateInputType = {
     id?: true
+    shopId?: true
   }
 
   export type ChatMaxAggregateInputType = {
     id?: true
+    shopId?: true
   }
 
   export type ChatCountAggregateInputType = {
     id?: true
+    shopId?: true
     _all?: true
   }
 
@@ -15652,6 +16933,7 @@ export namespace Prisma {
 
   export type ChatGroupByOutputType = {
     id: number
+    shopId: number | null
     _count: ChatCountAggregateOutputType | null
     _avg: ChatAvgAggregateOutputType | null
     _sum: ChatSumAggregateOutputType | null
@@ -15675,17 +16957,21 @@ export namespace Prisma {
 
   export type ChatSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    shopId?: boolean
     users?: boolean | Chat$usersArgs<ExtArgs>
+    shop?: boolean | Chat$shopArgs<ExtArgs>
     messages?: boolean | Chat$messagesArgs<ExtArgs>
     _count?: boolean | ChatCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["chat"]>
 
   export type ChatSelectScalar = {
     id?: boolean
+    shopId?: boolean
   }
 
   export type ChatInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     users?: boolean | Chat$usersArgs<ExtArgs>
+    shop?: boolean | Chat$shopArgs<ExtArgs>
     messages?: boolean | Chat$messagesArgs<ExtArgs>
     _count?: boolean | ChatCountOutputTypeDefaultArgs<ExtArgs>
   }
@@ -15695,10 +16981,12 @@ export namespace Prisma {
     name: "Chat"
     objects: {
       users: Prisma.$UserPayload<ExtArgs>[]
+      shop: Prisma.$ShopPayload<ExtArgs> | null
       messages: Prisma.$MessagePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
+      shopId: number | null
     }, ExtArgs["result"]["chat"]>
     composites: {}
   }
@@ -16050,6 +17338,8 @@ export namespace Prisma {
 
     users<T extends Chat$usersArgs<ExtArgs> = {}>(args?: Subset<T, Chat$usersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, 'findMany'> | Null>;
 
+    shop<T extends Chat$shopArgs<ExtArgs> = {}>(args?: Subset<T, Chat$shopArgs<ExtArgs>>): Prisma__ShopClient<$Result.GetResult<Prisma.$ShopPayload<ExtArgs>, T, 'findUniqueOrThrow'> | null, null, ExtArgs>;
+
     messages<T extends Chat$messagesArgs<ExtArgs> = {}>(args?: Subset<T, Chat$messagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MessagePayload<ExtArgs>, T, 'findMany'> | Null>;
 
     /**
@@ -16081,6 +17371,7 @@ export namespace Prisma {
    */ 
   interface ChatFieldRefs {
     readonly id: FieldRef<"Chat", 'Int'>
+    readonly shopId: FieldRef<"Chat", 'Int'>
   }
     
 
@@ -16402,6 +17693,22 @@ export namespace Prisma {
 
 
   /**
+   * Chat.shop
+   */
+  export type Chat$shopArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Shop
+     */
+    select?: ShopSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ShopInclude<ExtArgs> | null
+    where?: ShopWhereInput
+  }
+
+
+  /**
    * Chat.messages
    */
   export type Chat$messagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -16452,78 +17759,96 @@ export namespace Prisma {
 
   export type MessageAvgAggregateOutputType = {
     id: number | null
+    senderId: number | null
+    receiverId: number | null
     chatId: number | null
+    shopId: number | null
   }
 
   export type MessageSumAggregateOutputType = {
     id: number | null
+    senderId: number | null
+    receiverId: number | null
     chatId: number | null
+    shopId: number | null
   }
 
   export type MessageMinAggregateOutputType = {
     id: number | null
     content: string | null
-    senderEmail: string | null
-    receiverEmail: string | null
+    senderId: number | null
+    receiverId: number | null
     createdAt: Date | null
     chatId: number | null
+    shopId: number | null
   }
 
   export type MessageMaxAggregateOutputType = {
     id: number | null
     content: string | null
-    senderEmail: string | null
-    receiverEmail: string | null
+    senderId: number | null
+    receiverId: number | null
     createdAt: Date | null
     chatId: number | null
+    shopId: number | null
   }
 
   export type MessageCountAggregateOutputType = {
     id: number
     content: number
-    senderEmail: number
-    receiverEmail: number
+    senderId: number
+    receiverId: number
     createdAt: number
     chatId: number
+    shopId: number
     _all: number
   }
 
 
   export type MessageAvgAggregateInputType = {
     id?: true
+    senderId?: true
+    receiverId?: true
     chatId?: true
+    shopId?: true
   }
 
   export type MessageSumAggregateInputType = {
     id?: true
+    senderId?: true
+    receiverId?: true
     chatId?: true
+    shopId?: true
   }
 
   export type MessageMinAggregateInputType = {
     id?: true
     content?: true
-    senderEmail?: true
-    receiverEmail?: true
+    senderId?: true
+    receiverId?: true
     createdAt?: true
     chatId?: true
+    shopId?: true
   }
 
   export type MessageMaxAggregateInputType = {
     id?: true
     content?: true
-    senderEmail?: true
-    receiverEmail?: true
+    senderId?: true
+    receiverId?: true
     createdAt?: true
     chatId?: true
+    shopId?: true
   }
 
   export type MessageCountAggregateInputType = {
     id?: true
     content?: true
-    senderEmail?: true
-    receiverEmail?: true
+    senderId?: true
+    receiverId?: true
     createdAt?: true
     chatId?: true
+    shopId?: true
     _all?: true
   }
 
@@ -16616,10 +17941,11 @@ export namespace Prisma {
   export type MessageGroupByOutputType = {
     id: number
     content: string
-    senderEmail: string
-    receiverEmail: string | null
+    senderId: number | null
+    receiverId: number | null
     createdAt: Date
     chatId: number
+    shopId: number | null
     _count: MessageCountAggregateOutputType | null
     _avg: MessageAvgAggregateOutputType | null
     _sum: MessageSumAggregateOutputType | null
@@ -16644,11 +17970,14 @@ export namespace Prisma {
   export type MessageSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     content?: boolean
-    senderEmail?: boolean
-    receiverEmail?: boolean
+    senderId?: boolean
+    receiverId?: boolean
     createdAt?: boolean
     chatId?: boolean
-    sender?: boolean | UserDefaultArgs<ExtArgs>
+    shopId?: boolean
+    senderShop?: boolean | Message$senderShopArgs<ExtArgs>
+    receiverShop?: boolean | Message$receiverShopArgs<ExtArgs>
+    sender?: boolean | Message$senderArgs<ExtArgs>
     receiver?: boolean | Message$receiverArgs<ExtArgs>
     chat?: boolean | ChatDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["message"]>
@@ -16656,14 +17985,17 @@ export namespace Prisma {
   export type MessageSelectScalar = {
     id?: boolean
     content?: boolean
-    senderEmail?: boolean
-    receiverEmail?: boolean
+    senderId?: boolean
+    receiverId?: boolean
     createdAt?: boolean
     chatId?: boolean
+    shopId?: boolean
   }
 
   export type MessageInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    sender?: boolean | UserDefaultArgs<ExtArgs>
+    senderShop?: boolean | Message$senderShopArgs<ExtArgs>
+    receiverShop?: boolean | Message$receiverShopArgs<ExtArgs>
+    sender?: boolean | Message$senderArgs<ExtArgs>
     receiver?: boolean | Message$receiverArgs<ExtArgs>
     chat?: boolean | ChatDefaultArgs<ExtArgs>
   }
@@ -16672,17 +18004,20 @@ export namespace Prisma {
   export type $MessagePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Message"
     objects: {
-      sender: Prisma.$UserPayload<ExtArgs>
+      senderShop: Prisma.$ShopPayload<ExtArgs> | null
+      receiverShop: Prisma.$ShopPayload<ExtArgs> | null
+      sender: Prisma.$UserPayload<ExtArgs> | null
       receiver: Prisma.$UserPayload<ExtArgs> | null
       chat: Prisma.$ChatPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
       content: string
-      senderEmail: string
-      receiverEmail: string | null
+      senderId: number | null
+      receiverId: number | null
       createdAt: Date
       chatId: number
+      shopId: number | null
     }, ExtArgs["result"]["message"]>
     composites: {}
   }
@@ -17032,7 +18367,11 @@ export namespace Prisma {
   export interface Prisma__MessageClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: 'PrismaPromise';
 
-    sender<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, 'findUniqueOrThrow'> | Null, Null, ExtArgs>;
+    senderShop<T extends Message$senderShopArgs<ExtArgs> = {}>(args?: Subset<T, Message$senderShopArgs<ExtArgs>>): Prisma__ShopClient<$Result.GetResult<Prisma.$ShopPayload<ExtArgs>, T, 'findUniqueOrThrow'> | null, null, ExtArgs>;
+
+    receiverShop<T extends Message$receiverShopArgs<ExtArgs> = {}>(args?: Subset<T, Message$receiverShopArgs<ExtArgs>>): Prisma__ShopClient<$Result.GetResult<Prisma.$ShopPayload<ExtArgs>, T, 'findUniqueOrThrow'> | null, null, ExtArgs>;
+
+    sender<T extends Message$senderArgs<ExtArgs> = {}>(args?: Subset<T, Message$senderArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, 'findUniqueOrThrow'> | null, null, ExtArgs>;
 
     receiver<T extends Message$receiverArgs<ExtArgs> = {}>(args?: Subset<T, Message$receiverArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, 'findUniqueOrThrow'> | null, null, ExtArgs>;
 
@@ -17068,10 +18407,11 @@ export namespace Prisma {
   interface MessageFieldRefs {
     readonly id: FieldRef<"Message", 'Int'>
     readonly content: FieldRef<"Message", 'String'>
-    readonly senderEmail: FieldRef<"Message", 'String'>
-    readonly receiverEmail: FieldRef<"Message", 'String'>
+    readonly senderId: FieldRef<"Message", 'Int'>
+    readonly receiverId: FieldRef<"Message", 'Int'>
     readonly createdAt: FieldRef<"Message", 'DateTime'>
     readonly chatId: FieldRef<"Message", 'Int'>
+    readonly shopId: FieldRef<"Message", 'Int'>
   }
     
 
@@ -17372,6 +18712,54 @@ export namespace Prisma {
 
 
   /**
+   * Message.senderShop
+   */
+  export type Message$senderShopArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Shop
+     */
+    select?: ShopSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ShopInclude<ExtArgs> | null
+    where?: ShopWhereInput
+  }
+
+
+  /**
+   * Message.receiverShop
+   */
+  export type Message$receiverShopArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Shop
+     */
+    select?: ShopSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ShopInclude<ExtArgs> | null
+    where?: ShopWhereInput
+  }
+
+
+  /**
+   * Message.sender
+   */
+  export type Message$senderArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
+  }
+
+
+  /**
    * Message.receiver
    */
   export type Message$receiverArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -17561,6 +18949,18 @@ export namespace Prisma {
   export type FollowScalarFieldEnum = (typeof FollowScalarFieldEnum)[keyof typeof FollowScalarFieldEnum]
 
 
+  export const RatingScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    ratedUserId: 'ratedUserId',
+    shopId: 'shopId',
+    rating: 'rating',
+    createdAt: 'createdAt'
+  };
+
+  export type RatingScalarFieldEnum = (typeof RatingScalarFieldEnum)[keyof typeof RatingScalarFieldEnum]
+
+
   export const ImageScalarFieldEnum: {
     id: 'id',
     url: 'url',
@@ -17615,7 +19015,8 @@ export namespace Prisma {
 
 
   export const ChatScalarFieldEnum: {
-    id: 'id'
+    id: 'id',
+    shopId: 'shopId'
   };
 
   export type ChatScalarFieldEnum = (typeof ChatScalarFieldEnum)[keyof typeof ChatScalarFieldEnum]
@@ -17624,10 +19025,11 @@ export namespace Prisma {
   export const MessageScalarFieldEnum: {
     id: 'id',
     content: 'content',
-    senderEmail: 'senderEmail',
-    receiverEmail: 'receiverEmail',
+    senderId: 'senderId',
+    receiverId: 'receiverId',
     createdAt: 'createdAt',
-    chatId: 'chatId'
+    chatId: 'chatId',
+    shopId: 'shopId'
   };
 
   export type MessageScalarFieldEnum = (typeof MessageScalarFieldEnum)[keyof typeof MessageScalarFieldEnum]
@@ -17904,6 +19306,8 @@ export namespace Prisma {
     jobApplications?: JobApplicationListRelationFilter
     following?: FollowListRelationFilter
     followers?: FollowListRelationFilter
+    ratings?: RatingListRelationFilter
+    ratedUsers?: RatingListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -17927,6 +19331,8 @@ export namespace Prisma {
     jobApplications?: JobApplicationOrderByRelationAggregateInput
     following?: FollowOrderByRelationAggregateInput
     followers?: FollowOrderByRelationAggregateInput
+    ratings?: RatingOrderByRelationAggregateInput
+    ratedUsers?: RatingOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -17953,6 +19359,8 @@ export namespace Prisma {
     jobApplications?: JobApplicationListRelationFilter
     following?: FollowListRelationFilter
     followers?: FollowListRelationFilter
+    ratings?: RatingListRelationFilter
+    ratedUsers?: RatingListRelationFilter
   }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -18344,6 +19752,10 @@ export namespace Prisma {
     user?: XOR<UserRelationFilter, UserWhereInput>
     ads?: AdListRelationFilter
     followers?: FollowListRelationFilter
+    ratings?: RatingListRelationFilter
+    chats?: ChatListRelationFilter
+    sentMessages?: MessageListRelationFilter
+    receivedMessages?: MessageListRelationFilter
   }
 
   export type ShopOrderByWithRelationInput = {
@@ -18367,6 +19779,10 @@ export namespace Prisma {
     user?: UserOrderByWithRelationInput
     ads?: AdOrderByRelationAggregateInput
     followers?: FollowOrderByRelationAggregateInput
+    ratings?: RatingOrderByRelationAggregateInput
+    chats?: ChatOrderByRelationAggregateInput
+    sentMessages?: MessageOrderByRelationAggregateInput
+    receivedMessages?: MessageOrderByRelationAggregateInput
   }
 
   export type ShopWhereUniqueInput = Prisma.AtLeast<{
@@ -18393,6 +19809,10 @@ export namespace Prisma {
     user?: XOR<UserRelationFilter, UserWhereInput>
     ads?: AdListRelationFilter
     followers?: FollowListRelationFilter
+    ratings?: RatingListRelationFilter
+    chats?: ChatListRelationFilter
+    sentMessages?: MessageListRelationFilter
+    receivedMessages?: MessageListRelationFilter
   }, "id">
 
   export type ShopOrderByWithAggregationInput = {
@@ -18501,6 +19921,75 @@ export namespace Prisma {
     followerId?: IntWithAggregatesFilter<"Follow"> | number
     followedUserId?: IntNullableWithAggregatesFilter<"Follow"> | number | null
     followedShopId?: IntNullableWithAggregatesFilter<"Follow"> | number | null
+  }
+
+  export type RatingWhereInput = {
+    AND?: RatingWhereInput | RatingWhereInput[]
+    OR?: RatingWhereInput[]
+    NOT?: RatingWhereInput | RatingWhereInput[]
+    id?: IntFilter<"Rating"> | number
+    userId?: IntFilter<"Rating"> | number
+    ratedUserId?: IntFilter<"Rating"> | number
+    shopId?: IntNullableFilter<"Rating"> | number | null
+    rating?: FloatFilter<"Rating"> | number
+    createdAt?: DateTimeFilter<"Rating"> | Date | string
+    user?: XOR<UserRelationFilter, UserWhereInput>
+    ratedUser?: XOR<UserRelationFilter, UserWhereInput>
+    shop?: XOR<ShopNullableRelationFilter, ShopWhereInput> | null
+  }
+
+  export type RatingOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    ratedUserId?: SortOrder
+    shopId?: SortOrderInput | SortOrder
+    rating?: SortOrder
+    createdAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+    ratedUser?: UserOrderByWithRelationInput
+    shop?: ShopOrderByWithRelationInput
+  }
+
+  export type RatingWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    userId_ratedUserId?: RatingUserIdRatedUserIdCompoundUniqueInput
+    AND?: RatingWhereInput | RatingWhereInput[]
+    OR?: RatingWhereInput[]
+    NOT?: RatingWhereInput | RatingWhereInput[]
+    userId?: IntFilter<"Rating"> | number
+    ratedUserId?: IntFilter<"Rating"> | number
+    shopId?: IntNullableFilter<"Rating"> | number | null
+    rating?: FloatFilter<"Rating"> | number
+    createdAt?: DateTimeFilter<"Rating"> | Date | string
+    user?: XOR<UserRelationFilter, UserWhereInput>
+    ratedUser?: XOR<UserRelationFilter, UserWhereInput>
+    shop?: XOR<ShopNullableRelationFilter, ShopWhereInput> | null
+  }, "id" | "userId_ratedUserId">
+
+  export type RatingOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    ratedUserId?: SortOrder
+    shopId?: SortOrderInput | SortOrder
+    rating?: SortOrder
+    createdAt?: SortOrder
+    _count?: RatingCountOrderByAggregateInput
+    _avg?: RatingAvgOrderByAggregateInput
+    _max?: RatingMaxOrderByAggregateInput
+    _min?: RatingMinOrderByAggregateInput
+    _sum?: RatingSumOrderByAggregateInput
+  }
+
+  export type RatingScalarWhereWithAggregatesInput = {
+    AND?: RatingScalarWhereWithAggregatesInput | RatingScalarWhereWithAggregatesInput[]
+    OR?: RatingScalarWhereWithAggregatesInput[]
+    NOT?: RatingScalarWhereWithAggregatesInput | RatingScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"Rating"> | number
+    userId?: IntWithAggregatesFilter<"Rating"> | number
+    ratedUserId?: IntWithAggregatesFilter<"Rating"> | number
+    shopId?: IntNullableWithAggregatesFilter<"Rating"> | number | null
+    rating?: FloatWithAggregatesFilter<"Rating"> | number
+    createdAt?: DateTimeWithAggregatesFilter<"Rating"> | Date | string
   }
 
   export type ImageWhereInput = {
@@ -18791,13 +20280,17 @@ export namespace Prisma {
     OR?: ChatWhereInput[]
     NOT?: ChatWhereInput | ChatWhereInput[]
     id?: IntFilter<"Chat"> | number
+    shopId?: IntNullableFilter<"Chat"> | number | null
     users?: UserListRelationFilter
+    shop?: XOR<ShopNullableRelationFilter, ShopWhereInput> | null
     messages?: MessageListRelationFilter
   }
 
   export type ChatOrderByWithRelationInput = {
     id?: SortOrder
+    shopId?: SortOrderInput | SortOrder
     users?: UserOrderByRelationAggregateInput
+    shop?: ShopOrderByWithRelationInput
     messages?: MessageOrderByRelationAggregateInput
   }
 
@@ -18806,12 +20299,15 @@ export namespace Prisma {
     AND?: ChatWhereInput | ChatWhereInput[]
     OR?: ChatWhereInput[]
     NOT?: ChatWhereInput | ChatWhereInput[]
+    shopId?: IntNullableFilter<"Chat"> | number | null
     users?: UserListRelationFilter
+    shop?: XOR<ShopNullableRelationFilter, ShopWhereInput> | null
     messages?: MessageListRelationFilter
   }, "id">
 
   export type ChatOrderByWithAggregationInput = {
     id?: SortOrder
+    shopId?: SortOrderInput | SortOrder
     _count?: ChatCountOrderByAggregateInput
     _avg?: ChatAvgOrderByAggregateInput
     _max?: ChatMaxOrderByAggregateInput
@@ -18824,6 +20320,7 @@ export namespace Prisma {
     OR?: ChatScalarWhereWithAggregatesInput[]
     NOT?: ChatScalarWhereWithAggregatesInput | ChatScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"Chat"> | number
+    shopId?: IntNullableWithAggregatesFilter<"Chat"> | number | null
   }
 
   export type MessageWhereInput = {
@@ -18832,11 +20329,14 @@ export namespace Prisma {
     NOT?: MessageWhereInput | MessageWhereInput[]
     id?: IntFilter<"Message"> | number
     content?: StringFilter<"Message"> | string
-    senderEmail?: StringFilter<"Message"> | string
-    receiverEmail?: StringNullableFilter<"Message"> | string | null
+    senderId?: IntNullableFilter<"Message"> | number | null
+    receiverId?: IntNullableFilter<"Message"> | number | null
     createdAt?: DateTimeFilter<"Message"> | Date | string
     chatId?: IntFilter<"Message"> | number
-    sender?: XOR<UserRelationFilter, UserWhereInput>
+    shopId?: IntNullableFilter<"Message"> | number | null
+    senderShop?: XOR<ShopNullableRelationFilter, ShopWhereInput> | null
+    receiverShop?: XOR<ShopNullableRelationFilter, ShopWhereInput> | null
+    sender?: XOR<UserNullableRelationFilter, UserWhereInput> | null
     receiver?: XOR<UserNullableRelationFilter, UserWhereInput> | null
     chat?: XOR<ChatRelationFilter, ChatWhereInput>
   }
@@ -18844,10 +20344,13 @@ export namespace Prisma {
   export type MessageOrderByWithRelationInput = {
     id?: SortOrder
     content?: SortOrder
-    senderEmail?: SortOrder
-    receiverEmail?: SortOrderInput | SortOrder
+    senderId?: SortOrderInput | SortOrder
+    receiverId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     chatId?: SortOrder
+    shopId?: SortOrderInput | SortOrder
+    senderShop?: ShopOrderByWithRelationInput
+    receiverShop?: ShopOrderByWithRelationInput
     sender?: UserOrderByWithRelationInput
     receiver?: UserOrderByWithRelationInput
     chat?: ChatOrderByWithRelationInput
@@ -18859,11 +20362,14 @@ export namespace Prisma {
     OR?: MessageWhereInput[]
     NOT?: MessageWhereInput | MessageWhereInput[]
     content?: StringFilter<"Message"> | string
-    senderEmail?: StringFilter<"Message"> | string
-    receiverEmail?: StringNullableFilter<"Message"> | string | null
+    senderId?: IntNullableFilter<"Message"> | number | null
+    receiverId?: IntNullableFilter<"Message"> | number | null
     createdAt?: DateTimeFilter<"Message"> | Date | string
     chatId?: IntFilter<"Message"> | number
-    sender?: XOR<UserRelationFilter, UserWhereInput>
+    shopId?: IntNullableFilter<"Message"> | number | null
+    senderShop?: XOR<ShopNullableRelationFilter, ShopWhereInput> | null
+    receiverShop?: XOR<ShopNullableRelationFilter, ShopWhereInput> | null
+    sender?: XOR<UserNullableRelationFilter, UserWhereInput> | null
     receiver?: XOR<UserNullableRelationFilter, UserWhereInput> | null
     chat?: XOR<ChatRelationFilter, ChatWhereInput>
   }, "id">
@@ -18871,10 +20377,11 @@ export namespace Prisma {
   export type MessageOrderByWithAggregationInput = {
     id?: SortOrder
     content?: SortOrder
-    senderEmail?: SortOrder
-    receiverEmail?: SortOrderInput | SortOrder
+    senderId?: SortOrderInput | SortOrder
+    receiverId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     chatId?: SortOrder
+    shopId?: SortOrderInput | SortOrder
     _count?: MessageCountOrderByAggregateInput
     _avg?: MessageAvgOrderByAggregateInput
     _max?: MessageMaxOrderByAggregateInput
@@ -18888,10 +20395,11 @@ export namespace Prisma {
     NOT?: MessageScalarWhereWithAggregatesInput | MessageScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"Message"> | number
     content?: StringWithAggregatesFilter<"Message"> | string
-    senderEmail?: StringWithAggregatesFilter<"Message"> | string
-    receiverEmail?: StringNullableWithAggregatesFilter<"Message"> | string | null
+    senderId?: IntNullableWithAggregatesFilter<"Message"> | number | null
+    receiverId?: IntNullableWithAggregatesFilter<"Message"> | number | null
     createdAt?: DateTimeWithAggregatesFilter<"Message"> | Date | string
     chatId?: IntWithAggregatesFilter<"Message"> | number
+    shopId?: IntNullableWithAggregatesFilter<"Message"> | number | null
   }
 
   export type AccountCreateInput = {
@@ -19080,6 +20588,8 @@ export namespace Prisma {
     jobApplications?: JobApplicationCreateNestedManyWithoutUserInput
     following?: FollowCreateNestedManyWithoutFollowerInput
     followers?: FollowCreateNestedManyWithoutFollowedUserInput
+    ratings?: RatingCreateNestedManyWithoutUserInput
+    ratedUsers?: RatingCreateNestedManyWithoutRatedUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -19103,6 +20613,8 @@ export namespace Prisma {
     jobApplications?: JobApplicationUncheckedCreateNestedManyWithoutUserInput
     following?: FollowUncheckedCreateNestedManyWithoutFollowerInput
     followers?: FollowUncheckedCreateNestedManyWithoutFollowedUserInput
+    ratings?: RatingUncheckedCreateNestedManyWithoutUserInput
+    ratedUsers?: RatingUncheckedCreateNestedManyWithoutRatedUserInput
   }
 
   export type UserUpdateInput = {
@@ -19125,6 +20637,8 @@ export namespace Prisma {
     jobApplications?: JobApplicationUpdateManyWithoutUserNestedInput
     following?: FollowUpdateManyWithoutFollowerNestedInput
     followers?: FollowUpdateManyWithoutFollowedUserNestedInput
+    ratings?: RatingUpdateManyWithoutUserNestedInput
+    ratedUsers?: RatingUpdateManyWithoutRatedUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -19148,6 +20662,8 @@ export namespace Prisma {
     jobApplications?: JobApplicationUncheckedUpdateManyWithoutUserNestedInput
     following?: FollowUncheckedUpdateManyWithoutFollowerNestedInput
     followers?: FollowUncheckedUpdateManyWithoutFollowedUserNestedInput
+    ratings?: RatingUncheckedUpdateManyWithoutUserNestedInput
+    ratedUsers?: RatingUncheckedUpdateManyWithoutRatedUserNestedInput
   }
 
   export type UserUpdateManyMutationInput = {
@@ -19491,6 +21007,10 @@ export namespace Prisma {
     user: UserCreateNestedOneWithoutShopInput
     ads?: AdCreateNestedManyWithoutShopInput
     followers?: FollowCreateNestedManyWithoutFollowedShopInput
+    ratings?: RatingCreateNestedManyWithoutShopInput
+    chats?: ChatCreateNestedManyWithoutShopInput
+    sentMessages?: MessageCreateNestedManyWithoutSenderShopInput
+    receivedMessages?: MessageCreateNestedManyWithoutReceiverShopInput
   }
 
   export type ShopUncheckedCreateInput = {
@@ -19513,6 +21033,10 @@ export namespace Prisma {
     phoneNumber2?: string | null
     ads?: AdUncheckedCreateNestedManyWithoutShopInput
     followers?: FollowUncheckedCreateNestedManyWithoutFollowedShopInput
+    ratings?: RatingUncheckedCreateNestedManyWithoutShopInput
+    chats?: ChatUncheckedCreateNestedManyWithoutShopInput
+    sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderShopInput
+    receivedMessages?: MessageUncheckedCreateNestedManyWithoutReceiverShopInput
   }
 
   export type ShopUpdateInput = {
@@ -19534,6 +21058,10 @@ export namespace Prisma {
     user?: UserUpdateOneRequiredWithoutShopNestedInput
     ads?: AdUpdateManyWithoutShopNestedInput
     followers?: FollowUpdateManyWithoutFollowedShopNestedInput
+    ratings?: RatingUpdateManyWithoutShopNestedInput
+    chats?: ChatUpdateManyWithoutShopNestedInput
+    sentMessages?: MessageUpdateManyWithoutSenderShopNestedInput
+    receivedMessages?: MessageUpdateManyWithoutReceiverShopNestedInput
   }
 
   export type ShopUncheckedUpdateInput = {
@@ -19556,6 +21084,10 @@ export namespace Prisma {
     phoneNumber2?: NullableStringFieldUpdateOperationsInput | string | null
     ads?: AdUncheckedUpdateManyWithoutShopNestedInput
     followers?: FollowUncheckedUpdateManyWithoutFollowedShopNestedInput
+    ratings?: RatingUncheckedUpdateManyWithoutShopNestedInput
+    chats?: ChatUncheckedUpdateManyWithoutShopNestedInput
+    sentMessages?: MessageUncheckedUpdateManyWithoutSenderShopNestedInput
+    receivedMessages?: MessageUncheckedUpdateManyWithoutReceiverShopNestedInput
   }
 
   export type ShopUpdateManyMutationInput = {
@@ -19631,6 +21163,54 @@ export namespace Prisma {
     followerId?: IntFieldUpdateOperationsInput | number
     followedUserId?: NullableIntFieldUpdateOperationsInput | number | null
     followedShopId?: NullableIntFieldUpdateOperationsInput | number | null
+  }
+
+  export type RatingCreateInput = {
+    rating: number
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutRatingsInput
+    ratedUser: UserCreateNestedOneWithoutRatedUsersInput
+    shop?: ShopCreateNestedOneWithoutRatingsInput
+  }
+
+  export type RatingUncheckedCreateInput = {
+    id?: number
+    userId: number
+    ratedUserId: number
+    shopId?: number | null
+    rating: number
+    createdAt?: Date | string
+  }
+
+  export type RatingUpdateInput = {
+    rating?: FloatFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutRatingsNestedInput
+    ratedUser?: UserUpdateOneRequiredWithoutRatedUsersNestedInput
+    shop?: ShopUpdateOneWithoutRatingsNestedInput
+  }
+
+  export type RatingUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    ratedUserId?: IntFieldUpdateOperationsInput | number
+    shopId?: NullableIntFieldUpdateOperationsInput | number | null
+    rating?: FloatFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RatingUpdateManyMutationInput = {
+    rating?: FloatFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RatingUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    ratedUserId?: IntFieldUpdateOperationsInput | number
+    shopId?: NullableIntFieldUpdateOperationsInput | number | null
+    rating?: FloatFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ImageCreateInput = {
@@ -19893,22 +21473,26 @@ export namespace Prisma {
 
   export type ChatCreateInput = {
     users?: UserCreateNestedManyWithoutChatsInput
+    shop?: ShopCreateNestedOneWithoutChatsInput
     messages?: MessageCreateNestedManyWithoutChatInput
   }
 
   export type ChatUncheckedCreateInput = {
     id?: number
+    shopId?: number | null
     users?: UserUncheckedCreateNestedManyWithoutChatsInput
     messages?: MessageUncheckedCreateNestedManyWithoutChatInput
   }
 
   export type ChatUpdateInput = {
     users?: UserUpdateManyWithoutChatsNestedInput
+    shop?: ShopUpdateOneWithoutChatsNestedInput
     messages?: MessageUpdateManyWithoutChatNestedInput
   }
 
   export type ChatUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
+    shopId?: NullableIntFieldUpdateOperationsInput | number | null
     users?: UserUncheckedUpdateManyWithoutChatsNestedInput
     messages?: MessageUncheckedUpdateManyWithoutChatNestedInput
   }
@@ -19919,12 +21503,15 @@ export namespace Prisma {
 
   export type ChatUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
+    shopId?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type MessageCreateInput = {
     content: string
     createdAt?: Date | string
-    sender: UserCreateNestedOneWithoutMessagesSentInput
+    senderShop?: ShopCreateNestedOneWithoutSentMessagesInput
+    receiverShop?: ShopCreateNestedOneWithoutReceivedMessagesInput
+    sender?: UserCreateNestedOneWithoutMessagesSentInput
     receiver?: UserCreateNestedOneWithoutMessagesReceivedInput
     chat: ChatCreateNestedOneWithoutMessagesInput
   }
@@ -19932,16 +21519,19 @@ export namespace Prisma {
   export type MessageUncheckedCreateInput = {
     id?: number
     content: string
-    senderEmail: string
-    receiverEmail?: string | null
+    senderId?: number | null
+    receiverId?: number | null
     createdAt?: Date | string
     chatId: number
+    shopId?: number | null
   }
 
   export type MessageUpdateInput = {
     content?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    sender?: UserUpdateOneRequiredWithoutMessagesSentNestedInput
+    senderShop?: ShopUpdateOneWithoutSentMessagesNestedInput
+    receiverShop?: ShopUpdateOneWithoutReceivedMessagesNestedInput
+    sender?: UserUpdateOneWithoutMessagesSentNestedInput
     receiver?: UserUpdateOneWithoutMessagesReceivedNestedInput
     chat?: ChatUpdateOneRequiredWithoutMessagesNestedInput
   }
@@ -19949,10 +21539,11 @@ export namespace Prisma {
   export type MessageUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     content?: StringFieldUpdateOperationsInput | string
-    senderEmail?: StringFieldUpdateOperationsInput | string
-    receiverEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    senderId?: NullableIntFieldUpdateOperationsInput | number | null
+    receiverId?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     chatId?: IntFieldUpdateOperationsInput | number
+    shopId?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type MessageUpdateManyMutationInput = {
@@ -19963,10 +21554,11 @@ export namespace Prisma {
   export type MessageUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     content?: StringFieldUpdateOperationsInput | string
-    senderEmail?: StringFieldUpdateOperationsInput | string
-    receiverEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    senderId?: NullableIntFieldUpdateOperationsInput | number | null
+    receiverId?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     chatId?: IntFieldUpdateOperationsInput | number
+    shopId?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -20297,6 +21889,12 @@ export namespace Prisma {
     none?: FollowWhereInput
   }
 
+  export type RatingListRelationFilter = {
+    every?: RatingWhereInput
+    some?: RatingWhereInput
+    none?: RatingWhereInput
+  }
+
   export type AccountOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -20334,6 +21932,10 @@ export namespace Prisma {
   }
 
   export type FollowOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type RatingOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -20733,6 +22335,81 @@ export namespace Prisma {
     followedShopId?: SortOrder
   }
 
+  export type FloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[]
+    notIn?: number[]
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
+  export type RatingUserIdRatedUserIdCompoundUniqueInput = {
+    userId: number
+    ratedUserId: number
+  }
+
+  export type RatingCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    ratedUserId?: SortOrder
+    shopId?: SortOrder
+    rating?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type RatingAvgOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    ratedUserId?: SortOrder
+    shopId?: SortOrder
+    rating?: SortOrder
+  }
+
+  export type RatingMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    ratedUserId?: SortOrder
+    shopId?: SortOrder
+    rating?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type RatingMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    ratedUserId?: SortOrder
+    shopId?: SortOrder
+    rating?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type RatingSumOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    ratedUserId?: SortOrder
+    shopId?: SortOrder
+    rating?: SortOrder
+  }
+
+  export type FloatWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[]
+    notIn?: number[]
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedFloatFilter<$PrismaModel>
+    _min?: NestedFloatFilter<$PrismaModel>
+    _max?: NestedFloatFilter<$PrismaModel>
+  }
+
   export type AdRelationFilter = {
     is?: AdWhereInput
     isNot?: AdWhereInput
@@ -20930,22 +22607,27 @@ export namespace Prisma {
 
   export type ChatCountOrderByAggregateInput = {
     id?: SortOrder
+    shopId?: SortOrder
   }
 
   export type ChatAvgOrderByAggregateInput = {
     id?: SortOrder
+    shopId?: SortOrder
   }
 
   export type ChatMaxOrderByAggregateInput = {
     id?: SortOrder
+    shopId?: SortOrder
   }
 
   export type ChatMinOrderByAggregateInput = {
     id?: SortOrder
+    shopId?: SortOrder
   }
 
   export type ChatSumOrderByAggregateInput = {
     id?: SortOrder
+    shopId?: SortOrder
   }
 
   export type ChatRelationFilter = {
@@ -20956,38 +22638,47 @@ export namespace Prisma {
   export type MessageCountOrderByAggregateInput = {
     id?: SortOrder
     content?: SortOrder
-    senderEmail?: SortOrder
-    receiverEmail?: SortOrder
+    senderId?: SortOrder
+    receiverId?: SortOrder
     createdAt?: SortOrder
     chatId?: SortOrder
+    shopId?: SortOrder
   }
 
   export type MessageAvgOrderByAggregateInput = {
     id?: SortOrder
+    senderId?: SortOrder
+    receiverId?: SortOrder
     chatId?: SortOrder
+    shopId?: SortOrder
   }
 
   export type MessageMaxOrderByAggregateInput = {
     id?: SortOrder
     content?: SortOrder
-    senderEmail?: SortOrder
-    receiverEmail?: SortOrder
+    senderId?: SortOrder
+    receiverId?: SortOrder
     createdAt?: SortOrder
     chatId?: SortOrder
+    shopId?: SortOrder
   }
 
   export type MessageMinOrderByAggregateInput = {
     id?: SortOrder
     content?: SortOrder
-    senderEmail?: SortOrder
-    receiverEmail?: SortOrder
+    senderId?: SortOrder
+    receiverId?: SortOrder
     createdAt?: SortOrder
     chatId?: SortOrder
+    shopId?: SortOrder
   }
 
   export type MessageSumOrderByAggregateInput = {
     id?: SortOrder
+    senderId?: SortOrder
+    receiverId?: SortOrder
     chatId?: SortOrder
+    shopId?: SortOrder
   }
 
   export type UserCreateNestedOneWithoutAccountsInput = {
@@ -21124,6 +22815,18 @@ export namespace Prisma {
     connect?: FollowWhereUniqueInput | FollowWhereUniqueInput[]
   }
 
+  export type RatingCreateNestedManyWithoutUserInput = {
+    create?: XOR<RatingCreateWithoutUserInput, RatingUncheckedCreateWithoutUserInput> | RatingCreateWithoutUserInput[] | RatingUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: RatingCreateOrConnectWithoutUserInput | RatingCreateOrConnectWithoutUserInput[]
+    connect?: RatingWhereUniqueInput | RatingWhereUniqueInput[]
+  }
+
+  export type RatingCreateNestedManyWithoutRatedUserInput = {
+    create?: XOR<RatingCreateWithoutRatedUserInput, RatingUncheckedCreateWithoutRatedUserInput> | RatingCreateWithoutRatedUserInput[] | RatingUncheckedCreateWithoutRatedUserInput[]
+    connectOrCreate?: RatingCreateOrConnectWithoutRatedUserInput | RatingCreateOrConnectWithoutRatedUserInput[]
+    connect?: RatingWhereUniqueInput | RatingWhereUniqueInput[]
+  }
+
   export type AccountUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<AccountCreateWithoutUserInput, AccountUncheckedCreateWithoutUserInput> | AccountCreateWithoutUserInput[] | AccountUncheckedCreateWithoutUserInput[]
     connectOrCreate?: AccountCreateOrConnectWithoutUserInput | AccountCreateOrConnectWithoutUserInput[]
@@ -21200,6 +22903,18 @@ export namespace Prisma {
     create?: XOR<FollowCreateWithoutFollowedUserInput, FollowUncheckedCreateWithoutFollowedUserInput> | FollowCreateWithoutFollowedUserInput[] | FollowUncheckedCreateWithoutFollowedUserInput[]
     connectOrCreate?: FollowCreateOrConnectWithoutFollowedUserInput | FollowCreateOrConnectWithoutFollowedUserInput[]
     connect?: FollowWhereUniqueInput | FollowWhereUniqueInput[]
+  }
+
+  export type RatingUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<RatingCreateWithoutUserInput, RatingUncheckedCreateWithoutUserInput> | RatingCreateWithoutUserInput[] | RatingUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: RatingCreateOrConnectWithoutUserInput | RatingCreateOrConnectWithoutUserInput[]
+    connect?: RatingWhereUniqueInput | RatingWhereUniqueInput[]
+  }
+
+  export type RatingUncheckedCreateNestedManyWithoutRatedUserInput = {
+    create?: XOR<RatingCreateWithoutRatedUserInput, RatingUncheckedCreateWithoutRatedUserInput> | RatingCreateWithoutRatedUserInput[] | RatingUncheckedCreateWithoutRatedUserInput[]
+    connectOrCreate?: RatingCreateOrConnectWithoutRatedUserInput | RatingCreateOrConnectWithoutRatedUserInput[]
+    connect?: RatingWhereUniqueInput | RatingWhereUniqueInput[]
   }
 
   export type AccountUpdateManyWithoutUserNestedInput = {
@@ -21368,6 +23083,32 @@ export namespace Prisma {
     deleteMany?: FollowScalarWhereInput | FollowScalarWhereInput[]
   }
 
+  export type RatingUpdateManyWithoutUserNestedInput = {
+    create?: XOR<RatingCreateWithoutUserInput, RatingUncheckedCreateWithoutUserInput> | RatingCreateWithoutUserInput[] | RatingUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: RatingCreateOrConnectWithoutUserInput | RatingCreateOrConnectWithoutUserInput[]
+    upsert?: RatingUpsertWithWhereUniqueWithoutUserInput | RatingUpsertWithWhereUniqueWithoutUserInput[]
+    set?: RatingWhereUniqueInput | RatingWhereUniqueInput[]
+    disconnect?: RatingWhereUniqueInput | RatingWhereUniqueInput[]
+    delete?: RatingWhereUniqueInput | RatingWhereUniqueInput[]
+    connect?: RatingWhereUniqueInput | RatingWhereUniqueInput[]
+    update?: RatingUpdateWithWhereUniqueWithoutUserInput | RatingUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: RatingUpdateManyWithWhereWithoutUserInput | RatingUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: RatingScalarWhereInput | RatingScalarWhereInput[]
+  }
+
+  export type RatingUpdateManyWithoutRatedUserNestedInput = {
+    create?: XOR<RatingCreateWithoutRatedUserInput, RatingUncheckedCreateWithoutRatedUserInput> | RatingCreateWithoutRatedUserInput[] | RatingUncheckedCreateWithoutRatedUserInput[]
+    connectOrCreate?: RatingCreateOrConnectWithoutRatedUserInput | RatingCreateOrConnectWithoutRatedUserInput[]
+    upsert?: RatingUpsertWithWhereUniqueWithoutRatedUserInput | RatingUpsertWithWhereUniqueWithoutRatedUserInput[]
+    set?: RatingWhereUniqueInput | RatingWhereUniqueInput[]
+    disconnect?: RatingWhereUniqueInput | RatingWhereUniqueInput[]
+    delete?: RatingWhereUniqueInput | RatingWhereUniqueInput[]
+    connect?: RatingWhereUniqueInput | RatingWhereUniqueInput[]
+    update?: RatingUpdateWithWhereUniqueWithoutRatedUserInput | RatingUpdateWithWhereUniqueWithoutRatedUserInput[]
+    updateMany?: RatingUpdateManyWithWhereWithoutRatedUserInput | RatingUpdateManyWithWhereWithoutRatedUserInput[]
+    deleteMany?: RatingScalarWhereInput | RatingScalarWhereInput[]
+  }
+
   export type AccountUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<AccountCreateWithoutUserInput, AccountUncheckedCreateWithoutUserInput> | AccountCreateWithoutUserInput[] | AccountUncheckedCreateWithoutUserInput[]
     connectOrCreate?: AccountCreateOrConnectWithoutUserInput | AccountCreateOrConnectWithoutUserInput[]
@@ -21532,6 +23273,32 @@ export namespace Prisma {
     update?: FollowUpdateWithWhereUniqueWithoutFollowedUserInput | FollowUpdateWithWhereUniqueWithoutFollowedUserInput[]
     updateMany?: FollowUpdateManyWithWhereWithoutFollowedUserInput | FollowUpdateManyWithWhereWithoutFollowedUserInput[]
     deleteMany?: FollowScalarWhereInput | FollowScalarWhereInput[]
+  }
+
+  export type RatingUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<RatingCreateWithoutUserInput, RatingUncheckedCreateWithoutUserInput> | RatingCreateWithoutUserInput[] | RatingUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: RatingCreateOrConnectWithoutUserInput | RatingCreateOrConnectWithoutUserInput[]
+    upsert?: RatingUpsertWithWhereUniqueWithoutUserInput | RatingUpsertWithWhereUniqueWithoutUserInput[]
+    set?: RatingWhereUniqueInput | RatingWhereUniqueInput[]
+    disconnect?: RatingWhereUniqueInput | RatingWhereUniqueInput[]
+    delete?: RatingWhereUniqueInput | RatingWhereUniqueInput[]
+    connect?: RatingWhereUniqueInput | RatingWhereUniqueInput[]
+    update?: RatingUpdateWithWhereUniqueWithoutUserInput | RatingUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: RatingUpdateManyWithWhereWithoutUserInput | RatingUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: RatingScalarWhereInput | RatingScalarWhereInput[]
+  }
+
+  export type RatingUncheckedUpdateManyWithoutRatedUserNestedInput = {
+    create?: XOR<RatingCreateWithoutRatedUserInput, RatingUncheckedCreateWithoutRatedUserInput> | RatingCreateWithoutRatedUserInput[] | RatingUncheckedCreateWithoutRatedUserInput[]
+    connectOrCreate?: RatingCreateOrConnectWithoutRatedUserInput | RatingCreateOrConnectWithoutRatedUserInput[]
+    upsert?: RatingUpsertWithWhereUniqueWithoutRatedUserInput | RatingUpsertWithWhereUniqueWithoutRatedUserInput[]
+    set?: RatingWhereUniqueInput | RatingWhereUniqueInput[]
+    disconnect?: RatingWhereUniqueInput | RatingWhereUniqueInput[]
+    delete?: RatingWhereUniqueInput | RatingWhereUniqueInput[]
+    connect?: RatingWhereUniqueInput | RatingWhereUniqueInput[]
+    update?: RatingUpdateWithWhereUniqueWithoutRatedUserInput | RatingUpdateWithWhereUniqueWithoutRatedUserInput[]
+    updateMany?: RatingUpdateManyWithWhereWithoutRatedUserInput | RatingUpdateManyWithWhereWithoutRatedUserInput[]
+    deleteMany?: RatingScalarWhereInput | RatingScalarWhereInput[]
   }
 
   export type UserCreateNestedOneWithoutSubscriptionsInput = {
@@ -21702,6 +23469,30 @@ export namespace Prisma {
     connect?: FollowWhereUniqueInput | FollowWhereUniqueInput[]
   }
 
+  export type RatingCreateNestedManyWithoutShopInput = {
+    create?: XOR<RatingCreateWithoutShopInput, RatingUncheckedCreateWithoutShopInput> | RatingCreateWithoutShopInput[] | RatingUncheckedCreateWithoutShopInput[]
+    connectOrCreate?: RatingCreateOrConnectWithoutShopInput | RatingCreateOrConnectWithoutShopInput[]
+    connect?: RatingWhereUniqueInput | RatingWhereUniqueInput[]
+  }
+
+  export type ChatCreateNestedManyWithoutShopInput = {
+    create?: XOR<ChatCreateWithoutShopInput, ChatUncheckedCreateWithoutShopInput> | ChatCreateWithoutShopInput[] | ChatUncheckedCreateWithoutShopInput[]
+    connectOrCreate?: ChatCreateOrConnectWithoutShopInput | ChatCreateOrConnectWithoutShopInput[]
+    connect?: ChatWhereUniqueInput | ChatWhereUniqueInput[]
+  }
+
+  export type MessageCreateNestedManyWithoutSenderShopInput = {
+    create?: XOR<MessageCreateWithoutSenderShopInput, MessageUncheckedCreateWithoutSenderShopInput> | MessageCreateWithoutSenderShopInput[] | MessageUncheckedCreateWithoutSenderShopInput[]
+    connectOrCreate?: MessageCreateOrConnectWithoutSenderShopInput | MessageCreateOrConnectWithoutSenderShopInput[]
+    connect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+  }
+
+  export type MessageCreateNestedManyWithoutReceiverShopInput = {
+    create?: XOR<MessageCreateWithoutReceiverShopInput, MessageUncheckedCreateWithoutReceiverShopInput> | MessageCreateWithoutReceiverShopInput[] | MessageUncheckedCreateWithoutReceiverShopInput[]
+    connectOrCreate?: MessageCreateOrConnectWithoutReceiverShopInput | MessageCreateOrConnectWithoutReceiverShopInput[]
+    connect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+  }
+
   export type AdUncheckedCreateNestedManyWithoutShopInput = {
     create?: XOR<AdCreateWithoutShopInput, AdUncheckedCreateWithoutShopInput> | AdCreateWithoutShopInput[] | AdUncheckedCreateWithoutShopInput[]
     connectOrCreate?: AdCreateOrConnectWithoutShopInput | AdCreateOrConnectWithoutShopInput[]
@@ -21712,6 +23503,30 @@ export namespace Prisma {
     create?: XOR<FollowCreateWithoutFollowedShopInput, FollowUncheckedCreateWithoutFollowedShopInput> | FollowCreateWithoutFollowedShopInput[] | FollowUncheckedCreateWithoutFollowedShopInput[]
     connectOrCreate?: FollowCreateOrConnectWithoutFollowedShopInput | FollowCreateOrConnectWithoutFollowedShopInput[]
     connect?: FollowWhereUniqueInput | FollowWhereUniqueInput[]
+  }
+
+  export type RatingUncheckedCreateNestedManyWithoutShopInput = {
+    create?: XOR<RatingCreateWithoutShopInput, RatingUncheckedCreateWithoutShopInput> | RatingCreateWithoutShopInput[] | RatingUncheckedCreateWithoutShopInput[]
+    connectOrCreate?: RatingCreateOrConnectWithoutShopInput | RatingCreateOrConnectWithoutShopInput[]
+    connect?: RatingWhereUniqueInput | RatingWhereUniqueInput[]
+  }
+
+  export type ChatUncheckedCreateNestedManyWithoutShopInput = {
+    create?: XOR<ChatCreateWithoutShopInput, ChatUncheckedCreateWithoutShopInput> | ChatCreateWithoutShopInput[] | ChatUncheckedCreateWithoutShopInput[]
+    connectOrCreate?: ChatCreateOrConnectWithoutShopInput | ChatCreateOrConnectWithoutShopInput[]
+    connect?: ChatWhereUniqueInput | ChatWhereUniqueInput[]
+  }
+
+  export type MessageUncheckedCreateNestedManyWithoutSenderShopInput = {
+    create?: XOR<MessageCreateWithoutSenderShopInput, MessageUncheckedCreateWithoutSenderShopInput> | MessageCreateWithoutSenderShopInput[] | MessageUncheckedCreateWithoutSenderShopInput[]
+    connectOrCreate?: MessageCreateOrConnectWithoutSenderShopInput | MessageCreateOrConnectWithoutSenderShopInput[]
+    connect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+  }
+
+  export type MessageUncheckedCreateNestedManyWithoutReceiverShopInput = {
+    create?: XOR<MessageCreateWithoutReceiverShopInput, MessageUncheckedCreateWithoutReceiverShopInput> | MessageCreateWithoutReceiverShopInput[] | MessageUncheckedCreateWithoutReceiverShopInput[]
+    connectOrCreate?: MessageCreateOrConnectWithoutReceiverShopInput | MessageCreateOrConnectWithoutReceiverShopInput[]
+    connect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
   }
 
   export type UserUpdateOneRequiredWithoutShopNestedInput = {
@@ -21748,6 +23563,58 @@ export namespace Prisma {
     deleteMany?: FollowScalarWhereInput | FollowScalarWhereInput[]
   }
 
+  export type RatingUpdateManyWithoutShopNestedInput = {
+    create?: XOR<RatingCreateWithoutShopInput, RatingUncheckedCreateWithoutShopInput> | RatingCreateWithoutShopInput[] | RatingUncheckedCreateWithoutShopInput[]
+    connectOrCreate?: RatingCreateOrConnectWithoutShopInput | RatingCreateOrConnectWithoutShopInput[]
+    upsert?: RatingUpsertWithWhereUniqueWithoutShopInput | RatingUpsertWithWhereUniqueWithoutShopInput[]
+    set?: RatingWhereUniqueInput | RatingWhereUniqueInput[]
+    disconnect?: RatingWhereUniqueInput | RatingWhereUniqueInput[]
+    delete?: RatingWhereUniqueInput | RatingWhereUniqueInput[]
+    connect?: RatingWhereUniqueInput | RatingWhereUniqueInput[]
+    update?: RatingUpdateWithWhereUniqueWithoutShopInput | RatingUpdateWithWhereUniqueWithoutShopInput[]
+    updateMany?: RatingUpdateManyWithWhereWithoutShopInput | RatingUpdateManyWithWhereWithoutShopInput[]
+    deleteMany?: RatingScalarWhereInput | RatingScalarWhereInput[]
+  }
+
+  export type ChatUpdateManyWithoutShopNestedInput = {
+    create?: XOR<ChatCreateWithoutShopInput, ChatUncheckedCreateWithoutShopInput> | ChatCreateWithoutShopInput[] | ChatUncheckedCreateWithoutShopInput[]
+    connectOrCreate?: ChatCreateOrConnectWithoutShopInput | ChatCreateOrConnectWithoutShopInput[]
+    upsert?: ChatUpsertWithWhereUniqueWithoutShopInput | ChatUpsertWithWhereUniqueWithoutShopInput[]
+    set?: ChatWhereUniqueInput | ChatWhereUniqueInput[]
+    disconnect?: ChatWhereUniqueInput | ChatWhereUniqueInput[]
+    delete?: ChatWhereUniqueInput | ChatWhereUniqueInput[]
+    connect?: ChatWhereUniqueInput | ChatWhereUniqueInput[]
+    update?: ChatUpdateWithWhereUniqueWithoutShopInput | ChatUpdateWithWhereUniqueWithoutShopInput[]
+    updateMany?: ChatUpdateManyWithWhereWithoutShopInput | ChatUpdateManyWithWhereWithoutShopInput[]
+    deleteMany?: ChatScalarWhereInput | ChatScalarWhereInput[]
+  }
+
+  export type MessageUpdateManyWithoutSenderShopNestedInput = {
+    create?: XOR<MessageCreateWithoutSenderShopInput, MessageUncheckedCreateWithoutSenderShopInput> | MessageCreateWithoutSenderShopInput[] | MessageUncheckedCreateWithoutSenderShopInput[]
+    connectOrCreate?: MessageCreateOrConnectWithoutSenderShopInput | MessageCreateOrConnectWithoutSenderShopInput[]
+    upsert?: MessageUpsertWithWhereUniqueWithoutSenderShopInput | MessageUpsertWithWhereUniqueWithoutSenderShopInput[]
+    set?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    disconnect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    delete?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    connect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    update?: MessageUpdateWithWhereUniqueWithoutSenderShopInput | MessageUpdateWithWhereUniqueWithoutSenderShopInput[]
+    updateMany?: MessageUpdateManyWithWhereWithoutSenderShopInput | MessageUpdateManyWithWhereWithoutSenderShopInput[]
+    deleteMany?: MessageScalarWhereInput | MessageScalarWhereInput[]
+  }
+
+  export type MessageUpdateManyWithoutReceiverShopNestedInput = {
+    create?: XOR<MessageCreateWithoutReceiverShopInput, MessageUncheckedCreateWithoutReceiverShopInput> | MessageCreateWithoutReceiverShopInput[] | MessageUncheckedCreateWithoutReceiverShopInput[]
+    connectOrCreate?: MessageCreateOrConnectWithoutReceiverShopInput | MessageCreateOrConnectWithoutReceiverShopInput[]
+    upsert?: MessageUpsertWithWhereUniqueWithoutReceiverShopInput | MessageUpsertWithWhereUniqueWithoutReceiverShopInput[]
+    set?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    disconnect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    delete?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    connect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    update?: MessageUpdateWithWhereUniqueWithoutReceiverShopInput | MessageUpdateWithWhereUniqueWithoutReceiverShopInput[]
+    updateMany?: MessageUpdateManyWithWhereWithoutReceiverShopInput | MessageUpdateManyWithWhereWithoutReceiverShopInput[]
+    deleteMany?: MessageScalarWhereInput | MessageScalarWhereInput[]
+  }
+
   export type AdUncheckedUpdateManyWithoutShopNestedInput = {
     create?: XOR<AdCreateWithoutShopInput, AdUncheckedCreateWithoutShopInput> | AdCreateWithoutShopInput[] | AdUncheckedCreateWithoutShopInput[]
     connectOrCreate?: AdCreateOrConnectWithoutShopInput | AdCreateOrConnectWithoutShopInput[]
@@ -21772,6 +23639,58 @@ export namespace Prisma {
     update?: FollowUpdateWithWhereUniqueWithoutFollowedShopInput | FollowUpdateWithWhereUniqueWithoutFollowedShopInput[]
     updateMany?: FollowUpdateManyWithWhereWithoutFollowedShopInput | FollowUpdateManyWithWhereWithoutFollowedShopInput[]
     deleteMany?: FollowScalarWhereInput | FollowScalarWhereInput[]
+  }
+
+  export type RatingUncheckedUpdateManyWithoutShopNestedInput = {
+    create?: XOR<RatingCreateWithoutShopInput, RatingUncheckedCreateWithoutShopInput> | RatingCreateWithoutShopInput[] | RatingUncheckedCreateWithoutShopInput[]
+    connectOrCreate?: RatingCreateOrConnectWithoutShopInput | RatingCreateOrConnectWithoutShopInput[]
+    upsert?: RatingUpsertWithWhereUniqueWithoutShopInput | RatingUpsertWithWhereUniqueWithoutShopInput[]
+    set?: RatingWhereUniqueInput | RatingWhereUniqueInput[]
+    disconnect?: RatingWhereUniqueInput | RatingWhereUniqueInput[]
+    delete?: RatingWhereUniqueInput | RatingWhereUniqueInput[]
+    connect?: RatingWhereUniqueInput | RatingWhereUniqueInput[]
+    update?: RatingUpdateWithWhereUniqueWithoutShopInput | RatingUpdateWithWhereUniqueWithoutShopInput[]
+    updateMany?: RatingUpdateManyWithWhereWithoutShopInput | RatingUpdateManyWithWhereWithoutShopInput[]
+    deleteMany?: RatingScalarWhereInput | RatingScalarWhereInput[]
+  }
+
+  export type ChatUncheckedUpdateManyWithoutShopNestedInput = {
+    create?: XOR<ChatCreateWithoutShopInput, ChatUncheckedCreateWithoutShopInput> | ChatCreateWithoutShopInput[] | ChatUncheckedCreateWithoutShopInput[]
+    connectOrCreate?: ChatCreateOrConnectWithoutShopInput | ChatCreateOrConnectWithoutShopInput[]
+    upsert?: ChatUpsertWithWhereUniqueWithoutShopInput | ChatUpsertWithWhereUniqueWithoutShopInput[]
+    set?: ChatWhereUniqueInput | ChatWhereUniqueInput[]
+    disconnect?: ChatWhereUniqueInput | ChatWhereUniqueInput[]
+    delete?: ChatWhereUniqueInput | ChatWhereUniqueInput[]
+    connect?: ChatWhereUniqueInput | ChatWhereUniqueInput[]
+    update?: ChatUpdateWithWhereUniqueWithoutShopInput | ChatUpdateWithWhereUniqueWithoutShopInput[]
+    updateMany?: ChatUpdateManyWithWhereWithoutShopInput | ChatUpdateManyWithWhereWithoutShopInput[]
+    deleteMany?: ChatScalarWhereInput | ChatScalarWhereInput[]
+  }
+
+  export type MessageUncheckedUpdateManyWithoutSenderShopNestedInput = {
+    create?: XOR<MessageCreateWithoutSenderShopInput, MessageUncheckedCreateWithoutSenderShopInput> | MessageCreateWithoutSenderShopInput[] | MessageUncheckedCreateWithoutSenderShopInput[]
+    connectOrCreate?: MessageCreateOrConnectWithoutSenderShopInput | MessageCreateOrConnectWithoutSenderShopInput[]
+    upsert?: MessageUpsertWithWhereUniqueWithoutSenderShopInput | MessageUpsertWithWhereUniqueWithoutSenderShopInput[]
+    set?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    disconnect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    delete?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    connect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    update?: MessageUpdateWithWhereUniqueWithoutSenderShopInput | MessageUpdateWithWhereUniqueWithoutSenderShopInput[]
+    updateMany?: MessageUpdateManyWithWhereWithoutSenderShopInput | MessageUpdateManyWithWhereWithoutSenderShopInput[]
+    deleteMany?: MessageScalarWhereInput | MessageScalarWhereInput[]
+  }
+
+  export type MessageUncheckedUpdateManyWithoutReceiverShopNestedInput = {
+    create?: XOR<MessageCreateWithoutReceiverShopInput, MessageUncheckedCreateWithoutReceiverShopInput> | MessageCreateWithoutReceiverShopInput[] | MessageUncheckedCreateWithoutReceiverShopInput[]
+    connectOrCreate?: MessageCreateOrConnectWithoutReceiverShopInput | MessageCreateOrConnectWithoutReceiverShopInput[]
+    upsert?: MessageUpsertWithWhereUniqueWithoutReceiverShopInput | MessageUpsertWithWhereUniqueWithoutReceiverShopInput[]
+    set?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    disconnect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    delete?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    connect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    update?: MessageUpdateWithWhereUniqueWithoutReceiverShopInput | MessageUpdateWithWhereUniqueWithoutReceiverShopInput[]
+    updateMany?: MessageUpdateManyWithWhereWithoutReceiverShopInput | MessageUpdateManyWithWhereWithoutReceiverShopInput[]
+    deleteMany?: MessageScalarWhereInput | MessageScalarWhereInput[]
   }
 
   export type UserCreateNestedOneWithoutFollowingInput = {
@@ -21818,6 +23737,58 @@ export namespace Prisma {
     delete?: ShopWhereInput | boolean
     connect?: ShopWhereUniqueInput
     update?: XOR<XOR<ShopUpdateToOneWithWhereWithoutFollowersInput, ShopUpdateWithoutFollowersInput>, ShopUncheckedUpdateWithoutFollowersInput>
+  }
+
+  export type UserCreateNestedOneWithoutRatingsInput = {
+    create?: XOR<UserCreateWithoutRatingsInput, UserUncheckedCreateWithoutRatingsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutRatingsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutRatedUsersInput = {
+    create?: XOR<UserCreateWithoutRatedUsersInput, UserUncheckedCreateWithoutRatedUsersInput>
+    connectOrCreate?: UserCreateOrConnectWithoutRatedUsersInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type ShopCreateNestedOneWithoutRatingsInput = {
+    create?: XOR<ShopCreateWithoutRatingsInput, ShopUncheckedCreateWithoutRatingsInput>
+    connectOrCreate?: ShopCreateOrConnectWithoutRatingsInput
+    connect?: ShopWhereUniqueInput
+  }
+
+  export type FloatFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type UserUpdateOneRequiredWithoutRatingsNestedInput = {
+    create?: XOR<UserCreateWithoutRatingsInput, UserUncheckedCreateWithoutRatingsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutRatingsInput
+    upsert?: UserUpsertWithoutRatingsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutRatingsInput, UserUpdateWithoutRatingsInput>, UserUncheckedUpdateWithoutRatingsInput>
+  }
+
+  export type UserUpdateOneRequiredWithoutRatedUsersNestedInput = {
+    create?: XOR<UserCreateWithoutRatedUsersInput, UserUncheckedCreateWithoutRatedUsersInput>
+    connectOrCreate?: UserCreateOrConnectWithoutRatedUsersInput
+    upsert?: UserUpsertWithoutRatedUsersInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutRatedUsersInput, UserUpdateWithoutRatedUsersInput>, UserUncheckedUpdateWithoutRatedUsersInput>
+  }
+
+  export type ShopUpdateOneWithoutRatingsNestedInput = {
+    create?: XOR<ShopCreateWithoutRatingsInput, ShopUncheckedCreateWithoutRatingsInput>
+    connectOrCreate?: ShopCreateOrConnectWithoutRatingsInput
+    upsert?: ShopUpsertWithoutRatingsInput
+    disconnect?: ShopWhereInput | boolean
+    delete?: ShopWhereInput | boolean
+    connect?: ShopWhereUniqueInput
+    update?: XOR<XOR<ShopUpdateToOneWithWhereWithoutRatingsInput, ShopUpdateWithoutRatingsInput>, ShopUncheckedUpdateWithoutRatingsInput>
   }
 
   export type AdCreateNestedOneWithoutAdimagesInput = {
@@ -21976,6 +23947,12 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
   }
 
+  export type ShopCreateNestedOneWithoutChatsInput = {
+    create?: XOR<ShopCreateWithoutChatsInput, ShopUncheckedCreateWithoutChatsInput>
+    connectOrCreate?: ShopCreateOrConnectWithoutChatsInput
+    connect?: ShopWhereUniqueInput
+  }
+
   export type MessageCreateNestedManyWithoutChatInput = {
     create?: XOR<MessageCreateWithoutChatInput, MessageUncheckedCreateWithoutChatInput> | MessageCreateWithoutChatInput[] | MessageUncheckedCreateWithoutChatInput[]
     connectOrCreate?: MessageCreateOrConnectWithoutChatInput | MessageCreateOrConnectWithoutChatInput[]
@@ -22005,6 +23982,16 @@ export namespace Prisma {
     update?: UserUpdateWithWhereUniqueWithoutChatsInput | UserUpdateWithWhereUniqueWithoutChatsInput[]
     updateMany?: UserUpdateManyWithWhereWithoutChatsInput | UserUpdateManyWithWhereWithoutChatsInput[]
     deleteMany?: UserScalarWhereInput | UserScalarWhereInput[]
+  }
+
+  export type ShopUpdateOneWithoutChatsNestedInput = {
+    create?: XOR<ShopCreateWithoutChatsInput, ShopUncheckedCreateWithoutChatsInput>
+    connectOrCreate?: ShopCreateOrConnectWithoutChatsInput
+    upsert?: ShopUpsertWithoutChatsInput
+    disconnect?: ShopWhereInput | boolean
+    delete?: ShopWhereInput | boolean
+    connect?: ShopWhereUniqueInput
+    update?: XOR<XOR<ShopUpdateToOneWithWhereWithoutChatsInput, ShopUpdateWithoutChatsInput>, ShopUncheckedUpdateWithoutChatsInput>
   }
 
   export type MessageUpdateManyWithoutChatNestedInput = {
@@ -22046,6 +24033,18 @@ export namespace Prisma {
     deleteMany?: MessageScalarWhereInput | MessageScalarWhereInput[]
   }
 
+  export type ShopCreateNestedOneWithoutSentMessagesInput = {
+    create?: XOR<ShopCreateWithoutSentMessagesInput, ShopUncheckedCreateWithoutSentMessagesInput>
+    connectOrCreate?: ShopCreateOrConnectWithoutSentMessagesInput
+    connect?: ShopWhereUniqueInput
+  }
+
+  export type ShopCreateNestedOneWithoutReceivedMessagesInput = {
+    create?: XOR<ShopCreateWithoutReceivedMessagesInput, ShopUncheckedCreateWithoutReceivedMessagesInput>
+    connectOrCreate?: ShopCreateOrConnectWithoutReceivedMessagesInput
+    connect?: ShopWhereUniqueInput
+  }
+
   export type UserCreateNestedOneWithoutMessagesSentInput = {
     create?: XOR<UserCreateWithoutMessagesSentInput, UserUncheckedCreateWithoutMessagesSentInput>
     connectOrCreate?: UserCreateOrConnectWithoutMessagesSentInput
@@ -22064,10 +24063,32 @@ export namespace Prisma {
     connect?: ChatWhereUniqueInput
   }
 
-  export type UserUpdateOneRequiredWithoutMessagesSentNestedInput = {
+  export type ShopUpdateOneWithoutSentMessagesNestedInput = {
+    create?: XOR<ShopCreateWithoutSentMessagesInput, ShopUncheckedCreateWithoutSentMessagesInput>
+    connectOrCreate?: ShopCreateOrConnectWithoutSentMessagesInput
+    upsert?: ShopUpsertWithoutSentMessagesInput
+    disconnect?: ShopWhereInput | boolean
+    delete?: ShopWhereInput | boolean
+    connect?: ShopWhereUniqueInput
+    update?: XOR<XOR<ShopUpdateToOneWithWhereWithoutSentMessagesInput, ShopUpdateWithoutSentMessagesInput>, ShopUncheckedUpdateWithoutSentMessagesInput>
+  }
+
+  export type ShopUpdateOneWithoutReceivedMessagesNestedInput = {
+    create?: XOR<ShopCreateWithoutReceivedMessagesInput, ShopUncheckedCreateWithoutReceivedMessagesInput>
+    connectOrCreate?: ShopCreateOrConnectWithoutReceivedMessagesInput
+    upsert?: ShopUpsertWithoutReceivedMessagesInput
+    disconnect?: ShopWhereInput | boolean
+    delete?: ShopWhereInput | boolean
+    connect?: ShopWhereUniqueInput
+    update?: XOR<XOR<ShopUpdateToOneWithWhereWithoutReceivedMessagesInput, ShopUpdateWithoutReceivedMessagesInput>, ShopUncheckedUpdateWithoutReceivedMessagesInput>
+  }
+
+  export type UserUpdateOneWithoutMessagesSentNestedInput = {
     create?: XOR<UserCreateWithoutMessagesSentInput, UserUncheckedCreateWithoutMessagesSentInput>
     connectOrCreate?: UserCreateOrConnectWithoutMessagesSentInput
     upsert?: UserUpsertWithoutMessagesSentInput
+    disconnect?: UserWhereInput | boolean
+    delete?: UserWhereInput | boolean
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutMessagesSentInput, UserUpdateWithoutMessagesSentInput>, UserUncheckedUpdateWithoutMessagesSentInput>
   }
@@ -22266,6 +24287,22 @@ export namespace Prisma {
     _max?: NestedBoolNullableFilter<$PrismaModel>
   }
 
+  export type NestedFloatWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[]
+    notIn?: number[]
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedFloatFilter<$PrismaModel>
+    _min?: NestedFloatFilter<$PrismaModel>
+    _max?: NestedFloatFilter<$PrismaModel>
+  }
+
   export type UserCreateWithoutAccountsInput = {
     createdAt?: Date | string
     phoneNumber?: string | null
@@ -22285,6 +24322,8 @@ export namespace Prisma {
     jobApplications?: JobApplicationCreateNestedManyWithoutUserInput
     following?: FollowCreateNestedManyWithoutFollowerInput
     followers?: FollowCreateNestedManyWithoutFollowedUserInput
+    ratings?: RatingCreateNestedManyWithoutUserInput
+    ratedUsers?: RatingCreateNestedManyWithoutRatedUserInput
   }
 
   export type UserUncheckedCreateWithoutAccountsInput = {
@@ -22307,6 +24346,8 @@ export namespace Prisma {
     jobApplications?: JobApplicationUncheckedCreateNestedManyWithoutUserInput
     following?: FollowUncheckedCreateNestedManyWithoutFollowerInput
     followers?: FollowUncheckedCreateNestedManyWithoutFollowedUserInput
+    ratings?: RatingUncheckedCreateNestedManyWithoutUserInput
+    ratedUsers?: RatingUncheckedCreateNestedManyWithoutRatedUserInput
   }
 
   export type UserCreateOrConnectWithoutAccountsInput = {
@@ -22344,6 +24385,8 @@ export namespace Prisma {
     jobApplications?: JobApplicationUpdateManyWithoutUserNestedInput
     following?: FollowUpdateManyWithoutFollowerNestedInput
     followers?: FollowUpdateManyWithoutFollowedUserNestedInput
+    ratings?: RatingUpdateManyWithoutUserNestedInput
+    ratedUsers?: RatingUpdateManyWithoutRatedUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAccountsInput = {
@@ -22366,6 +24409,8 @@ export namespace Prisma {
     jobApplications?: JobApplicationUncheckedUpdateManyWithoutUserNestedInput
     following?: FollowUncheckedUpdateManyWithoutFollowerNestedInput
     followers?: FollowUncheckedUpdateManyWithoutFollowedUserNestedInput
+    ratings?: RatingUncheckedUpdateManyWithoutUserNestedInput
+    ratedUsers?: RatingUncheckedUpdateManyWithoutRatedUserNestedInput
   }
 
   export type UserCreateWithoutSessionsInput = {
@@ -22387,6 +24432,8 @@ export namespace Prisma {
     jobApplications?: JobApplicationCreateNestedManyWithoutUserInput
     following?: FollowCreateNestedManyWithoutFollowerInput
     followers?: FollowCreateNestedManyWithoutFollowedUserInput
+    ratings?: RatingCreateNestedManyWithoutUserInput
+    ratedUsers?: RatingCreateNestedManyWithoutRatedUserInput
   }
 
   export type UserUncheckedCreateWithoutSessionsInput = {
@@ -22409,6 +24456,8 @@ export namespace Prisma {
     jobApplications?: JobApplicationUncheckedCreateNestedManyWithoutUserInput
     following?: FollowUncheckedCreateNestedManyWithoutFollowerInput
     followers?: FollowUncheckedCreateNestedManyWithoutFollowedUserInput
+    ratings?: RatingUncheckedCreateNestedManyWithoutUserInput
+    ratedUsers?: RatingUncheckedCreateNestedManyWithoutRatedUserInput
   }
 
   export type UserCreateOrConnectWithoutSessionsInput = {
@@ -22446,6 +24495,8 @@ export namespace Prisma {
     jobApplications?: JobApplicationUpdateManyWithoutUserNestedInput
     following?: FollowUpdateManyWithoutFollowerNestedInput
     followers?: FollowUpdateManyWithoutFollowedUserNestedInput
+    ratings?: RatingUpdateManyWithoutUserNestedInput
+    ratedUsers?: RatingUpdateManyWithoutRatedUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -22468,6 +24519,8 @@ export namespace Prisma {
     jobApplications?: JobApplicationUncheckedUpdateManyWithoutUserNestedInput
     following?: FollowUncheckedUpdateManyWithoutFollowerNestedInput
     followers?: FollowUncheckedUpdateManyWithoutFollowedUserNestedInput
+    ratings?: RatingUncheckedUpdateManyWithoutUserNestedInput
+    ratedUsers?: RatingUncheckedUpdateManyWithoutRatedUserNestedInput
   }
 
   export type AccountCreateWithoutUserInput = {
@@ -22589,11 +24642,13 @@ export namespace Prisma {
   }
 
   export type ChatCreateWithoutUsersInput = {
+    shop?: ShopCreateNestedOneWithoutChatsInput
     messages?: MessageCreateNestedManyWithoutChatInput
   }
 
   export type ChatUncheckedCreateWithoutUsersInput = {
     id?: number
+    shopId?: number | null
     messages?: MessageUncheckedCreateNestedManyWithoutChatInput
   }
 
@@ -22605,6 +24660,8 @@ export namespace Prisma {
   export type MessageCreateWithoutSenderInput = {
     content: string
     createdAt?: Date | string
+    senderShop?: ShopCreateNestedOneWithoutSentMessagesInput
+    receiverShop?: ShopCreateNestedOneWithoutReceivedMessagesInput
     receiver?: UserCreateNestedOneWithoutMessagesReceivedInput
     chat: ChatCreateNestedOneWithoutMessagesInput
   }
@@ -22612,9 +24669,10 @@ export namespace Prisma {
   export type MessageUncheckedCreateWithoutSenderInput = {
     id?: number
     content: string
-    receiverEmail?: string | null
+    receiverId?: number | null
     createdAt?: Date | string
     chatId: number
+    shopId?: number | null
   }
 
   export type MessageCreateOrConnectWithoutSenderInput = {
@@ -22625,16 +24683,19 @@ export namespace Prisma {
   export type MessageCreateWithoutReceiverInput = {
     content: string
     createdAt?: Date | string
-    sender: UserCreateNestedOneWithoutMessagesSentInput
+    senderShop?: ShopCreateNestedOneWithoutSentMessagesInput
+    receiverShop?: ShopCreateNestedOneWithoutReceivedMessagesInput
+    sender?: UserCreateNestedOneWithoutMessagesSentInput
     chat: ChatCreateNestedOneWithoutMessagesInput
   }
 
   export type MessageUncheckedCreateWithoutReceiverInput = {
     id?: number
     content: string
-    senderEmail: string
+    senderId?: number | null
     createdAt?: Date | string
     chatId: number
+    shopId?: number | null
   }
 
   export type MessageCreateOrConnectWithoutReceiverInput = {
@@ -22676,6 +24737,10 @@ export namespace Prisma {
     phoneNumber2?: string | null
     ads?: AdCreateNestedManyWithoutShopInput
     followers?: FollowCreateNestedManyWithoutFollowedShopInput
+    ratings?: RatingCreateNestedManyWithoutShopInput
+    chats?: ChatCreateNestedManyWithoutShopInput
+    sentMessages?: MessageCreateNestedManyWithoutSenderShopInput
+    receivedMessages?: MessageCreateNestedManyWithoutReceiverShopInput
   }
 
   export type ShopUncheckedCreateWithoutUserInput = {
@@ -22697,6 +24762,10 @@ export namespace Prisma {
     phoneNumber2?: string | null
     ads?: AdUncheckedCreateNestedManyWithoutShopInput
     followers?: FollowUncheckedCreateNestedManyWithoutFollowedShopInput
+    ratings?: RatingUncheckedCreateNestedManyWithoutShopInput
+    chats?: ChatUncheckedCreateNestedManyWithoutShopInput
+    sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderShopInput
+    receivedMessages?: MessageUncheckedCreateNestedManyWithoutReceiverShopInput
   }
 
   export type ShopCreateOrConnectWithoutUserInput = {
@@ -22800,6 +24869,46 @@ export namespace Prisma {
   export type FollowCreateOrConnectWithoutFollowedUserInput = {
     where: FollowWhereUniqueInput
     create: XOR<FollowCreateWithoutFollowedUserInput, FollowUncheckedCreateWithoutFollowedUserInput>
+  }
+
+  export type RatingCreateWithoutUserInput = {
+    rating: number
+    createdAt?: Date | string
+    ratedUser: UserCreateNestedOneWithoutRatedUsersInput
+    shop?: ShopCreateNestedOneWithoutRatingsInput
+  }
+
+  export type RatingUncheckedCreateWithoutUserInput = {
+    id?: number
+    ratedUserId: number
+    shopId?: number | null
+    rating: number
+    createdAt?: Date | string
+  }
+
+  export type RatingCreateOrConnectWithoutUserInput = {
+    where: RatingWhereUniqueInput
+    create: XOR<RatingCreateWithoutUserInput, RatingUncheckedCreateWithoutUserInput>
+  }
+
+  export type RatingCreateWithoutRatedUserInput = {
+    rating: number
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutRatingsInput
+    shop?: ShopCreateNestedOneWithoutRatingsInput
+  }
+
+  export type RatingUncheckedCreateWithoutRatedUserInput = {
+    id?: number
+    userId: number
+    shopId?: number | null
+    rating: number
+    createdAt?: Date | string
+  }
+
+  export type RatingCreateOrConnectWithoutRatedUserInput = {
+    where: RatingWhereUniqueInput
+    create: XOR<RatingCreateWithoutRatedUserInput, RatingUncheckedCreateWithoutRatedUserInput>
   }
 
   export type AccountUpsertWithWhereUniqueWithoutUserInput = {
@@ -22933,6 +25042,7 @@ export namespace Prisma {
     OR?: ChatScalarWhereInput[]
     NOT?: ChatScalarWhereInput | ChatScalarWhereInput[]
     id?: IntFilter<"Chat"> | number
+    shopId?: IntNullableFilter<"Chat"> | number | null
   }
 
   export type MessageUpsertWithWhereUniqueWithoutSenderInput = {
@@ -22957,10 +25067,11 @@ export namespace Prisma {
     NOT?: MessageScalarWhereInput | MessageScalarWhereInput[]
     id?: IntFilter<"Message"> | number
     content?: StringFilter<"Message"> | string
-    senderEmail?: StringFilter<"Message"> | string
-    receiverEmail?: StringNullableFilter<"Message"> | string | null
+    senderId?: IntNullableFilter<"Message"> | number | null
+    receiverId?: IntNullableFilter<"Message"> | number | null
     createdAt?: DateTimeFilter<"Message"> | Date | string
     chatId?: IntFilter<"Message"> | number
+    shopId?: IntNullableFilter<"Message"> | number | null
   }
 
   export type MessageUpsertWithWhereUniqueWithoutReceiverInput = {
@@ -23174,6 +25285,50 @@ export namespace Prisma {
     data: XOR<FollowUpdateManyMutationInput, FollowUncheckedUpdateManyWithoutFollowedUserInput>
   }
 
+  export type RatingUpsertWithWhereUniqueWithoutUserInput = {
+    where: RatingWhereUniqueInput
+    update: XOR<RatingUpdateWithoutUserInput, RatingUncheckedUpdateWithoutUserInput>
+    create: XOR<RatingCreateWithoutUserInput, RatingUncheckedCreateWithoutUserInput>
+  }
+
+  export type RatingUpdateWithWhereUniqueWithoutUserInput = {
+    where: RatingWhereUniqueInput
+    data: XOR<RatingUpdateWithoutUserInput, RatingUncheckedUpdateWithoutUserInput>
+  }
+
+  export type RatingUpdateManyWithWhereWithoutUserInput = {
+    where: RatingScalarWhereInput
+    data: XOR<RatingUpdateManyMutationInput, RatingUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type RatingScalarWhereInput = {
+    AND?: RatingScalarWhereInput | RatingScalarWhereInput[]
+    OR?: RatingScalarWhereInput[]
+    NOT?: RatingScalarWhereInput | RatingScalarWhereInput[]
+    id?: IntFilter<"Rating"> | number
+    userId?: IntFilter<"Rating"> | number
+    ratedUserId?: IntFilter<"Rating"> | number
+    shopId?: IntNullableFilter<"Rating"> | number | null
+    rating?: FloatFilter<"Rating"> | number
+    createdAt?: DateTimeFilter<"Rating"> | Date | string
+  }
+
+  export type RatingUpsertWithWhereUniqueWithoutRatedUserInput = {
+    where: RatingWhereUniqueInput
+    update: XOR<RatingUpdateWithoutRatedUserInput, RatingUncheckedUpdateWithoutRatedUserInput>
+    create: XOR<RatingCreateWithoutRatedUserInput, RatingUncheckedCreateWithoutRatedUserInput>
+  }
+
+  export type RatingUpdateWithWhereUniqueWithoutRatedUserInput = {
+    where: RatingWhereUniqueInput
+    data: XOR<RatingUpdateWithoutRatedUserInput, RatingUncheckedUpdateWithoutRatedUserInput>
+  }
+
+  export type RatingUpdateManyWithWhereWithoutRatedUserInput = {
+    where: RatingScalarWhereInput
+    data: XOR<RatingUpdateManyMutationInput, RatingUncheckedUpdateManyWithoutRatedUserInput>
+  }
+
   export type UserCreateWithoutSubscriptionsInput = {
     createdAt?: Date | string
     phoneNumber?: string | null
@@ -23193,6 +25348,8 @@ export namespace Prisma {
     jobApplications?: JobApplicationCreateNestedManyWithoutUserInput
     following?: FollowCreateNestedManyWithoutFollowerInput
     followers?: FollowCreateNestedManyWithoutFollowedUserInput
+    ratings?: RatingCreateNestedManyWithoutUserInput
+    ratedUsers?: RatingCreateNestedManyWithoutRatedUserInput
   }
 
   export type UserUncheckedCreateWithoutSubscriptionsInput = {
@@ -23215,6 +25372,8 @@ export namespace Prisma {
     jobApplications?: JobApplicationUncheckedCreateNestedManyWithoutUserInput
     following?: FollowUncheckedCreateNestedManyWithoutFollowerInput
     followers?: FollowUncheckedCreateNestedManyWithoutFollowedUserInput
+    ratings?: RatingUncheckedCreateNestedManyWithoutUserInput
+    ratedUsers?: RatingUncheckedCreateNestedManyWithoutRatedUserInput
   }
 
   export type UserCreateOrConnectWithoutSubscriptionsInput = {
@@ -23252,6 +25411,8 @@ export namespace Prisma {
     jobApplications?: JobApplicationUpdateManyWithoutUserNestedInput
     following?: FollowUpdateManyWithoutFollowerNestedInput
     followers?: FollowUpdateManyWithoutFollowedUserNestedInput
+    ratings?: RatingUpdateManyWithoutUserNestedInput
+    ratedUsers?: RatingUpdateManyWithoutRatedUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSubscriptionsInput = {
@@ -23274,6 +25435,8 @@ export namespace Prisma {
     jobApplications?: JobApplicationUncheckedUpdateManyWithoutUserNestedInput
     following?: FollowUncheckedUpdateManyWithoutFollowerNestedInput
     followers?: FollowUncheckedUpdateManyWithoutFollowedUserNestedInput
+    ratings?: RatingUncheckedUpdateManyWithoutUserNestedInput
+    ratedUsers?: RatingUncheckedUpdateManyWithoutRatedUserNestedInput
   }
 
   export type CompanyCreateWithoutJobPostsInput = {
@@ -23391,6 +25554,8 @@ export namespace Prisma {
     company?: CompanyCreateNestedOneWithoutUserInput
     following?: FollowCreateNestedManyWithoutFollowerInput
     followers?: FollowCreateNestedManyWithoutFollowedUserInput
+    ratings?: RatingCreateNestedManyWithoutUserInput
+    ratedUsers?: RatingCreateNestedManyWithoutRatedUserInput
   }
 
   export type UserUncheckedCreateWithoutJobApplicationsInput = {
@@ -23413,6 +25578,8 @@ export namespace Prisma {
     company?: CompanyUncheckedCreateNestedOneWithoutUserInput
     following?: FollowUncheckedCreateNestedManyWithoutFollowerInput
     followers?: FollowUncheckedCreateNestedManyWithoutFollowedUserInput
+    ratings?: RatingUncheckedCreateNestedManyWithoutUserInput
+    ratedUsers?: RatingUncheckedCreateNestedManyWithoutRatedUserInput
   }
 
   export type UserCreateOrConnectWithoutJobApplicationsInput = {
@@ -23500,6 +25667,8 @@ export namespace Prisma {
     company?: CompanyUpdateOneWithoutUserNestedInput
     following?: FollowUpdateManyWithoutFollowerNestedInput
     followers?: FollowUpdateManyWithoutFollowedUserNestedInput
+    ratings?: RatingUpdateManyWithoutUserNestedInput
+    ratedUsers?: RatingUpdateManyWithoutRatedUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutJobApplicationsInput = {
@@ -23522,6 +25691,8 @@ export namespace Prisma {
     company?: CompanyUncheckedUpdateOneWithoutUserNestedInput
     following?: FollowUncheckedUpdateManyWithoutFollowerNestedInput
     followers?: FollowUncheckedUpdateManyWithoutFollowedUserNestedInput
+    ratings?: RatingUncheckedUpdateManyWithoutUserNestedInput
+    ratedUsers?: RatingUncheckedUpdateManyWithoutRatedUserNestedInput
   }
 
   export type JobPostUpsertWithoutJobApplicationsInput = {
@@ -23649,6 +25820,8 @@ export namespace Prisma {
     jobApplications?: JobApplicationCreateNestedManyWithoutUserInput
     following?: FollowCreateNestedManyWithoutFollowerInput
     followers?: FollowCreateNestedManyWithoutFollowedUserInput
+    ratings?: RatingCreateNestedManyWithoutUserInput
+    ratedUsers?: RatingCreateNestedManyWithoutRatedUserInput
   }
 
   export type UserUncheckedCreateWithoutCompanyInput = {
@@ -23671,6 +25844,8 @@ export namespace Prisma {
     jobApplications?: JobApplicationUncheckedCreateNestedManyWithoutUserInput
     following?: FollowUncheckedCreateNestedManyWithoutFollowerInput
     followers?: FollowUncheckedCreateNestedManyWithoutFollowedUserInput
+    ratings?: RatingUncheckedCreateNestedManyWithoutUserInput
+    ratedUsers?: RatingUncheckedCreateNestedManyWithoutRatedUserInput
   }
 
   export type UserCreateOrConnectWithoutCompanyInput = {
@@ -23750,6 +25925,8 @@ export namespace Prisma {
     jobApplications?: JobApplicationUpdateManyWithoutUserNestedInput
     following?: FollowUpdateManyWithoutFollowerNestedInput
     followers?: FollowUpdateManyWithoutFollowedUserNestedInput
+    ratings?: RatingUpdateManyWithoutUserNestedInput
+    ratedUsers?: RatingUpdateManyWithoutRatedUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCompanyInput = {
@@ -23772,6 +25949,8 @@ export namespace Prisma {
     jobApplications?: JobApplicationUncheckedUpdateManyWithoutUserNestedInput
     following?: FollowUncheckedUpdateManyWithoutFollowerNestedInput
     followers?: FollowUncheckedUpdateManyWithoutFollowedUserNestedInput
+    ratings?: RatingUncheckedUpdateManyWithoutUserNestedInput
+    ratedUsers?: RatingUncheckedUpdateManyWithoutRatedUserNestedInput
   }
 
   export type UserCreateWithoutShopInput = {
@@ -23793,6 +25972,8 @@ export namespace Prisma {
     jobApplications?: JobApplicationCreateNestedManyWithoutUserInput
     following?: FollowCreateNestedManyWithoutFollowerInput
     followers?: FollowCreateNestedManyWithoutFollowedUserInput
+    ratings?: RatingCreateNestedManyWithoutUserInput
+    ratedUsers?: RatingCreateNestedManyWithoutRatedUserInput
   }
 
   export type UserUncheckedCreateWithoutShopInput = {
@@ -23815,6 +25996,8 @@ export namespace Prisma {
     jobApplications?: JobApplicationUncheckedCreateNestedManyWithoutUserInput
     following?: FollowUncheckedCreateNestedManyWithoutFollowerInput
     followers?: FollowUncheckedCreateNestedManyWithoutFollowedUserInput
+    ratings?: RatingUncheckedCreateNestedManyWithoutUserInput
+    ratedUsers?: RatingUncheckedCreateNestedManyWithoutRatedUserInput
   }
 
   export type UserCreateOrConnectWithoutShopInput = {
@@ -23906,6 +26089,88 @@ export namespace Prisma {
     create: XOR<FollowCreateWithoutFollowedShopInput, FollowUncheckedCreateWithoutFollowedShopInput>
   }
 
+  export type RatingCreateWithoutShopInput = {
+    rating: number
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutRatingsInput
+    ratedUser: UserCreateNestedOneWithoutRatedUsersInput
+  }
+
+  export type RatingUncheckedCreateWithoutShopInput = {
+    id?: number
+    userId: number
+    ratedUserId: number
+    rating: number
+    createdAt?: Date | string
+  }
+
+  export type RatingCreateOrConnectWithoutShopInput = {
+    where: RatingWhereUniqueInput
+    create: XOR<RatingCreateWithoutShopInput, RatingUncheckedCreateWithoutShopInput>
+  }
+
+  export type ChatCreateWithoutShopInput = {
+    users?: UserCreateNestedManyWithoutChatsInput
+    messages?: MessageCreateNestedManyWithoutChatInput
+  }
+
+  export type ChatUncheckedCreateWithoutShopInput = {
+    id?: number
+    users?: UserUncheckedCreateNestedManyWithoutChatsInput
+    messages?: MessageUncheckedCreateNestedManyWithoutChatInput
+  }
+
+  export type ChatCreateOrConnectWithoutShopInput = {
+    where: ChatWhereUniqueInput
+    create: XOR<ChatCreateWithoutShopInput, ChatUncheckedCreateWithoutShopInput>
+  }
+
+  export type MessageCreateWithoutSenderShopInput = {
+    content: string
+    createdAt?: Date | string
+    receiverShop?: ShopCreateNestedOneWithoutReceivedMessagesInput
+    sender?: UserCreateNestedOneWithoutMessagesSentInput
+    receiver?: UserCreateNestedOneWithoutMessagesReceivedInput
+    chat: ChatCreateNestedOneWithoutMessagesInput
+  }
+
+  export type MessageUncheckedCreateWithoutSenderShopInput = {
+    id?: number
+    content: string
+    senderId?: number | null
+    receiverId?: number | null
+    createdAt?: Date | string
+    chatId: number
+  }
+
+  export type MessageCreateOrConnectWithoutSenderShopInput = {
+    where: MessageWhereUniqueInput
+    create: XOR<MessageCreateWithoutSenderShopInput, MessageUncheckedCreateWithoutSenderShopInput>
+  }
+
+  export type MessageCreateWithoutReceiverShopInput = {
+    content: string
+    createdAt?: Date | string
+    senderShop?: ShopCreateNestedOneWithoutSentMessagesInput
+    sender?: UserCreateNestedOneWithoutMessagesSentInput
+    receiver?: UserCreateNestedOneWithoutMessagesReceivedInput
+    chat: ChatCreateNestedOneWithoutMessagesInput
+  }
+
+  export type MessageUncheckedCreateWithoutReceiverShopInput = {
+    id?: number
+    content: string
+    senderId?: number | null
+    receiverId?: number | null
+    createdAt?: Date | string
+    chatId: number
+  }
+
+  export type MessageCreateOrConnectWithoutReceiverShopInput = {
+    where: MessageWhereUniqueInput
+    create: XOR<MessageCreateWithoutReceiverShopInput, MessageUncheckedCreateWithoutReceiverShopInput>
+  }
+
   export type UserUpsertWithoutShopInput = {
     update: XOR<UserUpdateWithoutShopInput, UserUncheckedUpdateWithoutShopInput>
     create: XOR<UserCreateWithoutShopInput, UserUncheckedCreateWithoutShopInput>
@@ -23936,6 +26201,8 @@ export namespace Prisma {
     jobApplications?: JobApplicationUpdateManyWithoutUserNestedInput
     following?: FollowUpdateManyWithoutFollowerNestedInput
     followers?: FollowUpdateManyWithoutFollowedUserNestedInput
+    ratings?: RatingUpdateManyWithoutUserNestedInput
+    ratedUsers?: RatingUpdateManyWithoutRatedUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutShopInput = {
@@ -23958,6 +26225,8 @@ export namespace Prisma {
     jobApplications?: JobApplicationUncheckedUpdateManyWithoutUserNestedInput
     following?: FollowUncheckedUpdateManyWithoutFollowerNestedInput
     followers?: FollowUncheckedUpdateManyWithoutFollowedUserNestedInput
+    ratings?: RatingUncheckedUpdateManyWithoutUserNestedInput
+    ratedUsers?: RatingUncheckedUpdateManyWithoutRatedUserNestedInput
   }
 
   export type AdUpsertWithWhereUniqueWithoutShopInput = {
@@ -23992,6 +26261,70 @@ export namespace Prisma {
     data: XOR<FollowUpdateManyMutationInput, FollowUncheckedUpdateManyWithoutFollowedShopInput>
   }
 
+  export type RatingUpsertWithWhereUniqueWithoutShopInput = {
+    where: RatingWhereUniqueInput
+    update: XOR<RatingUpdateWithoutShopInput, RatingUncheckedUpdateWithoutShopInput>
+    create: XOR<RatingCreateWithoutShopInput, RatingUncheckedCreateWithoutShopInput>
+  }
+
+  export type RatingUpdateWithWhereUniqueWithoutShopInput = {
+    where: RatingWhereUniqueInput
+    data: XOR<RatingUpdateWithoutShopInput, RatingUncheckedUpdateWithoutShopInput>
+  }
+
+  export type RatingUpdateManyWithWhereWithoutShopInput = {
+    where: RatingScalarWhereInput
+    data: XOR<RatingUpdateManyMutationInput, RatingUncheckedUpdateManyWithoutShopInput>
+  }
+
+  export type ChatUpsertWithWhereUniqueWithoutShopInput = {
+    where: ChatWhereUniqueInput
+    update: XOR<ChatUpdateWithoutShopInput, ChatUncheckedUpdateWithoutShopInput>
+    create: XOR<ChatCreateWithoutShopInput, ChatUncheckedCreateWithoutShopInput>
+  }
+
+  export type ChatUpdateWithWhereUniqueWithoutShopInput = {
+    where: ChatWhereUniqueInput
+    data: XOR<ChatUpdateWithoutShopInput, ChatUncheckedUpdateWithoutShopInput>
+  }
+
+  export type ChatUpdateManyWithWhereWithoutShopInput = {
+    where: ChatScalarWhereInput
+    data: XOR<ChatUpdateManyMutationInput, ChatUncheckedUpdateManyWithoutShopInput>
+  }
+
+  export type MessageUpsertWithWhereUniqueWithoutSenderShopInput = {
+    where: MessageWhereUniqueInput
+    update: XOR<MessageUpdateWithoutSenderShopInput, MessageUncheckedUpdateWithoutSenderShopInput>
+    create: XOR<MessageCreateWithoutSenderShopInput, MessageUncheckedCreateWithoutSenderShopInput>
+  }
+
+  export type MessageUpdateWithWhereUniqueWithoutSenderShopInput = {
+    where: MessageWhereUniqueInput
+    data: XOR<MessageUpdateWithoutSenderShopInput, MessageUncheckedUpdateWithoutSenderShopInput>
+  }
+
+  export type MessageUpdateManyWithWhereWithoutSenderShopInput = {
+    where: MessageScalarWhereInput
+    data: XOR<MessageUpdateManyMutationInput, MessageUncheckedUpdateManyWithoutSenderShopInput>
+  }
+
+  export type MessageUpsertWithWhereUniqueWithoutReceiverShopInput = {
+    where: MessageWhereUniqueInput
+    update: XOR<MessageUpdateWithoutReceiverShopInput, MessageUncheckedUpdateWithoutReceiverShopInput>
+    create: XOR<MessageCreateWithoutReceiverShopInput, MessageUncheckedCreateWithoutReceiverShopInput>
+  }
+
+  export type MessageUpdateWithWhereUniqueWithoutReceiverShopInput = {
+    where: MessageWhereUniqueInput
+    data: XOR<MessageUpdateWithoutReceiverShopInput, MessageUncheckedUpdateWithoutReceiverShopInput>
+  }
+
+  export type MessageUpdateManyWithWhereWithoutReceiverShopInput = {
+    where: MessageScalarWhereInput
+    data: XOR<MessageUpdateManyMutationInput, MessageUncheckedUpdateManyWithoutReceiverShopInput>
+  }
+
   export type UserCreateWithoutFollowingInput = {
     createdAt?: Date | string
     phoneNumber?: string | null
@@ -24011,6 +26344,8 @@ export namespace Prisma {
     company?: CompanyCreateNestedOneWithoutUserInput
     jobApplications?: JobApplicationCreateNestedManyWithoutUserInput
     followers?: FollowCreateNestedManyWithoutFollowedUserInput
+    ratings?: RatingCreateNestedManyWithoutUserInput
+    ratedUsers?: RatingCreateNestedManyWithoutRatedUserInput
   }
 
   export type UserUncheckedCreateWithoutFollowingInput = {
@@ -24033,6 +26368,8 @@ export namespace Prisma {
     company?: CompanyUncheckedCreateNestedOneWithoutUserInput
     jobApplications?: JobApplicationUncheckedCreateNestedManyWithoutUserInput
     followers?: FollowUncheckedCreateNestedManyWithoutFollowedUserInput
+    ratings?: RatingUncheckedCreateNestedManyWithoutUserInput
+    ratedUsers?: RatingUncheckedCreateNestedManyWithoutRatedUserInput
   }
 
   export type UserCreateOrConnectWithoutFollowingInput = {
@@ -24059,6 +26396,8 @@ export namespace Prisma {
     company?: CompanyCreateNestedOneWithoutUserInput
     jobApplications?: JobApplicationCreateNestedManyWithoutUserInput
     following?: FollowCreateNestedManyWithoutFollowerInput
+    ratings?: RatingCreateNestedManyWithoutUserInput
+    ratedUsers?: RatingCreateNestedManyWithoutRatedUserInput
   }
 
   export type UserUncheckedCreateWithoutFollowersInput = {
@@ -24081,6 +26420,8 @@ export namespace Prisma {
     company?: CompanyUncheckedCreateNestedOneWithoutUserInput
     jobApplications?: JobApplicationUncheckedCreateNestedManyWithoutUserInput
     following?: FollowUncheckedCreateNestedManyWithoutFollowerInput
+    ratings?: RatingUncheckedCreateNestedManyWithoutUserInput
+    ratedUsers?: RatingUncheckedCreateNestedManyWithoutRatedUserInput
   }
 
   export type UserCreateOrConnectWithoutFollowersInput = {
@@ -24106,6 +26447,10 @@ export namespace Prisma {
     phoneNumber2?: string | null
     user: UserCreateNestedOneWithoutShopInput
     ads?: AdCreateNestedManyWithoutShopInput
+    ratings?: RatingCreateNestedManyWithoutShopInput
+    chats?: ChatCreateNestedManyWithoutShopInput
+    sentMessages?: MessageCreateNestedManyWithoutSenderShopInput
+    receivedMessages?: MessageCreateNestedManyWithoutReceiverShopInput
   }
 
   export type ShopUncheckedCreateWithoutFollowersInput = {
@@ -24127,6 +26472,10 @@ export namespace Prisma {
     phoneNumber1?: string | null
     phoneNumber2?: string | null
     ads?: AdUncheckedCreateNestedManyWithoutShopInput
+    ratings?: RatingUncheckedCreateNestedManyWithoutShopInput
+    chats?: ChatUncheckedCreateNestedManyWithoutShopInput
+    sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderShopInput
+    receivedMessages?: MessageUncheckedCreateNestedManyWithoutReceiverShopInput
   }
 
   export type ShopCreateOrConnectWithoutFollowersInput = {
@@ -24164,6 +26513,8 @@ export namespace Prisma {
     company?: CompanyUpdateOneWithoutUserNestedInput
     jobApplications?: JobApplicationUpdateManyWithoutUserNestedInput
     followers?: FollowUpdateManyWithoutFollowedUserNestedInput
+    ratings?: RatingUpdateManyWithoutUserNestedInput
+    ratedUsers?: RatingUpdateManyWithoutRatedUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutFollowingInput = {
@@ -24186,6 +26537,8 @@ export namespace Prisma {
     company?: CompanyUncheckedUpdateOneWithoutUserNestedInput
     jobApplications?: JobApplicationUncheckedUpdateManyWithoutUserNestedInput
     followers?: FollowUncheckedUpdateManyWithoutFollowedUserNestedInput
+    ratings?: RatingUncheckedUpdateManyWithoutUserNestedInput
+    ratedUsers?: RatingUncheckedUpdateManyWithoutRatedUserNestedInput
   }
 
   export type UserUpsertWithoutFollowersInput = {
@@ -24218,6 +26571,8 @@ export namespace Prisma {
     company?: CompanyUpdateOneWithoutUserNestedInput
     jobApplications?: JobApplicationUpdateManyWithoutUserNestedInput
     following?: FollowUpdateManyWithoutFollowerNestedInput
+    ratings?: RatingUpdateManyWithoutUserNestedInput
+    ratedUsers?: RatingUpdateManyWithoutRatedUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutFollowersInput = {
@@ -24240,6 +26595,8 @@ export namespace Prisma {
     company?: CompanyUncheckedUpdateOneWithoutUserNestedInput
     jobApplications?: JobApplicationUncheckedUpdateManyWithoutUserNestedInput
     following?: FollowUncheckedUpdateManyWithoutFollowerNestedInput
+    ratings?: RatingUncheckedUpdateManyWithoutUserNestedInput
+    ratedUsers?: RatingUncheckedUpdateManyWithoutRatedUserNestedInput
   }
 
   export type ShopUpsertWithoutFollowersInput = {
@@ -24271,6 +26628,10 @@ export namespace Prisma {
     phoneNumber2?: NullableStringFieldUpdateOperationsInput | string | null
     user?: UserUpdateOneRequiredWithoutShopNestedInput
     ads?: AdUpdateManyWithoutShopNestedInput
+    ratings?: RatingUpdateManyWithoutShopNestedInput
+    chats?: ChatUpdateManyWithoutShopNestedInput
+    sentMessages?: MessageUpdateManyWithoutSenderShopNestedInput
+    receivedMessages?: MessageUpdateManyWithoutReceiverShopNestedInput
   }
 
   export type ShopUncheckedUpdateWithoutFollowersInput = {
@@ -24292,6 +26653,344 @@ export namespace Prisma {
     phoneNumber1?: NullableStringFieldUpdateOperationsInput | string | null
     phoneNumber2?: NullableStringFieldUpdateOperationsInput | string | null
     ads?: AdUncheckedUpdateManyWithoutShopNestedInput
+    ratings?: RatingUncheckedUpdateManyWithoutShopNestedInput
+    chats?: ChatUncheckedUpdateManyWithoutShopNestedInput
+    sentMessages?: MessageUncheckedUpdateManyWithoutSenderShopNestedInput
+    receivedMessages?: MessageUncheckedUpdateManyWithoutReceiverShopNestedInput
+  }
+
+  export type UserCreateWithoutRatingsInput = {
+    createdAt?: Date | string
+    phoneNumber?: string | null
+    username?: string | null
+    country?: string | null
+    image?: string | null
+    email: string
+    accounts?: AccountCreateNestedManyWithoutUserInput
+    sessions?: SessionCreateNestedManyWithoutUserInput
+    ads?: AdCreateNestedManyWithoutUserInput
+    chats?: ChatCreateNestedManyWithoutUsersInput
+    messagesSent?: MessageCreateNestedManyWithoutSenderInput
+    messagesReceived?: MessageCreateNestedManyWithoutReceiverInput
+    favoriteAds?: FavoriteAdCreateNestedManyWithoutUserInput
+    shop?: ShopCreateNestedManyWithoutUserInput
+    subscriptions?: SubscriptionCreateNestedManyWithoutUserInput
+    company?: CompanyCreateNestedOneWithoutUserInput
+    jobApplications?: JobApplicationCreateNestedManyWithoutUserInput
+    following?: FollowCreateNestedManyWithoutFollowerInput
+    followers?: FollowCreateNestedManyWithoutFollowedUserInput
+    ratedUsers?: RatingCreateNestedManyWithoutRatedUserInput
+  }
+
+  export type UserUncheckedCreateWithoutRatingsInput = {
+    id?: number
+    createdAt?: Date | string
+    phoneNumber?: string | null
+    username?: string | null
+    country?: string | null
+    image?: string | null
+    email: string
+    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    ads?: AdUncheckedCreateNestedManyWithoutUserInput
+    chats?: ChatUncheckedCreateNestedManyWithoutUsersInput
+    messagesSent?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    messagesReceived?: MessageUncheckedCreateNestedManyWithoutReceiverInput
+    favoriteAds?: FavoriteAdUncheckedCreateNestedManyWithoutUserInput
+    shop?: ShopUncheckedCreateNestedManyWithoutUserInput
+    subscriptions?: SubscriptionUncheckedCreateNestedManyWithoutUserInput
+    company?: CompanyUncheckedCreateNestedOneWithoutUserInput
+    jobApplications?: JobApplicationUncheckedCreateNestedManyWithoutUserInput
+    following?: FollowUncheckedCreateNestedManyWithoutFollowerInput
+    followers?: FollowUncheckedCreateNestedManyWithoutFollowedUserInput
+    ratedUsers?: RatingUncheckedCreateNestedManyWithoutRatedUserInput
+  }
+
+  export type UserCreateOrConnectWithoutRatingsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutRatingsInput, UserUncheckedCreateWithoutRatingsInput>
+  }
+
+  export type UserCreateWithoutRatedUsersInput = {
+    createdAt?: Date | string
+    phoneNumber?: string | null
+    username?: string | null
+    country?: string | null
+    image?: string | null
+    email: string
+    accounts?: AccountCreateNestedManyWithoutUserInput
+    sessions?: SessionCreateNestedManyWithoutUserInput
+    ads?: AdCreateNestedManyWithoutUserInput
+    chats?: ChatCreateNestedManyWithoutUsersInput
+    messagesSent?: MessageCreateNestedManyWithoutSenderInput
+    messagesReceived?: MessageCreateNestedManyWithoutReceiverInput
+    favoriteAds?: FavoriteAdCreateNestedManyWithoutUserInput
+    shop?: ShopCreateNestedManyWithoutUserInput
+    subscriptions?: SubscriptionCreateNestedManyWithoutUserInput
+    company?: CompanyCreateNestedOneWithoutUserInput
+    jobApplications?: JobApplicationCreateNestedManyWithoutUserInput
+    following?: FollowCreateNestedManyWithoutFollowerInput
+    followers?: FollowCreateNestedManyWithoutFollowedUserInput
+    ratings?: RatingCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutRatedUsersInput = {
+    id?: number
+    createdAt?: Date | string
+    phoneNumber?: string | null
+    username?: string | null
+    country?: string | null
+    image?: string | null
+    email: string
+    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    ads?: AdUncheckedCreateNestedManyWithoutUserInput
+    chats?: ChatUncheckedCreateNestedManyWithoutUsersInput
+    messagesSent?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    messagesReceived?: MessageUncheckedCreateNestedManyWithoutReceiverInput
+    favoriteAds?: FavoriteAdUncheckedCreateNestedManyWithoutUserInput
+    shop?: ShopUncheckedCreateNestedManyWithoutUserInput
+    subscriptions?: SubscriptionUncheckedCreateNestedManyWithoutUserInput
+    company?: CompanyUncheckedCreateNestedOneWithoutUserInput
+    jobApplications?: JobApplicationUncheckedCreateNestedManyWithoutUserInput
+    following?: FollowUncheckedCreateNestedManyWithoutFollowerInput
+    followers?: FollowUncheckedCreateNestedManyWithoutFollowedUserInput
+    ratings?: RatingUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutRatedUsersInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutRatedUsersInput, UserUncheckedCreateWithoutRatedUsersInput>
+  }
+
+  export type ShopCreateWithoutRatingsInput = {
+    shopCategory?: string
+    shopName: string
+    city?: string | null
+    bgColor?: string | null
+    country?: string | null
+    bgImage?: string
+    shopImage?: string | null
+    description?: string | null
+    facebookLink?: string | null
+    twitterLink?: string | null
+    instagramLink?: string | null
+    tiktokLink?: string | null
+    snapchatLink?: string | null
+    phoneNumber1?: string | null
+    phoneNumber2?: string | null
+    user: UserCreateNestedOneWithoutShopInput
+    ads?: AdCreateNestedManyWithoutShopInput
+    followers?: FollowCreateNestedManyWithoutFollowedShopInput
+    chats?: ChatCreateNestedManyWithoutShopInput
+    sentMessages?: MessageCreateNestedManyWithoutSenderShopInput
+    receivedMessages?: MessageCreateNestedManyWithoutReceiverShopInput
+  }
+
+  export type ShopUncheckedCreateWithoutRatingsInput = {
+    id?: number
+    userId: number
+    shopCategory?: string
+    shopName: string
+    city?: string | null
+    bgColor?: string | null
+    country?: string | null
+    bgImage?: string
+    shopImage?: string | null
+    description?: string | null
+    facebookLink?: string | null
+    twitterLink?: string | null
+    instagramLink?: string | null
+    tiktokLink?: string | null
+    snapchatLink?: string | null
+    phoneNumber1?: string | null
+    phoneNumber2?: string | null
+    ads?: AdUncheckedCreateNestedManyWithoutShopInput
+    followers?: FollowUncheckedCreateNestedManyWithoutFollowedShopInput
+    chats?: ChatUncheckedCreateNestedManyWithoutShopInput
+    sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderShopInput
+    receivedMessages?: MessageUncheckedCreateNestedManyWithoutReceiverShopInput
+  }
+
+  export type ShopCreateOrConnectWithoutRatingsInput = {
+    where: ShopWhereUniqueInput
+    create: XOR<ShopCreateWithoutRatingsInput, ShopUncheckedCreateWithoutRatingsInput>
+  }
+
+  export type UserUpsertWithoutRatingsInput = {
+    update: XOR<UserUpdateWithoutRatingsInput, UserUncheckedUpdateWithoutRatingsInput>
+    create: XOR<UserCreateWithoutRatingsInput, UserUncheckedCreateWithoutRatingsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutRatingsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutRatingsInput, UserUncheckedUpdateWithoutRatingsInput>
+  }
+
+  export type UserUpdateWithoutRatingsInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
+    accounts?: AccountUpdateManyWithoutUserNestedInput
+    sessions?: SessionUpdateManyWithoutUserNestedInput
+    ads?: AdUpdateManyWithoutUserNestedInput
+    chats?: ChatUpdateManyWithoutUsersNestedInput
+    messagesSent?: MessageUpdateManyWithoutSenderNestedInput
+    messagesReceived?: MessageUpdateManyWithoutReceiverNestedInput
+    favoriteAds?: FavoriteAdUpdateManyWithoutUserNestedInput
+    shop?: ShopUpdateManyWithoutUserNestedInput
+    subscriptions?: SubscriptionUpdateManyWithoutUserNestedInput
+    company?: CompanyUpdateOneWithoutUserNestedInput
+    jobApplications?: JobApplicationUpdateManyWithoutUserNestedInput
+    following?: FollowUpdateManyWithoutFollowerNestedInput
+    followers?: FollowUpdateManyWithoutFollowedUserNestedInput
+    ratedUsers?: RatingUpdateManyWithoutRatedUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutRatingsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
+    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    ads?: AdUncheckedUpdateManyWithoutUserNestedInput
+    chats?: ChatUncheckedUpdateManyWithoutUsersNestedInput
+    messagesSent?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    messagesReceived?: MessageUncheckedUpdateManyWithoutReceiverNestedInput
+    favoriteAds?: FavoriteAdUncheckedUpdateManyWithoutUserNestedInput
+    shop?: ShopUncheckedUpdateManyWithoutUserNestedInput
+    subscriptions?: SubscriptionUncheckedUpdateManyWithoutUserNestedInput
+    company?: CompanyUncheckedUpdateOneWithoutUserNestedInput
+    jobApplications?: JobApplicationUncheckedUpdateManyWithoutUserNestedInput
+    following?: FollowUncheckedUpdateManyWithoutFollowerNestedInput
+    followers?: FollowUncheckedUpdateManyWithoutFollowedUserNestedInput
+    ratedUsers?: RatingUncheckedUpdateManyWithoutRatedUserNestedInput
+  }
+
+  export type UserUpsertWithoutRatedUsersInput = {
+    update: XOR<UserUpdateWithoutRatedUsersInput, UserUncheckedUpdateWithoutRatedUsersInput>
+    create: XOR<UserCreateWithoutRatedUsersInput, UserUncheckedCreateWithoutRatedUsersInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutRatedUsersInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutRatedUsersInput, UserUncheckedUpdateWithoutRatedUsersInput>
+  }
+
+  export type UserUpdateWithoutRatedUsersInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
+    accounts?: AccountUpdateManyWithoutUserNestedInput
+    sessions?: SessionUpdateManyWithoutUserNestedInput
+    ads?: AdUpdateManyWithoutUserNestedInput
+    chats?: ChatUpdateManyWithoutUsersNestedInput
+    messagesSent?: MessageUpdateManyWithoutSenderNestedInput
+    messagesReceived?: MessageUpdateManyWithoutReceiverNestedInput
+    favoriteAds?: FavoriteAdUpdateManyWithoutUserNestedInput
+    shop?: ShopUpdateManyWithoutUserNestedInput
+    subscriptions?: SubscriptionUpdateManyWithoutUserNestedInput
+    company?: CompanyUpdateOneWithoutUserNestedInput
+    jobApplications?: JobApplicationUpdateManyWithoutUserNestedInput
+    following?: FollowUpdateManyWithoutFollowerNestedInput
+    followers?: FollowUpdateManyWithoutFollowedUserNestedInput
+    ratings?: RatingUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutRatedUsersInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
+    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    ads?: AdUncheckedUpdateManyWithoutUserNestedInput
+    chats?: ChatUncheckedUpdateManyWithoutUsersNestedInput
+    messagesSent?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    messagesReceived?: MessageUncheckedUpdateManyWithoutReceiverNestedInput
+    favoriteAds?: FavoriteAdUncheckedUpdateManyWithoutUserNestedInput
+    shop?: ShopUncheckedUpdateManyWithoutUserNestedInput
+    subscriptions?: SubscriptionUncheckedUpdateManyWithoutUserNestedInput
+    company?: CompanyUncheckedUpdateOneWithoutUserNestedInput
+    jobApplications?: JobApplicationUncheckedUpdateManyWithoutUserNestedInput
+    following?: FollowUncheckedUpdateManyWithoutFollowerNestedInput
+    followers?: FollowUncheckedUpdateManyWithoutFollowedUserNestedInput
+    ratings?: RatingUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type ShopUpsertWithoutRatingsInput = {
+    update: XOR<ShopUpdateWithoutRatingsInput, ShopUncheckedUpdateWithoutRatingsInput>
+    create: XOR<ShopCreateWithoutRatingsInput, ShopUncheckedCreateWithoutRatingsInput>
+    where?: ShopWhereInput
+  }
+
+  export type ShopUpdateToOneWithWhereWithoutRatingsInput = {
+    where?: ShopWhereInput
+    data: XOR<ShopUpdateWithoutRatingsInput, ShopUncheckedUpdateWithoutRatingsInput>
+  }
+
+  export type ShopUpdateWithoutRatingsInput = {
+    shopCategory?: StringFieldUpdateOperationsInput | string
+    shopName?: StringFieldUpdateOperationsInput | string
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    bgColor?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    bgImage?: StringFieldUpdateOperationsInput | string
+    shopImage?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    facebookLink?: NullableStringFieldUpdateOperationsInput | string | null
+    twitterLink?: NullableStringFieldUpdateOperationsInput | string | null
+    instagramLink?: NullableStringFieldUpdateOperationsInput | string | null
+    tiktokLink?: NullableStringFieldUpdateOperationsInput | string | null
+    snapchatLink?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber1?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber2?: NullableStringFieldUpdateOperationsInput | string | null
+    user?: UserUpdateOneRequiredWithoutShopNestedInput
+    ads?: AdUpdateManyWithoutShopNestedInput
+    followers?: FollowUpdateManyWithoutFollowedShopNestedInput
+    chats?: ChatUpdateManyWithoutShopNestedInput
+    sentMessages?: MessageUpdateManyWithoutSenderShopNestedInput
+    receivedMessages?: MessageUpdateManyWithoutReceiverShopNestedInput
+  }
+
+  export type ShopUncheckedUpdateWithoutRatingsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    shopCategory?: StringFieldUpdateOperationsInput | string
+    shopName?: StringFieldUpdateOperationsInput | string
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    bgColor?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    bgImage?: StringFieldUpdateOperationsInput | string
+    shopImage?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    facebookLink?: NullableStringFieldUpdateOperationsInput | string | null
+    twitterLink?: NullableStringFieldUpdateOperationsInput | string | null
+    instagramLink?: NullableStringFieldUpdateOperationsInput | string | null
+    tiktokLink?: NullableStringFieldUpdateOperationsInput | string | null
+    snapchatLink?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber1?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber2?: NullableStringFieldUpdateOperationsInput | string | null
+    ads?: AdUncheckedUpdateManyWithoutShopNestedInput
+    followers?: FollowUncheckedUpdateManyWithoutFollowedShopNestedInput
+    chats?: ChatUncheckedUpdateManyWithoutShopNestedInput
+    sentMessages?: MessageUncheckedUpdateManyWithoutSenderShopNestedInput
+    receivedMessages?: MessageUncheckedUpdateManyWithoutReceiverShopNestedInput
   }
 
   export type AdCreateWithoutAdimagesInput = {
@@ -24455,6 +27154,8 @@ export namespace Prisma {
     jobApplications?: JobApplicationCreateNestedManyWithoutUserInput
     following?: FollowCreateNestedManyWithoutFollowerInput
     followers?: FollowCreateNestedManyWithoutFollowedUserInput
+    ratings?: RatingCreateNestedManyWithoutUserInput
+    ratedUsers?: RatingCreateNestedManyWithoutRatedUserInput
   }
 
   export type UserUncheckedCreateWithoutAdsInput = {
@@ -24477,6 +27178,8 @@ export namespace Prisma {
     jobApplications?: JobApplicationUncheckedCreateNestedManyWithoutUserInput
     following?: FollowUncheckedCreateNestedManyWithoutFollowerInput
     followers?: FollowUncheckedCreateNestedManyWithoutFollowedUserInput
+    ratings?: RatingUncheckedCreateNestedManyWithoutUserInput
+    ratedUsers?: RatingUncheckedCreateNestedManyWithoutRatedUserInput
   }
 
   export type UserCreateOrConnectWithoutAdsInput = {
@@ -24502,6 +27205,10 @@ export namespace Prisma {
     phoneNumber2?: string | null
     user: UserCreateNestedOneWithoutShopInput
     followers?: FollowCreateNestedManyWithoutFollowedShopInput
+    ratings?: RatingCreateNestedManyWithoutShopInput
+    chats?: ChatCreateNestedManyWithoutShopInput
+    sentMessages?: MessageCreateNestedManyWithoutSenderShopInput
+    receivedMessages?: MessageCreateNestedManyWithoutReceiverShopInput
   }
 
   export type ShopUncheckedCreateWithoutAdsInput = {
@@ -24523,6 +27230,10 @@ export namespace Prisma {
     phoneNumber1?: string | null
     phoneNumber2?: string | null
     followers?: FollowUncheckedCreateNestedManyWithoutFollowedShopInput
+    ratings?: RatingUncheckedCreateNestedManyWithoutShopInput
+    chats?: ChatUncheckedCreateNestedManyWithoutShopInput
+    sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderShopInput
+    receivedMessages?: MessageUncheckedCreateNestedManyWithoutReceiverShopInput
   }
 
   export type ShopCreateOrConnectWithoutAdsInput = {
@@ -24590,6 +27301,8 @@ export namespace Prisma {
     jobApplications?: JobApplicationUpdateManyWithoutUserNestedInput
     following?: FollowUpdateManyWithoutFollowerNestedInput
     followers?: FollowUpdateManyWithoutFollowedUserNestedInput
+    ratings?: RatingUpdateManyWithoutUserNestedInput
+    ratedUsers?: RatingUpdateManyWithoutRatedUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAdsInput = {
@@ -24612,6 +27325,8 @@ export namespace Prisma {
     jobApplications?: JobApplicationUncheckedUpdateManyWithoutUserNestedInput
     following?: FollowUncheckedUpdateManyWithoutFollowerNestedInput
     followers?: FollowUncheckedUpdateManyWithoutFollowedUserNestedInput
+    ratings?: RatingUncheckedUpdateManyWithoutUserNestedInput
+    ratedUsers?: RatingUncheckedUpdateManyWithoutRatedUserNestedInput
   }
 
   export type ShopUpsertWithoutAdsInput = {
@@ -24643,6 +27358,10 @@ export namespace Prisma {
     phoneNumber2?: NullableStringFieldUpdateOperationsInput | string | null
     user?: UserUpdateOneRequiredWithoutShopNestedInput
     followers?: FollowUpdateManyWithoutFollowedShopNestedInput
+    ratings?: RatingUpdateManyWithoutShopNestedInput
+    chats?: ChatUpdateManyWithoutShopNestedInput
+    sentMessages?: MessageUpdateManyWithoutSenderShopNestedInput
+    receivedMessages?: MessageUpdateManyWithoutReceiverShopNestedInput
   }
 
   export type ShopUncheckedUpdateWithoutAdsInput = {
@@ -24664,6 +27383,10 @@ export namespace Prisma {
     phoneNumber1?: NullableStringFieldUpdateOperationsInput | string | null
     phoneNumber2?: NullableStringFieldUpdateOperationsInput | string | null
     followers?: FollowUncheckedUpdateManyWithoutFollowedShopNestedInput
+    ratings?: RatingUncheckedUpdateManyWithoutShopNestedInput
+    chats?: ChatUncheckedUpdateManyWithoutShopNestedInput
+    sentMessages?: MessageUncheckedUpdateManyWithoutSenderShopNestedInput
+    receivedMessages?: MessageUncheckedUpdateManyWithoutReceiverShopNestedInput
   }
 
   export type ImageUpsertWithWhereUniqueWithoutAdInput = {
@@ -24726,6 +27449,8 @@ export namespace Prisma {
     jobApplications?: JobApplicationCreateNestedManyWithoutUserInput
     following?: FollowCreateNestedManyWithoutFollowerInput
     followers?: FollowCreateNestedManyWithoutFollowedUserInput
+    ratings?: RatingCreateNestedManyWithoutUserInput
+    ratedUsers?: RatingCreateNestedManyWithoutRatedUserInput
   }
 
   export type UserUncheckedCreateWithoutFavoriteAdsInput = {
@@ -24748,6 +27473,8 @@ export namespace Prisma {
     jobApplications?: JobApplicationUncheckedCreateNestedManyWithoutUserInput
     following?: FollowUncheckedCreateNestedManyWithoutFollowerInput
     followers?: FollowUncheckedCreateNestedManyWithoutFollowedUserInput
+    ratings?: RatingUncheckedCreateNestedManyWithoutUserInput
+    ratedUsers?: RatingUncheckedCreateNestedManyWithoutRatedUserInput
   }
 
   export type UserCreateOrConnectWithoutFavoriteAdsInput = {
@@ -24853,6 +27580,8 @@ export namespace Prisma {
     jobApplications?: JobApplicationUpdateManyWithoutUserNestedInput
     following?: FollowUpdateManyWithoutFollowerNestedInput
     followers?: FollowUpdateManyWithoutFollowedUserNestedInput
+    ratings?: RatingUpdateManyWithoutUserNestedInput
+    ratedUsers?: RatingUpdateManyWithoutRatedUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutFavoriteAdsInput = {
@@ -24875,6 +27604,8 @@ export namespace Prisma {
     jobApplications?: JobApplicationUncheckedUpdateManyWithoutUserNestedInput
     following?: FollowUncheckedUpdateManyWithoutFollowerNestedInput
     followers?: FollowUncheckedUpdateManyWithoutFollowedUserNestedInput
+    ratings?: RatingUncheckedUpdateManyWithoutUserNestedInput
+    ratedUsers?: RatingUncheckedUpdateManyWithoutRatedUserNestedInput
   }
 
   export type AdUpsertWithoutFavoritedByInput = {
@@ -24970,6 +27701,8 @@ export namespace Prisma {
     jobApplications?: JobApplicationCreateNestedManyWithoutUserInput
     following?: FollowCreateNestedManyWithoutFollowerInput
     followers?: FollowCreateNestedManyWithoutFollowedUserInput
+    ratings?: RatingCreateNestedManyWithoutUserInput
+    ratedUsers?: RatingCreateNestedManyWithoutRatedUserInput
   }
 
   export type UserUncheckedCreateWithoutChatsInput = {
@@ -24992,6 +27725,8 @@ export namespace Prisma {
     jobApplications?: JobApplicationUncheckedCreateNestedManyWithoutUserInput
     following?: FollowUncheckedCreateNestedManyWithoutFollowerInput
     followers?: FollowUncheckedCreateNestedManyWithoutFollowedUserInput
+    ratings?: RatingUncheckedCreateNestedManyWithoutUserInput
+    ratedUsers?: RatingUncheckedCreateNestedManyWithoutRatedUserInput
   }
 
   export type UserCreateOrConnectWithoutChatsInput = {
@@ -24999,19 +27734,76 @@ export namespace Prisma {
     create: XOR<UserCreateWithoutChatsInput, UserUncheckedCreateWithoutChatsInput>
   }
 
+  export type ShopCreateWithoutChatsInput = {
+    shopCategory?: string
+    shopName: string
+    city?: string | null
+    bgColor?: string | null
+    country?: string | null
+    bgImage?: string
+    shopImage?: string | null
+    description?: string | null
+    facebookLink?: string | null
+    twitterLink?: string | null
+    instagramLink?: string | null
+    tiktokLink?: string | null
+    snapchatLink?: string | null
+    phoneNumber1?: string | null
+    phoneNumber2?: string | null
+    user: UserCreateNestedOneWithoutShopInput
+    ads?: AdCreateNestedManyWithoutShopInput
+    followers?: FollowCreateNestedManyWithoutFollowedShopInput
+    ratings?: RatingCreateNestedManyWithoutShopInput
+    sentMessages?: MessageCreateNestedManyWithoutSenderShopInput
+    receivedMessages?: MessageCreateNestedManyWithoutReceiverShopInput
+  }
+
+  export type ShopUncheckedCreateWithoutChatsInput = {
+    id?: number
+    userId: number
+    shopCategory?: string
+    shopName: string
+    city?: string | null
+    bgColor?: string | null
+    country?: string | null
+    bgImage?: string
+    shopImage?: string | null
+    description?: string | null
+    facebookLink?: string | null
+    twitterLink?: string | null
+    instagramLink?: string | null
+    tiktokLink?: string | null
+    snapchatLink?: string | null
+    phoneNumber1?: string | null
+    phoneNumber2?: string | null
+    ads?: AdUncheckedCreateNestedManyWithoutShopInput
+    followers?: FollowUncheckedCreateNestedManyWithoutFollowedShopInput
+    ratings?: RatingUncheckedCreateNestedManyWithoutShopInput
+    sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderShopInput
+    receivedMessages?: MessageUncheckedCreateNestedManyWithoutReceiverShopInput
+  }
+
+  export type ShopCreateOrConnectWithoutChatsInput = {
+    where: ShopWhereUniqueInput
+    create: XOR<ShopCreateWithoutChatsInput, ShopUncheckedCreateWithoutChatsInput>
+  }
+
   export type MessageCreateWithoutChatInput = {
     content: string
     createdAt?: Date | string
-    sender: UserCreateNestedOneWithoutMessagesSentInput
+    senderShop?: ShopCreateNestedOneWithoutSentMessagesInput
+    receiverShop?: ShopCreateNestedOneWithoutReceivedMessagesInput
+    sender?: UserCreateNestedOneWithoutMessagesSentInput
     receiver?: UserCreateNestedOneWithoutMessagesReceivedInput
   }
 
   export type MessageUncheckedCreateWithoutChatInput = {
     id?: number
     content: string
-    senderEmail: string
-    receiverEmail?: string | null
+    senderId?: number | null
+    receiverId?: number | null
     createdAt?: Date | string
+    shopId?: number | null
   }
 
   export type MessageCreateOrConnectWithoutChatInput = {
@@ -25048,6 +27840,66 @@ export namespace Prisma {
     email?: StringFilter<"User"> | string
   }
 
+  export type ShopUpsertWithoutChatsInput = {
+    update: XOR<ShopUpdateWithoutChatsInput, ShopUncheckedUpdateWithoutChatsInput>
+    create: XOR<ShopCreateWithoutChatsInput, ShopUncheckedCreateWithoutChatsInput>
+    where?: ShopWhereInput
+  }
+
+  export type ShopUpdateToOneWithWhereWithoutChatsInput = {
+    where?: ShopWhereInput
+    data: XOR<ShopUpdateWithoutChatsInput, ShopUncheckedUpdateWithoutChatsInput>
+  }
+
+  export type ShopUpdateWithoutChatsInput = {
+    shopCategory?: StringFieldUpdateOperationsInput | string
+    shopName?: StringFieldUpdateOperationsInput | string
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    bgColor?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    bgImage?: StringFieldUpdateOperationsInput | string
+    shopImage?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    facebookLink?: NullableStringFieldUpdateOperationsInput | string | null
+    twitterLink?: NullableStringFieldUpdateOperationsInput | string | null
+    instagramLink?: NullableStringFieldUpdateOperationsInput | string | null
+    tiktokLink?: NullableStringFieldUpdateOperationsInput | string | null
+    snapchatLink?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber1?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber2?: NullableStringFieldUpdateOperationsInput | string | null
+    user?: UserUpdateOneRequiredWithoutShopNestedInput
+    ads?: AdUpdateManyWithoutShopNestedInput
+    followers?: FollowUpdateManyWithoutFollowedShopNestedInput
+    ratings?: RatingUpdateManyWithoutShopNestedInput
+    sentMessages?: MessageUpdateManyWithoutSenderShopNestedInput
+    receivedMessages?: MessageUpdateManyWithoutReceiverShopNestedInput
+  }
+
+  export type ShopUncheckedUpdateWithoutChatsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    shopCategory?: StringFieldUpdateOperationsInput | string
+    shopName?: StringFieldUpdateOperationsInput | string
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    bgColor?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    bgImage?: StringFieldUpdateOperationsInput | string
+    shopImage?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    facebookLink?: NullableStringFieldUpdateOperationsInput | string | null
+    twitterLink?: NullableStringFieldUpdateOperationsInput | string | null
+    instagramLink?: NullableStringFieldUpdateOperationsInput | string | null
+    tiktokLink?: NullableStringFieldUpdateOperationsInput | string | null
+    snapchatLink?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber1?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber2?: NullableStringFieldUpdateOperationsInput | string | null
+    ads?: AdUncheckedUpdateManyWithoutShopNestedInput
+    followers?: FollowUncheckedUpdateManyWithoutFollowedShopNestedInput
+    ratings?: RatingUncheckedUpdateManyWithoutShopNestedInput
+    sentMessages?: MessageUncheckedUpdateManyWithoutSenderShopNestedInput
+    receivedMessages?: MessageUncheckedUpdateManyWithoutReceiverShopNestedInput
+  }
+
   export type MessageUpsertWithWhereUniqueWithoutChatInput = {
     where: MessageWhereUniqueInput
     update: XOR<MessageUpdateWithoutChatInput, MessageUncheckedUpdateWithoutChatInput>
@@ -25062,6 +27914,114 @@ export namespace Prisma {
   export type MessageUpdateManyWithWhereWithoutChatInput = {
     where: MessageScalarWhereInput
     data: XOR<MessageUpdateManyMutationInput, MessageUncheckedUpdateManyWithoutChatInput>
+  }
+
+  export type ShopCreateWithoutSentMessagesInput = {
+    shopCategory?: string
+    shopName: string
+    city?: string | null
+    bgColor?: string | null
+    country?: string | null
+    bgImage?: string
+    shopImage?: string | null
+    description?: string | null
+    facebookLink?: string | null
+    twitterLink?: string | null
+    instagramLink?: string | null
+    tiktokLink?: string | null
+    snapchatLink?: string | null
+    phoneNumber1?: string | null
+    phoneNumber2?: string | null
+    user: UserCreateNestedOneWithoutShopInput
+    ads?: AdCreateNestedManyWithoutShopInput
+    followers?: FollowCreateNestedManyWithoutFollowedShopInput
+    ratings?: RatingCreateNestedManyWithoutShopInput
+    chats?: ChatCreateNestedManyWithoutShopInput
+    receivedMessages?: MessageCreateNestedManyWithoutReceiverShopInput
+  }
+
+  export type ShopUncheckedCreateWithoutSentMessagesInput = {
+    id?: number
+    userId: number
+    shopCategory?: string
+    shopName: string
+    city?: string | null
+    bgColor?: string | null
+    country?: string | null
+    bgImage?: string
+    shopImage?: string | null
+    description?: string | null
+    facebookLink?: string | null
+    twitterLink?: string | null
+    instagramLink?: string | null
+    tiktokLink?: string | null
+    snapchatLink?: string | null
+    phoneNumber1?: string | null
+    phoneNumber2?: string | null
+    ads?: AdUncheckedCreateNestedManyWithoutShopInput
+    followers?: FollowUncheckedCreateNestedManyWithoutFollowedShopInput
+    ratings?: RatingUncheckedCreateNestedManyWithoutShopInput
+    chats?: ChatUncheckedCreateNestedManyWithoutShopInput
+    receivedMessages?: MessageUncheckedCreateNestedManyWithoutReceiverShopInput
+  }
+
+  export type ShopCreateOrConnectWithoutSentMessagesInput = {
+    where: ShopWhereUniqueInput
+    create: XOR<ShopCreateWithoutSentMessagesInput, ShopUncheckedCreateWithoutSentMessagesInput>
+  }
+
+  export type ShopCreateWithoutReceivedMessagesInput = {
+    shopCategory?: string
+    shopName: string
+    city?: string | null
+    bgColor?: string | null
+    country?: string | null
+    bgImage?: string
+    shopImage?: string | null
+    description?: string | null
+    facebookLink?: string | null
+    twitterLink?: string | null
+    instagramLink?: string | null
+    tiktokLink?: string | null
+    snapchatLink?: string | null
+    phoneNumber1?: string | null
+    phoneNumber2?: string | null
+    user: UserCreateNestedOneWithoutShopInput
+    ads?: AdCreateNestedManyWithoutShopInput
+    followers?: FollowCreateNestedManyWithoutFollowedShopInput
+    ratings?: RatingCreateNestedManyWithoutShopInput
+    chats?: ChatCreateNestedManyWithoutShopInput
+    sentMessages?: MessageCreateNestedManyWithoutSenderShopInput
+  }
+
+  export type ShopUncheckedCreateWithoutReceivedMessagesInput = {
+    id?: number
+    userId: number
+    shopCategory?: string
+    shopName: string
+    city?: string | null
+    bgColor?: string | null
+    country?: string | null
+    bgImage?: string
+    shopImage?: string | null
+    description?: string | null
+    facebookLink?: string | null
+    twitterLink?: string | null
+    instagramLink?: string | null
+    tiktokLink?: string | null
+    snapchatLink?: string | null
+    phoneNumber1?: string | null
+    phoneNumber2?: string | null
+    ads?: AdUncheckedCreateNestedManyWithoutShopInput
+    followers?: FollowUncheckedCreateNestedManyWithoutFollowedShopInput
+    ratings?: RatingUncheckedCreateNestedManyWithoutShopInput
+    chats?: ChatUncheckedCreateNestedManyWithoutShopInput
+    sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderShopInput
+  }
+
+  export type ShopCreateOrConnectWithoutReceivedMessagesInput = {
+    where: ShopWhereUniqueInput
+    create: XOR<ShopCreateWithoutReceivedMessagesInput, ShopUncheckedCreateWithoutReceivedMessagesInput>
   }
 
   export type UserCreateWithoutMessagesSentInput = {
@@ -25083,6 +28043,8 @@ export namespace Prisma {
     jobApplications?: JobApplicationCreateNestedManyWithoutUserInput
     following?: FollowCreateNestedManyWithoutFollowerInput
     followers?: FollowCreateNestedManyWithoutFollowedUserInput
+    ratings?: RatingCreateNestedManyWithoutUserInput
+    ratedUsers?: RatingCreateNestedManyWithoutRatedUserInput
   }
 
   export type UserUncheckedCreateWithoutMessagesSentInput = {
@@ -25105,6 +28067,8 @@ export namespace Prisma {
     jobApplications?: JobApplicationUncheckedCreateNestedManyWithoutUserInput
     following?: FollowUncheckedCreateNestedManyWithoutFollowerInput
     followers?: FollowUncheckedCreateNestedManyWithoutFollowedUserInput
+    ratings?: RatingUncheckedCreateNestedManyWithoutUserInput
+    ratedUsers?: RatingUncheckedCreateNestedManyWithoutRatedUserInput
   }
 
   export type UserCreateOrConnectWithoutMessagesSentInput = {
@@ -25131,6 +28095,8 @@ export namespace Prisma {
     jobApplications?: JobApplicationCreateNestedManyWithoutUserInput
     following?: FollowCreateNestedManyWithoutFollowerInput
     followers?: FollowCreateNestedManyWithoutFollowedUserInput
+    ratings?: RatingCreateNestedManyWithoutUserInput
+    ratedUsers?: RatingCreateNestedManyWithoutRatedUserInput
   }
 
   export type UserUncheckedCreateWithoutMessagesReceivedInput = {
@@ -25153,6 +28119,8 @@ export namespace Prisma {
     jobApplications?: JobApplicationUncheckedCreateNestedManyWithoutUserInput
     following?: FollowUncheckedCreateNestedManyWithoutFollowerInput
     followers?: FollowUncheckedCreateNestedManyWithoutFollowedUserInput
+    ratings?: RatingUncheckedCreateNestedManyWithoutUserInput
+    ratedUsers?: RatingUncheckedCreateNestedManyWithoutRatedUserInput
   }
 
   export type UserCreateOrConnectWithoutMessagesReceivedInput = {
@@ -25162,16 +28130,138 @@ export namespace Prisma {
 
   export type ChatCreateWithoutMessagesInput = {
     users?: UserCreateNestedManyWithoutChatsInput
+    shop?: ShopCreateNestedOneWithoutChatsInput
   }
 
   export type ChatUncheckedCreateWithoutMessagesInput = {
     id?: number
+    shopId?: number | null
     users?: UserUncheckedCreateNestedManyWithoutChatsInput
   }
 
   export type ChatCreateOrConnectWithoutMessagesInput = {
     where: ChatWhereUniqueInput
     create: XOR<ChatCreateWithoutMessagesInput, ChatUncheckedCreateWithoutMessagesInput>
+  }
+
+  export type ShopUpsertWithoutSentMessagesInput = {
+    update: XOR<ShopUpdateWithoutSentMessagesInput, ShopUncheckedUpdateWithoutSentMessagesInput>
+    create: XOR<ShopCreateWithoutSentMessagesInput, ShopUncheckedCreateWithoutSentMessagesInput>
+    where?: ShopWhereInput
+  }
+
+  export type ShopUpdateToOneWithWhereWithoutSentMessagesInput = {
+    where?: ShopWhereInput
+    data: XOR<ShopUpdateWithoutSentMessagesInput, ShopUncheckedUpdateWithoutSentMessagesInput>
+  }
+
+  export type ShopUpdateWithoutSentMessagesInput = {
+    shopCategory?: StringFieldUpdateOperationsInput | string
+    shopName?: StringFieldUpdateOperationsInput | string
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    bgColor?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    bgImage?: StringFieldUpdateOperationsInput | string
+    shopImage?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    facebookLink?: NullableStringFieldUpdateOperationsInput | string | null
+    twitterLink?: NullableStringFieldUpdateOperationsInput | string | null
+    instagramLink?: NullableStringFieldUpdateOperationsInput | string | null
+    tiktokLink?: NullableStringFieldUpdateOperationsInput | string | null
+    snapchatLink?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber1?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber2?: NullableStringFieldUpdateOperationsInput | string | null
+    user?: UserUpdateOneRequiredWithoutShopNestedInput
+    ads?: AdUpdateManyWithoutShopNestedInput
+    followers?: FollowUpdateManyWithoutFollowedShopNestedInput
+    ratings?: RatingUpdateManyWithoutShopNestedInput
+    chats?: ChatUpdateManyWithoutShopNestedInput
+    receivedMessages?: MessageUpdateManyWithoutReceiverShopNestedInput
+  }
+
+  export type ShopUncheckedUpdateWithoutSentMessagesInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    shopCategory?: StringFieldUpdateOperationsInput | string
+    shopName?: StringFieldUpdateOperationsInput | string
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    bgColor?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    bgImage?: StringFieldUpdateOperationsInput | string
+    shopImage?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    facebookLink?: NullableStringFieldUpdateOperationsInput | string | null
+    twitterLink?: NullableStringFieldUpdateOperationsInput | string | null
+    instagramLink?: NullableStringFieldUpdateOperationsInput | string | null
+    tiktokLink?: NullableStringFieldUpdateOperationsInput | string | null
+    snapchatLink?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber1?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber2?: NullableStringFieldUpdateOperationsInput | string | null
+    ads?: AdUncheckedUpdateManyWithoutShopNestedInput
+    followers?: FollowUncheckedUpdateManyWithoutFollowedShopNestedInput
+    ratings?: RatingUncheckedUpdateManyWithoutShopNestedInput
+    chats?: ChatUncheckedUpdateManyWithoutShopNestedInput
+    receivedMessages?: MessageUncheckedUpdateManyWithoutReceiverShopNestedInput
+  }
+
+  export type ShopUpsertWithoutReceivedMessagesInput = {
+    update: XOR<ShopUpdateWithoutReceivedMessagesInput, ShopUncheckedUpdateWithoutReceivedMessagesInput>
+    create: XOR<ShopCreateWithoutReceivedMessagesInput, ShopUncheckedCreateWithoutReceivedMessagesInput>
+    where?: ShopWhereInput
+  }
+
+  export type ShopUpdateToOneWithWhereWithoutReceivedMessagesInput = {
+    where?: ShopWhereInput
+    data: XOR<ShopUpdateWithoutReceivedMessagesInput, ShopUncheckedUpdateWithoutReceivedMessagesInput>
+  }
+
+  export type ShopUpdateWithoutReceivedMessagesInput = {
+    shopCategory?: StringFieldUpdateOperationsInput | string
+    shopName?: StringFieldUpdateOperationsInput | string
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    bgColor?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    bgImage?: StringFieldUpdateOperationsInput | string
+    shopImage?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    facebookLink?: NullableStringFieldUpdateOperationsInput | string | null
+    twitterLink?: NullableStringFieldUpdateOperationsInput | string | null
+    instagramLink?: NullableStringFieldUpdateOperationsInput | string | null
+    tiktokLink?: NullableStringFieldUpdateOperationsInput | string | null
+    snapchatLink?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber1?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber2?: NullableStringFieldUpdateOperationsInput | string | null
+    user?: UserUpdateOneRequiredWithoutShopNestedInput
+    ads?: AdUpdateManyWithoutShopNestedInput
+    followers?: FollowUpdateManyWithoutFollowedShopNestedInput
+    ratings?: RatingUpdateManyWithoutShopNestedInput
+    chats?: ChatUpdateManyWithoutShopNestedInput
+    sentMessages?: MessageUpdateManyWithoutSenderShopNestedInput
+  }
+
+  export type ShopUncheckedUpdateWithoutReceivedMessagesInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    shopCategory?: StringFieldUpdateOperationsInput | string
+    shopName?: StringFieldUpdateOperationsInput | string
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    bgColor?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    bgImage?: StringFieldUpdateOperationsInput | string
+    shopImage?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    facebookLink?: NullableStringFieldUpdateOperationsInput | string | null
+    twitterLink?: NullableStringFieldUpdateOperationsInput | string | null
+    instagramLink?: NullableStringFieldUpdateOperationsInput | string | null
+    tiktokLink?: NullableStringFieldUpdateOperationsInput | string | null
+    snapchatLink?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber1?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber2?: NullableStringFieldUpdateOperationsInput | string | null
+    ads?: AdUncheckedUpdateManyWithoutShopNestedInput
+    followers?: FollowUncheckedUpdateManyWithoutFollowedShopNestedInput
+    ratings?: RatingUncheckedUpdateManyWithoutShopNestedInput
+    chats?: ChatUncheckedUpdateManyWithoutShopNestedInput
+    sentMessages?: MessageUncheckedUpdateManyWithoutSenderShopNestedInput
   }
 
   export type UserUpsertWithoutMessagesSentInput = {
@@ -25204,6 +28294,8 @@ export namespace Prisma {
     jobApplications?: JobApplicationUpdateManyWithoutUserNestedInput
     following?: FollowUpdateManyWithoutFollowerNestedInput
     followers?: FollowUpdateManyWithoutFollowedUserNestedInput
+    ratings?: RatingUpdateManyWithoutUserNestedInput
+    ratedUsers?: RatingUpdateManyWithoutRatedUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutMessagesSentInput = {
@@ -25226,6 +28318,8 @@ export namespace Prisma {
     jobApplications?: JobApplicationUncheckedUpdateManyWithoutUserNestedInput
     following?: FollowUncheckedUpdateManyWithoutFollowerNestedInput
     followers?: FollowUncheckedUpdateManyWithoutFollowedUserNestedInput
+    ratings?: RatingUncheckedUpdateManyWithoutUserNestedInput
+    ratedUsers?: RatingUncheckedUpdateManyWithoutRatedUserNestedInput
   }
 
   export type UserUpsertWithoutMessagesReceivedInput = {
@@ -25258,6 +28352,8 @@ export namespace Prisma {
     jobApplications?: JobApplicationUpdateManyWithoutUserNestedInput
     following?: FollowUpdateManyWithoutFollowerNestedInput
     followers?: FollowUpdateManyWithoutFollowedUserNestedInput
+    ratings?: RatingUpdateManyWithoutUserNestedInput
+    ratedUsers?: RatingUpdateManyWithoutRatedUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutMessagesReceivedInput = {
@@ -25280,6 +28376,8 @@ export namespace Prisma {
     jobApplications?: JobApplicationUncheckedUpdateManyWithoutUserNestedInput
     following?: FollowUncheckedUpdateManyWithoutFollowerNestedInput
     followers?: FollowUncheckedUpdateManyWithoutFollowedUserNestedInput
+    ratings?: RatingUncheckedUpdateManyWithoutUserNestedInput
+    ratedUsers?: RatingUncheckedUpdateManyWithoutRatedUserNestedInput
   }
 
   export type ChatUpsertWithoutMessagesInput = {
@@ -25295,10 +28393,12 @@ export namespace Prisma {
 
   export type ChatUpdateWithoutMessagesInput = {
     users?: UserUpdateManyWithoutChatsNestedInput
+    shop?: ShopUpdateOneWithoutChatsNestedInput
   }
 
   export type ChatUncheckedUpdateWithoutMessagesInput = {
     id?: IntFieldUpdateOperationsInput | number
+    shopId?: NullableIntFieldUpdateOperationsInput | number | null
     users?: UserUncheckedUpdateManyWithoutChatsNestedInput
   }
 
@@ -25456,21 +28556,26 @@ export namespace Prisma {
   }
 
   export type ChatUpdateWithoutUsersInput = {
+    shop?: ShopUpdateOneWithoutChatsNestedInput
     messages?: MessageUpdateManyWithoutChatNestedInput
   }
 
   export type ChatUncheckedUpdateWithoutUsersInput = {
     id?: IntFieldUpdateOperationsInput | number
+    shopId?: NullableIntFieldUpdateOperationsInput | number | null
     messages?: MessageUncheckedUpdateManyWithoutChatNestedInput
   }
 
   export type ChatUncheckedUpdateManyWithoutUsersInput = {
     id?: IntFieldUpdateOperationsInput | number
+    shopId?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type MessageUpdateWithoutSenderInput = {
     content?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    senderShop?: ShopUpdateOneWithoutSentMessagesNestedInput
+    receiverShop?: ShopUpdateOneWithoutReceivedMessagesNestedInput
     receiver?: UserUpdateOneWithoutMessagesReceivedNestedInput
     chat?: ChatUpdateOneRequiredWithoutMessagesNestedInput
   }
@@ -25478,40 +28583,46 @@ export namespace Prisma {
   export type MessageUncheckedUpdateWithoutSenderInput = {
     id?: IntFieldUpdateOperationsInput | number
     content?: StringFieldUpdateOperationsInput | string
-    receiverEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    receiverId?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     chatId?: IntFieldUpdateOperationsInput | number
+    shopId?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type MessageUncheckedUpdateManyWithoutSenderInput = {
     id?: IntFieldUpdateOperationsInput | number
     content?: StringFieldUpdateOperationsInput | string
-    receiverEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    receiverId?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     chatId?: IntFieldUpdateOperationsInput | number
+    shopId?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type MessageUpdateWithoutReceiverInput = {
     content?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    sender?: UserUpdateOneRequiredWithoutMessagesSentNestedInput
+    senderShop?: ShopUpdateOneWithoutSentMessagesNestedInput
+    receiverShop?: ShopUpdateOneWithoutReceivedMessagesNestedInput
+    sender?: UserUpdateOneWithoutMessagesSentNestedInput
     chat?: ChatUpdateOneRequiredWithoutMessagesNestedInput
   }
 
   export type MessageUncheckedUpdateWithoutReceiverInput = {
     id?: IntFieldUpdateOperationsInput | number
     content?: StringFieldUpdateOperationsInput | string
-    senderEmail?: StringFieldUpdateOperationsInput | string
+    senderId?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     chatId?: IntFieldUpdateOperationsInput | number
+    shopId?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type MessageUncheckedUpdateManyWithoutReceiverInput = {
     id?: IntFieldUpdateOperationsInput | number
     content?: StringFieldUpdateOperationsInput | string
-    senderEmail?: StringFieldUpdateOperationsInput | string
+    senderId?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     chatId?: IntFieldUpdateOperationsInput | number
+    shopId?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type FavoriteAdUpdateWithoutUserInput = {
@@ -25549,6 +28660,10 @@ export namespace Prisma {
     phoneNumber2?: NullableStringFieldUpdateOperationsInput | string | null
     ads?: AdUpdateManyWithoutShopNestedInput
     followers?: FollowUpdateManyWithoutFollowedShopNestedInput
+    ratings?: RatingUpdateManyWithoutShopNestedInput
+    chats?: ChatUpdateManyWithoutShopNestedInput
+    sentMessages?: MessageUpdateManyWithoutSenderShopNestedInput
+    receivedMessages?: MessageUpdateManyWithoutReceiverShopNestedInput
   }
 
   export type ShopUncheckedUpdateWithoutUserInput = {
@@ -25570,6 +28685,10 @@ export namespace Prisma {
     phoneNumber2?: NullableStringFieldUpdateOperationsInput | string | null
     ads?: AdUncheckedUpdateManyWithoutShopNestedInput
     followers?: FollowUncheckedUpdateManyWithoutFollowedShopNestedInput
+    ratings?: RatingUncheckedUpdateManyWithoutShopNestedInput
+    chats?: ChatUncheckedUpdateManyWithoutShopNestedInput
+    sentMessages?: MessageUncheckedUpdateManyWithoutSenderShopNestedInput
+    receivedMessages?: MessageUncheckedUpdateManyWithoutReceiverShopNestedInput
   }
 
   export type ShopUncheckedUpdateManyWithoutUserInput = {
@@ -25669,6 +28788,52 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     followerId?: IntFieldUpdateOperationsInput | number
     followedShopId?: NullableIntFieldUpdateOperationsInput | number | null
+  }
+
+  export type RatingUpdateWithoutUserInput = {
+    rating?: FloatFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    ratedUser?: UserUpdateOneRequiredWithoutRatedUsersNestedInput
+    shop?: ShopUpdateOneWithoutRatingsNestedInput
+  }
+
+  export type RatingUncheckedUpdateWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    ratedUserId?: IntFieldUpdateOperationsInput | number
+    shopId?: NullableIntFieldUpdateOperationsInput | number | null
+    rating?: FloatFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RatingUncheckedUpdateManyWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    ratedUserId?: IntFieldUpdateOperationsInput | number
+    shopId?: NullableIntFieldUpdateOperationsInput | number | null
+    rating?: FloatFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RatingUpdateWithoutRatedUserInput = {
+    rating?: FloatFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutRatingsNestedInput
+    shop?: ShopUpdateOneWithoutRatingsNestedInput
+  }
+
+  export type RatingUncheckedUpdateWithoutRatedUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    shopId?: NullableIntFieldUpdateOperationsInput | number | null
+    rating?: FloatFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RatingUncheckedUpdateManyWithoutRatedUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    shopId?: NullableIntFieldUpdateOperationsInput | number | null
+    rating?: FloatFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type JobApplicationUpdateWithoutJobPostInput = {
@@ -25874,6 +29039,98 @@ export namespace Prisma {
     followedUserId?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
+  export type RatingUpdateWithoutShopInput = {
+    rating?: FloatFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutRatingsNestedInput
+    ratedUser?: UserUpdateOneRequiredWithoutRatedUsersNestedInput
+  }
+
+  export type RatingUncheckedUpdateWithoutShopInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    ratedUserId?: IntFieldUpdateOperationsInput | number
+    rating?: FloatFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RatingUncheckedUpdateManyWithoutShopInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    ratedUserId?: IntFieldUpdateOperationsInput | number
+    rating?: FloatFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ChatUpdateWithoutShopInput = {
+    users?: UserUpdateManyWithoutChatsNestedInput
+    messages?: MessageUpdateManyWithoutChatNestedInput
+  }
+
+  export type ChatUncheckedUpdateWithoutShopInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    users?: UserUncheckedUpdateManyWithoutChatsNestedInput
+    messages?: MessageUncheckedUpdateManyWithoutChatNestedInput
+  }
+
+  export type ChatUncheckedUpdateManyWithoutShopInput = {
+    id?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type MessageUpdateWithoutSenderShopInput = {
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    receiverShop?: ShopUpdateOneWithoutReceivedMessagesNestedInput
+    sender?: UserUpdateOneWithoutMessagesSentNestedInput
+    receiver?: UserUpdateOneWithoutMessagesReceivedNestedInput
+    chat?: ChatUpdateOneRequiredWithoutMessagesNestedInput
+  }
+
+  export type MessageUncheckedUpdateWithoutSenderShopInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    content?: StringFieldUpdateOperationsInput | string
+    senderId?: NullableIntFieldUpdateOperationsInput | number | null
+    receiverId?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    chatId?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type MessageUncheckedUpdateManyWithoutSenderShopInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    content?: StringFieldUpdateOperationsInput | string
+    senderId?: NullableIntFieldUpdateOperationsInput | number | null
+    receiverId?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    chatId?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type MessageUpdateWithoutReceiverShopInput = {
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    senderShop?: ShopUpdateOneWithoutSentMessagesNestedInput
+    sender?: UserUpdateOneWithoutMessagesSentNestedInput
+    receiver?: UserUpdateOneWithoutMessagesReceivedNestedInput
+    chat?: ChatUpdateOneRequiredWithoutMessagesNestedInput
+  }
+
+  export type MessageUncheckedUpdateWithoutReceiverShopInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    content?: StringFieldUpdateOperationsInput | string
+    senderId?: NullableIntFieldUpdateOperationsInput | number | null
+    receiverId?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    chatId?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type MessageUncheckedUpdateManyWithoutReceiverShopInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    content?: StringFieldUpdateOperationsInput | string
+    senderId?: NullableIntFieldUpdateOperationsInput | number | null
+    receiverId?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    chatId?: IntFieldUpdateOperationsInput | number
+  }
+
   export type ImageUpdateWithoutAdInput = {
     url?: StringFieldUpdateOperationsInput | string
   }
@@ -25924,6 +29181,8 @@ export namespace Prisma {
     jobApplications?: JobApplicationUpdateManyWithoutUserNestedInput
     following?: FollowUpdateManyWithoutFollowerNestedInput
     followers?: FollowUpdateManyWithoutFollowedUserNestedInput
+    ratings?: RatingUpdateManyWithoutUserNestedInput
+    ratedUsers?: RatingUpdateManyWithoutRatedUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutChatsInput = {
@@ -25946,6 +29205,8 @@ export namespace Prisma {
     jobApplications?: JobApplicationUncheckedUpdateManyWithoutUserNestedInput
     following?: FollowUncheckedUpdateManyWithoutFollowerNestedInput
     followers?: FollowUncheckedUpdateManyWithoutFollowedUserNestedInput
+    ratings?: RatingUncheckedUpdateManyWithoutUserNestedInput
+    ratedUsers?: RatingUncheckedUpdateManyWithoutRatedUserNestedInput
   }
 
   export type UserUncheckedUpdateManyWithoutChatsInput = {
@@ -25961,24 +29222,28 @@ export namespace Prisma {
   export type MessageUpdateWithoutChatInput = {
     content?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    sender?: UserUpdateOneRequiredWithoutMessagesSentNestedInput
+    senderShop?: ShopUpdateOneWithoutSentMessagesNestedInput
+    receiverShop?: ShopUpdateOneWithoutReceivedMessagesNestedInput
+    sender?: UserUpdateOneWithoutMessagesSentNestedInput
     receiver?: UserUpdateOneWithoutMessagesReceivedNestedInput
   }
 
   export type MessageUncheckedUpdateWithoutChatInput = {
     id?: IntFieldUpdateOperationsInput | number
     content?: StringFieldUpdateOperationsInput | string
-    senderEmail?: StringFieldUpdateOperationsInput | string
-    receiverEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    senderId?: NullableIntFieldUpdateOperationsInput | number | null
+    receiverId?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    shopId?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type MessageUncheckedUpdateManyWithoutChatInput = {
     id?: IntFieldUpdateOperationsInput | number
     content?: StringFieldUpdateOperationsInput | string
-    senderEmail?: StringFieldUpdateOperationsInput | string
-    receiverEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    senderId?: NullableIntFieldUpdateOperationsInput | number | null
+    receiverId?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    shopId?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
 
@@ -26050,6 +29315,10 @@ export namespace Prisma {
      * @deprecated Use FollowDefaultArgs instead
      */
     export type FollowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = FollowDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use RatingDefaultArgs instead
+     */
+    export type RatingArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = RatingDefaultArgs<ExtArgs>
     /**
      * @deprecated Use ImageDefaultArgs instead
      */
