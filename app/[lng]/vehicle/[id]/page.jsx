@@ -1,6 +1,5 @@
 import { checkFollowStatus, getAdById, getAllads } from "../actions";
 import { AdPage } from "../../../../components/component/ad-page";
-
 import { getServerSession } from "next-auth";
 import { getUserByEmail } from "@/prisma/actions";
 
@@ -18,6 +17,7 @@ export default async function Vehicle({ params, searchParams }) {
   const ad = await getAdById(params.id);
   const logedUser = await getServerSession();
   const user = await getUserByEmail(logedUser?.user.email);
+
   const isFollowed = ad.shop
     ? await checkFollowStatus(user.id, null, ad.shop.id)
     : await checkFollowStatus(user.id, ad.user.id);
