@@ -9,7 +9,6 @@ import { AnimatedTooltip } from "@/components/ui/animated-tooltip";
 
 export default function ChatSideBar({ user, lng }) {
   const [sidebarOpen, setSidebarOpen] = useState(true);
-  const { userStatuses, updateUserStatus } = useDarkMode();
   const { shopChats } = useDarkMode();
 
   const toggleSidebar = () => {
@@ -25,12 +24,14 @@ export default function ChatSideBar({ user, lng }) {
         return {
           username: otherUser?.username,
           image: otherUser?.image,
+          status: otherUser?.status,
         };
       } else {
         // If the user is not the owner of the shop, return shop info
         return {
           username: chat.shops[0].shopName,
           image: chat.shops[0].shopImage,
+          status: chat.shops[0]?.status,
         };
       }
     } else {
@@ -39,15 +40,10 @@ export default function ChatSideBar({ user, lng }) {
       return {
         username: otherUser?.username,
         image: otherUser?.image,
+        status: otherUser?.status,
       };
     }
   };
-
-  useEffect(() => {
-    // Example usage of updateUserStatus
-    updateUserStatus(user.id, "online");
-  }, []);
-
   return (
     <div
       className={`contact bg-white dark:bg-zinc-950 overflow-y-auto overflow-x-hidden flex flex-col 
@@ -83,7 +79,7 @@ export default function ChatSideBar({ user, lng }) {
                     <div className="font-medium px-4 flex w-full justify-between">
                       {getOtherUserInfo(chat).username}
                       {/* Display online/offline indicator based on user status */}
-                      {userStatuses[user.id] === "online" ? (
+                      {getOtherUserInfo(chat).status === "online" ? (
                         <span className="ml-2 bg-green-500 rounded-full w-3 h-3 inline-block"></span>
                       ) : (
                         <span className="ml-2 bg-red-500 rounded-full w-3 h-3 inline-block"></span>
@@ -105,7 +101,7 @@ export default function ChatSideBar({ user, lng }) {
                     <div className="font-medium px-4 flex w-full justify-between">
                       {getOtherUserInfo(chat).username}
                       {/* Display online/offline indicator based on user status */}
-                      {userStatuses[user.id] === "online" ? (
+                      {getOtherUserInfo(chat).status === "online" ? (
                         <span className="ml-2 bg-green-500 rounded-full w-3 h-3 inline-block"></span>
                       ) : (
                         <span className="ml-2 bg-red-500 rounded-full w-3 h-3 inline-block"></span>

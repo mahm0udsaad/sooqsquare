@@ -81,7 +81,6 @@ const ChatWithShop = ({ user, chat }) => {
     const fetchData = async () => {
       try {
         const fetchedMessages = await fetchShopMessagesFromDatabase(chat);
-        console.log("Fetched messages:", fetchedMessages[0].content); // Log fetched messages
         if (fetchedMessages.length === 0) {
           setMessages([]);
         } else {

@@ -5210,6 +5210,7 @@ export namespace Prisma {
     username: string | null
     country: string | null
     image: string | null
+    status: string | null
     email: string | null
   }
 
@@ -5220,6 +5221,7 @@ export namespace Prisma {
     username: string | null
     country: string | null
     image: string | null
+    status: string | null
     email: string | null
   }
 
@@ -5230,6 +5232,7 @@ export namespace Prisma {
     username: number
     country: number
     image: number
+    status: number
     email: number
     _all: number
   }
@@ -5250,6 +5253,7 @@ export namespace Prisma {
     username?: true
     country?: true
     image?: true
+    status?: true
     email?: true
   }
 
@@ -5260,6 +5264,7 @@ export namespace Prisma {
     username?: true
     country?: true
     image?: true
+    status?: true
     email?: true
   }
 
@@ -5270,6 +5275,7 @@ export namespace Prisma {
     username?: true
     country?: true
     image?: true
+    status?: true
     email?: true
     _all?: true
   }
@@ -5367,6 +5373,7 @@ export namespace Prisma {
     username: string | null
     country: string | null
     image: string | null
+    status: string | null
     email: string
     _count: UserCountAggregateOutputType | null
     _avg: UserAvgAggregateOutputType | null
@@ -5396,6 +5403,7 @@ export namespace Prisma {
     username?: boolean
     country?: boolean
     image?: boolean
+    status?: boolean
     email?: boolean
     accounts?: boolean | User$accountsArgs<ExtArgs>
     sessions?: boolean | User$sessionsArgs<ExtArgs>
@@ -5422,6 +5430,7 @@ export namespace Prisma {
     username?: boolean
     country?: boolean
     image?: boolean
+    status?: boolean
     email?: boolean
   }
 
@@ -5471,6 +5480,7 @@ export namespace Prisma {
       username: string | null
       country: string | null
       image: string | null
+      status: string | null
       email: string
     }, ExtArgs["result"]["user"]>
     composites: {}
@@ -5885,6 +5895,7 @@ export namespace Prisma {
     readonly username: FieldRef<"User", 'String'>
     readonly country: FieldRef<"User", 'String'>
     readonly image: FieldRef<"User", 'String'>
+    readonly status: FieldRef<"User", 'String'>
     readonly email: FieldRef<"User", 'String'>
   }
     
@@ -18846,6 +18857,7 @@ export namespace Prisma {
     username: 'username',
     country: 'country',
     image: 'image',
+    status: 'status',
     email: 'email'
   };
 
@@ -19291,6 +19303,7 @@ export namespace Prisma {
     username?: StringNullableFilter<"User"> | string | null
     country?: StringNullableFilter<"User"> | string | null
     image?: StringNullableFilter<"User"> | string | null
+    status?: StringNullableFilter<"User"> | string | null
     email?: StringFilter<"User"> | string
     accounts?: AccountListRelationFilter
     sessions?: SessionListRelationFilter
@@ -19316,6 +19329,7 @@ export namespace Prisma {
     username?: SortOrderInput | SortOrder
     country?: SortOrderInput | SortOrder
     image?: SortOrderInput | SortOrder
+    status?: SortOrderInput | SortOrder
     email?: SortOrder
     accounts?: AccountOrderByRelationAggregateInput
     sessions?: SessionOrderByRelationAggregateInput
@@ -19345,6 +19359,7 @@ export namespace Prisma {
     username?: StringNullableFilter<"User"> | string | null
     country?: StringNullableFilter<"User"> | string | null
     image?: StringNullableFilter<"User"> | string | null
+    status?: StringNullableFilter<"User"> | string | null
     accounts?: AccountListRelationFilter
     sessions?: SessionListRelationFilter
     ads?: AdListRelationFilter
@@ -19369,6 +19384,7 @@ export namespace Prisma {
     username?: SortOrderInput | SortOrder
     country?: SortOrderInput | SortOrder
     image?: SortOrderInput | SortOrder
+    status?: SortOrderInput | SortOrder
     email?: SortOrder
     _count?: UserCountOrderByAggregateInput
     _avg?: UserAvgOrderByAggregateInput
@@ -19387,6 +19403,7 @@ export namespace Prisma {
     username?: StringNullableWithAggregatesFilter<"User"> | string | null
     country?: StringNullableWithAggregatesFilter<"User"> | string | null
     image?: StringNullableWithAggregatesFilter<"User"> | string | null
+    status?: StringNullableWithAggregatesFilter<"User"> | string | null
     email?: StringWithAggregatesFilter<"User"> | string
   }
 
@@ -20568,6 +20585,7 @@ export namespace Prisma {
     username?: string | null
     country?: string | null
     image?: string | null
+    status?: string | null
     email: string
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
@@ -20593,6 +20611,7 @@ export namespace Prisma {
     username?: string | null
     country?: string | null
     image?: string | null
+    status?: string | null
     email: string
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
@@ -20617,6 +20636,7 @@ export namespace Prisma {
     username?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
@@ -20642,6 +20662,7 @@ export namespace Prisma {
     username?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
@@ -20666,6 +20687,7 @@ export namespace Prisma {
     username?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
   }
 
@@ -20676,6 +20698,7 @@ export namespace Prisma {
     username?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
   }
 
@@ -21939,6 +21962,7 @@ export namespace Prisma {
     username?: SortOrder
     country?: SortOrder
     image?: SortOrder
+    status?: SortOrder
     email?: SortOrder
   }
 
@@ -21953,6 +21977,7 @@ export namespace Prisma {
     username?: SortOrder
     country?: SortOrder
     image?: SortOrder
+    status?: SortOrder
     email?: SortOrder
   }
 
@@ -21963,6 +21988,7 @@ export namespace Prisma {
     username?: SortOrder
     country?: SortOrder
     image?: SortOrder
+    status?: SortOrder
     email?: SortOrder
   }
 
@@ -24319,6 +24345,7 @@ export namespace Prisma {
     username?: string | null
     country?: string | null
     image?: string | null
+    status?: string | null
     email: string
     sessions?: SessionCreateNestedManyWithoutUserInput
     ads?: AdCreateNestedManyWithoutUserInput
@@ -24343,6 +24370,7 @@ export namespace Prisma {
     username?: string | null
     country?: string | null
     image?: string | null
+    status?: string | null
     email: string
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     ads?: AdUncheckedCreateNestedManyWithoutUserInput
@@ -24382,6 +24410,7 @@ export namespace Prisma {
     username?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     sessions?: SessionUpdateManyWithoutUserNestedInput
     ads?: AdUpdateManyWithoutUserNestedInput
@@ -24406,6 +24435,7 @@ export namespace Prisma {
     username?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     ads?: AdUncheckedUpdateManyWithoutUserNestedInput
@@ -24429,6 +24459,7 @@ export namespace Prisma {
     username?: string | null
     country?: string | null
     image?: string | null
+    status?: string | null
     email: string
     accounts?: AccountCreateNestedManyWithoutUserInput
     ads?: AdCreateNestedManyWithoutUserInput
@@ -24453,6 +24484,7 @@ export namespace Prisma {
     username?: string | null
     country?: string | null
     image?: string | null
+    status?: string | null
     email: string
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     ads?: AdUncheckedCreateNestedManyWithoutUserInput
@@ -24492,6 +24524,7 @@ export namespace Prisma {
     username?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     accounts?: AccountUpdateManyWithoutUserNestedInput
     ads?: AdUpdateManyWithoutUserNestedInput
@@ -24516,6 +24549,7 @@ export namespace Prisma {
     username?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     ads?: AdUncheckedUpdateManyWithoutUserNestedInput
@@ -25344,6 +25378,7 @@ export namespace Prisma {
     username?: string | null
     country?: string | null
     image?: string | null
+    status?: string | null
     email: string
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
@@ -25368,6 +25403,7 @@ export namespace Prisma {
     username?: string | null
     country?: string | null
     image?: string | null
+    status?: string | null
     email: string
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
@@ -25407,6 +25443,7 @@ export namespace Prisma {
     username?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
@@ -25431,6 +25468,7 @@ export namespace Prisma {
     username?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
@@ -25550,6 +25588,7 @@ export namespace Prisma {
     username?: string | null
     country?: string | null
     image?: string | null
+    status?: string | null
     email: string
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
@@ -25574,6 +25613,7 @@ export namespace Prisma {
     username?: string | null
     country?: string | null
     image?: string | null
+    status?: string | null
     email: string
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
@@ -25663,6 +25703,7 @@ export namespace Prisma {
     username?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
@@ -25687,6 +25728,7 @@ export namespace Prisma {
     username?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
@@ -25816,6 +25858,7 @@ export namespace Prisma {
     username?: string | null
     country?: string | null
     image?: string | null
+    status?: string | null
     email: string
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
@@ -25840,6 +25883,7 @@ export namespace Prisma {
     username?: string | null
     country?: string | null
     image?: string | null
+    status?: string | null
     email: string
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
@@ -25921,6 +25965,7 @@ export namespace Prisma {
     username?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
@@ -25945,6 +25990,7 @@ export namespace Prisma {
     username?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
@@ -25968,6 +26014,7 @@ export namespace Prisma {
     username?: string | null
     country?: string | null
     image?: string | null
+    status?: string | null
     email: string
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
@@ -25992,6 +26039,7 @@ export namespace Prisma {
     username?: string | null
     country?: string | null
     image?: string | null
+    status?: string | null
     email: string
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
@@ -26197,6 +26245,7 @@ export namespace Prisma {
     username?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
@@ -26221,6 +26270,7 @@ export namespace Prisma {
     username?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
@@ -26340,6 +26390,7 @@ export namespace Prisma {
     username?: string | null
     country?: string | null
     image?: string | null
+    status?: string | null
     email: string
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
@@ -26364,6 +26415,7 @@ export namespace Prisma {
     username?: string | null
     country?: string | null
     image?: string | null
+    status?: string | null
     email: string
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
@@ -26489,6 +26541,7 @@ export namespace Prisma {
     username?: StringNullableFilter<"User"> | string | null
     country?: StringNullableFilter<"User"> | string | null
     image?: StringNullableFilter<"User"> | string | null
+    status?: StringNullableFilter<"User"> | string | null
     email?: StringFilter<"User"> | string
   }
 
@@ -26654,6 +26707,7 @@ export namespace Prisma {
     username?: string | null
     country?: string | null
     image?: string | null
+    status?: string | null
     email: string
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
@@ -26678,6 +26732,7 @@ export namespace Prisma {
     username?: string | null
     country?: string | null
     image?: string | null
+    status?: string | null
     email: string
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
@@ -26706,6 +26761,7 @@ export namespace Prisma {
     username?: string | null
     country?: string | null
     image?: string | null
+    status?: string | null
     email: string
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
@@ -26730,6 +26786,7 @@ export namespace Prisma {
     username?: string | null
     country?: string | null
     image?: string | null
+    status?: string | null
     email: string
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
@@ -26911,6 +26968,7 @@ export namespace Prisma {
     username?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
@@ -26935,6 +26993,7 @@ export namespace Prisma {
     username?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
@@ -26969,6 +27028,7 @@ export namespace Prisma {
     username?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
@@ -26993,6 +27053,7 @@ export namespace Prisma {
     username?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
@@ -27016,6 +27077,7 @@ export namespace Prisma {
     username?: string | null
     country?: string | null
     image?: string | null
+    status?: string | null
     email: string
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
@@ -27040,6 +27102,7 @@ export namespace Prisma {
     username?: string | null
     country?: string | null
     image?: string | null
+    status?: string | null
     email: string
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
@@ -27068,6 +27131,7 @@ export namespace Prisma {
     username?: string | null
     country?: string | null
     image?: string | null
+    status?: string | null
     email: string
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
@@ -27092,6 +27156,7 @@ export namespace Prisma {
     username?: string | null
     country?: string | null
     image?: string | null
+    status?: string | null
     email: string
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
@@ -27185,6 +27250,7 @@ export namespace Prisma {
     username?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
@@ -27209,6 +27275,7 @@ export namespace Prisma {
     username?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
@@ -27243,6 +27310,7 @@ export namespace Prisma {
     username?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
@@ -27267,6 +27335,7 @@ export namespace Prisma {
     username?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
@@ -27350,6 +27419,7 @@ export namespace Prisma {
     username?: string | null
     country?: string | null
     image?: string | null
+    status?: string | null
     email: string
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
@@ -27374,6 +27444,7 @@ export namespace Prisma {
     username?: string | null
     country?: string | null
     image?: string | null
+    status?: string | null
     email: string
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
@@ -27402,6 +27473,7 @@ export namespace Prisma {
     username?: string | null
     country?: string | null
     image?: string | null
+    status?: string | null
     email: string
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
@@ -27426,6 +27498,7 @@ export namespace Prisma {
     username?: string | null
     country?: string | null
     image?: string | null
+    status?: string | null
     email: string
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
@@ -27519,6 +27592,7 @@ export namespace Prisma {
     username?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
@@ -27543,6 +27617,7 @@ export namespace Prisma {
     username?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
@@ -27577,6 +27652,7 @@ export namespace Prisma {
     username?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
@@ -27601,6 +27677,7 @@ export namespace Prisma {
     username?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
@@ -27826,6 +27903,7 @@ export namespace Prisma {
     username?: string | null
     country?: string | null
     image?: string | null
+    status?: string | null
     email: string
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
@@ -27850,6 +27928,7 @@ export namespace Prisma {
     username?: string | null
     country?: string | null
     image?: string | null
+    status?: string | null
     email: string
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
@@ -27973,6 +28052,7 @@ export namespace Prisma {
     username?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
@@ -27997,6 +28077,7 @@ export namespace Prisma {
     username?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
@@ -28121,6 +28202,7 @@ export namespace Prisma {
     username?: string | null
     country?: string | null
     image?: string | null
+    status?: string | null
     email: string
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
@@ -28145,6 +28227,7 @@ export namespace Prisma {
     username?: string | null
     country?: string | null
     image?: string | null
+    status?: string | null
     email: string
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
@@ -28252,6 +28335,7 @@ export namespace Prisma {
     username?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
@@ -28276,6 +28360,7 @@ export namespace Prisma {
     username?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
@@ -29101,6 +29186,7 @@ export namespace Prisma {
     username?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
@@ -29125,6 +29211,7 @@ export namespace Prisma {
     username?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
@@ -29149,6 +29236,7 @@ export namespace Prisma {
     username?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
   }
 

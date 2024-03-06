@@ -53,6 +53,7 @@ model User {
   username           String?
   country            String?
   image              String?
+  status             String?
   email              String       @unique
   ads                Ad[]
   chats              Chat[]

@@ -380,6 +380,20 @@ export async function updateUserPhoneNumber(newPhoneNumber, email) {
     console.error(`Failed to update user's phone number: ${error.message}`);
   }
 }
+export async function updateUserStatus(userId, status) {
+  try {
+    const update = await prisma.user.update({
+      where: { id: userId },
+      data: { status },
+    });
+    console.log("updated");
+    return update;
+  } catch (error) {
+    console.error("Error updating user status:", error);
+  } finally {
+    revalidatePath("/chat");
+  }
+}
 
 export async function getUserByEmail(email) {
   if (!email) return;

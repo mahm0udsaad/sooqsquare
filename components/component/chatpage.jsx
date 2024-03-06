@@ -9,12 +9,17 @@ import {
 import socket from "@/lib/chat";
 import subscribeToPushNotifications from "../../helper/notfication";
 import StarRating from "@/components/component/rate";
+import { updateUserStatus } from "@/prisma/actions";
+import { debounce } from "lodash"; // Import debounce function from lodash
 
 export function ChatCom({ chat, user }) {
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
   const messagesContainerRef = useRef(null);
 
+  const debouncedUpdateUserStatus = debounce((userId, status) => {
+    updateUserStatus(userId, status);
+  }, 10000);
   // Function to handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -59,9 +64,7 @@ export function ChatCom({ chat, user }) {
     socket.on("connect_error", (error) => {
       console.error("Socket connection error:", error);
     });
-
     socket.on("chat message", ({ chatId, message }) => {
-      console.log(chatId, message);
       setMessages((prev) => [...prev, { chatId, message }]);
     });
 
@@ -76,6 +79,14 @@ export function ChatCom({ chat, user }) {
         messagesContainerRef.current.scrollHeight;
     }
   }, [messages]);
+
+  useEffect(() => {
+    // Simulating user status changes every 500ms for demonstration
+    socket.on("user status", ({ id, status }) => {
+      // Debounce the updateUserStatus function call
+      debouncedUpdateUserStatus(user.id, status);
+    });
+  }, [socket]);
 
   const owner = chat.users[0];
   const currentUser = chat.users[1];
