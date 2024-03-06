@@ -30,8 +30,7 @@ export const AnimatedTooltip = ({ items, lng }) => {
     const halfWidth = event.target.offsetWidth / 2;
     x.set(event.nativeEvent.offsetX - halfWidth); // set the x value, which is then used in transform and rotate
   };
-  const { shopChats, setShopChats } = useDarkMode();
-
+  const { setShopChats } = useDarkMode();
   return (
     <>
       {items.map((item, idx) => (

@@ -1,10 +1,10 @@
-import { RiTimerFlashLine } from "react-icons/ri";
 import { categoriesData } from "../data/staticData";
 import Image from "next/image";
 import { useTranslation } from "../app/i18n/index";
 import Link from "next/link";
 import { CategroyLink } from "./categoriesCard";
 import CreateShopSquare from "@/components/component/createShopSquare";
+import { Timer } from "lucide-react";
 
 const HomePage = async ({ user, lng }) => {
   const { t } = await useTranslation(lng, "translation");
@@ -33,7 +33,7 @@ const HomePage = async ({ user, lng }) => {
             <div className="relative grid grid-cols-2 gap-4">
               <CreateShopSquare lng={lng} user={user} />
               <div className="flex justify-between lg:w-auto w-full px-20 hover:opacity-70 cursor-pointer py-12 rounded-[35px] hover:bg-transparent text-white hover:text-black dark:hover:text-white bg-[#FFDD83] border border-[#FFDD83] text-black items-center ">
-                <RiTimerFlashLine className="text-4xl " />
+                <Timer />
                 <div className=" text-2xl font-bold leading-10 my-auto">
                   {t("QuickSell")}
                 </div>

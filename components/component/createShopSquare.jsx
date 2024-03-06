@@ -13,7 +13,6 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { LoadingSpinner } from "@/components/loading-spiner";
 import { Textarea } from "@/components/ui/textarea";
-// import { GiDrippingStar } from "react-icons/gi";
 import { AvatarImage, AvatarFallback, Avatar } from "@/components/ui/avatar";
 import { useRef, useState } from "react";
 import upload from "@/app/[lng]/(traderDashboard)/dashboard/myShop/action";
@@ -28,7 +27,6 @@ import { useForm, Controller } from "react-hook-form";
 import { toast } from "sonner";
 import { useDarkMode } from "@/context/darkModeContext";
 import { useTranslation } from "@/app/i18n/client";
-// import { RiTimerFlashLine } from "react-icons/ri";
 import { countriesWithCities } from "@/data/staticData";
 import {
   DropdownMenuTrigger,

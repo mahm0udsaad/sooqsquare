@@ -9,8 +9,8 @@ import {
 import StarRating from "@/components/component/rate";
 import { addUserFollow } from "../../app/[lng]/vehicle/actions";
 import dynamic from "next/dynamic";
-import { ImSpinner2 } from "react-icons/im";
 import { Button } from "@/components/ui/button";
+import { Loader } from "lucide-react";
 
 export default function RateCard({ owner, user, isFollowed }) {
   const FollowdAdBtn = dynamic(() => import("./buttons/follow-ad-btn"), {
@@ -26,7 +26,7 @@ export default function RateCard({ owner, user, isFollowed }) {
           <span
             className={`absolute top-1/2 left-1/2 text-white transform -translate-x-1/2 -translate-y-1/2 inline-block`}
           >
-            <ImSpinner2 className="animate-spin text-white w-24 h-24" />
+            <Loader className="animate-spin text-white w-24 h-24" />
           </span>
         </Button>
       </>
@@ -39,7 +39,7 @@ export default function RateCard({ owner, user, isFollowed }) {
     >
       <CardHeader className="pb-0">
         <CardTitle className="text-2xl text-white">
-          {owner.username} Rating
+          {owner.username ? owner.username : owner.shopName} Rating
         </CardTitle>
         <CardDescription className="text-white">
           A brief explanation of the rating system and its significance.
@@ -48,14 +48,16 @@ export default function RateCard({ owner, user, isFollowed }) {
       <CardContent className="grid gap-4">
         <div className="flex flex-col gap-1">
           <div className="flex flex-row items-center gap-2">
-            <div className="font-semibold text-white">{owner.username}.</div>
+            <div className="font-semibold text-white">
+              {owner.username ? owner.username : owner.shopName}.
+            </div>
             <div className="text-sm text-gray-200 dark:text-gray-400">
               Business
             </div>
           </div>
           <div className="flex flex-row items-center gap-2">
             <div className="flex flex-row items-center gap-1.5">
-              <StarRating owner={owner} userId={user.id} />
+              <StarRating owner={owner} userId={user?.id} />
             </div>
             <div className="font-semibold text-white">3.5</div>
             <div className="text-sm text-gray-200 dark:text-gray-400">
@@ -70,11 +72,16 @@ export default function RateCard({ owner, user, isFollowed }) {
         </div>
       </CardContent>
       <CardFooter className=" pt-4">
-        <form action={addUserFollow} className="w-full flex justify-between">
-          <input type="hidden" name="userId" value={user.id} />
+        <form
+          action={addUserFollow}
+          className="w-full flex justify-between items-center"
+        >
+          <input type="hidden" name="userId" value={user?.id} />
           <input type="hidden" name="followedUserId" value={owner.id} />
 
-          <div className="text-sm text-white">Follow {owner.username}.</div>
+          <div className="text-sm text-white">
+            Follow {owner.username ? owner.username : owner.shopName}.
+          </div>
           <FollowdAdBtn isFollowed={isFollowed} />
         </form>
       </CardFooter>

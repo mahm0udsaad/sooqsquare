@@ -1,23 +1,25 @@
-import { TiDocumentText } from "react-icons/ti";
-import { RxColorWheel } from "react-icons/rx";
-import { GiCarKey } from "react-icons/gi";
-import { MdOutlineCarCrash } from "react-icons/md";
-import { FaTruck, FaCar, FaCarCrash } from "react-icons/fa";
-import { IoBoatOutline } from "react-icons/io5";
+import {
+  Car,
+  KeyRound,
+  Truck,
+  Sailboat,
+  ScrollText,
+  LifeBuoy,
+} from "lucide-react";
 
 const categoriesData = [
   {
     text: "CarsForRent",
-    icon: <FaCar />,
+    icon: <Car />,
     link: "/vehicle?category=CarForRent",
   },
-  { text: "CarsForSale", icon: <GiCarKey />, link: "/vehicle" },
-  { text: "TrucksAndTrailers", icon: <FaTruck /> },
-  { text: "CrashedCars", icon: <FaCarCrash /> },
-  { text: "BoatsYachts", icon: <IoBoatOutline /> },
-  { text: "CarPlatesNumbers", icon: <TiDocumentText /> },
-  { text: "WheelsRims", icon: <RxColorWheel /> },
-  { text: "CarSpareParts", icon: <MdOutlineCarCrash /> },
+  { text: "CarsForSale", icon: <KeyRound />, link: "/vehicle" },
+  { text: "TrucksAndTrailers", icon: <Truck /> },
+  { text: "CrashedCars", icon: <Car /> },
+  { text: "BoatsYachts", icon: <Sailboat /> },
+  { text: "CarPlatesNumbers", icon: <ScrollText /> },
+  { text: "WheelsRims", icon: <LifeBuoy /> },
+  { text: "CarSpareParts", icon: <Car /> },
 ];
 const carBrands = {
   Toyota: [

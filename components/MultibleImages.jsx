@@ -5,12 +5,10 @@ import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
 import React from "react";
 import upload from "../app/[lng]/sell/imageUploadAction";
-import { CiImageOn } from "react-icons/ci";
-import { MdOutlineRocketLaunch } from "react-icons/md";
+import { ImageDown, Rocket } from "lucide-react";
 import { useTranslation } from "../app/i18n/client";
 import { Progress } from "@/components/ui/progress";
 import dynamic from "next/dynamic";
-
 function TrashIcon(props) {
   return (
     <svg
@@ -170,7 +168,7 @@ const MultiImageForm = ({ lng }) => {
                     htmlFor={`image${index}`}
                     className="cursor-pointer flex items-center justify-center"
                   >
-                    <CiImageOn className="w-8 h-8 mt-3" />
+                    <ImageDown />{" "}
                   </Label>
                 )}
               </div>
@@ -183,7 +181,7 @@ const MultiImageForm = ({ lng }) => {
             onClick={handleSubmit}
             className="w-[240px] justify-center text-center font-normal mt-4"
           >
-            <MdOutlineRocketLaunch className="w-4 h-4 mr-3" />
+            <Rocket className="w-4 h-4 mr-3" />
             Submit
           </Button>
         </div>

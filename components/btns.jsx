@@ -1,8 +1,7 @@
 "use client";
 import { signIn } from "next-auth/react";
 import { Button } from "@/components/ui/button";
-import { FcGoogle } from "react-icons/fc";
-import { FaFacebookSquare } from "react-icons/fa";
+import { Facebook } from "lucide-react";
 import { useState } from "react";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
@@ -14,7 +13,7 @@ export const Gbtn = () => {
       className="w-full dark:text-white  hover:bg-rose-500 hover:text-white border border-rose-500 bg-transparent text-black"
       type="button"
     >
-      <FcGoogle className="w-6 h-6 mx-2" />
+      <ChromeIcon className="w-5 h-5 mx-2" />
       Sign in with Google
     </Button>
   );
@@ -26,8 +25,7 @@ export const Fbtn = () => {
       className="w-full dark:text-white hover:bg-blue-500 hover:text-white border border-blue-500 bg-transparent text-black"
       type="button"
     >
-      <FaFacebookSquare className="w-6 h-6 mx-2 text-blue-700" />
-      Sign in with Facebook
+      <Facebook size={20} /> Sign in with Facebook
     </Button>
   );
 };

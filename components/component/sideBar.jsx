@@ -1,22 +1,23 @@
 import Link from "next/link";
-import { CgProfile } from "react-icons/cg";
-import { TbReportAnalytics } from "react-icons/tb";
-import { BsThreads } from "react-icons/bs";
 import {
   AccordionTrigger,
   AccordionContent,
   AccordionItem,
   Accordion,
 } from "@/components/ui/accordion";
-import { MdOutlineRealEstateAgent } from "react-icons/md";
-import { FaCar } from "react-icons/fa";
-import { AiOutlineShop } from "react-icons/ai";
-import { CiEdit } from "react-icons/ci";
 import { useTranslation } from "@/app/i18n";
 import dynamic from "next/dynamic";
 import { getServerSession } from "next-auth";
 import { getUserByEmail } from "@/prisma/actions";
-import { LuLayoutDashboard } from "react-icons/lu";
+import {
+  Car,
+  Edit,
+  KanbanSquare,
+  LayoutDashboard,
+  Send,
+  ShoppingBasket,
+  User,
+} from "lucide-react";
 
 const ShopSideBar = async ({ lng }) => {
   const DeleteDialoag = dynamic(
@@ -51,7 +52,7 @@ const ShopSideBar = async ({ lng }) => {
                 className="flex text-sm gap-3 space-y-2  items-center text-gray-700 dark:text-gray-200 hover:dark:text-white hover:text-zinc-900"
                 href={`/dashboard`}
               >
-                <LuLayoutDashboard className="w-6 h-6 " />
+                <LayoutDashboard className="w-6 h-6 " />
                 <span className="mx-3">{t("Dashboard")}</span>
               </Link>
             </div>
@@ -62,7 +63,7 @@ const ShopSideBar = async ({ lng }) => {
               className="flex text-sm gap-3 space-y-2  items-center text-gray-700 dark:text-gray-200 hover:dark:text-white hover:text-zinc-900"
               href="/dashboard/myProfile"
             >
-              <CgProfile className="w-6 h-6 " />
+              <User className="w-6 h-6 " />
               <span className="mx-3">{t("My Profile")}</span>
             </Link>
           </div>
@@ -72,7 +73,7 @@ const ShopSideBar = async ({ lng }) => {
               className="flex text-sm gap-3 space-y-2  items-center text-gray-700 dark:text-gray-200 hover:dark:text-white hover:text-zinc-900"
               href="/dashboard/reports"
             >
-              <TbReportAnalytics className="w-6 h-6 text-orange-600" />
+              <KanbanSquare className="w-6 h-6 text-orange-600" />
               <span className="mx-3">{t("Reports")}</span>
             </Link>
           </div>
@@ -82,7 +83,7 @@ const ShopSideBar = async ({ lng }) => {
               className="flex text-sm gap-3 space-y-2  items-center text-gray-700 dark:text-gray-200 hover:dark:text-white hover:text-zinc-900"
               href="/dashboard/myAds"
             >
-              <BsThreads className="w-6 h-6 text-sky-600" />
+              <Send className="w-6 h-6 text-sky-600" />
               <span className="mx-3"> {t("My Ads")} </span>
             </Link>
           </div>
@@ -109,11 +110,7 @@ const ShopSideBar = async ({ lng }) => {
                 >
                   <AccordionItem value="shop-1 flex dark:border-gray-600 justify-between">
                     <AccordionTrigger className="flex w-full justify-between items-center px-4 py-2 ">
-                      {shop.shopCategory === "cars" ? (
-                        <FaCar className="w-5 h-5" />
-                      ) : (
-                        <MdOutlineRealEstateAgent className="w-5 h-5" />
-                      )}
+                      <Car className="w-5 h-5" />
                       {shop.shopName}
                     </AccordionTrigger>
                     <AccordionContent className="space-y-2 w-[94%] mx-auto">
@@ -121,28 +118,28 @@ const ShopSideBar = async ({ lng }) => {
                         className="flex text-sm gap-3 items-center text-gray-700 dark:text-gray-200 hover:dark:text-white hover:text-zinc-900"
                         href={`/dashboard/myShopView/${shop.id}`}
                       >
-                        <AiOutlineShop className="w-6 h-6 text-rose-400	" />
+                        <ShoppingBasket className="w-6 h-6 text-rose-400	" />
                         <span className="mx-3">{t("Shop")}</span>
                       </Link>
                       <Link
                         className="flex text-sm gap-3 items-center text-gray-700 dark:text-gray-200 hover:dark:text-white hover:text-zinc-900"
                         href={`/dashboard/myShop/${shop.id}`}
                       >
-                        <CiEdit className="w-6 h-6 w-6 h-6 text-fuchsia-400" />
+                        <Edit className="w-6 h-6 w-6 h-6 text-fuchsia-400" />
                         <span className="mx-3">{t("Shop Details")}</span>
                       </Link>
                       <Link
                         className="flex text-sm gap-3 items-center text-gray-700 dark:text-gray-200 hover:dark:text-white hover:text-zinc-900"
                         href={`/dashboard/shopReports/${shop.id}`}
                       >
-                        <TbReportAnalytics className="w-6 h-6 text-orange-600" />
+                        <KanbanSquare className="w-6 h-6 text-orange-600" />
                         <span className="mx-3">{t("Shop Reports")}</span>
                       </Link>
                       <Link
                         className="flex text-sm gap-3 items-center text-gray-700 dark:text-gray-200 hover:dark:text-white hover:text-zinc-900"
                         href={`/dashboard/shopAds/${shop.id}`}
                       >
-                        <BsThreads className="w-6 h-6 text-sky-600" />
+                        <Send className="w-6 h-6 text-sky-600" />
                         <span className="mx-3">{t("Shop Ads")}</span>
                       </Link>
                       <DeleteDialoag lng={lng} shop={shop} />

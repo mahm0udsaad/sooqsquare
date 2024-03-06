@@ -19,7 +19,7 @@ export default async function DashboardLayout({ children, params }) {
     redirect("/sign-in");
   }
   return (
-    <div className="flex pb-8 min-h-[90dvh] bg-gray-100 dark:bg-zinc-950">
+    <div className="flex pb-8 min-h-[80dvh] bg-gray-100 dark:bg-zinc-950">
       <ChatSideBar user={user} lng={params.lng} />
       {children}
     </div>

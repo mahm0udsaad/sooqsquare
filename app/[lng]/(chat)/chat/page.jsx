@@ -15,7 +15,9 @@ const ChatPage = async ({ searchParams }) => {
   }
   if (shop) {
     const chat = await getOrCreateChat(user.id, null, shop);
-    redirect(`/chat/${chat.id}`);
+    if (chat) {
+      redirect(`/chat/${chat.id}`);
+    }
   }
   if (!owner) {
     return <ChatMainPage />;

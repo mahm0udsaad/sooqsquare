@@ -13,7 +13,6 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { LoadingSpinner } from "@/components/loading-spiner";
 import { Textarea } from "@/components/ui/textarea";
-import { GiDrippingStar } from "react-icons/gi";
 import { AvatarImage, AvatarFallback, Avatar } from "@/components/ui/avatar";
 import { useRef, useState } from "react";
 import upload from "@/app/[lng]/(traderDashboard)/dashboard/myShop/action";
@@ -43,6 +42,7 @@ import {
 import { getLocation } from "@/helper/location";
 import "/node_modules/flag-icons/css/flag-icons.min.css";
 import { useRouter } from "next/navigation";
+import { Sparkles } from "lucide-react";
 
 const CreateShopButton = ({ user, lng }) => {
   const [shopImage, setShopImage] = useState(null);
@@ -145,7 +145,7 @@ const CreateShopButton = ({ user, lng }) => {
         <DrawerHeader>
           <DrawerTitle className="flex tracking-tighter bg-clip-text text-transparent bg-gradient-to-r from-green-400 to-sky-500">
             {t("Create Shop")}
-            <GiDrippingStar className="w-6 h-6 mx-4 text-green-500" />
+            <Sparkles className="w-6 h-6 mx-4 text-green-500" />
           </DrawerTitle>
           <DrawerDescription>
             Enter your shop details below to upgrade.

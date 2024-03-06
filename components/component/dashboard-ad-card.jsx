@@ -9,12 +9,10 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { CardContent, Card } from "@/components/ui/card";
-import { FaRegStopCircle } from "react-icons/fa";
 import {
   changeAdStatus,
   deleteAd,
 } from "@/app/[lng]/(traderDashboard)/actions";
-import { TbClick } from "react-icons/tb";
 import { useRef, useState } from "react";
 import {
   Dialog,
@@ -37,12 +35,18 @@ import {
   updateAdImageURL,
 } from "../../app/[lng]/(traderDashboard)/actions";
 import upload from "../../app/[lng]/sell/imageUploadAction";
-import { CiEdit } from "react-icons/ci";
-import { BsCloudUpload } from "react-icons/bs";
-import { IoEyeOutline } from "react-icons/io5";
 import Link from "next/link";
 import { calculateRemainingTime } from "@/helper/remainingTime";
-import { CiTimer } from "react-icons/ci";
+import {
+  Edit,
+  Eye,
+  MousePointerClick,
+  Rocket,
+  StopCircleIcon,
+  Timer,
+  UploadCloud,
+} from "lucide-react";
+import { StopIcon } from "@radix-ui/react-icons";
 
 export const AdCard = ({ lng, ad }) => {
   const { t } = useTranslation(lng, "translation");
@@ -182,7 +186,7 @@ export const AdCard = ({ lng, ad }) => {
         >
           <Tooltip className="w-full">
             <TooltipTrigger>
-              <BsCloudUpload
+              <UploadCloud
                 onClick={() => fileInputRef.current.click()}
                 className=" z-20 cursor-pointer hover:bg-red-700 hover:text-white border border-red-700 rounded-md w-8 h-8  w-6 h-6 text-black dark:text-white"
               />
@@ -201,7 +205,7 @@ export const AdCard = ({ lng, ad }) => {
             {Adimages.map((image, index) => (
               <CarouselItem key={index}>
                 <div className="p-1 relative">
-                  <CiEdit
+                  <Edit
                     onClick={() => fileInputRefs.current[index].click()}
                     className="cursor-pointer absolute bottom-0 z-20 hover:bg-red-700 hover:text-white border border-red-700 rounded-md w-6 h-6 w-6 h-6 text-black dark:text-white"
                   />
@@ -231,7 +235,7 @@ export const AdCard = ({ lng, ad }) => {
         <div className="flex w-full items-center justify-between">
           <h2 className="text-2xl font-bold">{name}</h2>
           <div className="flex gap-4 items-center">
-            <CiTimer className="w-4 h-4" />
+            <Timer className="w-4 h-4" />
             <p className="text-gray-500">
               {remainingTime} {t("day")}
             </p>
@@ -324,11 +328,11 @@ export const AdCard = ({ lng, ad }) => {
           <div className="flex gap-2">
             <div className="flex items-center gap-2">
               <span className="text-sm">{ad.clicks}</span>
-              <TbClick className="w-4 h-4 fill-none" />
+              <MousePointerClick className="w-4 h-4 fill-none" />
             </div>
             <div className="flex items-center gap-2">
               <span className="text-sm">{ad.views}</span>
-              <IoEyeOutline className="w-4 h-4" />
+              <Eye className="w-4 h-4" />
             </div>
             <div className="flex items-center gap-2">
               <span className="text-sm">{ad.favoritedBy.length}</span>
@@ -390,7 +394,7 @@ export const AdCard = ({ lng, ad }) => {
                 </svg>
               ) : (
                 <>
-                  <FaRegStopCircle className="w-4 h-4 mx-2" />
+                  <StopCircleIcon className="w-4 h-4 mx-2" />
                   <span>Stop Ad</span>
                 </>
               )}
@@ -420,7 +424,7 @@ export const AdCard = ({ lng, ad }) => {
                 </svg>
               ) : (
                 <>
-                  <FaRegStopCircle className="w-4 h-4 mx-2" />
+                  <Rocket className="w-4 h-4 mx-2" />
                   <span>Publish Ad</span>
                 </>
               )}
@@ -430,7 +434,7 @@ export const AdCard = ({ lng, ad }) => {
             href={`/vehicle/${ad.id}`}
             className="bg-transparent border py-2 px-4 rounded-md border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white w-1/2 flex justify-center items-center space-x-2"
           >
-            <IoEyeOutline className="w-4 h-4 mx-2" />
+            <Eye className="w-4 h-4 mx-2" />
             <span>View</span>
           </Link>
         </div>

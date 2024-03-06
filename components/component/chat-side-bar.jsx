@@ -10,16 +10,16 @@ import { AnimatedTooltip } from "@/components/ui/animated-tooltip";
 export default function ChatSideBar({ user, lng }) {
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const { userStatuses, updateUserStatus } = useDarkMode();
-  const { shopChats, setShopChats } = useDarkMode();
+  const { shopChats } = useDarkMode();
 
   const toggleSidebar = () => {
     setSidebarOpen(!sidebarOpen);
   };
   // Function to get the other user's information
   const getOtherUserInfo = (chat) => {
-    if (chat.shop) {
+    if (chat.shops?.length > 0) {
       // If the chat involves a shop
-      if (user.id === chat.shop.userId) {
+      if (user.id === chat.shops[0].userId) {
         // If the user is the owner of the shop
         const otherUser = chat.users[0];
         return {
@@ -29,8 +29,8 @@ export default function ChatSideBar({ user, lng }) {
       } else {
         // If the user is not the owner of the shop, return shop info
         return {
-          username: chat.shop.shopName,
-          image: chat.shop.shopImage,
+          username: chat.shops[0].shopName,
+          image: chat.shops[0].shopImage,
         };
       }
     } else {

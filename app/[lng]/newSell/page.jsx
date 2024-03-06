@@ -22,9 +22,8 @@ import {
   Dialog,
 } from "@/components/ui/dialog";
 import Link from "next/link";
-import { BsThreads } from "react-icons/bs";
-import { FaStoreAlt } from "react-icons/fa";
 import DesingBtn from "../../../components/component/buttons/design-with-AI";
+import { Send, ShoppingBagIcon } from "lucide-react";
 
 const SellForm = async ({ params: { lng }, searchParams }) => {
   const open = searchParams.sucess;
@@ -313,14 +312,14 @@ const SellForm = async ({ params: { lng }, searchParams }) => {
                         : "/dashboard/myAds"
                     }`}
                   >
-                    <BsThreads className="h-5 w-5 mr-2" />
+                    <Send className="h-5 w-5 mr-2" />
                     My Ads
                   </Link>
                   <Link
                     className="inline-flex h-10 items-center justify-center rounded-md bg-blue-500 px-8 text-sm font-medium text-white shadow transition-colors hover:bg-blue-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-700 disabled:pointer-events-none disabled:opacity-50"
                     href="/vehicle"
                   >
-                    <FaStoreAlt className="h-5 w-5 mr-2" />
+                    <ShoppingBagIcon className="h-5 w-5 mr-2" />
                     Market
                   </Link>
                 </DialogFooter>

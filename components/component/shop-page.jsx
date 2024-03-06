@@ -3,11 +3,13 @@ import { AvatarImage, AvatarFallback, Avatar } from "@/components/ui/avatar";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "../ui/button";
-import { BsChatLeftDots } from "react-icons/bs";
-import { MdOutlineLocalPhone } from "react-icons/md";
-import { FaSnapchat } from "react-icons/fa6";
-import { PiTiktokLogo } from "react-icons/pi";
-import { RiTwitterXFill } from "react-icons/ri";
+import {
+  MessageSquareDotIcon,
+  Phone,
+  Facebook,
+  Instagram,
+  Twitter,
+} from "lucide-react";
 import { useTranslation } from "@/app/i18n/client";
 import dynamic from "next/dynamic";
 import MarketAdCardSkeleton from "@/components/skeletons/marketSkeleton";
@@ -78,7 +80,7 @@ export default function ShopPage({ shop, user, lng, isFollowed }) {
                 target="_blank"
                 href={shop.TwitterLink || "#"}
               >
-                <RiTwitterXFill className="h-6 w-6" />
+                <Twitter className="h-6 w-6" />
                 <span className="sr-only">Twitter</span>
               </Link>
             ) : null}
@@ -88,8 +90,7 @@ export default function ShopPage({ shop, user, lng, isFollowed }) {
                 target="_blank"
                 href={shop.FacebookLink || "#"}
               >
-                <FacebookIcon className="h-6 w-6" />
-                <span className="sr-only">Instagram</span>
+                <Facebook /> <span className="sr-only">Instagram</span>
               </Link>
             ) : null}
             {shop.instagramLink ? (
@@ -98,11 +99,11 @@ export default function ShopPage({ shop, user, lng, isFollowed }) {
                 target="_blank"
                 href={shop.instagramLink || "#"}
               >
-                <InstagramIcon className="h-6 w-6" />
+                <Instagram />
                 <span className="sr-only">Facebook</span>
               </Link>
             ) : null}
-            {shop.tiktokLink ? (
+            {/* {shop.tiktokLink ? (
               <Link
                 className="text-zinc-600"
                 target="_blank"
@@ -111,17 +112,7 @@ export default function ShopPage({ shop, user, lng, isFollowed }) {
                 <PiTiktokLogo className="h-6 w-6" />
                 <span className="sr-only">Tiktok</span>
               </Link>
-            ) : null}
-            {shop.snapchatLink ? (
-              <Link
-                className="text-yellow-600"
-                target="_blank"
-                href={shop.snapchatLink || "#"}
-              >
-                <FaSnapchat className="h-6 w-6" />
-                <span className="sr-only">SnapChat</span>
-              </Link>
-            ) : null}
+            ) : null} */}
           </div>
           <div className="flex gap-4">
             <Link
@@ -131,11 +122,11 @@ export default function ShopPage({ shop, user, lng, isFollowed }) {
               }}
               className=" mx-1 rounded text-white p-2  flex items-center justify-center gap-2 inset-0 z-10 bg-[#fe2635] hover:bg-[#fe26355e]"
             >
-              <BsChatLeftDots className="w-4 h-4" />
+              <MessageSquareDotIcon className="w-4 h-4" />
               {t("Chat")}
             </Link>
             <Button className=" mx-1 flex items-center justify-center gap-2 dark:bg-white dark:text-black dark:hover:text-white">
-              <MdOutlineLocalPhone className="h-4 w-4" />
+              <Phone className="h-4 w-4" />
               {t("Call")}
             </Button>
 

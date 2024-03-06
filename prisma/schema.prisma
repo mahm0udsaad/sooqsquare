@@ -53,6 +53,7 @@ model User {
   username           String?
   country            String?
   image              String?
+  status             String?
   email              String       @unique
   ads                Ad[]
   chats              Chat[]
@@ -151,8 +152,32 @@ model Shop {
   followers           Follow[] @relation("ShopFollowers")
   ratings             Rating[]
   chats               Chat[]
-  sentMessages      Message[] @relation("sentMessages")
-  receivedMessages  Message[] @relation("receivedMessages")
+  sentMessages      Message[] @relation("sentShopMessages")
+  receivedMessages  Message[] @relation("receivedShopMessages")
+}
+
+
+model Chat {
+  id          Int       @id @default(autoincrement())
+  users       User[]    
+  shops       Shop[]     
+  messages    Message[] 
+}
+
+model Message {
+  id            Int      @id @default(autoincrement())
+  createdAt     DateTime @default(now())
+  content       String
+  chat          Chat     @relation(fields: [chatId], references: [id])
+  chatId        Int
+  senderShop    Shop?    @relation("sentShopMessages", fields: [shopId], references: [id])
+  receiverShop  Shop?    @relation("receivedShopMessages", fields: [shopId], references: [id])
+  shopId        Int?
+
+  sender        User?     @relation("sentMessages", fields: [senderId], references: [id]) 
+  receiver      User?     @relation("receivedMessages", fields: [receiverId], references: [id])
+  senderId      Int?
+  receiverId    Int?
 }
 
 model Follow {
@@ -232,26 +257,4 @@ model FavoriteAd {
   createdAt DateTime @default(now())
 }
 
-model Chat {
-  id          Int       @id @default(autoincrement())
-  users       User[]    // Users involved in the chat
-  shop        Shop?     @relation(fields: [shopId], references: [id])
-  shopId      Int?      // Shop involved in the chat (optional)
-  messages    Message[] // Messages exchanged in the chat
-}
 
-model Message {
-  id            Int      @id @default(autoincrement())
-  content       String
-  senderShop    Shop?    @relation("sentMessages", fields: [shopId], references: [id])
-  receiverShop  Shop?    @relation("receivedMessages", fields: [shopId], references: [id])
-
-  sender        User?     @relation("sentMessages", fields: [senderId], references: [id]) 
-  senderId      Int?
-  receiver      User?    @relation("receivedMessages", fields: [receiverId], references: [id])
-  receiverId    Int?
-  createdAt     DateTime @default(now())
-  chat          Chat     @relation(fields: [chatId], references: [id])
-  chatId        Int
-  shopId        Int?
-}

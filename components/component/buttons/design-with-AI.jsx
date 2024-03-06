@@ -12,28 +12,12 @@ import {
   Card,
 } from "@/components/ui/card";
 import Image from "next/image";
-import { BsChatLeftDots } from "react-icons/bs";
-import { MdOutlineLocalPhone } from "react-icons/md";
+import { MessageSquareMore, Phone } from "lucide-react";
 import Link from "next/link";
 import { SparklesCore } from "@/components/ui/sparkles";
 
 const DesingBtn = ({ searchParams }) => {
   const [colorData, setColorData] = useState(null);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const data = await sendPostRequest(searchParams.uploadedImage0);
-        setColorData(data);
-      } catch (error) {
-        console.error("Error fetching color data:", error);
-      }
-    };
-
-    if (!colorData) {
-      fetchData();
-    }
-  }, [searchParams]);
 
   return (
     <Dialog>
@@ -112,7 +96,7 @@ const DesingBtn = ({ searchParams }) => {
                 // Remove the callBtnTextColor style
               }}
             >
-              <BsChatLeftDots className="w-4 h-4" />
+              <MessageSquareMore className="w-4 h-4" />
               Chat
             </Button>
             <Button
@@ -122,7 +106,7 @@ const DesingBtn = ({ searchParams }) => {
                 color: colorData?.textColor,
               }}
             >
-              <MdOutlineLocalPhone className="h-4 w-4" />
+              <Phone className="h-4 w-4" />
               Call
             </Button>
           </CardFooter>

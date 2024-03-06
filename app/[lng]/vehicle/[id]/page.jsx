@@ -19,8 +19,8 @@ export default async function Vehicle({ params, searchParams }) {
   const user = await getUserByEmail(logedUser?.user.email);
 
   const isFollowed = ad.shop
-    ? await checkFollowStatus(user.id, null, ad.shop.id)
-    : await checkFollowStatus(user.id, ad.user.id);
+    ? await checkFollowStatus(user?.id, null, ad.shop.id)
+    : await checkFollowStatus(user?.id, ad.user.id);
 
   return (
     <>

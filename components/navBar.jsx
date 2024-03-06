@@ -1,15 +1,11 @@
 import Link from "next/link";
-import { BiSearch } from "react-icons/bi";
-import { BsChatLeftDots } from "react-icons/bs";
 import { useTranslation } from "@/app/i18n";
 import { getUserByEmail } from "@/prisma/actions";
 import { getServerSession } from "next-auth";
 import PopoverLanguage from "@/components/navBarBtns/PopoverLanguage";
 import dynamic from "next/dynamic";
 import UserAvatarSkeleton from "@/components/skeletons/userAvatarSkeleton";
-import { MdOutlineBookmarkAdded } from "react-icons/md";
-import { IoIosStarOutline } from "react-icons/io";
-
+import { Search, MessageSquareMore, BookmarkCheck, Bell } from "lucide-react";
 const NavBar = async ({ lng }) => {
   const { t } = await useTranslation(lng, "translation");
   const logedUser = await getServerSession();
@@ -35,8 +31,8 @@ const NavBar = async ({ lng }) => {
           <Logo lng={lng} />
         </Link>
 
-        <form className="flex items-center  dark:bg-zinc-900 border dark:border-zinc-800 rounded-xl px-4 w-[30%]">
-          <BiSearch className="w-4 h-4 text-gray-700 dark:text-gray-200" />
+        <form className="flex items-center shadow dark:bg-zinc-900 border dark:border-zinc-800 rounded-xl px-4 w-[30%]">
+          <Search className="w-4 h-4 text-gray-700 dark:text-gray-200" />
           <input
             className="ml-2 p-2 bg-transparent rounded-xl focus:outline-none text-gray-700 dark:text-gray-200"
             placeholder="Search"
@@ -57,7 +53,7 @@ const NavBar = async ({ lng }) => {
             href={"/spaces"}
             className="py-2 px-2 shadow hover:shadow-inner rounded-xl border dark:bg-zinc-800 dark:border-zinc-800"
           >
-            <IoIosStarOutline className="w-6 h-6 " />
+            <Bell className="w-6 h-6 " />
           </Link>
           <PopoverLanguage lng={lng} />
           <PopoverCountry user={user} lng={lng} />
@@ -66,7 +62,7 @@ const NavBar = async ({ lng }) => {
             variant="outline"
             className="py-2 px-2 shadow rounded-xl border hover:shadow-inner hover:bg-gray-200 dark:border-none dark:bg-zinc-800 hover:text-zinc-800"
           >
-            <MdOutlineBookmarkAdded className="h-6 w-6" />
+            <BookmarkCheck className="h-6 w-6" />
           </Link>
 
           {user ? (
@@ -75,7 +71,7 @@ const NavBar = async ({ lng }) => {
                 href={"/chat"}
                 className="chat shadow dark:bg-zinc-800 hover:bg-gray-100 hover:dark:text-black hover:dark:bg-white bg-white border dark:border-none px-2 py-2 rounded-xl"
               >
-                <BsChatLeftDots className="w-5 h-5 m-[2px]" />
+                <MessageSquareMore className="w-5 h-5 m-[2px]" />
               </Link>
               <div className="userAvatar ml-4">
                 <UserButton lng={lng} user={user} />

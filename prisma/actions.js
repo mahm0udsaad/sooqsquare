@@ -393,13 +393,7 @@ export async function getUserByEmail(email) {
           select: {
             id: true,
             users: true,
-            shop: {
-              select: {
-                shopImage: true,
-                userId: true,
-                shopName: true,
-              },
-            },
+            shops: true,
           },
         },
         ads: {
@@ -474,6 +468,7 @@ export async function getUserByEmail(email) {
               select: {
                 id: true,
                 users: true,
+                shops: true,
                 messages: true,
               },
             },

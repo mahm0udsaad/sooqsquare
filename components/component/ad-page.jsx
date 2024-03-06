@@ -10,28 +10,29 @@ import { CardTitle, CardHeader, CardContent, Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { FaRegUser } from "react-icons/fa6";
 import { memberSince, timeSince } from "../../helper/timeConversion";
-import { BsChatLeftDots } from "react-icons/bs";
-import { MdOutlineLocalPhone } from "react-icons/md";
 import { Badge } from "@/components/ui/badge";
-import { IoLocationOutline } from "react-icons/io5";
 import { useTranslation } from "@/app/i18n/client";
 import Link from "next/link";
 import { ArabCountriesWithCurrancy } from "@/data/staticData";
 import { Toggle } from "@/components/ui/toggle";
-import { PiEngine } from "react-icons/pi";
-import { IoColorPaletteOutline } from "react-icons/io5";
-import { CiCalendarDate } from "react-icons/ci";
-import { IoCarOutline } from "react-icons/io5";
-import { LuFuel } from "react-icons/lu";
-import { AiOutlineFormatPainter } from "react-icons/ai";
-import { IoSpeedometerOutline } from "react-icons/io5";
-import { IoSettingsOutline } from "react-icons/io5";
 import Markdown from "react-markdown";
 import "@/app/[lng]/css/markdown.css";
 import RateCard from "./rate-card";
-
+import {
+  User,
+  MessageSquareMore,
+  Phone,
+  MapPinned,
+  Gauge,
+  BatteryCharging,
+  Palette,
+  Calendar,
+  Car,
+  Fuel,
+  Settings,
+  SprayCan,
+} from "lucide-react";
 export function AdPage({ ad, lng, user, isFollowed }) {
   const { t } = useTranslation(lng, "tranlsation");
   const priceCode = ArabCountriesWithCurrancy.find(
@@ -77,7 +78,7 @@ export function AdPage({ ad, lng, user, isFollowed }) {
             <div className="flex gap-4 items-center">{ad.name}</div>
             <div className="flex justify-between items-center text-gray-700 dark:text-gray-400">
               <div className="flex gap-2 items-center text-lg pt-4">
-                <IoLocationOutline /> {ad.city}
+                <MapPinned /> {ad.city}
               </div>
               <p className="text-sm">{timeSince(ad.createdAt)}</p>
             </div>
@@ -90,21 +91,21 @@ export function AdPage({ ad, lng, user, isFollowed }) {
           <CardContent className="grid grid-cols-2 gap-4">
             <div className="flex justify-between bg-gray-200 dark:bg-zinc-700 rounded rounded-md-md p-2">
               <h4 className="flex gap-2 items-center font-bold">
-                <IoCarOutline />
+                <Car />
                 {t("brand")}
               </h4>
               <p> {ad.brand}</p>
             </div>
             <div className="flex justify-between bg-gray-200 dark:bg-zinc-700 rounded rounded-md-md p-2">
               <h4 className="flex gap-2 items-center font-bold">
-                <IoCarOutline />
+                <Car />
                 {t("model")}
               </h4>
               <p> {ad.model}</p>
             </div>
             <div className="flex justify-between p-2">
               <h4 className="flex gap-2 items-center font-bold">
-                <IoCarOutline />
+                <Car />
                 {t("carStatus")}
               </h4>
               <p> {ad.carStatus}</p>
@@ -112,57 +113,55 @@ export function AdPage({ ad, lng, user, isFollowed }) {
 
             <div className="flex justify-between p-2">
               <h4 className="flex gap-2 items-center font-bold">
-                <IoCarOutline />
+                <Car />
                 {t("carType")}
               </h4>
               <p> {ad.carType}</p>
             </div>
             <div className="flex justify-between bg-gray-200 dark:bg-zinc-700 rounded rounded-md-md p-2">
               <h4 className="flex gap-2 items-center font-bold">
-                <LuFuel />
+                <Fuel />
                 {t("Fuel")}
               </h4>
               <p> {ad.fuelType}</p>
             </div>
             <div className="flex justify-between bg-gray-200 dark:bg-zinc-700 rounded rounded-md-md p-2">
               <h4 className="flex gap-2 items-center font-bold">
-                <IoSettingsOutline />
+                <Settings />
                 {t("RegionalSpecifications")}
               </h4>
               <p> {ad.RegionalSpecifications}</p>
             </div>
             <div className="flex justify-between p-2">
               <h4 className="flex gap-2 items-center font-bold">
-                <PiEngine />
+                <BatteryCharging />
+
                 {t("EnginCapacity")}
               </h4>
               <p> {ad.EnginCapacity}</p>
             </div>
             <div className="flex justify-between p-2">
               <h4 className="flex gap-2 items-center font-bold">
-                <CiCalendarDate />
-                {t("year")}
+                <Calendar /> {t("year")}
               </h4>
               <p> {ad.year}</p>
             </div>
             <div className="flex justify-between bg-gray-200 dark:bg-zinc-700 rounded rounded-md-md p-2">
               <h4 className="flex gap-2 items-center font-bold">
-                <AiOutlineFormatPainter />
-                {t("Paint")}
+                <SprayCan /> {t("Paint")}
               </h4>
               <p> {ad.paintType}</p>
             </div>
             <div className="flex justify-between bg-gray-200 dark:bg-zinc-700 rounded rounded-md-md p-2">
               <h4 className="flex gap-2 items-center font-bold">
-                <IoSpeedometerOutline />
-                {t("Kilometers")}
+                <Gauge /> {t("Kilometers")}
               </h4>
               <p> {ad.meterRange}</p>
             </div>
 
             <div className="flex justify-between p-2">
               <h4 className="flex gap-2 items-center font-bold">
-                <IoColorPaletteOutline />
+                <Palette />
                 {t("Color")}
               </h4>
               <Toggle
@@ -212,7 +211,7 @@ export function AdPage({ ad, lng, user, isFollowed }) {
             <div className="flex justify-start gap-4 items-center">
               <Avatar>
                 <AvatarFallback className="dark:text-black">
-                  <FaRegUser className="mx-auto my-auto" />
+                  <User className="mx-auto my-auto" />
                 </AvatarFallback>
                 <AvatarImage
                   src={ad.userId ? ad.user?.image : ad.shop.shopImage}
@@ -230,7 +229,7 @@ export function AdPage({ ad, lng, user, isFollowed }) {
             </p>
             <div className="flex justify-between gap-2 items-center mt-2">
               <Button className="w-28 px-2 py-4 flex items-center justify-center gap-2 text-sky-600 bg-trasparent hover:bg-sky-600 border border-sky-600 hover:text-white ">
-                <MdOutlineLocalPhone className="h-4 w-4" />
+                <Phone className="h-4 w-4" />
                 {t("Call")}
               </Button>
               {ad.userId ? (
@@ -241,7 +240,7 @@ export function AdPage({ ad, lng, user, isFollowed }) {
                   }}
                   className="w-28 rounded-md p-2 flex items-center justify-center gap-2 inset-0 z-10 border text-[#fe2635] border-[#fe2635] hover:text-white hover:bg-[#fe2635]"
                 >
-                  <BsChatLeftDots className="w-4 h-4" />
+                  <MessageSquareMore className="w-4 h-4" />
                   {t("Chat")}
                 </Link>
               ) : (
@@ -252,7 +251,7 @@ export function AdPage({ ad, lng, user, isFollowed }) {
                   }}
                   className="w-28 rounded-md p-2 flex items-center justify-center gap-2 inset-0 z-10 border text-[#fe2635] border-[#fe2635] hover:text-white hover:bg-[#fe2635]"
                 >
-                  <BsChatLeftDots className="w-4 h-4" />
+                  <MessageSquareMore className="w-4 h-4" />
                   {t("Chat")}
                 </Link>
               )}
@@ -264,13 +263,17 @@ export function AdPage({ ad, lng, user, isFollowed }) {
                 }`}
                 className="w-28 py-2 px-4 rounded-md hover:bg-zinc-900 hover:text-white dark:hover:bg-white dark:hover:text-black flex items-center border border-black dark:border-white dark:text-white justify-center gap-2 transition"
               >
-                <UserIcon className="h-4 w-4" />
+                <User className="h-4 w-4" />
                 {t("profile")}
               </Link>
             </div>
           </CardContent>
         </Card>
-        <RateCard user={user} owner={ad.user} isFollowed={isFollowed} />
+        <RateCard
+          user={user}
+          owner={ad.shop ? ad.shop : ad.user}
+          isFollowed={isFollowed}
+        />
       </div>
     </div>
   );

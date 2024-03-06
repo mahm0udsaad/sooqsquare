@@ -1,6 +1,7 @@
 "use server";
 import prisma from "@/prisma/client";
 import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 
 export async function getAllads(searchParams, user) {
   const ads = await prisma.Ad.findMany({
@@ -67,7 +68,6 @@ export async function getAllads(searchParams, user) {
   });
   return ads;
 }
-
 export async function getAdById(adId) {
   try {
     const ad = await prisma.Ad.findUnique({
@@ -90,6 +90,9 @@ export async function getAdById(adId) {
   }
 }
 export async function addToFavorites(userId, adId) {
+  if (!userId) {
+    return;
+  }
   try {
     // Find the user and ad
     const user = await prisma.user.findUnique({ where: { id: userId } });
@@ -200,6 +203,10 @@ export async function addUserFollow(formData) {
     const followedUserId = formData.get("followedUserId");
     const followedShopId = formData.get("followedShopId");
 
+    if (!userId) {
+      redirect("/sign-in");
+    }
+
     let whereCondition;
 
     // Check if follow relationship already exists
@@ -241,7 +248,7 @@ export async function addUserFollow(formData) {
           followedShopId: followedShopId ? parseInt(followedShopId) : undefined,
         },
       });
-      console.log("follow");
+      console.log(follow);
 
       return follow;
     }
@@ -252,12 +259,12 @@ export async function addUserFollow(formData) {
     revalidatePath("/profile");
   }
 }
-
 export async function checkFollowStatus(
   userId,
   followedUserId,
   followedShopId
 ) {
+  if (!userId) return;
   const follow = await prisma.follow.findFirst({
     where: {
       followerId: parseInt(userId),
@@ -266,5 +273,5 @@ export async function checkFollowStatus(
     },
   });
 
-  return !!follow; // Convert to boolean (true if follow exists, false otherwise)
+  return !!follow;
 }

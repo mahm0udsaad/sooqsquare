@@ -7,7 +7,6 @@ import webPush from "web-push"; // Import the web-push library for sending push 
 
 // Function to add subscription to a user
 export async function addSubscriptionToUser(userId, subscriptionData) {
-  console.log(userId);
   try {
     // Use Prisma to find the user by userId
     const user = await prisma.user.findUnique({
@@ -41,56 +40,84 @@ export async function addSubscriptionToUser(userId, subscriptionData) {
     throw error;
   }
 }
-export async function createShopMessage(
-  content,
-  senderId,
-  receiverId,
-  chatId,
-  isShop
-) {
+
+export async function createShopMessage(content, senderId, receiverId, chatId) {
   try {
     const message = await prisma.message.create({
       data: {
         content,
-        // Determine whether the sender is a shop or a user
-        ...(isShop
-          ? { senderShop: { connect: { id: senderId } } }
-          : { sender: { connect: { id: senderId } } }),
-        // Determine whether the receiver is a shop or a user
-        ...(isShop
-          ? { receiver: { connect: { id: receiverId } } }
-          : { receiverShop: { connect: { id: receiverId } } }),
+        senderShop: {
+          connect: { id: senderId },
+        },
+        receiver: {
+          connect: { id: receiverId },
+        },
         chat: {
           connect: { id: chatId },
         },
       },
       include: {
-        sender: true,
         senderShop: {
           select: {
-            shopImage: true,
             id: true,
-            userId: true,
-          },
-        },
-        receiverShop: {
-          select: {
             shopImage: true,
-            id: true,
-            userId: true,
+            shopName: true,
           },
         },
       },
     });
 
-    // You can add additional logic here, such as sending notifications to the receiver
-
+    // Additional logic if needed...
+    console.log(message);
     return message;
   } catch (error) {
-    console.error("Error creating message:", error);
+    console.error("Error creating shop message:", error);
     throw error;
   } finally {
-    revalidatePath(`/chat/${chatId}`); // Close the Prisma client connection
+    revalidatePath(`/chat/${chatId}`);
+  }
+}
+
+export async function createUserMessage(
+  content,
+  senderId,
+  receiverShopId,
+  chatId
+) {
+  try {
+    const message = await prisma.message.create({
+      data: {
+        content,
+        sender: {
+          connect: { id: senderId },
+        },
+        receiverShop: {
+          connect: { id: receiverShopId },
+        },
+        chat: {
+          connect: { id: chatId },
+        },
+      },
+      include: {
+        sender: {
+          select: {
+            image: true,
+            id: true,
+            username: true,
+          },
+        },
+        receiverShop: true,
+      },
+    });
+
+    // Additional logic if needed...
+    console.log(message);
+    return message;
+  } catch (error) {
+    console.error("Error creating user message:", error);
+    throw error;
+  } finally {
+    revalidatePath(`/chat/${chatId}`);
   }
 }
 
@@ -193,7 +220,7 @@ export async function getOrCreateChat(user1Id, user2Id, shopId) {
         where: {
           AND: [
             { users: { some: { id: parsedUser1Id } } },
-            { shopId: parsedShopId },
+            { shops: { some: { id: parsedShopId } } },
           ],
         },
         include: {
@@ -201,14 +228,6 @@ export async function getOrCreateChat(user1Id, user2Id, shopId) {
             include: {
               sender: true,
               receiver: true,
-            },
-          },
-          shop: {
-            select: {
-              id: true,
-              shopImage: true,
-              shopName: true,
-              userId: true,
             },
           },
         },
@@ -222,7 +241,7 @@ export async function getOrCreateChat(user1Id, user2Id, shopId) {
         newChat = await prisma.chat.create({
           data: {
             users: { connect: [{ id: parsedUser1Id }] },
-            shop: { connect: { id: parsedShopId } },
+            shops: { connect: [{ id: parsedShopId }] },
           },
           include: {
             messages: {
@@ -230,12 +249,6 @@ export async function getOrCreateChat(user1Id, user2Id, shopId) {
                 sender: true,
                 receiver: true,
               },
-            },
-            select: {
-              id: true,
-              shopImage: true,
-              shopName: true,
-              userId: true,
             },
           },
         });
@@ -258,12 +271,6 @@ export async function getOrCreateChat(user1Id, user2Id, shopId) {
               receiver: true,
             },
           },
-          select: {
-            id: true,
-            shopImage: true,
-            shopName: true,
-            userId: true,
-          },
         },
       });
 
@@ -277,17 +284,12 @@ export async function getOrCreateChat(user1Id, user2Id, shopId) {
             users: { connect: [{ id: parsedUser1Id }, { id: parsedUser2Id }] },
           },
           include: {
+            id: true,
             messages: {
               include: {
                 sender: true,
                 receiver: true,
               },
-            },
-            select: {
-              id: true,
-              shopImage: true,
-              shopName: true,
-              userId: true,
             },
           },
         });
@@ -308,7 +310,22 @@ export async function getOrCreateChat(user1Id, user2Id, shopId) {
     await prisma.$disconnect();
   }
 }
-
+export const fetchShopMessagesFromDatabase = async (chat) => {
+  try {
+    const fetchedMessages = await prisma.message.findMany({
+      where: { chatId: chat.id },
+      include: {
+        senderShop: true,
+        sender: true,
+      },
+      orderBy: { createdAt: "asc" },
+    });
+    return fetchedMessages;
+  } catch (error) {
+    console.error("Error fetching messages:", error);
+    throw error; // Rethrow the error to handle it in the calling function
+  }
+};
 export const fetchMessagesFromDatabase = async (chat) => {
   try {
     const fetchedMessages = await prisma.message.findMany({
@@ -337,25 +354,11 @@ export async function getChatById(chatId) {
           include: {
             senderShop: true,
             receiverShop: true,
-            sender: {
-              select: {
-                email: true,
-                id: true,
-                username: true,
-                image: true,
-              },
-            },
-            receiver: {
-              select: {
-                email: true,
-                id: true,
-                username: true,
-                image: true,
-              },
-            },
+            sender: true,
+            receiver: true,
           },
         },
-        shop: {
+        shops: {
           select: {
             id: true,
             userId: true,

@@ -3,12 +3,13 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useState, useEffect, useRef } from "react";
 import {
-  createMessage,
-  fetchMessagesFromDatabase,
+  createShopMessage,
+  fetchShopMessagesFromDatabase,
 } from "@/app/[lng]/(chat)/chat/action";
 import socket from "@/lib/chat";
 import StarRating from "@/components/component/rate";
-import { createShopMessage } from "../chat/action";
+import { createUserMessage } from "../chat/action";
+
 const ChatWithShop = ({ user, chat }) => {
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
@@ -16,7 +17,7 @@ const ChatWithShop = ({ user, chat }) => {
 
   const getOtherUserInfo = () => {
     // If the chat involves a shop
-    if (user.id === chat.shop.userId) {
+    if (user.id === chat.shops[0].userId) {
       // If the user is the owner of the shop
       const otherUser = chat.users[0];
       return {
@@ -27,9 +28,9 @@ const ChatWithShop = ({ user, chat }) => {
     } else {
       // If the user is not the owner of the shop, return shop info
       return {
-        id: chat.shop.id,
-        username: chat.shop.shopName,
-        image: chat.shop.shopImage,
+        id: chat.shops[0].id,
+        username: chat.shops[0].shopName,
+        image: chat.shops[0].shopImage,
       };
     }
   };
@@ -37,28 +38,37 @@ const ChatWithShop = ({ user, chat }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (message) {
-      if (user.id === chat.shop.userId) {
-        const newMessage = await createShopMessage(
-          message,
-          chat.shop.id,
-          chat.users[0].id,
-          chat.id,
-          true
-        );
-        socket.emit("chat message", { chatId: chat.id, message: newMessage });
+      const shopId = chat.shops[0].id;
+      try {
+        if (user.id === chat.shops[0].userId) {
+          // If the user is the shop owner, create a shop message
+          const newMessage = await createShopMessage(
+            message,
+            chat.shops[0].id,
+            user.id,
+            chat.id
+          );
+          socket.emit("shop chat message", {
+            chatId: chat.id,
+            message: { ...newMessage },
+          });
+        } else {
+          // If the user is a regular user, create a user message
+          const newMessage = await createUserMessage(
+            message,
+            user.id,
+            shopId,
+            chat.id
+          );
+          socket.emit("shop chat message", {
+            chatId: chat.id,
+            message: { ...newMessage },
+          });
+        }
+        // Clear the message input
         setMessage("");
-        console.log(newMessage);
-      } else {
-        const newMessage = await createShopMessage(
-          message,
-          chat.users[0].id,
-          chat.shop.id,
-          chat.id,
-          false
-        );
-        socket.emit("chat message", { chatId: chat.id, message: newMessage });
-        setMessage("");
-        console.log(newMessage);
+      } catch (error) {
+        console.error("Error handling message submission:", error);
       }
     }
   };
@@ -70,10 +80,12 @@ const ChatWithShop = ({ user, chat }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const fetchedMessages = await fetchMessagesFromDatabase(chat);
+        const fetchedMessages = await fetchShopMessagesFromDatabase(chat);
+        console.log("Fetched messages:", fetchedMessages[0].content); // Log fetched messages
         if (fetchedMessages.length === 0) {
-          setMessages(null);
+          setMessages([]);
         } else {
+          console.log("fetchedMessages:" + " " + fetchedMessages);
           setMessages(
             fetchedMessages.map((message) => ({ chatId: chat.id, message }))
           );
@@ -89,14 +101,16 @@ const ChatWithShop = ({ user, chat }) => {
       console.error("Socket connection error:", error);
     });
 
-    socket.on("chat message", ({ chatId, message }) => {
+    socket.on("shop chat message", ({ chatId, message }) => {
+      console.log(chatId, message);
       setMessages((prev) => [...prev, { chatId, message }]);
     });
 
     return () => {
-      socket.off("chat message");
+      socket.off("shop chat message");
     };
   }, []);
+
   // Effect to scroll to the bottom of the messages container
   useEffect(() => {
     if (messagesContainerRef.current) {
@@ -119,31 +133,11 @@ const ChatWithShop = ({ user, chat }) => {
         >
           {messages &&
             messages.map((chat, index) => (
-              <div
-                key={chat.message.id}
-                className={`flex items-end gap-2 max-w-1/2  ${
-                  chat.message.senderShop
-                    ? "justify-end"
-                    : "justify-end flex-row-reverse"
-                }`}
-              >
-                <div>
-                  <span
-                    className={`px-4 py-2 rounded-lg inline-block bg-gray-600 text-white rounded-br-none`}
-                  >
-                    {chat.message.content}
-                  </span>
-                </div>
-                <img
-                  alt="My profile"
-                  className="w-6 h-6 rounded-full order-2"
-                  src={
-                    chat.message.senderShop
-                      ? chat.message.senderShop.shopImage
-                      : chat.message?.sender.image
-                  }
-                />
-              </div>
+              <Message
+                key={index}
+                message={chat.message}
+                IsSenderShop={!chat.message?.sender}
+              />
             ))}
         </div>
 
@@ -193,4 +187,34 @@ function SendIcon(props) {
     </svg>
   );
 }
+const Message = ({ message, IsSenderShop }) => {
+  // Determine the alignment of the message based on whether the sender is a shop or a user
+  const justifyClass = IsSenderShop
+    ? "justify-end"
+    : "justify-end flex-row-reverse";
+
+  return (
+    <div className={`flex items-end gap-2 max-w-1/2 ${justifyClass}`}>
+      {/* Render the message content with appropriate styling */}
+      <div>
+        <span
+          className={`px-4 py-2 rounded-lg inline-block bg-gray-600 text-white ${
+            IsSenderShop ? " rounded-bl-none" : "rounded-br-none"
+          } `}
+        >
+          {message?.content}
+        </span>
+      </div>
+      {/* Render the profile image of the sender */}
+      <img
+        alt="Profile"
+        className="w-6 h-6 rounded-full order-2"
+        src={
+          IsSenderShop ? message?.senderShop?.shopImage : message?.sender?.image
+        }
+      />
+    </div>
+  );
+};
+
 export default ChatWithShop;

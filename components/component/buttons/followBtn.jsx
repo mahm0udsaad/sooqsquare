@@ -1,13 +1,12 @@
 "use client";
 import { useEffect, useOptimistic } from "react";
 import { Button } from "../../ui/button";
-import { MdOutlineAddToPhotos } from "react-icons/md";
-import { MdOutlineBookmarkAdded } from "react-icons/md";
+import { UserPlus, BookmarkCheck } from "lucide-react";
 import { useFormStatus } from "react-dom";
 
 const FollowBtn = ({ lng, isFollowed }) => {
   const [optimisticFollowed, updateOptimistically] = useOptimistic(isFollowed);
-  const { pending, data } = useFormStatus(); // Assuming submitting state from your form
+  const { pending } = useFormStatus(); // Assuming submitting state from your form
 
   useEffect(() => {
     updateOptimistically(!optimisticFollowed); // Update on submission start (assumption)
@@ -20,13 +19,12 @@ const FollowBtn = ({ lng, isFollowed }) => {
     >
       {optimisticFollowed ? (
         <>
-          <MdOutlineBookmarkAdded className="h-4 w-4" />
+          <BookmarkCheck className="mx-2" size={20} />
           Unfollow
         </>
       ) : (
         <>
-          <MdOutlineAddToPhotos className="h-4 w-4" />
-          Follow
+          <UserPlus className="mx-2" size={20} /> Follow
         </>
       )}
     </Button>

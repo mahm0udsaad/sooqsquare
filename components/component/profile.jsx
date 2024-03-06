@@ -31,7 +31,7 @@ export default function UserProfile({ user, userId, isFollowed, lng }) {
       </div>
       <form action={addUserFollow}>
         <input type="hidden" name="userId" value={userId} />
-        <input type="hidden" name="followedUserId" value={user.id} />
+        <input type="hidden" name="followedUserId" value={user?.id} />
 
         <FollowBtn lng={lng} isFollowed={isFollowed} />
       </form>

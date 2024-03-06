@@ -8,9 +8,8 @@ const ChatPage = async ({ params, searchParams }) => {
   const chat = await getChatById(params.id);
   const currentUser = await getServerSession();
   const user = await getUserByEmail(currentUser?.user.email);
-  const delet = await deleteMessagesWithoutSender();
 
-  if (chat.shop) {
+  if (chat.shops.length > 0) {
     return <ChatWithShop user={user} chat={chat} />;
   }
   return <ChatCom chat={chat} user={user} />;

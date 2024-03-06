@@ -1,6 +1,5 @@
 "use client";
 import React from "react";
-import { IoLanguageOutline } from "react-icons/io5";
 import { usePathname } from "next/navigation";
 import { useRouter } from "next/navigation";
 import {
@@ -11,6 +10,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Button } from "../ui/button";
 import { useTranslation } from "@/app/i18n/client";
+import { Languages } from "lucide-react";
 
 const PopoverLanguage = ({ lng }) => {
   const { t } = useTranslation(lng, "translation");
@@ -33,7 +33,7 @@ const PopoverLanguage = ({ lng }) => {
           variant="outline"
           className="py-2 px-2 shadow rounded-xl dark:bg-zinc-800 dark:border-zinc-800"
         >
-          <IoLanguageOutline className="text-xl font-semibold" />
+          <Languages className="text-xl font-semibold" />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-80 dark:bg-zinc-950 dark:text-white">

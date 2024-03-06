@@ -17,11 +17,11 @@ exports.$Enums = {}
 
 /**
  * Prisma Client JS version: 5.10.2
- * Query Engine version: 0ca5ccbcfa6bdc81c003cf549abe4269f59c41e5
+ * Query Engine version: 5a9203d0590c951969e85a7d07215503f4672eb9
  */
 Prisma.prismaVersion = {
   client: "5.10.2",
-  engine: "0ca5ccbcfa6bdc81c003cf549abe4269f59c41e5"
+  engine: "5a9203d0590c951969e85a7d07215503f4672eb9"
 }
 
 Prisma.PrismaClientKnownRequestError = () => {
@@ -214,6 +214,20 @@ exports.Prisma.ShopScalarFieldEnum = {
   phoneNumber2: 'phoneNumber2'
 };
 
+exports.Prisma.ChatScalarFieldEnum = {
+  id: 'id'
+};
+
+exports.Prisma.MessageScalarFieldEnum = {
+  id: 'id',
+  createdAt: 'createdAt',
+  content: 'content',
+  chatId: 'chatId',
+  shopId: 'shopId',
+  senderId: 'senderId',
+  receiverId: 'receiverId'
+};
+
 exports.Prisma.FollowScalarFieldEnum = {
   id: 'id',
   followerId: 'followerId',
@@ -274,21 +288,6 @@ exports.Prisma.FavoriteAdScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
-exports.Prisma.ChatScalarFieldEnum = {
-  id: 'id',
-  shopId: 'shopId'
-};
-
-exports.Prisma.MessageScalarFieldEnum = {
-  id: 'id',
-  content: 'content',
-  senderId: 'senderId',
-  receiverId: 'receiverId',
-  createdAt: 'createdAt',
-  chatId: 'chatId',
-  shopId: 'shopId'
-};
-
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -310,13 +309,13 @@ exports.Prisma.ModelName = {
   JobApplication: 'JobApplication',
   Company: 'Company',
   Shop: 'Shop',
+  Chat: 'Chat',
+  Message: 'Message',
   Follow: 'Follow',
   Rating: 'Rating',
   Image: 'Image',
   Ad: 'Ad',
-  FavoriteAd: 'FavoriteAd',
-  Chat: 'Chat',
-  Message: 'Message'
+  FavoriteAd: 'FavoriteAd'
 };
 
 /**

@@ -6,19 +6,14 @@ import {
   CardFooter,
   Card,
 } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { timeSince } from "@/helper/timeConversion";
-import {
-  addToFavorites,
-  incrementAdClicks,
-  incrementAdViews,
-} from "@/app/[lng]/vehicle/actions";
+import { addToFavorites, incrementAdViews } from "@/app/[lng]/vehicle/actions";
 import { ArabCountriesWithCurrancy } from "@/data/staticData";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-import { FaCopy } from "react-icons/fa6";
 import { useToast } from "@/components/ui/use-toast";
+import { ClipboardCopy } from "lucide-react";
 
 export default function ShopAdCard({ ad, user }) {
   const [copiedState, setCopiedState] = useState({});
@@ -176,7 +171,7 @@ export default function ShopAdCard({ ad, user }) {
           {copiedState[ad.id]?.isLoading ? (
             "Copying..."
           ) : copiedState[ad.id]?.isCopied ? (
-            <FaCopy className="text-center" />
+            <ClipboardCopy />
           ) : (
             "Share"
           )}
