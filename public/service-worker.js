@@ -31,13 +31,16 @@ self.addEventListener("push", (event) => {
   console.log("Push event received:", event);
 
   const data = event.data.json();
-  const title = data.title || "SooqSquare";
+  const title = data.title || "SooqSquare.com";
   const body = data.message || "Default Body";
   const icon =
     "https://cloud.sooqsquare.com/apps/sharingpath/nextcloud/upload/Logo.png";
   const notificationOptions = {
     body: body,
     icon: icon,
+    data: {
+      url: "http://localhost:3000/",
+    },
   };
 
   event.waitUntil(

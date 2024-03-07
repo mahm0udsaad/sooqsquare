@@ -3,17 +3,21 @@
 import { Button } from "@/components/ui/button";
 import { Avatar } from "@/components/ui/avatar";
 import Link from "next/link";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useDarkMode } from "@/context/darkModeContext";
 import { AnimatedTooltip } from "@/components/ui/animated-tooltip";
+import { Badge } from "@/components/ui/badge";
+import { Delete, MoreVertical } from "lucide-react";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { deleteChat } from "@/app/[lng]/(chat)/chat/action";
 
 export default function ChatSideBar({ user, lng }) {
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const { shopChats } = useDarkMode();
-
-  const toggleSidebar = () => {
-    setSidebarOpen(!sidebarOpen);
-  };
   // Function to get the other user's information
   const getOtherUserInfo = (chat) => {
     if (chat.shops?.length > 0) {
@@ -31,12 +35,14 @@ export default function ChatSideBar({ user, lng }) {
         return {
           username: chat.shops[0].shopName,
           image: chat.shops[0].shopImage,
-          status: chat.shops[0]?.status,
+          status: chat.shops[0]?.user.status,
         };
       }
     } else {
       // If the chat involves only users
+
       const otherUser = chat.users.find((u) => u.email !== user.email);
+
       return {
         username: otherUser?.username,
         image: otherUser?.image,
@@ -44,6 +50,10 @@ export default function ChatSideBar({ user, lng }) {
       };
     }
   };
+  const toggleSidebar = () => {
+    setSidebarOpen(!sidebarOpen);
+  };
+
   return (
     <div
       className={`contact bg-white dark:bg-zinc-950 overflow-y-auto overflow-x-hidden flex flex-col 
@@ -67,48 +77,120 @@ export default function ChatSideBar({ user, lng }) {
         <div className={`divide-y divide-zinc-200 dark:divide-zinc-700 `}>
           {shopChats
             ? shopChats.map((chat) => (
-                <Link
-                  key={chat.id}
-                  href={`/chat/${chat.id}`}
-                  className="flex  cursor-pointer hover:bg-[#fe2635] hover:text-white items-center p-4 space-x-4"
-                >
-                  <Avatar>
-                    <img src={getOtherUserInfo(chat).image} alt="" />
-                  </Avatar>
-                  {sidebarOpen && (
-                    <div className="font-medium px-4 flex w-full justify-between">
+                <div className="flex justify-between w-full items-center">
+                  <Link
+                    key={chat.id}
+                    href={`/chat/${chat.id}`}
+                    className="flex gap-4 transition  cursor-pointer hover:bg-[#fe2635] hover:text-white items-center p-4 space-x-4"
+                  >
+                    <Avatar>
+                      <img src={getOtherUserInfo(chat).image} alt="" />
+                    </Avatar>
+                    <div className=" px-4 flex w-full justify-between">
                       {getOtherUserInfo(chat).username}
                       {/* Display online/offline indicator based on user status */}
-                      {getOtherUserInfo(chat).status === "online" ? (
-                        <span className="ml-2 bg-green-500 rounded-full w-3 h-3 inline-block"></span>
-                      ) : (
-                        <span className="ml-2 bg-red-500 rounded-full w-3 h-3 inline-block"></span>
-                      )}
                     </div>
+                  </Link>
+                  {sidebarOpen && (
+                    <>
+                      {getOtherUserInfo(chat).status === "online" ? (
+                        <Badge
+                          className={
+                            "bg-green-500 dark:bg-green-500 dark:text-white rounded-xl text-sm p-1 text-white inline-block"
+                          }
+                        >
+                          online{" "}
+                        </Badge>
+                      ) : (
+                        <Badge
+                          className={
+                            "bg-red-500 dark:bg-red-500 dark:text-white rounded-xl text-sm p-1 text-white inline-block"
+                          }
+                        >
+                          offline{" "}
+                        </Badge>
+                      )}
+                      <Popover>
+                        <PopoverTrigger asChild>
+                          <Button className="z-20 text-sm bg-transparent hover:bg-transparent hover:text-white text-gray-500">
+                            <MoreVertical />
+                          </Button>
+                        </PopoverTrigger>
+                        <PopoverContent className="w-80">
+                          <form action={deleteChat}>
+                            <input
+                              type="hidden"
+                              name="chatId"
+                              value={chat.id}
+                            />
+                            <Button className="flex bg-transparent gap-4 text-red-500">
+                              <Delete />
+                              Delete Chat
+                            </Button>
+                          </form>
+                        </PopoverContent>
+                      </Popover>
+                    </>
                   )}
-                </Link>
+                </div>
               ))
             : user.chats.map((chat) => (
-                <Link
-                  key={chat.id}
-                  href={`/chat/${chat.id}`}
-                  className="flex  cursor-pointer hover:bg-[#fe2635] hover:text-white items-center p-4 space-x-4"
-                >
-                  <Avatar>
-                    <img src={getOtherUserInfo(chat).image} alt="" />
-                  </Avatar>
-                  {sidebarOpen && (
-                    <div className="font-medium px-4 flex w-full justify-between">
+                <div className="flex justify-between w-full items-center">
+                  <Link
+                    key={chat.id}
+                    href={`/chat/${chat.id}`}
+                    className="flex gap-4 transition w-4/5 cursor-pointer hover:bg-[#fe2635] hover:text-white items-center p-4 space-x-4"
+                  >
+                    <Avatar>
+                      <img src={getOtherUserInfo(chat).image} alt="" />
+                    </Avatar>
+                    <div className=" px-4 flex w-full justify-between">
                       {getOtherUserInfo(chat).username}
                       {/* Display online/offline indicator based on user status */}
-                      {getOtherUserInfo(chat).status === "online" ? (
-                        <span className="ml-2 bg-green-500 rounded-full w-3 h-3 inline-block"></span>
-                      ) : (
-                        <span className="ml-2 bg-red-500 rounded-full w-3 h-3 inline-block"></span>
-                      )}
                     </div>
+                  </Link>
+                  {sidebarOpen && (
+                    <>
+                      {getOtherUserInfo(chat).status === "online" ? (
+                        <Badge
+                          className={
+                            "bg-green-500 dark:bg-green-500 dark:text-white rounded-xl text-sm p-1 text-white inline-block"
+                          }
+                        >
+                          online{" "}
+                        </Badge>
+                      ) : (
+                        <Badge
+                          className={
+                            "bg-red-500 dark:bg-red-500 dark:text-white rounded-xl text-sm p-1 text-white inline-block"
+                          }
+                        >
+                          offline{" "}
+                        </Badge>
+                      )}
+                      <Popover>
+                        <PopoverTrigger asChild>
+                          <Button className="z-20 text-sm bg-transparent hover:bg-transparent hover:text-white text-gray-500">
+                            <MoreVertical />
+                          </Button>
+                        </PopoverTrigger>
+                        <PopoverContent className="w-80">
+                          <form action={deleteChat}>
+                            <input
+                              type="hidden"
+                              name="chatId"
+                              value={chat.id}
+                            />
+                            <Button className="flex bg-transparent gap-4 text-red-500">
+                              <Delete />
+                              Delete Chat
+                            </Button>
+                          </form>
+                        </PopoverContent>
+                      </Popover>
+                    </>
                   )}
-                </Link>
+                </div>
               ))}
         </div>
       </div>

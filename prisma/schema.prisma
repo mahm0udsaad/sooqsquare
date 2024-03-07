@@ -168,7 +168,7 @@ model Message {
   id            Int      @id @default(autoincrement())
   createdAt     DateTime @default(now())
   content       String
-  chat          Chat     @relation(fields: [chatId], references: [id])
+  chat          Chat     @relation(fields: [chatId], references: [id], onDelete: Cascade)
   chatId        Int
   senderShop    Shop?    @relation("sentShopMessages", fields: [shopId], references: [id])
   receiverShop  Shop?    @relation("receivedShopMessages", fields: [shopId], references: [id])

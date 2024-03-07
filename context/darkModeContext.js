@@ -22,25 +22,8 @@ export const DarkModeProvider = ({ children }) => {
   const [extraFeature, setExtraFeature] = useState([]);
   const [errorMessage, setErrorMessage] = useState(null);
   const [successMessage, setSuccessMessage] = useState(null);
-  const [userStatuses, setUserStatuses] = useState({});
   const [requirements, setRequirements] = useState([""]); // Initialize with an empty requirement
   const [shopChats, setShopChats] = useState(null);
-
-  useEffect(() => {
-    const handleUserStatus = ({ id, status }) => {
-      setUserStatuses((prev) => ({ ...prev, [id]: status }));
-    };
-
-    socket.on("user status", handleUserStatus);
-
-    return () => {
-      socket.off("user status", handleUserStatus);
-    };
-  }, []);
-
-  const updateUserStatus = (userId, status) => {
-    setUserStatuses((prev) => ({ ...prev, [userId]: status }));
-  };
 
   const [selectedCountry, setSelectedCountry] = useState(() => {
     return isLocalStorageAvailable
@@ -174,8 +157,6 @@ export const DarkModeProvider = ({ children }) => {
         setShopChats,
         requirements,
         setRequirements,
-        userStatuses,
-        updateUserStatus,
         userLocation,
         setUserLocation,
         lng,

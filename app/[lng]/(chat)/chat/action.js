@@ -284,7 +284,6 @@ export async function getOrCreateChat(user1Id, user2Id, shopId) {
             users: { connect: [{ id: parsedUser1Id }, { id: parsedUser2Id }] },
           },
           include: {
-            id: true,
             messages: {
               include: {
                 sender: true,
@@ -378,6 +377,26 @@ export async function getChatById(chatId) {
     throw new Error(`Failed to get chat by ID: ${error.message}`);
   } finally {
     revalidatePath("/chat");
+  }
+}
+export async function deleteChat(formData) {
+  try {
+    // Extract the chatId from the formData
+    const chatId = formData.get("chatId");
+
+    // Delete the chat using the chatId
+    await prisma.chat.delete({
+      where: {
+        id: parseInt(chatId), // Assuming chatId is a string, parse it to an integer if needed
+      },
+    });
+    // Revalidate the path '/chat'
+  } catch (error) {
+    console.error("Error deleting chat:", error);
+    // Handle any errors, if needed
+  } finally {
+    revalidatePath("/chat");
+    redirect("/chat");
   }
 }
 export async function getShopById(shopId) {

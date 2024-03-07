@@ -11,6 +11,7 @@ import subscribeToPushNotifications from "../../helper/notfication";
 import StarRating from "@/components/component/rate";
 import { updateUserStatus } from "@/prisma/actions";
 import { debounce } from "lodash"; // Import debounce function from lodash
+import { useDarkMode } from "@/context/darkModeContext";
 
 export function ChatCom({ chat, user }) {
   const [message, setMessage] = useState("");
@@ -60,6 +61,7 @@ export function ChatCom({ chat, user }) {
     };
 
     fetchData();
+    socket.emit("login", { userId: user.id });
 
     socket.on("connect_error", (error) => {
       console.error("Socket connection error:", error);
@@ -84,7 +86,10 @@ export function ChatCom({ chat, user }) {
     // Simulating user status changes every 500ms for demonstration
     socket.on("user status", ({ id, status }) => {
       // Debounce the updateUserStatus function call
-      debouncedUpdateUserStatus(user.id, status);
+      console.log(id, status);
+    });
+    socket.on("disconnect", () => {
+      debouncedUpdateUserStatus(user.id, "offline");
     });
   }, [socket]);
 

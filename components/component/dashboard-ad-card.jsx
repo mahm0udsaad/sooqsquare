@@ -46,7 +46,6 @@ import {
   Timer,
   UploadCloud,
 } from "lucide-react";
-import { StopIcon } from "@radix-ui/react-icons";
 
 export const AdCard = ({ lng, ad }) => {
   const { t } = useTranslation(lng, "translation");

@@ -1,7 +1,8 @@
 import express from "express";
-import { createServer } from "http"; // Change to 'http' module
+import { createServer } from "http";
 import { Server } from "socket.io";
 import cors from "cors";
+import axios from "axios";
 
 const app = express();
 const server = createServer(app);
@@ -9,48 +10,35 @@ const io = new Server(server);
 
 app.use(cors({ origin: "*" }));
 
-// Store active sockets
+// Store active sockets along with user IDs
 const activeUsers = new Map();
 
 io.on("connection", (socket) => {
-  console.log("a user connected");
-
-  // Add user to active users map
-  activeUsers.set(socket.id, "online");
-  // Emit user status to all clients
-  io.emit("user status", { id: socket.id, status: "online" });
+  socket.on("login", ({ userId }) => {
+    // Associate the user ID with the socket ID
+    activeUsers.set(socket.id, userId);
+    axios.post("http://localhost:3000/api/userStatus", {
+      userId,
+      status: "online",
+    });
+    console.log(`User ${userId} logged in`);
+  });
 
   socket.on("disconnect", () => {
-    console.log("user disconnected");
-    // Remove user from active users map
-    activeUsers.delete(socket.id);
-    // Emit user status to all clients
-    io.emit("user status", { id: socket.id, status: "offline" });
+    // Get the user ID associated with the disconnected socket
+    const userId = activeUsers.get(socket.id);
+    if (userId) {
+      // Remove the user ID association on disconnect
+      activeUsers.delete(socket.id);
+      console.log(`User ${userId} disconnected`);
+      axios.post("http://localhost:3000/api/userStatus", {
+        userId,
+        status: "offline",
+      });
+    }
   });
 
-  socket.on("chat message", (msg) => {
-    io.emit("chat message", msg);
-  });
-
-  socket.on("shop chat message", (msg) => {
-    io.emit("shop chat message", msg);
-  });
-
-  // Handle login event
-  socket.on("login", ({ userId }) => {
-    // Update user status to online
-    activeUsers.set(userId, "online");
-    // Emit user status to all clients
-    io.emit("user status", { id: userId, status: "online" });
-  });
-
-  // Handle logout event
-  socket.on("logout", ({ userId }) => {
-    // Update user status to offline
-    activeUsers.set(userId, "offline");
-    // Emit user status to all clients
-    io.emit("user status", { id: userId, status: "offline" });
-  });
+  // Your other event handlers...
 });
 
 server.listen(8001, "::", () => {

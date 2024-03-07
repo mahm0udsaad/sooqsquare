@@ -386,12 +386,12 @@ export async function updateUserStatus(userId, status) {
       where: { id: userId },
       data: { status },
     });
-    console.log("updated");
+    console.log("updated" + " " + update.status);
     return update;
   } catch (error) {
     console.error("Error updating user status:", error);
   } finally {
-    revalidatePath("/chat");
+    revalidatePath("/chat/");
   }
 }
 
@@ -407,7 +407,13 @@ export async function getUserByEmail(email) {
           select: {
             id: true,
             users: true,
-            shops: true,
+            shops: {
+              select: {
+                shopImage: true,
+                shopName: true,
+                user: true,
+              },
+            },
           },
         },
         ads: {
