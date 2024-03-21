@@ -23,8 +23,8 @@ import {
   DialogContent,
   Dialog,
 } from "@/components/ui/dialog";
-import { FaStoreAlt } from "react-icons/fa";
-import { BsThreads } from "react-icons/bs";
+import { Building2 } from "lucide-react";
+import { DashboardIcon } from "@radix-ui/react-icons";
 
 export default async function JobPostForm({ params: { lng }, searchParams }) {
   const { t } = await useTranslation(lng, "jobs");
@@ -74,7 +74,7 @@ export default async function JobPostForm({ params: { lng }, searchParams }) {
                 id="description"
                 name="description"
                 className={"h-60"}
-                value={searchParams?.description || ""}
+                defaultValue={searchParams.description || ""}
                 placeholder={t("description_placeholder")}
                 required
               />
@@ -159,15 +159,15 @@ export default async function JobPostForm({ params: { lng }, searchParams }) {
                 className="inline-flex h-10 items-center justify-center rounded-md bg-green-500 px-8 text-sm font-medium text-white shadow transition-colors hover:bg-green-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-700 disabled:pointer-events-none disabled:opacity-50"
                 href={`/jobs/dashboard`}
               >
-                <BsThreads className="h-5 w-5 mr-2" />
+                <DashboardIcon className="h-5 w-5 mr-2" />
                 My Posts
               </Link>
               <Link
                 className="inline-flex h-10 items-center justify-center rounded-md bg-blue-500 px-8 text-sm font-medium text-white shadow transition-colors hover:bg-blue-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-700 disabled:pointer-events-none disabled:opacity-50"
                 href="/jobs/findJob"
               >
-                <FaStoreAlt className="h-5 w-5 mr-2" />
-                Market
+                <Building2 />
+                Jobs
               </Link>
             </DialogFooter>
           </DialogContent>

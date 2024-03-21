@@ -101,7 +101,6 @@ const ChatWithShop = ({ user, chat }) => {
     });
 
     socket.on("shop chat message", ({ chatId, message }) => {
-      console.log(chatId, message);
       setMessages((prev) => [...prev, { chatId, message }]);
     });
 

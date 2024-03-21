@@ -4,99 +4,6 @@ import prisma from "./client";
 import { getServerSession } from "next-auth";
 import upload from "@/app/[lng]/(traderDashboard)/dashboard/myShop/action";
 
-// export async function createAd(data, userId, adStatus) {
-//   const {
-//     EnginCapacity,
-//     paintType,
-//     payment,
-//     price,
-//     name,
-//     RegionalSpecifications,
-//     adImages,
-//     brand,
-//     category,
-//     model,
-//     year,
-//     carType,
-//     carStatus,
-//     transmission,
-//     fuelType,
-//     meterRange,
-//     extraFeatures,
-//   } = data;
-
-//   try {
-//     const user = await prisma.user.findUnique({
-//       where: {
-//         id: userId,
-//       },
-//       include: {
-//         shop: true,
-//       },
-//     });
-
-//     if (!user) {
-//       console.error('User not found');
-//       return null;
-//     }
-
-//     const newAdData = {
-//       EnginCapacity,
-//       paintType,
-//       payment,
-//       price,
-//       name,
-//       RegionalSpecifications,
-//       brand,
-//       category,
-//       model,
-//       year,
-//       carType,
-//       carStatus,
-//       transmission,
-//       fuelType,
-//       meterRange,
-//       extraFeatures,
-//       adStatus,
-//       Adimages: {
-//         create: adImages.map((image) => ({ url: image })),
-//       },
-//     };
-
-//     // If the user has a shop, associate the ad with that shop
-//     if (user.shop) {
-//       newAdData.shop = {
-//         connect: {
-//           id: user.shop.id,
-//         },
-//       };
-//     } else {
-//       // If the user doesn't have a shop, connect the ad to the user's profile
-//       newAdData.user = {
-//         connect: {
-//           id: userId,
-//         },
-//       };
-//     }
-
-//     const newAd = await prisma.ad.create({
-//       data: newAdData,
-//       include: {
-//         user: true,
-//         shop: true,
-//       },
-//     });
-//     console.log(newAd);
-//     return newAd;
-//   } catch (error) {
-//     console.error('Error creating ad:', error);
-//     return null;
-//   } finally {
-//     revalidatePath('/myAds');
-//     revalidatePath('/shopAds');
-//     revalidatePath('/vehicle');
-//   }
-// }
 export async function createAdForUser(data, userId, adStatus) {
   userId = parseInt(userId);
   const {
@@ -185,7 +92,6 @@ export async function createAdForUser(data, userId, adStatus) {
     revalidatePath("/myAds");
   }
 }
-
 export async function createAd(formData) {
   try {
     // Extracting data from formData
@@ -210,7 +116,6 @@ export async function createAd(formData) {
     console.error("Error creating ad:", error);
   }
 }
-
 export async function saveAd(formData) {
   try {
     // Extracting data from formData
@@ -394,7 +299,6 @@ export async function updateUserStatus(userId, status) {
     revalidatePath("/chat/");
   }
 }
-
 export async function getUserByEmail(email) {
   if (!email) return;
   try {
@@ -494,9 +398,44 @@ export async function getUserByEmail(email) {
             },
           },
         },
+        notifications: {
+          where: {
+            read: false,
+          },
+        },
         company: true,
         favoriteAds: true,
-        subscriptions: true,
+      },
+    });
+
+    return existingUser;
+  } catch (error) {
+    console.log("Error fetching user:", error);
+  } finally {
+    prisma.$disconnect();
+  }
+}
+export async function getUserChatsByEmail(email) {
+  if (!email) return;
+  try {
+    const existingUser = await prisma.user.findUnique({
+      where: {
+        email: email,
+      },
+      include: {
+        chats: {
+          select: {
+            id: true,
+            users: true,
+            shops: true,
+            messages: true,
+          },
+        },
+        shop: {
+          include: {
+            chats: true,
+          },
+        },
       },
     });
 
@@ -737,5 +676,26 @@ export async function getRating(ownerId, ratedById) {
     // Handle errors
     console.error("Error getting rating:", error.message);
     throw error;
+  }
+}
+export async function markNotificationsAsRead(formData) {
+  try {
+    const userId = formData.get("userId");
+    // Retrieve all notifications associated with the user and mark them as read
+    const updatedNotifications = await prisma.notification.updateMany({
+      where: {
+        recipientId: parseInt(userId),
+      },
+      data: {
+        read: true,
+      },
+    });
+    console.log("Notifications marked as read:", updatedNotifications);
+    return updatedNotifications;
+  } catch (error) {
+    console.error("Error marking notifications as read:", error);
+    throw error;
+  } finally {
+    revalidatePath("/");
   }
 }

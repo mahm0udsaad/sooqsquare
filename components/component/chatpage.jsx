@@ -1,54 +1,30 @@
 "use client";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+
 import { useState, useEffect, useRef } from "react";
 import {
-  createMessage,
   fetchMessagesFromDatabase,
+  updateMessageReadStatus,
 } from "@/app/[lng]/(chat)/chat/action";
 import socket from "@/lib/chat";
 import subscribeToPushNotifications from "../../helper/notfication";
 import StarRating from "@/components/component/rate";
-import { updateUserStatus } from "@/prisma/actions";
-import { debounce } from "lodash"; // Import debounce function from lodash
-import { useDarkMode } from "@/context/darkModeContext";
+import { Check, CheckCheck, ImageDown } from "lucide-react";
+import { timeSince } from "@/helper/timeConversion";
+import Record from "./record";
 
 export function ChatCom({ chat, user }) {
-  const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
   const messagesContainerRef = useRef(null);
-
-  const debouncedUpdateUserStatus = debounce((userId, status) => {
-    updateUserStatus(userId, status);
-  }, 10000);
-  // Function to handle form submission
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (message) {
-      const newMessage = await createMessage(
-        message,
-        user.email,
-        reciver,
-        chat.id
-      );
-      socket.emit("chat message", { chatId: chat.id, message: newMessage });
-      setMessage("");
-    }
-  };
-  // Function to handle message change
-  const handleMessageChange = (e) => {
-    setMessage(e.target.value);
-  };
   // Effect to set up push notifications and fetch messages
   useEffect(() => {
-    if (user.subscriptions.length < 1) {
+    if (!user.subscriptions) {
       subscribeToPushNotifications(user.id);
     }
 
     const fetchData = async () => {
       try {
         const fetchedMessages = await fetchMessagesFromDatabase(chat);
-        if (fetchedMessages.length === 0) {
+        if (fetchedMessages?.length === 0) {
           setMessages([]);
         } else {
           setMessages(
@@ -61,44 +37,78 @@ export function ChatCom({ chat, user }) {
     };
 
     fetchData();
-    socket.emit("login", { userId: user.id });
-
     socket.on("connect_error", (error) => {
       console.error("Socket connection error:", error);
     });
+
     socket.on("chat message", ({ chatId, message }) => {
       setMessages((prev) => [...prev, { chatId, message }]);
     });
 
+    socket.on("messageReadConfirmation", ({ messageId }) => {
+      if (!messageId) return;
+      setMessages((prevMessages) =>
+        prevMessages.map((msg) =>
+          msg.message.id === messageId
+            ? { ...msg, message: { ...msg.message, read: true } }
+            : msg
+        )
+      );
+    });
+
     return () => {
       socket.off("chat message");
+      socket.off("messageReadConfirmation");
     };
   }, []);
-  // Effect to scroll to the bottom of the messages container
+
   useEffect(() => {
     if (messagesContainerRef.current) {
       messagesContainerRef.current.scrollTop =
         messagesContainerRef.current.scrollHeight;
     }
-  }, [messages]);
 
-  useEffect(() => {
-    // Simulating user status changes every 500ms for demonstration
-    socket.on("user status", ({ id, status }) => {
-      // Debounce the updateUserStatus function call
-      console.log(id, status);
+    const observer = new IntersectionObserver(async (entries) => {
+      entries.forEach(async (entry) => {
+        if (entry.isIntersecting) {
+          const messageId = entry.target.getAttribute("data-message-id");
+          if (messageId) {
+            // Find the message with the given messageId in the messages state
+            const message = messages.find((msg) => msg.message.id == messageId);
+            if (message && !message.message.read) {
+              try {
+                // Update the message read status in the database
+                const newMessageId = await updateMessageReadStatus(
+                  message.message,
+                  user.id
+                );
+                // Emit socket event to notify other users about message read
+                socket.emit("messageRead", { messageId: newMessageId });
+              } catch (error) {
+                console.error("Error updating message read status:", error);
+              }
+            }
+          }
+        }
+      });
     });
-    socket.on("disconnect", () => {
-      debouncedUpdateUserStatus(user.id, "offline");
+
+    const messageElements = document.querySelectorAll(".message");
+    messageElements.forEach((messageElement) => {
+      observer.observe(messageElement);
     });
-  }, [socket]);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, [messages]);
 
   const owner = chat.users[0];
   const currentUser = chat.users[1];
   const reciver = currentUser.email === user.email ? owner : currentUser;
 
   return (
-    <div className="flex-1 bg-gray-50  h-auto  rounded-lg dark:bg-zinc-800">
+    <div className="flex-1 bg-gray-50 h-auto rounded-lg dark:bg-zinc-800">
       <div className="p-4 flex items-center justify-between">
         <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
           Chat with {owner.username}
@@ -110,25 +120,59 @@ export function ChatCom({ chat, user }) {
         className="chats relative flex flex-col space-y-4 p-4 h-[70dvh] overflow-y-scroll overflow-x-hidden"
       >
         {messages &&
-          messages.map((chat, index) => (
+          messages.map((chat) => (
             <div
               key={chat.message.id}
-              className={`flex items-end gap-2 max-w-1/2  ${
+              className={`message flex items-end gap-2 max-w-1/2  ${
                 chat.message.sender?.email === user.email
                   ? "justify-end"
                   : "justify-end flex-row-reverse"
               }`}
+              data-message-id={chat.message.id}
             >
-              <div>
-                <span
-                  className={`px-4 py-2 rounded-lg inline-block  ${
-                    chat.message.sender?.email === user.email
-                      ? "bg-blue-600 text-white rounded-bl-none"
-                      : "bg-gray-600 text-white rounded-br-none"
-                  }`}
-                >
-                  {chat.message.content}
-                </span>
+              <div
+                className={`px-4 py-2 rounded-lg inline-block ${
+                  chat.message.sender?.email === user.email
+                    ? "bg-blue-600 text-white rounded-bl-none"
+                    : "bg-gray-200 text-black border rounded-br-none"
+                }`}
+              >
+                {chat.message.content.startsWith("https://") ? (
+                  <div className="flex flex-col items-center space-y-2">
+                    {chat.message.content.split("/")[6] === "records" ? (
+                      <audio
+                        className="w-64 p-2 bg-transparent rounded-lg  outline-none"
+                        controls
+                      >
+                        <source src={chat.message.content} type="audio/mp3" />
+                        Your browser does not support the audio element.
+                      </audio>
+                    ) : (
+                      <img
+                        alt="Image"
+                        className="aspect-[1/1] overflow-hidden rounded-lg object-cover"
+                        height={200}
+                        src={chat.message.content}
+                        width={400}
+                      />
+                    )}
+                    <p className="text-sm text-gray-500 dark:text-gray-400">
+                      {" "}
+                    </p>
+                  </div>
+                ) : (
+                  <span>{chat.message.content}</span>
+                )}
+                <div className="flex gap-2 items-center">
+                  <span style={{ direction: "ltr" }} className="text-[10px]">
+                    {timeSince(chat.message.createdAt)}
+                  </span>
+                  {chat.message.read ? (
+                    <CheckCheck color={"blue"} size={12} />
+                  ) : (
+                    <Check size={12} />
+                  )}
+                </div>
               </div>
               <img
                 alt="My profile"
@@ -139,49 +183,7 @@ export function ChatCom({ chat, user }) {
           ))}
       </div>
 
-      <form
-        onSubmit={handleSubmit}
-        className="form border-t-[1px] border-gray-200 px-4 py-4  sm:mb-0"
-      >
-        <div className="relative flex">
-          <Input
-            onChange={handleMessageChange}
-            value={message}
-            className="pl-10 pr-20 rounded-full border-gray-300 focus:border-blue-300 focus:ring-2 focus:ring-blue-200 dark:bg-zinc-800"
-            placeholder="Write something..."
-          />
-          <div className="absolute right-2  items-center  inset-y-0 hidden sm:flex">
-            <Button
-              type="submit"
-              className="ml-2  hover:bg-transparent hover:opacity-50"
-              size="icon"
-              variant="ghost"
-            >
-              <SendIcon className="h-6 w-6" />
-            </Button>
-          </div>
-        </div>
-      </form>
+      <Record user={user} reciver={reciver} chatId={chat.id} />
     </div>
-  );
-}
-
-function SendIcon(props) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="m22 2-7 20-4-9-9-4Z" />
-      <path d="M22 2 11 13" />
-    </svg>
   );
 }

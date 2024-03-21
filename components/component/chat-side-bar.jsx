@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { Avatar } from "@/components/ui/avatar";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDarkMode } from "@/context/darkModeContext";
 import { AnimatedTooltip } from "@/components/ui/animated-tooltip";
 import { Badge } from "@/components/ui/badge";
@@ -14,6 +14,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { deleteChat } from "@/app/[lng]/(chat)/chat/action";
+import socket from "@/lib/chat";
 
 export default function ChatSideBar({ user, lng }) {
   const [sidebarOpen, setSidebarOpen] = useState(true);
@@ -54,9 +55,25 @@ export default function ChatSideBar({ user, lng }) {
     setSidebarOpen(!sidebarOpen);
   };
 
+  const calculateUnreadCount = (chat) => {
+    // Check if the chat has messages
+    if (chat.messages && chat.messages.length > 0) {
+      // Filter unread messages and count them
+      const unreadCount = chat.messages.filter(
+        (message) => !message.read && message.senderId !== user.id
+      ).length;
+      return unreadCount;
+    }
+    return null;
+  };
+
+  useEffect(() => {
+    socket.emit("login", { userId: user.id });
+  }, []);
+
   return (
     <div
-      className={`contact bg-white dark:bg-zinc-950 overflow-y-auto overflow-x-hidden flex flex-col 
+      className={`contact lg:flex hidden bg-white dark:bg-zinc-950 overflow-y-auto overflow-x-hidden  flex-col 
       justify-between ${
         sidebarOpen ? "transition-width w-1/3 " : "transition-width w-[5%] "
       }`}
@@ -77,9 +94,11 @@ export default function ChatSideBar({ user, lng }) {
         <div className={`divide-y divide-zinc-200 dark:divide-zinc-700 `}>
           {shopChats
             ? shopChats.map((chat) => (
-                <div className="flex justify-between w-full items-center">
+                <div
+                  key={chat.id}
+                  className="flex justify-between w-full items-center"
+                >
                   <Link
-                    key={chat.id}
                     href={`/chat/${chat.id}`}
                     className="flex gap-4 transition  cursor-pointer hover:bg-[#fe2635] hover:text-white items-center p-4 space-x-4"
                   >
@@ -135,15 +154,22 @@ export default function ChatSideBar({ user, lng }) {
                 </div>
               ))
             : user.chats.map((chat) => (
-                <div className="flex justify-between w-full items-center">
+                <div
+                  key={chat.id}
+                  className="flex justify-between w-full items-center"
+                >
                   <Link
-                    key={chat.id}
                     href={`/chat/${chat.id}`}
-                    className="flex gap-4 transition w-4/5 cursor-pointer hover:bg-[#fe2635] hover:text-white items-center p-4 space-x-4"
+                    className="flex relative gap-4 transition w-4/5 cursor-pointer hover:bg-[#fe2635] hover:text-white items-center p-4 space-x-4"
                   >
                     <Avatar>
                       <img src={getOtherUserInfo(chat).image} alt="" />
                     </Avatar>
+                    {getOtherUserInfo(chat).status === "online" ? (
+                      <span className="absolute bottom-5 right-3 shadow-lg inline-flex rounded-full h-3 w-3 bg-green-500 z-20"></span>
+                    ) : (
+                      <span className="absolute bottom-5 right-3 shadow-lg inline-flex rounded-full h-3 w-3 main-bg"></span>
+                    )}
                     <div className=" px-4 flex w-full justify-between">
                       {getOtherUserInfo(chat).username}
                       {/* Display online/offline indicator based on user status */}
@@ -151,23 +177,12 @@ export default function ChatSideBar({ user, lng }) {
                   </Link>
                   {sidebarOpen && (
                     <>
-                      {getOtherUserInfo(chat).status === "online" ? (
-                        <Badge
-                          className={
-                            "bg-green-500 dark:bg-green-500 dark:text-white rounded-xl text-sm p-1 text-white inline-block"
-                          }
-                        >
-                          online{" "}
-                        </Badge>
-                      ) : (
-                        <Badge
-                          className={
-                            "bg-red-500 dark:bg-red-500 dark:text-white rounded-xl text-sm p-1 text-white inline-block"
-                          }
-                        >
-                          offline{" "}
+                      {calculateUnreadCount(chat) !== 0 && (
+                        <Badge className="bg-zinc-800 main-bg text-[10px] px-2 dark:bg-white">
+                          {calculateUnreadCount(chat)}
                         </Badge>
                       )}
+
                       <Popover>
                         <PopoverTrigger asChild>
                           <Button className="z-20 text-sm bg-transparent hover:bg-transparent hover:text-white text-gray-500">

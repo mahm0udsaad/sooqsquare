@@ -24,6 +24,15 @@ io.on("connection", (socket) => {
     console.log(`User ${userId} logged in`);
   });
 
+  socket.on("messageRead", ({ messageId }) => {
+    // Get the sender's user ID from the activeUsers map
+    const senderUserId = activeUsers.get(socket.id);
+    if (senderUserId) {
+      // Emit the "messageReadConfirmation" event to the receiver's socket
+      io.emit("messageReadConfirmation", { messageId });
+    }
+  });
+
   socket.on("disconnect", () => {
     // Get the user ID associated with the disconnected socket
     const userId = activeUsers.get(socket.id);
@@ -38,7 +47,17 @@ io.on("connection", (socket) => {
     }
   });
 
-  // Your other event handlers...
+  socket.on("chat message", (msg) => {
+    io.emit("chat message", msg);
+  });
+
+  socket.on("shop chat message", (msg) => {
+    io.emit("shop chat message", msg);
+  });
+  // Emit an event when a new notification is created
+  socket.on("newNotification", (notification) => {
+    io.emit("notificationReceived", notification);
+  });
 });
 
 server.listen(8001, "::", () => {

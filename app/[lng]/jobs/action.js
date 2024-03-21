@@ -1,5 +1,6 @@
 "use server";
 import prisma from "@/prisma/client";
+import { revalidatePath } from "next/cache";
 
 export async function createCompany(formData) {
   try {
@@ -185,10 +186,49 @@ export async function addJobApplication(formData) {
         coverLetter: coverLetter,
       },
     });
+
     console.log("Job application added:", jobApplication);
     return jobApplication;
   } catch (error) {
     console.error("Error adding job application:", error);
+    throw error;
+  } finally {
+    revalidatePath("jobs/dashboard");
+  }
+}
+export async function getUserCompanyByEmail(email) {
+  try {
+    // Find the user by email
+    const user = await prisma.user.findUnique({
+      where: {
+        email: email,
+      },
+      select: {
+        company: {
+          select: {
+            jobPosts: {
+              select: {
+                title: true,
+                JobApplications: {
+                  include: {
+                    user: true,
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+    });
+
+    if (!user) {
+      throw new Error("User not found");
+    }
+
+    // Return the user's company (or null if not found)
+    return user.company.jobPosts[0];
+  } catch (error) {
+    console.error("Error fetching user company:", error);
     throw error;
   }
 }

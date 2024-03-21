@@ -17,6 +17,7 @@ import { getServerSession } from "next-auth";
 import { getUserByEmail } from "@/prisma/actions";
 import PDFUpload from "./pdfInput";
 import { addJobApplication } from "../../action";
+import { FileCheck } from "lucide-react";
 
 export default async function ApplyBtn({ lng, searchParams, jobId }) {
   const { t } = await useTranslation(lng, "jobs");
@@ -59,14 +60,15 @@ export default async function ApplyBtn({ lng, searchParams, jobId }) {
                 placeholder="Message"
               />
             </div>
+            {user.cvUrl && (
+              <div className="flex gap-4 items-center">
+                <FileCheck color="green" />
+                {user.cvUrl.split("/")[7]}
+              </div>
+            )}
             <PDFUpload />
           </div>
-          <input
-            type="hidden"
-            name="cvUrl"
-            id="cvUrl"
-            value={searchParams?.cv}
-          />
+          <input type="hidden" name="cvUrl" id="cvUrl" value={user.cvUrl} />
           <input type="hidden" name="userId" id="userId" value={user.id} />
           <input type="hidden" name="jobId" id="jobId" value={jobId} />
           <Button

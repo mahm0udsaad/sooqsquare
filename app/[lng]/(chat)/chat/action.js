@@ -3,8 +3,23 @@
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import prisma from "@/prisma/client";
-import webPush from "web-push"; // Import the web-push library for sending push notifications
+import webPush from "web-push";
 
+async function createNotification(userId, content) {
+  try {
+    // Create a new notification
+    const newNotification = await prisma.notification.create({
+      data: {
+        content: content,
+        recipient: { connect: { id: parseInt(userId) } }, // Connect the notification to the recipient user
+      },
+    });
+    console.log("Notification created:", newNotification);
+    return newNotification;
+  } catch (error) {
+    console.error("Error creating notification:", error);
+  }
+}
 // Function to add subscription to a user
 export async function addSubscriptionToUser(userId, subscriptionData) {
   try {
@@ -13,10 +28,18 @@ export async function addSubscriptionToUser(userId, subscriptionData) {
       where: {
         id: userId,
       },
+      include: {
+        subscription: true, // Include the subscription relation
+      },
     });
 
     if (!user) {
-      throw new Error("User not found");
+      console.log("User not found");
+    }
+
+    // Check if the user already has a subscription
+    if (user.subscription) {
+      return;
     }
 
     // Create a new subscription record associated with the user
@@ -37,10 +60,71 @@ export async function addSubscriptionToUser(userId, subscriptionData) {
     return newSubscription;
   } catch (error) {
     console.error("Error adding subscription to user:", error);
-    throw error;
   }
 }
+export async function sendNotificationToUser(userId, notificationContent) {
+  try {
+    await createNotification(userId, notificationContent.title);
+    // Retrieve the user's subscription data from the database
+    const userSubscriptions = await prisma.subscription.findUnique({
+      where: {
+        userId: userId,
+      },
+    });
 
+    // Check if the user has any subscriptions
+    if (userSubscriptions.length === 0) {
+      console.log("User doesn't have any subscriptions");
+    }
+
+    // Prepare the notification payload
+    const payload = {
+      title: notificationContent.title,
+      body: notificationContent.body,
+      icon: "https://cloud.sooqsquare.com/core/preview?fileId=1369&x=1366&y=768&a=true",
+      data: {
+        url: "http://localhost:3000/ar/chat",
+      },
+    };
+
+    // Send the notification to each subscription
+    if (userSubscriptions) {
+      await sendNotification(userSubscriptions, payload);
+    }
+
+    console.log(`Notification sent to user ${userId}`);
+  } catch (error) {
+    console.error(`Error sending notification to user ${userId}:`, error);
+  }
+}
+async function sendNotification(subscription, payload) {
+  // Use web-push to send notification
+  try {
+    // Prepare VAPID details (replace with your generated keys)
+    const vapidKeys = {
+      subject: "mailto:youremail@example.com", // Replace with your email
+      publicKey:
+        "BK3k4umk71d0mq9x1RHS9FOGLc6zHt8fFVnPg2dKxYpZwLURqgazKGX4sx1T8INcWd3onjw1cve6cTseW7ojCXo",
+      privateKey: "8bw9PpNnTxHagt6mpEAbZH4HRPDd0iPo2M3mYuc85Sc",
+    };
+
+    const pushSubscription = {
+      endpoint: subscription.endpoint,
+      keys: {
+        auth: subscription.auth,
+        p256dh: subscription.p256dh,
+      },
+    };
+
+    await webPush.sendNotification(pushSubscription, JSON.stringify(payload), {
+      vapidDetails: vapidKeys,
+    });
+
+    console.log("Push notification sent successfully");
+  } catch (error) {
+    console.error("Error sending push notification:", error);
+  }
+}
 export async function createShopMessage(content, senderId, receiverId, chatId) {
   try {
     const message = await prisma.message.create({
@@ -68,16 +152,13 @@ export async function createShopMessage(content, senderId, receiverId, chatId) {
     });
 
     // Additional logic if needed...
-    console.log(message);
     return message;
   } catch (error) {
     console.error("Error creating shop message:", error);
-    throw error;
   } finally {
-    revalidatePath(`/chat/${chatId}`);
+    revalidatePath(`/chat`);
   }
 }
-
 export async function createUserMessage(
   content,
   senderId,
@@ -110,24 +191,15 @@ export async function createUserMessage(
       },
     });
 
-    // Additional logic if needed...
-    console.log(message);
     return message;
   } catch (error) {
     console.error("Error creating user message:", error);
-    throw error;
   } finally {
     revalidatePath(`/chat/${chatId}`);
   }
 }
-
 export async function createMessage(content, senderEmail, receiver, chatId) {
   try {
-    const currentReceiver = await prisma.user.findUnique({
-      where: { email: receiver.email },
-      include: { subscriptions: true },
-    });
-
     const message = await prisma.message.create({
       data: {
         content,
@@ -147,64 +219,33 @@ export async function createMessage(content, senderEmail, receiver, chatId) {
     });
 
     // Send push notification to the receiver if they have a subscription
-    if (
-      currentReceiver.subscriptions &&
-      currentReceiver.subscriptions.length > 0
-    ) {
-      const originalSubscription = {
-        endpoint:
-          currentReceiver.subscriptions[
-            currentReceiver.subscriptions.length - 1
-          ].endpoint,
-        keys: {
-          p256dh:
-            currentReceiver.subscriptions[
-              currentReceiver.subscriptions.length - 1
-            ].p256dh,
-          auth: currentReceiver.subscriptions[
-            currentReceiver.subscriptions.length - 1
-          ].auth,
-        },
-      };
-      sendPushNotification(originalSubscription, message, receiver.email);
+    if (message) {
+      sendNotificationToUser(receiver.id, {
+        title: `New Message from ${receiver.username}`,
+        body: message.content,
+      });
     }
+    console.log(message);
     return message;
   } catch (error) {
     console.error("Error creating message:", error);
-    throw error;
   } finally {
-    revalidatePath(`/chat/${chatId}`); // Close the Prisma client connection
+    revalidatePath(`/chat/${chatId}`);
   }
 }
-
-const vapidKeys = {
-  publicKey:
-    "BK3k4umk71d0mq9x1RHS9FOGLc6zHt8fFVnPg2dKxYpZwLURqgazKGX4sx1T8INcWd3onjw1cve6cTseW7ojCXo",
-  privateKey: "8bw9PpNnTxHagt6mpEAbZH4HRPDd0iPo2M3mYuc85Sc",
-};
-
-const sendPushNotification = async (subscription, message, receiverEmail) => {
-  const pushPayload = {
-    title: "New Message",
-    body: `${message.sender.username}: ${message.content}`,
-    icon: "",
-    data: { chatId: message.chatId, messageId: message.id },
-  };
-
+export async function updateMessageReadStatus(msg, userId) {
   try {
-    const notf = await webPush.sendNotification(
-      subscription,
-      JSON.stringify(pushPayload),
-      {
-        TTL: 60,
-        vapidDetails: { ...vapidKeys, subject: `mailto:${receiverEmail}` },
-      }
-    );
-    console.log(notf.statusCode);
+    if (msg.receiverId !== userId && !msg.read) return;
+    // Update the message read status in the database
+    const updatedMessage = await prisma.message.update({
+      where: { id: msg.id },
+      data: { read: true },
+    });
+    return updatedMessage.id;
   } catch (error) {
-    console.error("Error sending push notification:", error);
+    console.error("Error updating message read status:", error);
   }
-};
+}
 
 export async function getOrCreateChat(user1Id, user2Id, shopId) {
   let newChat;
@@ -252,8 +293,6 @@ export async function getOrCreateChat(user1Id, user2Id, shopId) {
             },
           },
         });
-
-        console.log("New chat created with id: " + newChat.id);
       }
     } else {
       // Find or create chat between two users
@@ -322,7 +361,6 @@ export const fetchShopMessagesFromDatabase = async (chat) => {
     return fetchedMessages;
   } catch (error) {
     console.error("Error fetching messages:", error);
-    throw error; // Rethrow the error to handle it in the calling function
   }
 };
 export const fetchMessagesFromDatabase = async (chat) => {
@@ -330,7 +368,7 @@ export const fetchMessagesFromDatabase = async (chat) => {
     const fetchedMessages = await prisma.message.findMany({
       where: { chatId: chat.id },
       include: {
-        sender: true, // Include sender information in the response
+        sender: true,
       },
       orderBy: { createdAt: "asc" }, // Adjust the order as needed
     });
@@ -369,12 +407,12 @@ export async function getChatById(chatId) {
     });
 
     if (!chat) {
-      throw new Error("Chat not found.");
+      redirect("/chat");
     }
 
     return chat;
   } catch (error) {
-    throw new Error(`Failed to get chat by ID: ${error.message}`);
+    console.error(`Failed to get chat by ID: ${error.message}`);
   } finally {
     revalidatePath("/chat");
   }
@@ -414,23 +452,5 @@ export async function getShopById(shopId) {
   } catch (error) {
     console.error("Error getting shop by id:", error);
     return null;
-  }
-}
-export async function deleteMessagesWithoutSender() {
-  try {
-    const deletedMessages = await prisma.message.deleteMany({
-      where: {
-        NOT: {
-          senderId: {
-            not: null,
-          },
-        },
-      },
-    });
-
-    return deletedMessages;
-  } catch (error) {
-    console.error("Error deleting messages without sender:", error);
-    throw error;
   }
 }

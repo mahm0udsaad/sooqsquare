@@ -47,38 +47,129 @@ model VerificationToken {
 model User {
   id                 Int          @id @default(autoincrement())
   createdAt          DateTime     @default(now())
-  accounts      Account[]
-  sessions      Session[]
+  accounts           Account[]
+  sessions           Session[]
   phoneNumber        String?
   username           String?
+  //chat related data
   country            String?
   image              String?
   status             String?
   email              String       @unique
   ads                Ad[]
+  favoriteAds        FavoriteAd[]
+  shop               Shop[]
+  subscription       Subscription?
+  following          Follow[]         @relation("UserFollowing")
+  followers          Follow[]         @relation("UserFollowers")
+  ratings            Rating[]         // Ratings provided by the user
+  ratedUsers         Rating[]         @relation("UserRatings") // Users rated by this user
+  //chat related data
   chats              Chat[]
   messagesSent       Message[]    @relation("sentMessages")
   messagesReceived   Message[]    @relation("receivedMessages")
-  favoriteAds        FavoriteAd[]
-  shop               Shop[]
-  subscriptions      Subscription[]
+
+  //job site related data
   company            Company?    
+
   jobApplications    JobApplication[]  
-  following          Follow[]         @relation("UserFollowing")
-  followers          Follow[]         @relation("UserFollowers")
-  ratings            Rating[]   // Ratings provided by the user
-  ratedUsers         Rating[]   @relation("UserRatings") // Users rated by this user
+  cvUrl              String?
+  jobTitle           String?
+  about              String?
+  website            String?
+  yearsOfExperince   Int?
+  age                Int?
+  workExperiences    WorkExperience[]
+  educations         Education[]
+  certifications     Certification[]
+  trainings          Training[] 
+  skills             String?
+  activites          String?
+  languages          String?
+  notifications      Notification[]
 }
 
+model JobApplication {
+  id          Int      @id @default(autoincrement())
+  user        User     @relation(fields: [userId], references: [id])
+  userId      Int      
+  jobPost     JobPost  @relation(fields: [jobId], references: [id]) 
+  jobId       Int      
+  appliedAt   DateTime @default(now())
+  cvUrl       String?
+  coverLetter String?
+  status      String   @default("pending") 
+}
+model WorkExperience {
+  id                  Int        @id @default(autoincrement())
+  userId              Int
+  experienceType      String?
+  jobTitle            String?
+  companyName         String?
+  dateRange           String?
+  currentlyWorking    Boolean?
+  remote              Boolean?
+  description         String?
+  country             String?
+  company             String?
+  // Relationships
+  user                User       @relation(fields: [userId], references: [id])
+}
+model Education {
+  id                   Int        @id @default(autoincrement())
+  userId               Int
+  institutionName      String?
+  degree               String?
+  fieldOfStudy         String?
+  startDate            DateTime?
+  endDate              DateTime?
+  description          String?
+
+  // Relationships
+  user                 User       @relation(fields: [userId], references: [id])
+}
+model Certification {
+  id                   Int        @id @default(autoincrement())
+  userId               Int
+  certificationName    String?
+  issuer               String?
+  issueDate            DateTime?
+  expirationDate       DateTime?
+  description          String?
+  // Relationships
+  user                 User       @relation(fields: [userId], references: [id])
+}
+model Training {
+  id                   Int        @id @default(autoincrement())
+  userId               Int
+  trainingName         String?
+  organization         String?
+  startDate            DateTime?
+  endDate              DateTime?
+  description          String?
+  // Relationships
+  user                 User       @relation(fields: [userId], references: [id])
+}
 model Subscription {
   id                 Int          @id @default(autoincrement())
   endpoint           String
   p256dh             String
   auth               String
-  userId             Int
-  user               User         @relation(fields: [userId], references: [id])
+  userId             Int?          @unique
+  user               User?         @relation(fields: [userId], references: [id])
 }
-
+model Company {
+  id                 Int       @id @default(autoincrement())
+  name               String
+  description        String
+  phone              String
+  industry           String
+  city               String
+  logoUrl            String?
+  jobPosts           JobPost[]
+  user               User       @relation(fields: [userId], references: [id]) 
+  userId             Int        @unique
+}
 model JobPost {
   id                 Int       @id @default(autoincrement())
   title              String
@@ -102,31 +193,6 @@ model JobPost {
   cvRequired         Boolean?
   requirements       String?
   JobApplications    JobApplication[]
-}
-
-model JobApplication {
-  id          Int      @id @default(autoincrement())
-  user        User     @relation(fields: [userId], references: [id])
-  userId      Int      
-  jobPost     JobPost  @relation(fields: [jobId], references: [id]) 
-  jobId       Int      
-  appliedAt   DateTime @default(now())
-  cvUrl       String?
-  coverLetter String?
-  status      String   @default("pending") 
-}
-
-model Company {
-  id                 Int       @id @default(autoincrement())
-  name               String
-  description        String
-  phone              String
-  industry           String
-  city               String
-  logoUrl            String?
-  jobPosts           JobPost[]
-  user               User       @relation(fields: [userId], references: [id]) 
-  userId             Int        @unique
 }
 
 model Shop {
@@ -156,7 +222,6 @@ model Shop {
   receivedMessages  Message[] @relation("receivedShopMessages")
 }
 
-
 model Chat {
   id          Int       @id @default(autoincrement())
   users       User[]    
@@ -165,19 +230,33 @@ model Chat {
 }
 
 model Message {
-  id            Int      @id @default(autoincrement())
-  createdAt     DateTime @default(now())
+  id            Int       @id @default(autoincrement())
+  createdAt     DateTime  @default(now())
   content       String
-  chat          Chat     @relation(fields: [chatId], references: [id], onDelete: Cascade)
+  read          Boolean   @default(false)
+  notification  Notification? 
+  notificationId Int?      @unique
+  chat          Chat      @relation(fields: [chatId], references: [id], onDelete: Cascade)
   chatId        Int
-  senderShop    Shop?    @relation("sentShopMessages", fields: [shopId], references: [id])
-  receiverShop  Shop?    @relation("receivedShopMessages", fields: [shopId], references: [id])
+  senderShop    Shop?     @relation("sentShopMessages", fields: [shopId], references: [id])
+  receiverShop  Shop?     @relation("receivedShopMessages", fields: [shopId], references: [id])
   shopId        Int?
 
   sender        User?     @relation("sentMessages", fields: [senderId], references: [id]) 
   receiver      User?     @relation("receivedMessages", fields: [receiverId], references: [id])
   senderId      Int?
   receiverId    Int?
+}
+
+model Notification {
+  id          Int       @id @default(autoincrement())
+  createdAt   DateTime  @default(now())
+  content     String
+  read        Boolean   @default(false)
+  message     Message?   @relation(fields: [messageId], references: [id])
+  messageId   Int?       @unique
+  recipient   User      @relation(fields: [recipientId], references: [id])
+  recipientId Int
 }
 
 model Follow {
@@ -256,5 +335,4 @@ model FavoriteAd {
   adId      Int
   createdAt DateTime @default(now())
 }
-
 

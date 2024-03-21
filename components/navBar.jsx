@@ -5,7 +5,9 @@ import { getServerSession } from "next-auth";
 import PopoverLanguage from "@/components/navBarBtns/PopoverLanguage";
 import dynamic from "next/dynamic";
 import UserAvatarSkeleton from "@/components/skeletons/userAvatarSkeleton";
-import { Search, MessageSquareMore, BookmarkCheck, Bell } from "lucide-react";
+import { Search, MessageSquareMore, BookmarkCheck } from "lucide-react";
+import NotificationsBell from "./notfication";
+
 const NavBar = async ({ lng }) => {
   const { t } = await useTranslation(lng, "translation");
   const logedUser = await getServerSession();
@@ -49,20 +51,18 @@ const NavBar = async ({ lng }) => {
           >
             {t("Sell")}
           </Link>
-          <Link
-            href={"/spaces"}
-            className="py-2 px-2 shadow hover:shadow-inner rounded-xl border dark:bg-zinc-800 dark:border-zinc-800"
-          >
-            <Bell className="w-6 h-6 " />
-          </Link>
+          <NotificationsBell
+            userId={user?.id}
+            Notifications={user?.notifications}
+          />
           <PopoverLanguage lng={lng} />
           <PopoverCountry user={user} lng={lng} />
           <Link
             href={"/following"}
             variant="outline"
-            className="py-2 px-2 shadow rounded-xl border hover:shadow-inner hover:bg-gray-200 dark:border-none dark:bg-zinc-800 hover:text-zinc-800"
+            className="py-2 px-2 shadow rounded-xl border hover:shadow-inner dark:hover:bg-white dark:border-none dark:bg-zinc-800 hover:text-zinc-800"
           >
-            <BookmarkCheck className="h-6 w-6" />
+            <BookmarkCheck size={20} />
           </Link>
 
           {user ? (
@@ -71,7 +71,7 @@ const NavBar = async ({ lng }) => {
                 href={"/chat"}
                 className="chat shadow dark:bg-zinc-800 hover:bg-gray-100 hover:dark:text-black hover:dark:bg-white bg-white border dark:border-none px-2 py-2 rounded-xl"
               >
-                <MessageSquareMore className="w-5 h-5 m-[2px]" />
+                <MessageSquareMore size={20} />
               </Link>
               <div className="userAvatar ml-4">
                 <UserButton lng={lng} user={user} />

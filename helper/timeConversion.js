@@ -10,6 +10,14 @@ export function timeSince(createdAt) {
   const differenceHours = differenceInHours(now, createdAt);
   const differenceMinutes = differenceInMinutes(now, createdAt);
 
+  if (
+    isNaN(differenceDays) ||
+    isNaN(differenceHours) ||
+    isNaN(differenceMinutes)
+  ) {
+    return null;
+  }
+
   if (differenceDays > 0) {
     return `${differenceDays} day${differenceDays === 1 ? "" : "s"} ago`;
   } else if (differenceHours > 0) {

@@ -31,9 +31,9 @@ const PopoverLanguage = ({ lng }) => {
       <DropdownMenuTrigger asChild>
         <Button
           variant="outline"
-          className="py-2 px-2 shadow rounded-xl dark:bg-zinc-800 dark:border-zinc-800"
+          className="py-2 px-2 shadow hover:shadow-inner hover:bg-transparent dark:hover:bg-white rounded-xl dark:bg-zinc-800 dark:border-zinc-800"
         >
-          <Languages className="text-xl font-semibold" />
+          <Languages size={20} />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-80 dark:bg-zinc-950 dark:text-white">

@@ -63,8 +63,8 @@ export const MutliSteps = ({ lng }) => {
   }, [stepses.length, currentStep]);
 
   const scrollToStep = (step) => {
-    if (stepRefs[step - 1].current) {
-      stepRefs[step - 1].current.scrollIntoView({
+    if (stepRefs[step - 1]?.current) {
+      stepRefs[step - 1]?.current.scrollIntoView({
         behavior: "smooth",
         block: "center",
         inline: "center",
@@ -123,11 +123,12 @@ export const MutliSteps = ({ lng }) => {
     </div>
   );
 };
+
 export const OverView = ({ lng }) => {
   const category = useSearchParams().get("category");
   const carStatus = useSearchParams().get("carStatus");
   const { t } = useTranslation(lng, "translation");
-  if (!category) return;
+
   return (
     <div className="lg:flex hidden flex-col gap-4  lg:max-w-xs ">
       <MutliSteps lng={lng} />

@@ -5,7 +5,6 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
-import { BsCloudUpload } from "react-icons/bs";
 import upload from "../../app/[lng]/(traderDashboard)/dashboard/myShop/action";
 import { useState } from "react";
 import {
@@ -32,6 +31,7 @@ import { useTranslation } from "../../app/i18n/client";
 import { useToast } from "../ui/use-toast";
 import { Toggle } from "@/components/ui/toggle";
 import { useRouter } from "next/navigation";
+import { UploadCloud } from "lucide-react";
 
 export default function MyShopPage({ shop, lng }) {
   const { t } = useTranslation(lng, "view");
@@ -147,7 +147,7 @@ export default function MyShopPage({ shop, lng }) {
               {uploading ? (
                 <LoadingSpinner />
               ) : (
-                <BsCloudUpload className="text-lg" />
+                <UploadCloud className="text-lg" />
               )}
               <Input
                 onChange={handleBgImageChange}

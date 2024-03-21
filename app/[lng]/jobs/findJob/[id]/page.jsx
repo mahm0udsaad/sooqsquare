@@ -12,9 +12,5 @@ export async function generateStaticParams() {
 
 export default async function Vehicle({ params, searchParams }) {
   const job = await getJobPostById(params.id);
-  return (
-    <>
-      <JobPage job={job} searchParams={searchParams} lng={params.lng} />
-    </>
-  );
+  return <JobPage job={job} searchParams={searchParams} lng={params.lng} />;
 }

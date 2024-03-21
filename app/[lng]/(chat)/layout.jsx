@@ -1,7 +1,7 @@
 import dynamic from "next/dynamic";
 import LoadingSideBar from "@/components/skeletons/sideBarskeleton";
 import { getServerSession } from "next-auth";
-import { getUserByEmail } from "@/prisma/actions";
+import { getUserChatsByEmail } from "@/prisma/actions";
 import { redirect } from "next/navigation";
 
 export default async function DashboardLayout({ children, params }) {
@@ -13,7 +13,7 @@ export default async function DashboardLayout({ children, params }) {
   );
 
   const logedUser = await getServerSession();
-  const user = await getUserByEmail(logedUser?.user.email);
+  const user = await getUserChatsByEmail(logedUser?.user.email);
 
   if (!user) {
     redirect("/sign-in");

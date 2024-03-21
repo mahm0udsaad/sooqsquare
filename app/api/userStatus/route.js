@@ -6,7 +6,6 @@ export async function POST(req) {
 
   // Extract the user ID and status from the request body
   const { userId, status } = body;
-  console.log(userId, status);
   try {
     // Update the user status in the database
     await updateUserStatus(userId, status);

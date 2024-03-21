@@ -21,6 +21,7 @@ export const AdCategroy = ({ lng, icon, text }) => {
   const searchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
+
   const createQueryString = (name, value) => {
     const params = new URLSearchParams(searchParams);
     params.set(name, value);

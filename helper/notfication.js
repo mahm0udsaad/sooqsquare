@@ -6,7 +6,7 @@ const applicationServerKey =
 const subscribeToPushNotifications = async (userId) => {
   try {
     const registration = await navigator.serviceWorker.register(
-      "/service-worker.cjs",
+      "/service-worker.js",
       { scope: "/" }
     );
     const subscription = await registration.pushManager.subscribe({
@@ -14,21 +14,23 @@ const subscribeToPushNotifications = async (userId) => {
       applicationServerKey: applicationServerKey,
     });
 
-    const addedSubscription = await addSubscriptionToUser(userId, subscription);
+    const subscriptionData = {
+      endpoint: subscription.endpoint,
+      p256dh: subscription.p256dh,
+      auth: subscription.auth,
+    };
 
-    if (Notification.permission === "granted") {
-      const notificationOptions = {
-        body: "Subscribed to notifications successfully!",
-        icon: "/logo.png",
-      };
-      const notification = new Notification(
-        "Notification Subscription",
-        notificationOptions
-      );
-    }
+    const addedSubscription = await addSubscriptionToUser(
+      userId,
+      subscriptionData
+    );
   } catch (error) {
     console.error("Error subscribing to push notifications:", error);
   }
 };
 
+const unregisterServiceWorkers = async () => {
+  const registrations = await navigator.serviceWorker.getRegistrations();
+  await Promise.all(registrations.map((r) => r.unregister()));
+};
 export default subscribeToPushNotifications;

@@ -140,7 +140,71 @@ exports.Prisma.UserScalarFieldEnum = {
   country: 'country',
   image: 'image',
   status: 'status',
-  email: 'email'
+  email: 'email',
+  cvUrl: 'cvUrl',
+  jobTitle: 'jobTitle',
+  about: 'about',
+  website: 'website',
+  yearsOfExperince: 'yearsOfExperince',
+  age: 'age',
+  skills: 'skills',
+  activites: 'activites',
+  languages: 'languages'
+};
+
+exports.Prisma.JobApplicationScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  jobId: 'jobId',
+  appliedAt: 'appliedAt',
+  cvUrl: 'cvUrl',
+  coverLetter: 'coverLetter',
+  status: 'status'
+};
+
+exports.Prisma.WorkExperienceScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  experienceType: 'experienceType',
+  jobTitle: 'jobTitle',
+  companyName: 'companyName',
+  dateRange: 'dateRange',
+  currentlyWorking: 'currentlyWorking',
+  remote: 'remote',
+  description: 'description',
+  country: 'country',
+  company: 'company'
+};
+
+exports.Prisma.EducationScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  institutionName: 'institutionName',
+  degree: 'degree',
+  fieldOfStudy: 'fieldOfStudy',
+  startDate: 'startDate',
+  endDate: 'endDate',
+  description: 'description'
+};
+
+exports.Prisma.CertificationScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  certificationName: 'certificationName',
+  issuer: 'issuer',
+  issueDate: 'issueDate',
+  expirationDate: 'expirationDate',
+  description: 'description'
+};
+
+exports.Prisma.TrainingScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  trainingName: 'trainingName',
+  organization: 'organization',
+  startDate: 'startDate',
+  endDate: 'endDate',
+  description: 'description'
 };
 
 exports.Prisma.SubscriptionScalarFieldEnum = {
@@ -148,6 +212,17 @@ exports.Prisma.SubscriptionScalarFieldEnum = {
   endpoint: 'endpoint',
   p256dh: 'p256dh',
   auth: 'auth',
+  userId: 'userId'
+};
+
+exports.Prisma.CompanyScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  phone: 'phone',
+  industry: 'industry',
+  city: 'city',
+  logoUrl: 'logoUrl',
   userId: 'userId'
 };
 
@@ -172,27 +247,6 @@ exports.Prisma.JobPostScalarFieldEnum = {
   educationLevel: 'educationLevel',
   cvRequired: 'cvRequired',
   requirements: 'requirements'
-};
-
-exports.Prisma.JobApplicationScalarFieldEnum = {
-  id: 'id',
-  userId: 'userId',
-  jobId: 'jobId',
-  appliedAt: 'appliedAt',
-  cvUrl: 'cvUrl',
-  coverLetter: 'coverLetter',
-  status: 'status'
-};
-
-exports.Prisma.CompanyScalarFieldEnum = {
-  id: 'id',
-  name: 'name',
-  description: 'description',
-  phone: 'phone',
-  industry: 'industry',
-  city: 'city',
-  logoUrl: 'logoUrl',
-  userId: 'userId'
 };
 
 exports.Prisma.ShopScalarFieldEnum = {
@@ -223,10 +277,21 @@ exports.Prisma.MessageScalarFieldEnum = {
   id: 'id',
   createdAt: 'createdAt',
   content: 'content',
+  read: 'read',
+  notificationId: 'notificationId',
   chatId: 'chatId',
   shopId: 'shopId',
   senderId: 'senderId',
   receiverId: 'receiverId'
+};
+
+exports.Prisma.NotificationScalarFieldEnum = {
+  id: 'id',
+  createdAt: 'createdAt',
+  content: 'content',
+  read: 'read',
+  messageId: 'messageId',
+  recipientId: 'recipientId'
 };
 
 exports.Prisma.FollowScalarFieldEnum = {
@@ -305,13 +370,18 @@ exports.Prisma.ModelName = {
   Session: 'Session',
   VerificationToken: 'VerificationToken',
   User: 'User',
-  Subscription: 'Subscription',
-  JobPost: 'JobPost',
   JobApplication: 'JobApplication',
+  WorkExperience: 'WorkExperience',
+  Education: 'Education',
+  Certification: 'Certification',
+  Training: 'Training',
+  Subscription: 'Subscription',
   Company: 'Company',
+  JobPost: 'JobPost',
   Shop: 'Shop',
   Chat: 'Chat',
   Message: 'Message',
+  Notification: 'Notification',
   Follow: 'Follow',
   Rating: 'Rating',
   Image: 'Image',

@@ -6,8 +6,6 @@ import { getUserByEmail } from "@/prisma/actions";
 import { getServerSession } from "next-auth";
 import { checkFollowStatus } from "../../vehicle/actions";
 
-export const dynamic = "force-dynamic";
-
 export async function generateStaticParams() {
   const users = await getAllUsers();
   const usersIds = [];
@@ -26,14 +24,12 @@ export default async function Vehicle({ params, searchParams }) {
     const isFollowed = await checkFollowStatus(currentUser.id, null, shop.id);
 
     return (
-      <>
-        <ShopPage
-          lng={params.lng}
-          user={currentUser}
-          shop={shop}
-          isFollowed={isFollowed}
-        />
-      </>
+      <ShopPage
+        lng={params.lng}
+        user={currentUser}
+        shop={shop}
+        isFollowed={isFollowed}
+      />
     );
   }
 

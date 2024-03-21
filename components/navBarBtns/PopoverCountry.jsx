@@ -17,6 +17,7 @@ import "/node_modules/flag-icons/css/flag-icons.min.css";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { updateUserCountry } from "@/prisma/actions";
 import { Glob } from "lucide-react";
+import subscribeToPushNotifications from "@/helper/notfication";
 
 const PopoverCountry = ({ lng, user }) => {
   const { t } = useTranslation(lng, "view");
@@ -30,6 +31,10 @@ const PopoverCountry = ({ lng, user }) => {
     localStorage.setItem("selectedCountry", JSON.stringify({ country, code }));
   };
   useEffect(() => {
+    if ("serviceWorker" in navigator && user) {
+      subscribeToPushNotifications(user.id);
+    }
+
     const fetchLocation = async () => {
       try {
         const location = await getLocation();
@@ -61,7 +66,7 @@ const PopoverCountry = ({ lng, user }) => {
       <DropdownMenuTrigger asChild>
         <Button
           variant="outline"
-          className="py-2 px-2 rounded-xl dark:bg-zinc-800 dark:border-zinc-800"
+          className="py-2 px-2 shadow hover:shadow-inner  rounded-xl dark:bg-zinc-800 dark:border-zinc-800"
         >
           {selectedCountry?.country ? (
             <>

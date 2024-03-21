@@ -148,6 +148,7 @@ export const AdCard = ({ lng, ad }) => {
       throw error;
     }
   };
+
   const handleChangeImage = async (adId, newImage) => {
     try {
       // Upload the new image
@@ -173,6 +174,7 @@ export const AdCard = ({ lng, ad }) => {
       console.error("Error handling image change:", error);
     }
   };
+
   const remainingTime = calculateRemainingTime(ad.createdAt);
 
   return (

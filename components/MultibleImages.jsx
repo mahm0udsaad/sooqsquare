@@ -9,6 +9,7 @@ import { ImageDown, Rocket } from "lucide-react";
 import { useTranslation } from "../app/i18n/client";
 import { Progress } from "@/components/ui/progress";
 import dynamic from "next/dynamic";
+
 function TrashIcon(props) {
   return (
     <svg
@@ -44,6 +45,7 @@ const MultiImageForm = ({ lng }) => {
       </div>
     ),
   });
+
   const handleImageChange = async (e, index) => {
     const files = e.target.files;
 
@@ -71,8 +73,6 @@ const MultiImageForm = ({ lng }) => {
       console.error(error.message);
     }
   };
-
-  if (!searchParams.has("category")) return;
 
   const createQueryString = (name, value) => {
     const params = new URLSearchParams(searchParams);

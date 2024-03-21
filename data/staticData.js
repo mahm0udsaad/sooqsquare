@@ -13,7 +13,7 @@ const categoriesData = [
     icon: <Car />,
     link: "/vehicle?category=CarForRent",
   },
-  { text: "CarsForSale", icon: <KeyRound />, link: "/vehicle" },
+  { text: "CarsForSale", icon: <KeyRound />, link: "sellVehicle" },
   { text: "TrucksAndTrailers", icon: <Truck /> },
   { text: "CrashedCars", icon: <Car /> },
   { text: "BoatsYachts", icon: <Sailboat /> },

@@ -10,17 +10,7 @@ import { Rocket } from "lucide-react";
 
 export const ExtraFeatures = ({ lng }) => {
   const router = useRouter();
-  const brand = useSearchParams().get("brand");
-  const category = useSearchParams().get("category");
-  const model = useSearchParams().get("model");
-  const year = useSearchParams().get("year");
-  const carType = useSearchParams().get("carType");
-  const carStatus = useSearchParams().get("carStatus");
-  const transmission = useSearchParams().get("transmission");
-  const fuelType = useSearchParams().get("fuelType");
-  const paintType = useSearchParams().get("paintType");
   const { t } = useTranslation(lng, "translation");
-  const extraFeatures = useSearchParams().get("extraFeatures");
   const { extraFeature, setExtraFeature } = useDarkMode();
   const searchParams = useSearchParams();
   const pathname = usePathname();
@@ -40,19 +30,6 @@ export const ExtraFeatures = ({ lng }) => {
     const updatedParams = params.toString();
     router.push(pathname + "?" + updatedParams);
   };
-  if (
-    !brand ||
-    !category ||
-    !model ||
-    !year ||
-    !carType ||
-    !carStatus ||
-    !transmission ||
-    !fuelType ||
-    !paintType ||
-    extraFeatures
-  )
-    return null;
 
   const handleSubmit = () => {
     try {
