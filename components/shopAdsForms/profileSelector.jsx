@@ -21,7 +21,6 @@ const SelectProfile = ({ user, lng }) => {
     router.push(pathname + "?" + updatedParams);
   };
 
-  console.log(user.shop.length);
   if (user.shop.length == 0) {
     createQueryString("profile", "mainProfile");
   }

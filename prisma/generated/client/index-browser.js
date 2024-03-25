@@ -313,7 +313,8 @@ exports.Prisma.RatingScalarFieldEnum = {
 exports.Prisma.ImageScalarFieldEnum = {
   id: 'id',
   url: 'url',
-  adId: 'adId'
+  adId: 'adId',
+  appartmentAdId: 'appartmentAdId'
 };
 
 exports.Prisma.AdScalarFieldEnum = {
@@ -347,10 +348,40 @@ exports.Prisma.AdScalarFieldEnum = {
   clicks: 'clicks'
 };
 
+exports.Prisma.AppartmentAdScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  shopId: 'shopId',
+  createdAt: 'createdAt',
+  description: 'description',
+  title: 'title',
+  country: 'country',
+  city: 'city',
+  category: 'category',
+  type: 'type',
+  propertyType: 'propertyType',
+  payment: 'payment',
+  price: 'price',
+  bedrooms: 'bedrooms',
+  bathrooms: 'bathrooms',
+  amenities: 'amenities',
+  isOwner: 'isOwner',
+  buildingAge: 'buildingAge',
+  designedFor: 'designedFor',
+  floorsNum: 'floorsNum',
+  buildingSize: 'buildingSize',
+  landSize: 'landSize',
+  BuildingInterface: 'BuildingInterface',
+  adStatus: 'adStatus',
+  views: 'views',
+  clicks: 'clicks'
+};
+
 exports.Prisma.FavoriteAdScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
   adId: 'adId',
+  appartmentAdId: 'appartmentAdId',
   createdAt: 'createdAt'
 };
 
@@ -386,6 +417,7 @@ exports.Prisma.ModelName = {
   Rating: 'Rating',
   Image: 'Image',
   Ad: 'Ad',
+  AppartmentAd: 'AppartmentAd',
   FavoriteAd: 'FavoriteAd'
 };
 

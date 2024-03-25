@@ -34,7 +34,8 @@
     "app/[lng]/(traderDashboard)/layout.jsx",
     "app/api/completion/route.js",
     "utils/cn.js",
-    "components/ui/bento-grid.jsx"
+    "components/ui/bento-grid.jsx",
+    "app/[lng]/apartments/components/boxs.jsx"
   ],
   "exclude": ["node_modules"]
 }

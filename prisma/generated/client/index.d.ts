@@ -114,6 +114,11 @@ export type Image = $Result.DefaultSelection<Prisma.$ImagePayload>
  */
 export type Ad = $Result.DefaultSelection<Prisma.$AdPayload>
 /**
+ * Model AppartmentAd
+ * 
+ */
+export type AppartmentAd = $Result.DefaultSelection<Prisma.$AppartmentAdPayload>
+/**
  * Model FavoriteAd
  * 
  */
@@ -440,6 +445,16 @@ export class PrismaClient<
     * ```
     */
   get ad(): Prisma.AdDelegate<ExtArgs>;
+
+  /**
+   * `prisma.appartmentAd`: Exposes CRUD operations for the **AppartmentAd** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more AppartmentAds
+    * const appartmentAds = await prisma.appartmentAd.findMany()
+    * ```
+    */
+  get appartmentAd(): Prisma.AppartmentAdDelegate<ExtArgs>;
 
   /**
    * `prisma.favoriteAd`: Exposes CRUD operations for the **FavoriteAd** model.
@@ -940,6 +955,7 @@ export namespace Prisma {
     Rating: 'Rating',
     Image: 'Image',
     Ad: 'Ad',
+    AppartmentAd: 'AppartmentAd',
     FavoriteAd: 'FavoriteAd'
   };
 
@@ -957,7 +973,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     meta: {
-      modelProps: 'account' | 'session' | 'verificationToken' | 'user' | 'jobApplication' | 'workExperience' | 'education' | 'certification' | 'training' | 'subscription' | 'company' | 'jobPost' | 'shop' | 'chat' | 'message' | 'notification' | 'follow' | 'rating' | 'image' | 'ad' | 'favoriteAd'
+      modelProps: 'account' | 'session' | 'verificationToken' | 'user' | 'jobApplication' | 'workExperience' | 'education' | 'certification' | 'training' | 'subscription' | 'company' | 'jobPost' | 'shop' | 'chat' | 'message' | 'notification' | 'follow' | 'rating' | 'image' | 'ad' | 'appartmentAd' | 'favoriteAd'
       txIsolationLevel: Prisma.TransactionIsolationLevel
     },
     model: {
@@ -2201,6 +2217,68 @@ export namespace Prisma {
           }
         }
       }
+      AppartmentAd: {
+        payload: Prisma.$AppartmentAdPayload<ExtArgs>
+        fields: Prisma.AppartmentAdFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.AppartmentAdFindUniqueArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$AppartmentAdPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.AppartmentAdFindUniqueOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$AppartmentAdPayload>
+          }
+          findFirst: {
+            args: Prisma.AppartmentAdFindFirstArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$AppartmentAdPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.AppartmentAdFindFirstOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$AppartmentAdPayload>
+          }
+          findMany: {
+            args: Prisma.AppartmentAdFindManyArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$AppartmentAdPayload>[]
+          }
+          create: {
+            args: Prisma.AppartmentAdCreateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$AppartmentAdPayload>
+          }
+          delete: {
+            args: Prisma.AppartmentAdDeleteArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$AppartmentAdPayload>
+          }
+          update: {
+            args: Prisma.AppartmentAdUpdateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$AppartmentAdPayload>
+          }
+          deleteMany: {
+            args: Prisma.AppartmentAdDeleteManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          updateMany: {
+            args: Prisma.AppartmentAdUpdateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          upsert: {
+            args: Prisma.AppartmentAdUpsertArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$AppartmentAdPayload>
+          }
+          aggregate: {
+            args: Prisma.AppartmentAdAggregateArgs<ExtArgs>,
+            result: $Utils.Optional<AggregateAppartmentAd>
+          }
+          groupBy: {
+            args: Prisma.AppartmentAdGroupByArgs<ExtArgs>,
+            result: $Utils.Optional<AppartmentAdGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.AppartmentAdCountArgs<ExtArgs>,
+            result: $Utils.Optional<AppartmentAdCountAggregateOutputType> | number
+          }
+        }
+      }
       FavoriteAd: {
         payload: Prisma.$FavoriteAdPayload<ExtArgs>
         fields: Prisma.FavoriteAdFieldRefs
@@ -2425,6 +2503,7 @@ export namespace Prisma {
     accounts: number
     sessions: number
     ads: number
+    AppartmentAds: number
     favoriteAds: number
     shop: number
     following: number
@@ -2446,6 +2525,7 @@ export namespace Prisma {
     accounts?: boolean | UserCountOutputTypeCountAccountsArgs
     sessions?: boolean | UserCountOutputTypeCountSessionsArgs
     ads?: boolean | UserCountOutputTypeCountAdsArgs
+    AppartmentAds?: boolean | UserCountOutputTypeCountAppartmentAdsArgs
     favoriteAds?: boolean | UserCountOutputTypeCountFavoriteAdsArgs
     shop?: boolean | UserCountOutputTypeCountShopArgs
     following?: boolean | UserCountOutputTypeCountFollowingArgs
@@ -2497,6 +2577,14 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountAdsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: AdWhereInput
+  }
+
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountAppartmentAdsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AppartmentAdWhereInput
   }
 
 
@@ -2695,6 +2783,7 @@ export namespace Prisma {
 
   export type ShopCountOutputType = {
     ads: number
+    AppartmentAds: number
     followers: number
     ratings: number
     chats: number
@@ -2704,6 +2793,7 @@ export namespace Prisma {
 
   export type ShopCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     ads?: boolean | ShopCountOutputTypeCountAdsArgs
+    AppartmentAds?: boolean | ShopCountOutputTypeCountAppartmentAdsArgs
     followers?: boolean | ShopCountOutputTypeCountFollowersArgs
     ratings?: boolean | ShopCountOutputTypeCountRatingsArgs
     chats?: boolean | ShopCountOutputTypeCountChatsArgs
@@ -2729,6 +2819,14 @@ export namespace Prisma {
    */
   export type ShopCountOutputTypeCountAdsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: AdWhereInput
+  }
+
+
+  /**
+   * ShopCountOutputType without action
+   */
+  export type ShopCountOutputTypeCountAppartmentAdsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AppartmentAdWhereInput
   }
 
 
@@ -2866,6 +2964,50 @@ export namespace Prisma {
    * AdCountOutputType without action
    */
   export type AdCountOutputTypeCountFavoritedByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: FavoriteAdWhereInput
+  }
+
+
+
+  /**
+   * Count Type AppartmentAdCountOutputType
+   */
+
+  export type AppartmentAdCountOutputType = {
+    images: number
+    favoritedBy: number
+  }
+
+  export type AppartmentAdCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    images?: boolean | AppartmentAdCountOutputTypeCountImagesArgs
+    favoritedBy?: boolean | AppartmentAdCountOutputTypeCountFavoritedByArgs
+  }
+
+  // Custom InputTypes
+
+  /**
+   * AppartmentAdCountOutputType without action
+   */
+  export type AppartmentAdCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AppartmentAdCountOutputType
+     */
+    select?: AppartmentAdCountOutputTypeSelect<ExtArgs> | null
+  }
+
+
+  /**
+   * AppartmentAdCountOutputType without action
+   */
+  export type AppartmentAdCountOutputTypeCountImagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ImageWhereInput
+  }
+
+
+  /**
+   * AppartmentAdCountOutputType without action
+   */
+  export type AppartmentAdCountOutputTypeCountFavoritedByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: FavoriteAdWhereInput
   }
 
@@ -5918,6 +6060,7 @@ export namespace Prisma {
     accounts?: boolean | User$accountsArgs<ExtArgs>
     sessions?: boolean | User$sessionsArgs<ExtArgs>
     ads?: boolean | User$adsArgs<ExtArgs>
+    AppartmentAds?: boolean | User$AppartmentAdsArgs<ExtArgs>
     favoriteAds?: boolean | User$favoriteAdsArgs<ExtArgs>
     shop?: boolean | User$shopArgs<ExtArgs>
     subscription?: boolean | User$subscriptionArgs<ExtArgs>
@@ -5962,6 +6105,7 @@ export namespace Prisma {
     accounts?: boolean | User$accountsArgs<ExtArgs>
     sessions?: boolean | User$sessionsArgs<ExtArgs>
     ads?: boolean | User$adsArgs<ExtArgs>
+    AppartmentAds?: boolean | User$AppartmentAdsArgs<ExtArgs>
     favoriteAds?: boolean | User$favoriteAdsArgs<ExtArgs>
     shop?: boolean | User$shopArgs<ExtArgs>
     subscription?: boolean | User$subscriptionArgs<ExtArgs>
@@ -5989,6 +6133,7 @@ export namespace Prisma {
       accounts: Prisma.$AccountPayload<ExtArgs>[]
       sessions: Prisma.$SessionPayload<ExtArgs>[]
       ads: Prisma.$AdPayload<ExtArgs>[]
+      AppartmentAds: Prisma.$AppartmentAdPayload<ExtArgs>[]
       favoriteAds: Prisma.$FavoriteAdPayload<ExtArgs>[]
       shop: Prisma.$ShopPayload<ExtArgs>[]
       subscription: Prisma.$SubscriptionPayload<ExtArgs> | null
@@ -6379,6 +6524,8 @@ export namespace Prisma {
     sessions<T extends User$sessionsArgs<ExtArgs> = {}>(args?: Subset<T, User$sessionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, 'findMany'> | Null>;
 
     ads<T extends User$adsArgs<ExtArgs> = {}>(args?: Subset<T, User$adsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AdPayload<ExtArgs>, T, 'findMany'> | Null>;
+
+    AppartmentAds<T extends User$AppartmentAdsArgs<ExtArgs> = {}>(args?: Subset<T, User$AppartmentAdsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AppartmentAdPayload<ExtArgs>, T, 'findMany'> | Null>;
 
     favoriteAds<T extends User$favoriteAdsArgs<ExtArgs> = {}>(args?: Subset<T, User$favoriteAdsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FavoriteAdPayload<ExtArgs>, T, 'findMany'> | Null>;
 
@@ -6818,6 +6965,27 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: AdScalarFieldEnum | AdScalarFieldEnum[]
+  }
+
+
+  /**
+   * User.AppartmentAds
+   */
+  export type User$AppartmentAdsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AppartmentAd
+     */
+    select?: AppartmentAdSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AppartmentAdInclude<ExtArgs> | null
+    where?: AppartmentAdWhereInput
+    orderBy?: AppartmentAdOrderByWithRelationInput | AppartmentAdOrderByWithRelationInput[]
+    cursor?: AppartmentAdWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AppartmentAdScalarFieldEnum | AppartmentAdScalarFieldEnum[]
   }
 
 
@@ -15356,6 +15524,7 @@ export namespace Prisma {
     phoneNumber2?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
     ads?: boolean | Shop$adsArgs<ExtArgs>
+    AppartmentAds?: boolean | Shop$AppartmentAdsArgs<ExtArgs>
     followers?: boolean | Shop$followersArgs<ExtArgs>
     ratings?: boolean | Shop$ratingsArgs<ExtArgs>
     chats?: boolean | Shop$chatsArgs<ExtArgs>
@@ -15387,6 +15556,7 @@ export namespace Prisma {
   export type ShopInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
     ads?: boolean | Shop$adsArgs<ExtArgs>
+    AppartmentAds?: boolean | Shop$AppartmentAdsArgs<ExtArgs>
     followers?: boolean | Shop$followersArgs<ExtArgs>
     ratings?: boolean | Shop$ratingsArgs<ExtArgs>
     chats?: boolean | Shop$chatsArgs<ExtArgs>
@@ -15401,6 +15571,7 @@ export namespace Prisma {
     objects: {
       user: Prisma.$UserPayload<ExtArgs>
       ads: Prisma.$AdPayload<ExtArgs>[]
+      AppartmentAds: Prisma.$AppartmentAdPayload<ExtArgs>[]
       followers: Prisma.$FollowPayload<ExtArgs>[]
       ratings: Prisma.$RatingPayload<ExtArgs>[]
       chats: Prisma.$ChatPayload<ExtArgs>[]
@@ -15778,6 +15949,8 @@ export namespace Prisma {
 
     ads<T extends Shop$adsArgs<ExtArgs> = {}>(args?: Subset<T, Shop$adsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AdPayload<ExtArgs>, T, 'findMany'> | Null>;
 
+    AppartmentAds<T extends Shop$AppartmentAdsArgs<ExtArgs> = {}>(args?: Subset<T, Shop$AppartmentAdsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AppartmentAdPayload<ExtArgs>, T, 'findMany'> | Null>;
+
     followers<T extends Shop$followersArgs<ExtArgs> = {}>(args?: Subset<T, Shop$followersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FollowPayload<ExtArgs>, T, 'findMany'> | Null>;
 
     ratings<T extends Shop$ratingsArgs<ExtArgs> = {}>(args?: Subset<T, Shop$ratingsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RatingPayload<ExtArgs>, T, 'findMany'> | Null>;
@@ -16150,6 +16323,27 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: AdScalarFieldEnum | AdScalarFieldEnum[]
+  }
+
+
+  /**
+   * Shop.AppartmentAds
+   */
+  export type Shop$AppartmentAdsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AppartmentAd
+     */
+    select?: AppartmentAdSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AppartmentAdInclude<ExtArgs> | null
+    where?: AppartmentAdWhereInput
+    orderBy?: AppartmentAdOrderByWithRelationInput | AppartmentAdOrderByWithRelationInput[]
+    cursor?: AppartmentAdWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AppartmentAdScalarFieldEnum | AppartmentAdScalarFieldEnum[]
   }
 
 
@@ -21245,29 +21439,34 @@ export namespace Prisma {
   export type ImageAvgAggregateOutputType = {
     id: number | null
     adId: number | null
+    appartmentAdId: number | null
   }
 
   export type ImageSumAggregateOutputType = {
     id: number | null
     adId: number | null
+    appartmentAdId: number | null
   }
 
   export type ImageMinAggregateOutputType = {
     id: number | null
     url: string | null
     adId: number | null
+    appartmentAdId: number | null
   }
 
   export type ImageMaxAggregateOutputType = {
     id: number | null
     url: string | null
     adId: number | null
+    appartmentAdId: number | null
   }
 
   export type ImageCountAggregateOutputType = {
     id: number
     url: number
     adId: number
+    appartmentAdId: number
     _all: number
   }
 
@@ -21275,29 +21474,34 @@ export namespace Prisma {
   export type ImageAvgAggregateInputType = {
     id?: true
     adId?: true
+    appartmentAdId?: true
   }
 
   export type ImageSumAggregateInputType = {
     id?: true
     adId?: true
+    appartmentAdId?: true
   }
 
   export type ImageMinAggregateInputType = {
     id?: true
     url?: true
     adId?: true
+    appartmentAdId?: true
   }
 
   export type ImageMaxAggregateInputType = {
     id?: true
     url?: true
     adId?: true
+    appartmentAdId?: true
   }
 
   export type ImageCountAggregateInputType = {
     id?: true
     url?: true
     adId?: true
+    appartmentAdId?: true
     _all?: true
   }
 
@@ -21390,7 +21594,8 @@ export namespace Prisma {
   export type ImageGroupByOutputType = {
     id: number
     url: string
-    adId: number
+    adId: number | null
+    appartmentAdId: number | null
     _count: ImageCountAggregateOutputType | null
     _avg: ImageAvgAggregateOutputType | null
     _sum: ImageSumAggregateOutputType | null
@@ -21416,29 +21621,35 @@ export namespace Prisma {
     id?: boolean
     url?: boolean
     adId?: boolean
-    ad?: boolean | AdDefaultArgs<ExtArgs>
+    appartmentAdId?: boolean
+    ad?: boolean | Image$adArgs<ExtArgs>
+    AppartmentAd?: boolean | Image$AppartmentAdArgs<ExtArgs>
   }, ExtArgs["result"]["image"]>
 
   export type ImageSelectScalar = {
     id?: boolean
     url?: boolean
     adId?: boolean
+    appartmentAdId?: boolean
   }
 
   export type ImageInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    ad?: boolean | AdDefaultArgs<ExtArgs>
+    ad?: boolean | Image$adArgs<ExtArgs>
+    AppartmentAd?: boolean | Image$AppartmentAdArgs<ExtArgs>
   }
 
 
   export type $ImagePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Image"
     objects: {
-      ad: Prisma.$AdPayload<ExtArgs>
+      ad: Prisma.$AdPayload<ExtArgs> | null
+      AppartmentAd: Prisma.$AppartmentAdPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
       url: string
-      adId: number
+      adId: number | null
+      appartmentAdId: number | null
     }, ExtArgs["result"]["image"]>
     composites: {}
   }
@@ -21788,7 +21999,9 @@ export namespace Prisma {
   export interface Prisma__ImageClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: 'PrismaPromise';
 
-    ad<T extends AdDefaultArgs<ExtArgs> = {}>(args?: Subset<T, AdDefaultArgs<ExtArgs>>): Prisma__AdClient<$Result.GetResult<Prisma.$AdPayload<ExtArgs>, T, 'findUniqueOrThrow'> | Null, Null, ExtArgs>;
+    ad<T extends Image$adArgs<ExtArgs> = {}>(args?: Subset<T, Image$adArgs<ExtArgs>>): Prisma__AdClient<$Result.GetResult<Prisma.$AdPayload<ExtArgs>, T, 'findUniqueOrThrow'> | null, null, ExtArgs>;
+
+    AppartmentAd<T extends Image$AppartmentAdArgs<ExtArgs> = {}>(args?: Subset<T, Image$AppartmentAdArgs<ExtArgs>>): Prisma__AppartmentAdClient<$Result.GetResult<Prisma.$AppartmentAdPayload<ExtArgs>, T, 'findUniqueOrThrow'> | null, null, ExtArgs>;
 
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -21821,6 +22034,7 @@ export namespace Prisma {
     readonly id: FieldRef<"Image", 'Int'>
     readonly url: FieldRef<"Image", 'String'>
     readonly adId: FieldRef<"Image", 'Int'>
+    readonly appartmentAdId: FieldRef<"Image", 'Int'>
   }
     
 
@@ -22117,6 +22331,38 @@ export namespace Prisma {
      * Filter which Images to delete
      */
     where?: ImageWhereInput
+  }
+
+
+  /**
+   * Image.ad
+   */
+  export type Image$adArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Ad
+     */
+    select?: AdSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AdInclude<ExtArgs> | null
+    where?: AdWhereInput
+  }
+
+
+  /**
+   * Image.AppartmentAd
+   */
+  export type Image$AppartmentAdArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AppartmentAd
+     */
+    select?: AppartmentAdSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AppartmentAdInclude<ExtArgs> | null
+    where?: AppartmentAdWhereInput
   }
 
 
@@ -23421,6 +23667,1268 @@ export namespace Prisma {
 
 
   /**
+   * Model AppartmentAd
+   */
+
+  export type AggregateAppartmentAd = {
+    _count: AppartmentAdCountAggregateOutputType | null
+    _avg: AppartmentAdAvgAggregateOutputType | null
+    _sum: AppartmentAdSumAggregateOutputType | null
+    _min: AppartmentAdMinAggregateOutputType | null
+    _max: AppartmentAdMaxAggregateOutputType | null
+  }
+
+  export type AppartmentAdAvgAggregateOutputType = {
+    id: number | null
+    userId: number | null
+    shopId: number | null
+    views: number | null
+    clicks: number | null
+  }
+
+  export type AppartmentAdSumAggregateOutputType = {
+    id: number | null
+    userId: number | null
+    shopId: number | null
+    views: number | null
+    clicks: number | null
+  }
+
+  export type AppartmentAdMinAggregateOutputType = {
+    id: number | null
+    userId: number | null
+    shopId: number | null
+    createdAt: Date | null
+    description: string | null
+    title: string | null
+    country: string | null
+    city: string | null
+    category: string | null
+    type: string | null
+    propertyType: string | null
+    payment: string | null
+    price: string | null
+    bedrooms: string | null
+    bathrooms: string | null
+    amenities: string | null
+    isOwner: string | null
+    buildingAge: string | null
+    designedFor: string | null
+    floorsNum: string | null
+    buildingSize: string | null
+    landSize: string | null
+    BuildingInterface: string | null
+    adStatus: string | null
+    views: number | null
+    clicks: number | null
+  }
+
+  export type AppartmentAdMaxAggregateOutputType = {
+    id: number | null
+    userId: number | null
+    shopId: number | null
+    createdAt: Date | null
+    description: string | null
+    title: string | null
+    country: string | null
+    city: string | null
+    category: string | null
+    type: string | null
+    propertyType: string | null
+    payment: string | null
+    price: string | null
+    bedrooms: string | null
+    bathrooms: string | null
+    amenities: string | null
+    isOwner: string | null
+    buildingAge: string | null
+    designedFor: string | null
+    floorsNum: string | null
+    buildingSize: string | null
+    landSize: string | null
+    BuildingInterface: string | null
+    adStatus: string | null
+    views: number | null
+    clicks: number | null
+  }
+
+  export type AppartmentAdCountAggregateOutputType = {
+    id: number
+    userId: number
+    shopId: number
+    createdAt: number
+    description: number
+    title: number
+    country: number
+    city: number
+    category: number
+    type: number
+    propertyType: number
+    payment: number
+    price: number
+    bedrooms: number
+    bathrooms: number
+    amenities: number
+    isOwner: number
+    buildingAge: number
+    designedFor: number
+    floorsNum: number
+    buildingSize: number
+    landSize: number
+    BuildingInterface: number
+    adStatus: number
+    views: number
+    clicks: number
+    _all: number
+  }
+
+
+  export type AppartmentAdAvgAggregateInputType = {
+    id?: true
+    userId?: true
+    shopId?: true
+    views?: true
+    clicks?: true
+  }
+
+  export type AppartmentAdSumAggregateInputType = {
+    id?: true
+    userId?: true
+    shopId?: true
+    views?: true
+    clicks?: true
+  }
+
+  export type AppartmentAdMinAggregateInputType = {
+    id?: true
+    userId?: true
+    shopId?: true
+    createdAt?: true
+    description?: true
+    title?: true
+    country?: true
+    city?: true
+    category?: true
+    type?: true
+    propertyType?: true
+    payment?: true
+    price?: true
+    bedrooms?: true
+    bathrooms?: true
+    amenities?: true
+    isOwner?: true
+    buildingAge?: true
+    designedFor?: true
+    floorsNum?: true
+    buildingSize?: true
+    landSize?: true
+    BuildingInterface?: true
+    adStatus?: true
+    views?: true
+    clicks?: true
+  }
+
+  export type AppartmentAdMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    shopId?: true
+    createdAt?: true
+    description?: true
+    title?: true
+    country?: true
+    city?: true
+    category?: true
+    type?: true
+    propertyType?: true
+    payment?: true
+    price?: true
+    bedrooms?: true
+    bathrooms?: true
+    amenities?: true
+    isOwner?: true
+    buildingAge?: true
+    designedFor?: true
+    floorsNum?: true
+    buildingSize?: true
+    landSize?: true
+    BuildingInterface?: true
+    adStatus?: true
+    views?: true
+    clicks?: true
+  }
+
+  export type AppartmentAdCountAggregateInputType = {
+    id?: true
+    userId?: true
+    shopId?: true
+    createdAt?: true
+    description?: true
+    title?: true
+    country?: true
+    city?: true
+    category?: true
+    type?: true
+    propertyType?: true
+    payment?: true
+    price?: true
+    bedrooms?: true
+    bathrooms?: true
+    amenities?: true
+    isOwner?: true
+    buildingAge?: true
+    designedFor?: true
+    floorsNum?: true
+    buildingSize?: true
+    landSize?: true
+    BuildingInterface?: true
+    adStatus?: true
+    views?: true
+    clicks?: true
+    _all?: true
+  }
+
+  export type AppartmentAdAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which AppartmentAd to aggregate.
+     */
+    where?: AppartmentAdWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AppartmentAds to fetch.
+     */
+    orderBy?: AppartmentAdOrderByWithRelationInput | AppartmentAdOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: AppartmentAdWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AppartmentAds from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AppartmentAds.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned AppartmentAds
+    **/
+    _count?: true | AppartmentAdCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: AppartmentAdAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: AppartmentAdSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: AppartmentAdMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: AppartmentAdMaxAggregateInputType
+  }
+
+  export type GetAppartmentAdAggregateType<T extends AppartmentAdAggregateArgs> = {
+        [P in keyof T & keyof AggregateAppartmentAd]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateAppartmentAd[P]>
+      : GetScalarType<T[P], AggregateAppartmentAd[P]>
+  }
+
+
+
+
+  export type AppartmentAdGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AppartmentAdWhereInput
+    orderBy?: AppartmentAdOrderByWithAggregationInput | AppartmentAdOrderByWithAggregationInput[]
+    by: AppartmentAdScalarFieldEnum[] | AppartmentAdScalarFieldEnum
+    having?: AppartmentAdScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: AppartmentAdCountAggregateInputType | true
+    _avg?: AppartmentAdAvgAggregateInputType
+    _sum?: AppartmentAdSumAggregateInputType
+    _min?: AppartmentAdMinAggregateInputType
+    _max?: AppartmentAdMaxAggregateInputType
+  }
+
+  export type AppartmentAdGroupByOutputType = {
+    id: number
+    userId: number | null
+    shopId: number | null
+    createdAt: Date
+    description: string | null
+    title: string | null
+    country: string | null
+    city: string | null
+    category: string
+    type: string | null
+    propertyType: string | null
+    payment: string
+    price: string
+    bedrooms: string
+    bathrooms: string
+    amenities: string | null
+    isOwner: string | null
+    buildingAge: string | null
+    designedFor: string | null
+    floorsNum: string | null
+    buildingSize: string | null
+    landSize: string | null
+    BuildingInterface: string | null
+    adStatus: string
+    views: number
+    clicks: number
+    _count: AppartmentAdCountAggregateOutputType | null
+    _avg: AppartmentAdAvgAggregateOutputType | null
+    _sum: AppartmentAdSumAggregateOutputType | null
+    _min: AppartmentAdMinAggregateOutputType | null
+    _max: AppartmentAdMaxAggregateOutputType | null
+  }
+
+  type GetAppartmentAdGroupByPayload<T extends AppartmentAdGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<AppartmentAdGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof AppartmentAdGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], AppartmentAdGroupByOutputType[P]>
+            : GetScalarType<T[P], AppartmentAdGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type AppartmentAdSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    shopId?: boolean
+    createdAt?: boolean
+    description?: boolean
+    title?: boolean
+    country?: boolean
+    city?: boolean
+    category?: boolean
+    type?: boolean
+    propertyType?: boolean
+    payment?: boolean
+    price?: boolean
+    bedrooms?: boolean
+    bathrooms?: boolean
+    amenities?: boolean
+    isOwner?: boolean
+    buildingAge?: boolean
+    designedFor?: boolean
+    floorsNum?: boolean
+    buildingSize?: boolean
+    landSize?: boolean
+    BuildingInterface?: boolean
+    adStatus?: boolean
+    views?: boolean
+    clicks?: boolean
+    user?: boolean | AppartmentAd$userArgs<ExtArgs>
+    shop?: boolean | AppartmentAd$shopArgs<ExtArgs>
+    images?: boolean | AppartmentAd$imagesArgs<ExtArgs>
+    favoritedBy?: boolean | AppartmentAd$favoritedByArgs<ExtArgs>
+    _count?: boolean | AppartmentAdCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["appartmentAd"]>
+
+  export type AppartmentAdSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    shopId?: boolean
+    createdAt?: boolean
+    description?: boolean
+    title?: boolean
+    country?: boolean
+    city?: boolean
+    category?: boolean
+    type?: boolean
+    propertyType?: boolean
+    payment?: boolean
+    price?: boolean
+    bedrooms?: boolean
+    bathrooms?: boolean
+    amenities?: boolean
+    isOwner?: boolean
+    buildingAge?: boolean
+    designedFor?: boolean
+    floorsNum?: boolean
+    buildingSize?: boolean
+    landSize?: boolean
+    BuildingInterface?: boolean
+    adStatus?: boolean
+    views?: boolean
+    clicks?: boolean
+  }
+
+  export type AppartmentAdInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | AppartmentAd$userArgs<ExtArgs>
+    shop?: boolean | AppartmentAd$shopArgs<ExtArgs>
+    images?: boolean | AppartmentAd$imagesArgs<ExtArgs>
+    favoritedBy?: boolean | AppartmentAd$favoritedByArgs<ExtArgs>
+    _count?: boolean | AppartmentAdCountOutputTypeDefaultArgs<ExtArgs>
+  }
+
+
+  export type $AppartmentAdPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "AppartmentAd"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs> | null
+      shop: Prisma.$ShopPayload<ExtArgs> | null
+      images: Prisma.$ImagePayload<ExtArgs>[]
+      favoritedBy: Prisma.$FavoriteAdPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      userId: number | null
+      shopId: number | null
+      createdAt: Date
+      description: string | null
+      title: string | null
+      country: string | null
+      city: string | null
+      category: string
+      type: string | null
+      propertyType: string | null
+      payment: string
+      price: string
+      bedrooms: string
+      bathrooms: string
+      amenities: string | null
+      isOwner: string | null
+      buildingAge: string | null
+      designedFor: string | null
+      floorsNum: string | null
+      buildingSize: string | null
+      landSize: string | null
+      BuildingInterface: string | null
+      adStatus: string
+      views: number
+      clicks: number
+    }, ExtArgs["result"]["appartmentAd"]>
+    composites: {}
+  }
+
+
+  type AppartmentAdGetPayload<S extends boolean | null | undefined | AppartmentAdDefaultArgs> = $Result.GetResult<Prisma.$AppartmentAdPayload, S>
+
+  type AppartmentAdCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<AppartmentAdFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: AppartmentAdCountAggregateInputType | true
+    }
+
+  export interface AppartmentAdDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['AppartmentAd'], meta: { name: 'AppartmentAd' } }
+    /**
+     * Find zero or one AppartmentAd that matches the filter.
+     * @param {AppartmentAdFindUniqueArgs} args - Arguments to find a AppartmentAd
+     * @example
+     * // Get one AppartmentAd
+     * const appartmentAd = await prisma.appartmentAd.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUnique<T extends AppartmentAdFindUniqueArgs<ExtArgs>>(
+      args: SelectSubset<T, AppartmentAdFindUniqueArgs<ExtArgs>>
+    ): Prisma__AppartmentAdClient<$Result.GetResult<Prisma.$AppartmentAdPayload<ExtArgs>, T, 'findUnique'> | null, null, ExtArgs>
+
+    /**
+     * Find one AppartmentAd that matches the filter or throw an error  with `error.code='P2025'` 
+     *     if no matches were found.
+     * @param {AppartmentAdFindUniqueOrThrowArgs} args - Arguments to find a AppartmentAd
+     * @example
+     * // Get one AppartmentAd
+     * const appartmentAd = await prisma.appartmentAd.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUniqueOrThrow<T extends AppartmentAdFindUniqueOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, AppartmentAdFindUniqueOrThrowArgs<ExtArgs>>
+    ): Prisma__AppartmentAdClient<$Result.GetResult<Prisma.$AppartmentAdPayload<ExtArgs>, T, 'findUniqueOrThrow'>, never, ExtArgs>
+
+    /**
+     * Find the first AppartmentAd that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AppartmentAdFindFirstArgs} args - Arguments to find a AppartmentAd
+     * @example
+     * // Get one AppartmentAd
+     * const appartmentAd = await prisma.appartmentAd.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirst<T extends AppartmentAdFindFirstArgs<ExtArgs>>(
+      args?: SelectSubset<T, AppartmentAdFindFirstArgs<ExtArgs>>
+    ): Prisma__AppartmentAdClient<$Result.GetResult<Prisma.$AppartmentAdPayload<ExtArgs>, T, 'findFirst'> | null, null, ExtArgs>
+
+    /**
+     * Find the first AppartmentAd that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AppartmentAdFindFirstOrThrowArgs} args - Arguments to find a AppartmentAd
+     * @example
+     * // Get one AppartmentAd
+     * const appartmentAd = await prisma.appartmentAd.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirstOrThrow<T extends AppartmentAdFindFirstOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, AppartmentAdFindFirstOrThrowArgs<ExtArgs>>
+    ): Prisma__AppartmentAdClient<$Result.GetResult<Prisma.$AppartmentAdPayload<ExtArgs>, T, 'findFirstOrThrow'>, never, ExtArgs>
+
+    /**
+     * Find zero or more AppartmentAds that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AppartmentAdFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all AppartmentAds
+     * const appartmentAds = await prisma.appartmentAd.findMany()
+     * 
+     * // Get first 10 AppartmentAds
+     * const appartmentAds = await prisma.appartmentAd.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const appartmentAdWithIdOnly = await prisma.appartmentAd.findMany({ select: { id: true } })
+     * 
+    **/
+    findMany<T extends AppartmentAdFindManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, AppartmentAdFindManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AppartmentAdPayload<ExtArgs>, T, 'findMany'>>
+
+    /**
+     * Create a AppartmentAd.
+     * @param {AppartmentAdCreateArgs} args - Arguments to create a AppartmentAd.
+     * @example
+     * // Create one AppartmentAd
+     * const AppartmentAd = await prisma.appartmentAd.create({
+     *   data: {
+     *     // ... data to create a AppartmentAd
+     *   }
+     * })
+     * 
+    **/
+    create<T extends AppartmentAdCreateArgs<ExtArgs>>(
+      args: SelectSubset<T, AppartmentAdCreateArgs<ExtArgs>>
+    ): Prisma__AppartmentAdClient<$Result.GetResult<Prisma.$AppartmentAdPayload<ExtArgs>, T, 'create'>, never, ExtArgs>
+
+    /**
+     * Delete a AppartmentAd.
+     * @param {AppartmentAdDeleteArgs} args - Arguments to delete one AppartmentAd.
+     * @example
+     * // Delete one AppartmentAd
+     * const AppartmentAd = await prisma.appartmentAd.delete({
+     *   where: {
+     *     // ... filter to delete one AppartmentAd
+     *   }
+     * })
+     * 
+    **/
+    delete<T extends AppartmentAdDeleteArgs<ExtArgs>>(
+      args: SelectSubset<T, AppartmentAdDeleteArgs<ExtArgs>>
+    ): Prisma__AppartmentAdClient<$Result.GetResult<Prisma.$AppartmentAdPayload<ExtArgs>, T, 'delete'>, never, ExtArgs>
+
+    /**
+     * Update one AppartmentAd.
+     * @param {AppartmentAdUpdateArgs} args - Arguments to update one AppartmentAd.
+     * @example
+     * // Update one AppartmentAd
+     * const appartmentAd = await prisma.appartmentAd.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    update<T extends AppartmentAdUpdateArgs<ExtArgs>>(
+      args: SelectSubset<T, AppartmentAdUpdateArgs<ExtArgs>>
+    ): Prisma__AppartmentAdClient<$Result.GetResult<Prisma.$AppartmentAdPayload<ExtArgs>, T, 'update'>, never, ExtArgs>
+
+    /**
+     * Delete zero or more AppartmentAds.
+     * @param {AppartmentAdDeleteManyArgs} args - Arguments to filter AppartmentAds to delete.
+     * @example
+     * // Delete a few AppartmentAds
+     * const { count } = await prisma.appartmentAd.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+    **/
+    deleteMany<T extends AppartmentAdDeleteManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, AppartmentAdDeleteManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more AppartmentAds.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AppartmentAdUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many AppartmentAds
+     * const appartmentAd = await prisma.appartmentAd.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    updateMany<T extends AppartmentAdUpdateManyArgs<ExtArgs>>(
+      args: SelectSubset<T, AppartmentAdUpdateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one AppartmentAd.
+     * @param {AppartmentAdUpsertArgs} args - Arguments to update or create a AppartmentAd.
+     * @example
+     * // Update or create a AppartmentAd
+     * const appartmentAd = await prisma.appartmentAd.upsert({
+     *   create: {
+     *     // ... data to create a AppartmentAd
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the AppartmentAd we want to update
+     *   }
+     * })
+    **/
+    upsert<T extends AppartmentAdUpsertArgs<ExtArgs>>(
+      args: SelectSubset<T, AppartmentAdUpsertArgs<ExtArgs>>
+    ): Prisma__AppartmentAdClient<$Result.GetResult<Prisma.$AppartmentAdPayload<ExtArgs>, T, 'upsert'>, never, ExtArgs>
+
+    /**
+     * Count the number of AppartmentAds.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AppartmentAdCountArgs} args - Arguments to filter AppartmentAds to count.
+     * @example
+     * // Count the number of AppartmentAds
+     * const count = await prisma.appartmentAd.count({
+     *   where: {
+     *     // ... the filter for the AppartmentAds we want to count
+     *   }
+     * })
+    **/
+    count<T extends AppartmentAdCountArgs>(
+      args?: Subset<T, AppartmentAdCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], AppartmentAdCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a AppartmentAd.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AppartmentAdAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends AppartmentAdAggregateArgs>(args: Subset<T, AppartmentAdAggregateArgs>): Prisma.PrismaPromise<GetAppartmentAdAggregateType<T>>
+
+    /**
+     * Group by AppartmentAd.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AppartmentAdGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends AppartmentAdGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: AppartmentAdGroupByArgs['orderBy'] }
+        : { orderBy?: AppartmentAdGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, AppartmentAdGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetAppartmentAdGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the AppartmentAd model
+   */
+  readonly fields: AppartmentAdFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for AppartmentAd.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__AppartmentAdClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: 'PrismaPromise';
+
+    user<T extends AppartmentAd$userArgs<ExtArgs> = {}>(args?: Subset<T, AppartmentAd$userArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, 'findUniqueOrThrow'> | null, null, ExtArgs>;
+
+    shop<T extends AppartmentAd$shopArgs<ExtArgs> = {}>(args?: Subset<T, AppartmentAd$shopArgs<ExtArgs>>): Prisma__ShopClient<$Result.GetResult<Prisma.$ShopPayload<ExtArgs>, T, 'findUniqueOrThrow'> | null, null, ExtArgs>;
+
+    images<T extends AppartmentAd$imagesArgs<ExtArgs> = {}>(args?: Subset<T, AppartmentAd$imagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ImagePayload<ExtArgs>, T, 'findMany'> | Null>;
+
+    favoritedBy<T extends AppartmentAd$favoritedByArgs<ExtArgs> = {}>(args?: Subset<T, AppartmentAd$favoritedByArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FavoriteAdPayload<ExtArgs>, T, 'findMany'> | Null>;
+
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>;
+  }
+
+
+
+  /**
+   * Fields of the AppartmentAd model
+   */ 
+  interface AppartmentAdFieldRefs {
+    readonly id: FieldRef<"AppartmentAd", 'Int'>
+    readonly userId: FieldRef<"AppartmentAd", 'Int'>
+    readonly shopId: FieldRef<"AppartmentAd", 'Int'>
+    readonly createdAt: FieldRef<"AppartmentAd", 'DateTime'>
+    readonly description: FieldRef<"AppartmentAd", 'String'>
+    readonly title: FieldRef<"AppartmentAd", 'String'>
+    readonly country: FieldRef<"AppartmentAd", 'String'>
+    readonly city: FieldRef<"AppartmentAd", 'String'>
+    readonly category: FieldRef<"AppartmentAd", 'String'>
+    readonly type: FieldRef<"AppartmentAd", 'String'>
+    readonly propertyType: FieldRef<"AppartmentAd", 'String'>
+    readonly payment: FieldRef<"AppartmentAd", 'String'>
+    readonly price: FieldRef<"AppartmentAd", 'String'>
+    readonly bedrooms: FieldRef<"AppartmentAd", 'String'>
+    readonly bathrooms: FieldRef<"AppartmentAd", 'String'>
+    readonly amenities: FieldRef<"AppartmentAd", 'String'>
+    readonly isOwner: FieldRef<"AppartmentAd", 'String'>
+    readonly buildingAge: FieldRef<"AppartmentAd", 'String'>
+    readonly designedFor: FieldRef<"AppartmentAd", 'String'>
+    readonly floorsNum: FieldRef<"AppartmentAd", 'String'>
+    readonly buildingSize: FieldRef<"AppartmentAd", 'String'>
+    readonly landSize: FieldRef<"AppartmentAd", 'String'>
+    readonly BuildingInterface: FieldRef<"AppartmentAd", 'String'>
+    readonly adStatus: FieldRef<"AppartmentAd", 'String'>
+    readonly views: FieldRef<"AppartmentAd", 'Int'>
+    readonly clicks: FieldRef<"AppartmentAd", 'Int'>
+  }
+    
+
+  // Custom InputTypes
+
+  /**
+   * AppartmentAd findUnique
+   */
+  export type AppartmentAdFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AppartmentAd
+     */
+    select?: AppartmentAdSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AppartmentAdInclude<ExtArgs> | null
+    /**
+     * Filter, which AppartmentAd to fetch.
+     */
+    where: AppartmentAdWhereUniqueInput
+  }
+
+
+  /**
+   * AppartmentAd findUniqueOrThrow
+   */
+  export type AppartmentAdFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AppartmentAd
+     */
+    select?: AppartmentAdSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AppartmentAdInclude<ExtArgs> | null
+    /**
+     * Filter, which AppartmentAd to fetch.
+     */
+    where: AppartmentAdWhereUniqueInput
+  }
+
+
+  /**
+   * AppartmentAd findFirst
+   */
+  export type AppartmentAdFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AppartmentAd
+     */
+    select?: AppartmentAdSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AppartmentAdInclude<ExtArgs> | null
+    /**
+     * Filter, which AppartmentAd to fetch.
+     */
+    where?: AppartmentAdWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AppartmentAds to fetch.
+     */
+    orderBy?: AppartmentAdOrderByWithRelationInput | AppartmentAdOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for AppartmentAds.
+     */
+    cursor?: AppartmentAdWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AppartmentAds from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AppartmentAds.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of AppartmentAds.
+     */
+    distinct?: AppartmentAdScalarFieldEnum | AppartmentAdScalarFieldEnum[]
+  }
+
+
+  /**
+   * AppartmentAd findFirstOrThrow
+   */
+  export type AppartmentAdFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AppartmentAd
+     */
+    select?: AppartmentAdSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AppartmentAdInclude<ExtArgs> | null
+    /**
+     * Filter, which AppartmentAd to fetch.
+     */
+    where?: AppartmentAdWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AppartmentAds to fetch.
+     */
+    orderBy?: AppartmentAdOrderByWithRelationInput | AppartmentAdOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for AppartmentAds.
+     */
+    cursor?: AppartmentAdWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AppartmentAds from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AppartmentAds.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of AppartmentAds.
+     */
+    distinct?: AppartmentAdScalarFieldEnum | AppartmentAdScalarFieldEnum[]
+  }
+
+
+  /**
+   * AppartmentAd findMany
+   */
+  export type AppartmentAdFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AppartmentAd
+     */
+    select?: AppartmentAdSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AppartmentAdInclude<ExtArgs> | null
+    /**
+     * Filter, which AppartmentAds to fetch.
+     */
+    where?: AppartmentAdWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AppartmentAds to fetch.
+     */
+    orderBy?: AppartmentAdOrderByWithRelationInput | AppartmentAdOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing AppartmentAds.
+     */
+    cursor?: AppartmentAdWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AppartmentAds from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AppartmentAds.
+     */
+    skip?: number
+    distinct?: AppartmentAdScalarFieldEnum | AppartmentAdScalarFieldEnum[]
+  }
+
+
+  /**
+   * AppartmentAd create
+   */
+  export type AppartmentAdCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AppartmentAd
+     */
+    select?: AppartmentAdSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AppartmentAdInclude<ExtArgs> | null
+    /**
+     * The data needed to create a AppartmentAd.
+     */
+    data: XOR<AppartmentAdCreateInput, AppartmentAdUncheckedCreateInput>
+  }
+
+
+  /**
+   * AppartmentAd update
+   */
+  export type AppartmentAdUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AppartmentAd
+     */
+    select?: AppartmentAdSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AppartmentAdInclude<ExtArgs> | null
+    /**
+     * The data needed to update a AppartmentAd.
+     */
+    data: XOR<AppartmentAdUpdateInput, AppartmentAdUncheckedUpdateInput>
+    /**
+     * Choose, which AppartmentAd to update.
+     */
+    where: AppartmentAdWhereUniqueInput
+  }
+
+
+  /**
+   * AppartmentAd updateMany
+   */
+  export type AppartmentAdUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update AppartmentAds.
+     */
+    data: XOR<AppartmentAdUpdateManyMutationInput, AppartmentAdUncheckedUpdateManyInput>
+    /**
+     * Filter which AppartmentAds to update
+     */
+    where?: AppartmentAdWhereInput
+  }
+
+
+  /**
+   * AppartmentAd upsert
+   */
+  export type AppartmentAdUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AppartmentAd
+     */
+    select?: AppartmentAdSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AppartmentAdInclude<ExtArgs> | null
+    /**
+     * The filter to search for the AppartmentAd to update in case it exists.
+     */
+    where: AppartmentAdWhereUniqueInput
+    /**
+     * In case the AppartmentAd found by the `where` argument doesn't exist, create a new AppartmentAd with this data.
+     */
+    create: XOR<AppartmentAdCreateInput, AppartmentAdUncheckedCreateInput>
+    /**
+     * In case the AppartmentAd was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<AppartmentAdUpdateInput, AppartmentAdUncheckedUpdateInput>
+  }
+
+
+  /**
+   * AppartmentAd delete
+   */
+  export type AppartmentAdDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AppartmentAd
+     */
+    select?: AppartmentAdSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AppartmentAdInclude<ExtArgs> | null
+    /**
+     * Filter which AppartmentAd to delete.
+     */
+    where: AppartmentAdWhereUniqueInput
+  }
+
+
+  /**
+   * AppartmentAd deleteMany
+   */
+  export type AppartmentAdDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which AppartmentAds to delete
+     */
+    where?: AppartmentAdWhereInput
+  }
+
+
+  /**
+   * AppartmentAd.user
+   */
+  export type AppartmentAd$userArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
+  }
+
+
+  /**
+   * AppartmentAd.shop
+   */
+  export type AppartmentAd$shopArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Shop
+     */
+    select?: ShopSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ShopInclude<ExtArgs> | null
+    where?: ShopWhereInput
+  }
+
+
+  /**
+   * AppartmentAd.images
+   */
+  export type AppartmentAd$imagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Image
+     */
+    select?: ImageSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ImageInclude<ExtArgs> | null
+    where?: ImageWhereInput
+    orderBy?: ImageOrderByWithRelationInput | ImageOrderByWithRelationInput[]
+    cursor?: ImageWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ImageScalarFieldEnum | ImageScalarFieldEnum[]
+  }
+
+
+  /**
+   * AppartmentAd.favoritedBy
+   */
+  export type AppartmentAd$favoritedByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FavoriteAd
+     */
+    select?: FavoriteAdSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: FavoriteAdInclude<ExtArgs> | null
+    where?: FavoriteAdWhereInput
+    orderBy?: FavoriteAdOrderByWithRelationInput | FavoriteAdOrderByWithRelationInput[]
+    cursor?: FavoriteAdWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: FavoriteAdScalarFieldEnum | FavoriteAdScalarFieldEnum[]
+  }
+
+
+  /**
+   * AppartmentAd without action
+   */
+  export type AppartmentAdDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AppartmentAd
+     */
+    select?: AppartmentAdSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AppartmentAdInclude<ExtArgs> | null
+  }
+
+
+
+  /**
    * Model FavoriteAd
    */
 
@@ -23436,18 +24944,21 @@ export namespace Prisma {
     id: number | null
     userId: number | null
     adId: number | null
+    appartmentAdId: number | null
   }
 
   export type FavoriteAdSumAggregateOutputType = {
     id: number | null
     userId: number | null
     adId: number | null
+    appartmentAdId: number | null
   }
 
   export type FavoriteAdMinAggregateOutputType = {
     id: number | null
     userId: number | null
     adId: number | null
+    appartmentAdId: number | null
     createdAt: Date | null
   }
 
@@ -23455,6 +24966,7 @@ export namespace Prisma {
     id: number | null
     userId: number | null
     adId: number | null
+    appartmentAdId: number | null
     createdAt: Date | null
   }
 
@@ -23462,6 +24974,7 @@ export namespace Prisma {
     id: number
     userId: number
     adId: number
+    appartmentAdId: number
     createdAt: number
     _all: number
   }
@@ -23471,18 +24984,21 @@ export namespace Prisma {
     id?: true
     userId?: true
     adId?: true
+    appartmentAdId?: true
   }
 
   export type FavoriteAdSumAggregateInputType = {
     id?: true
     userId?: true
     adId?: true
+    appartmentAdId?: true
   }
 
   export type FavoriteAdMinAggregateInputType = {
     id?: true
     userId?: true
     adId?: true
+    appartmentAdId?: true
     createdAt?: true
   }
 
@@ -23490,6 +25006,7 @@ export namespace Prisma {
     id?: true
     userId?: true
     adId?: true
+    appartmentAdId?: true
     createdAt?: true
   }
 
@@ -23497,6 +25014,7 @@ export namespace Prisma {
     id?: true
     userId?: true
     adId?: true
+    appartmentAdId?: true
     createdAt?: true
     _all?: true
   }
@@ -23590,7 +25108,8 @@ export namespace Prisma {
   export type FavoriteAdGroupByOutputType = {
     id: number
     userId: number
-    adId: number
+    adId: number | null
+    appartmentAdId: number | null
     createdAt: Date
     _count: FavoriteAdCountAggregateOutputType | null
     _avg: FavoriteAdAvgAggregateOutputType | null
@@ -23617,21 +25136,25 @@ export namespace Prisma {
     id?: boolean
     userId?: boolean
     adId?: boolean
+    appartmentAdId?: boolean
     createdAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
-    ad?: boolean | AdDefaultArgs<ExtArgs>
+    ad?: boolean | FavoriteAd$adArgs<ExtArgs>
+    AppartmentAd?: boolean | FavoriteAd$AppartmentAdArgs<ExtArgs>
   }, ExtArgs["result"]["favoriteAd"]>
 
   export type FavoriteAdSelectScalar = {
     id?: boolean
     userId?: boolean
     adId?: boolean
+    appartmentAdId?: boolean
     createdAt?: boolean
   }
 
   export type FavoriteAdInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
-    ad?: boolean | AdDefaultArgs<ExtArgs>
+    ad?: boolean | FavoriteAd$adArgs<ExtArgs>
+    AppartmentAd?: boolean | FavoriteAd$AppartmentAdArgs<ExtArgs>
   }
 
 
@@ -23639,12 +25162,14 @@ export namespace Prisma {
     name: "FavoriteAd"
     objects: {
       user: Prisma.$UserPayload<ExtArgs>
-      ad: Prisma.$AdPayload<ExtArgs>
+      ad: Prisma.$AdPayload<ExtArgs> | null
+      AppartmentAd: Prisma.$AppartmentAdPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
       userId: number
-      adId: number
+      adId: number | null
+      appartmentAdId: number | null
       createdAt: Date
     }, ExtArgs["result"]["favoriteAd"]>
     composites: {}
@@ -23997,7 +25522,9 @@ export namespace Prisma {
 
     user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, 'findUniqueOrThrow'> | Null, Null, ExtArgs>;
 
-    ad<T extends AdDefaultArgs<ExtArgs> = {}>(args?: Subset<T, AdDefaultArgs<ExtArgs>>): Prisma__AdClient<$Result.GetResult<Prisma.$AdPayload<ExtArgs>, T, 'findUniqueOrThrow'> | Null, Null, ExtArgs>;
+    ad<T extends FavoriteAd$adArgs<ExtArgs> = {}>(args?: Subset<T, FavoriteAd$adArgs<ExtArgs>>): Prisma__AdClient<$Result.GetResult<Prisma.$AdPayload<ExtArgs>, T, 'findUniqueOrThrow'> | null, null, ExtArgs>;
+
+    AppartmentAd<T extends FavoriteAd$AppartmentAdArgs<ExtArgs> = {}>(args?: Subset<T, FavoriteAd$AppartmentAdArgs<ExtArgs>>): Prisma__AppartmentAdClient<$Result.GetResult<Prisma.$AppartmentAdPayload<ExtArgs>, T, 'findUniqueOrThrow'> | null, null, ExtArgs>;
 
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -24030,6 +25557,7 @@ export namespace Prisma {
     readonly id: FieldRef<"FavoriteAd", 'Int'>
     readonly userId: FieldRef<"FavoriteAd", 'Int'>
     readonly adId: FieldRef<"FavoriteAd", 'Int'>
+    readonly appartmentAdId: FieldRef<"FavoriteAd", 'Int'>
     readonly createdAt: FieldRef<"FavoriteAd", 'DateTime'>
   }
     
@@ -24331,6 +25859,38 @@ export namespace Prisma {
 
 
   /**
+   * FavoriteAd.ad
+   */
+  export type FavoriteAd$adArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Ad
+     */
+    select?: AdSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AdInclude<ExtArgs> | null
+    where?: AdWhereInput
+  }
+
+
+  /**
+   * FavoriteAd.AppartmentAd
+   */
+  export type FavoriteAd$AppartmentAdArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AppartmentAd
+     */
+    select?: AppartmentAdSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AppartmentAdInclude<ExtArgs> | null
+    where?: AppartmentAdWhereInput
+  }
+
+
+  /**
    * FavoriteAd without action
    */
   export type FavoriteAdDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -24620,7 +26180,8 @@ export namespace Prisma {
   export const ImageScalarFieldEnum: {
     id: 'id',
     url: 'url',
-    adId: 'adId'
+    adId: 'adId',
+    appartmentAdId: 'appartmentAdId'
   };
 
   export type ImageScalarFieldEnum = (typeof ImageScalarFieldEnum)[keyof typeof ImageScalarFieldEnum]
@@ -24660,10 +26221,43 @@ export namespace Prisma {
   export type AdScalarFieldEnum = (typeof AdScalarFieldEnum)[keyof typeof AdScalarFieldEnum]
 
 
+  export const AppartmentAdScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    shopId: 'shopId',
+    createdAt: 'createdAt',
+    description: 'description',
+    title: 'title',
+    country: 'country',
+    city: 'city',
+    category: 'category',
+    type: 'type',
+    propertyType: 'propertyType',
+    payment: 'payment',
+    price: 'price',
+    bedrooms: 'bedrooms',
+    bathrooms: 'bathrooms',
+    amenities: 'amenities',
+    isOwner: 'isOwner',
+    buildingAge: 'buildingAge',
+    designedFor: 'designedFor',
+    floorsNum: 'floorsNum',
+    buildingSize: 'buildingSize',
+    landSize: 'landSize',
+    BuildingInterface: 'BuildingInterface',
+    adStatus: 'adStatus',
+    views: 'views',
+    clicks: 'clicks'
+  };
+
+  export type AppartmentAdScalarFieldEnum = (typeof AppartmentAdScalarFieldEnum)[keyof typeof AppartmentAdScalarFieldEnum]
+
+
   export const FavoriteAdScalarFieldEnum: {
     id: 'id',
     userId: 'userId',
     adId: 'adId',
+    appartmentAdId: 'appartmentAdId',
     createdAt: 'createdAt'
   };
 
@@ -24941,6 +26535,7 @@ export namespace Prisma {
     accounts?: AccountListRelationFilter
     sessions?: SessionListRelationFilter
     ads?: AdListRelationFilter
+    AppartmentAds?: AppartmentAdListRelationFilter
     favoriteAds?: FavoriteAdListRelationFilter
     shop?: ShopListRelationFilter
     subscription?: XOR<SubscriptionNullableRelationFilter, SubscriptionWhereInput> | null
@@ -24981,6 +26576,7 @@ export namespace Prisma {
     accounts?: AccountOrderByRelationAggregateInput
     sessions?: SessionOrderByRelationAggregateInput
     ads?: AdOrderByRelationAggregateInput
+    AppartmentAds?: AppartmentAdOrderByRelationAggregateInput
     favoriteAds?: FavoriteAdOrderByRelationAggregateInput
     shop?: ShopOrderByRelationAggregateInput
     subscription?: SubscriptionOrderByWithRelationInput
@@ -25024,6 +26620,7 @@ export namespace Prisma {
     accounts?: AccountListRelationFilter
     sessions?: SessionListRelationFilter
     ads?: AdListRelationFilter
+    AppartmentAds?: AppartmentAdListRelationFilter
     favoriteAds?: FavoriteAdListRelationFilter
     shop?: ShopListRelationFilter
     subscription?: XOR<SubscriptionNullableRelationFilter, SubscriptionWhereInput> | null
@@ -25744,6 +27341,7 @@ export namespace Prisma {
     phoneNumber2?: StringNullableFilter<"Shop"> | string | null
     user?: XOR<UserRelationFilter, UserWhereInput>
     ads?: AdListRelationFilter
+    AppartmentAds?: AppartmentAdListRelationFilter
     followers?: FollowListRelationFilter
     ratings?: RatingListRelationFilter
     chats?: ChatListRelationFilter
@@ -25771,6 +27369,7 @@ export namespace Prisma {
     phoneNumber2?: SortOrderInput | SortOrder
     user?: UserOrderByWithRelationInput
     ads?: AdOrderByRelationAggregateInput
+    AppartmentAds?: AppartmentAdOrderByRelationAggregateInput
     followers?: FollowOrderByRelationAggregateInput
     ratings?: RatingOrderByRelationAggregateInput
     chats?: ChatOrderByRelationAggregateInput
@@ -25801,6 +27400,7 @@ export namespace Prisma {
     phoneNumber2?: StringNullableFilter<"Shop"> | string | null
     user?: XOR<UserRelationFilter, UserWhereInput>
     ads?: AdListRelationFilter
+    AppartmentAds?: AppartmentAdListRelationFilter
     followers?: FollowListRelationFilter
     ratings?: RatingListRelationFilter
     chats?: ChatListRelationFilter
@@ -26191,15 +27791,19 @@ export namespace Prisma {
     NOT?: ImageWhereInput | ImageWhereInput[]
     id?: IntFilter<"Image"> | number
     url?: StringFilter<"Image"> | string
-    adId?: IntFilter<"Image"> | number
-    ad?: XOR<AdRelationFilter, AdWhereInput>
+    adId?: IntNullableFilter<"Image"> | number | null
+    appartmentAdId?: IntNullableFilter<"Image"> | number | null
+    ad?: XOR<AdNullableRelationFilter, AdWhereInput> | null
+    AppartmentAd?: XOR<AppartmentAdNullableRelationFilter, AppartmentAdWhereInput> | null
   }
 
   export type ImageOrderByWithRelationInput = {
     id?: SortOrder
     url?: SortOrder
-    adId?: SortOrder
+    adId?: SortOrderInput | SortOrder
+    appartmentAdId?: SortOrderInput | SortOrder
     ad?: AdOrderByWithRelationInput
+    AppartmentAd?: AppartmentAdOrderByWithRelationInput
   }
 
   export type ImageWhereUniqueInput = Prisma.AtLeast<{
@@ -26208,14 +27812,17 @@ export namespace Prisma {
     OR?: ImageWhereInput[]
     NOT?: ImageWhereInput | ImageWhereInput[]
     url?: StringFilter<"Image"> | string
-    adId?: IntFilter<"Image"> | number
-    ad?: XOR<AdRelationFilter, AdWhereInput>
+    adId?: IntNullableFilter<"Image"> | number | null
+    appartmentAdId?: IntNullableFilter<"Image"> | number | null
+    ad?: XOR<AdNullableRelationFilter, AdWhereInput> | null
+    AppartmentAd?: XOR<AppartmentAdNullableRelationFilter, AppartmentAdWhereInput> | null
   }, "id">
 
   export type ImageOrderByWithAggregationInput = {
     id?: SortOrder
     url?: SortOrder
-    adId?: SortOrder
+    adId?: SortOrderInput | SortOrder
+    appartmentAdId?: SortOrderInput | SortOrder
     _count?: ImageCountOrderByAggregateInput
     _avg?: ImageAvgOrderByAggregateInput
     _max?: ImageMaxOrderByAggregateInput
@@ -26229,7 +27836,8 @@ export namespace Prisma {
     NOT?: ImageScalarWhereWithAggregatesInput | ImageScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"Image"> | number
     url?: StringWithAggregatesFilter<"Image"> | string
-    adId?: IntWithAggregatesFilter<"Image"> | number
+    adId?: IntNullableWithAggregatesFilter<"Image"> | number | null
+    appartmentAdId?: IntNullableWithAggregatesFilter<"Image"> | number | null
   }
 
   export type AdWhereInput = {
@@ -26413,25 +28021,200 @@ export namespace Prisma {
     clicks?: IntWithAggregatesFilter<"Ad"> | number
   }
 
+  export type AppartmentAdWhereInput = {
+    AND?: AppartmentAdWhereInput | AppartmentAdWhereInput[]
+    OR?: AppartmentAdWhereInput[]
+    NOT?: AppartmentAdWhereInput | AppartmentAdWhereInput[]
+    id?: IntFilter<"AppartmentAd"> | number
+    userId?: IntNullableFilter<"AppartmentAd"> | number | null
+    shopId?: IntNullableFilter<"AppartmentAd"> | number | null
+    createdAt?: DateTimeFilter<"AppartmentAd"> | Date | string
+    description?: StringNullableFilter<"AppartmentAd"> | string | null
+    title?: StringNullableFilter<"AppartmentAd"> | string | null
+    country?: StringNullableFilter<"AppartmentAd"> | string | null
+    city?: StringNullableFilter<"AppartmentAd"> | string | null
+    category?: StringFilter<"AppartmentAd"> | string
+    type?: StringNullableFilter<"AppartmentAd"> | string | null
+    propertyType?: StringNullableFilter<"AppartmentAd"> | string | null
+    payment?: StringFilter<"AppartmentAd"> | string
+    price?: StringFilter<"AppartmentAd"> | string
+    bedrooms?: StringFilter<"AppartmentAd"> | string
+    bathrooms?: StringFilter<"AppartmentAd"> | string
+    amenities?: StringNullableFilter<"AppartmentAd"> | string | null
+    isOwner?: StringNullableFilter<"AppartmentAd"> | string | null
+    buildingAge?: StringNullableFilter<"AppartmentAd"> | string | null
+    designedFor?: StringNullableFilter<"AppartmentAd"> | string | null
+    floorsNum?: StringNullableFilter<"AppartmentAd"> | string | null
+    buildingSize?: StringNullableFilter<"AppartmentAd"> | string | null
+    landSize?: StringNullableFilter<"AppartmentAd"> | string | null
+    BuildingInterface?: StringNullableFilter<"AppartmentAd"> | string | null
+    adStatus?: StringFilter<"AppartmentAd"> | string
+    views?: IntFilter<"AppartmentAd"> | number
+    clicks?: IntFilter<"AppartmentAd"> | number
+    user?: XOR<UserNullableRelationFilter, UserWhereInput> | null
+    shop?: XOR<ShopNullableRelationFilter, ShopWhereInput> | null
+    images?: ImageListRelationFilter
+    favoritedBy?: FavoriteAdListRelationFilter
+  }
+
+  export type AppartmentAdOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrderInput | SortOrder
+    shopId?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    description?: SortOrderInput | SortOrder
+    title?: SortOrderInput | SortOrder
+    country?: SortOrderInput | SortOrder
+    city?: SortOrderInput | SortOrder
+    category?: SortOrder
+    type?: SortOrderInput | SortOrder
+    propertyType?: SortOrderInput | SortOrder
+    payment?: SortOrder
+    price?: SortOrder
+    bedrooms?: SortOrder
+    bathrooms?: SortOrder
+    amenities?: SortOrderInput | SortOrder
+    isOwner?: SortOrderInput | SortOrder
+    buildingAge?: SortOrderInput | SortOrder
+    designedFor?: SortOrderInput | SortOrder
+    floorsNum?: SortOrderInput | SortOrder
+    buildingSize?: SortOrderInput | SortOrder
+    landSize?: SortOrderInput | SortOrder
+    BuildingInterface?: SortOrderInput | SortOrder
+    adStatus?: SortOrder
+    views?: SortOrder
+    clicks?: SortOrder
+    user?: UserOrderByWithRelationInput
+    shop?: ShopOrderByWithRelationInput
+    images?: ImageOrderByRelationAggregateInput
+    favoritedBy?: FavoriteAdOrderByRelationAggregateInput
+  }
+
+  export type AppartmentAdWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: AppartmentAdWhereInput | AppartmentAdWhereInput[]
+    OR?: AppartmentAdWhereInput[]
+    NOT?: AppartmentAdWhereInput | AppartmentAdWhereInput[]
+    userId?: IntNullableFilter<"AppartmentAd"> | number | null
+    shopId?: IntNullableFilter<"AppartmentAd"> | number | null
+    createdAt?: DateTimeFilter<"AppartmentAd"> | Date | string
+    description?: StringNullableFilter<"AppartmentAd"> | string | null
+    title?: StringNullableFilter<"AppartmentAd"> | string | null
+    country?: StringNullableFilter<"AppartmentAd"> | string | null
+    city?: StringNullableFilter<"AppartmentAd"> | string | null
+    category?: StringFilter<"AppartmentAd"> | string
+    type?: StringNullableFilter<"AppartmentAd"> | string | null
+    propertyType?: StringNullableFilter<"AppartmentAd"> | string | null
+    payment?: StringFilter<"AppartmentAd"> | string
+    price?: StringFilter<"AppartmentAd"> | string
+    bedrooms?: StringFilter<"AppartmentAd"> | string
+    bathrooms?: StringFilter<"AppartmentAd"> | string
+    amenities?: StringNullableFilter<"AppartmentAd"> | string | null
+    isOwner?: StringNullableFilter<"AppartmentAd"> | string | null
+    buildingAge?: StringNullableFilter<"AppartmentAd"> | string | null
+    designedFor?: StringNullableFilter<"AppartmentAd"> | string | null
+    floorsNum?: StringNullableFilter<"AppartmentAd"> | string | null
+    buildingSize?: StringNullableFilter<"AppartmentAd"> | string | null
+    landSize?: StringNullableFilter<"AppartmentAd"> | string | null
+    BuildingInterface?: StringNullableFilter<"AppartmentAd"> | string | null
+    adStatus?: StringFilter<"AppartmentAd"> | string
+    views?: IntFilter<"AppartmentAd"> | number
+    clicks?: IntFilter<"AppartmentAd"> | number
+    user?: XOR<UserNullableRelationFilter, UserWhereInput> | null
+    shop?: XOR<ShopNullableRelationFilter, ShopWhereInput> | null
+    images?: ImageListRelationFilter
+    favoritedBy?: FavoriteAdListRelationFilter
+  }, "id">
+
+  export type AppartmentAdOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrderInput | SortOrder
+    shopId?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    description?: SortOrderInput | SortOrder
+    title?: SortOrderInput | SortOrder
+    country?: SortOrderInput | SortOrder
+    city?: SortOrderInput | SortOrder
+    category?: SortOrder
+    type?: SortOrderInput | SortOrder
+    propertyType?: SortOrderInput | SortOrder
+    payment?: SortOrder
+    price?: SortOrder
+    bedrooms?: SortOrder
+    bathrooms?: SortOrder
+    amenities?: SortOrderInput | SortOrder
+    isOwner?: SortOrderInput | SortOrder
+    buildingAge?: SortOrderInput | SortOrder
+    designedFor?: SortOrderInput | SortOrder
+    floorsNum?: SortOrderInput | SortOrder
+    buildingSize?: SortOrderInput | SortOrder
+    landSize?: SortOrderInput | SortOrder
+    BuildingInterface?: SortOrderInput | SortOrder
+    adStatus?: SortOrder
+    views?: SortOrder
+    clicks?: SortOrder
+    _count?: AppartmentAdCountOrderByAggregateInput
+    _avg?: AppartmentAdAvgOrderByAggregateInput
+    _max?: AppartmentAdMaxOrderByAggregateInput
+    _min?: AppartmentAdMinOrderByAggregateInput
+    _sum?: AppartmentAdSumOrderByAggregateInput
+  }
+
+  export type AppartmentAdScalarWhereWithAggregatesInput = {
+    AND?: AppartmentAdScalarWhereWithAggregatesInput | AppartmentAdScalarWhereWithAggregatesInput[]
+    OR?: AppartmentAdScalarWhereWithAggregatesInput[]
+    NOT?: AppartmentAdScalarWhereWithAggregatesInput | AppartmentAdScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"AppartmentAd"> | number
+    userId?: IntNullableWithAggregatesFilter<"AppartmentAd"> | number | null
+    shopId?: IntNullableWithAggregatesFilter<"AppartmentAd"> | number | null
+    createdAt?: DateTimeWithAggregatesFilter<"AppartmentAd"> | Date | string
+    description?: StringNullableWithAggregatesFilter<"AppartmentAd"> | string | null
+    title?: StringNullableWithAggregatesFilter<"AppartmentAd"> | string | null
+    country?: StringNullableWithAggregatesFilter<"AppartmentAd"> | string | null
+    city?: StringNullableWithAggregatesFilter<"AppartmentAd"> | string | null
+    category?: StringWithAggregatesFilter<"AppartmentAd"> | string
+    type?: StringNullableWithAggregatesFilter<"AppartmentAd"> | string | null
+    propertyType?: StringNullableWithAggregatesFilter<"AppartmentAd"> | string | null
+    payment?: StringWithAggregatesFilter<"AppartmentAd"> | string
+    price?: StringWithAggregatesFilter<"AppartmentAd"> | string
+    bedrooms?: StringWithAggregatesFilter<"AppartmentAd"> | string
+    bathrooms?: StringWithAggregatesFilter<"AppartmentAd"> | string
+    amenities?: StringNullableWithAggregatesFilter<"AppartmentAd"> | string | null
+    isOwner?: StringNullableWithAggregatesFilter<"AppartmentAd"> | string | null
+    buildingAge?: StringNullableWithAggregatesFilter<"AppartmentAd"> | string | null
+    designedFor?: StringNullableWithAggregatesFilter<"AppartmentAd"> | string | null
+    floorsNum?: StringNullableWithAggregatesFilter<"AppartmentAd"> | string | null
+    buildingSize?: StringNullableWithAggregatesFilter<"AppartmentAd"> | string | null
+    landSize?: StringNullableWithAggregatesFilter<"AppartmentAd"> | string | null
+    BuildingInterface?: StringNullableWithAggregatesFilter<"AppartmentAd"> | string | null
+    adStatus?: StringWithAggregatesFilter<"AppartmentAd"> | string
+    views?: IntWithAggregatesFilter<"AppartmentAd"> | number
+    clicks?: IntWithAggregatesFilter<"AppartmentAd"> | number
+  }
+
   export type FavoriteAdWhereInput = {
     AND?: FavoriteAdWhereInput | FavoriteAdWhereInput[]
     OR?: FavoriteAdWhereInput[]
     NOT?: FavoriteAdWhereInput | FavoriteAdWhereInput[]
     id?: IntFilter<"FavoriteAd"> | number
     userId?: IntFilter<"FavoriteAd"> | number
-    adId?: IntFilter<"FavoriteAd"> | number
+    adId?: IntNullableFilter<"FavoriteAd"> | number | null
+    appartmentAdId?: IntNullableFilter<"FavoriteAd"> | number | null
     createdAt?: DateTimeFilter<"FavoriteAd"> | Date | string
     user?: XOR<UserRelationFilter, UserWhereInput>
-    ad?: XOR<AdRelationFilter, AdWhereInput>
+    ad?: XOR<AdNullableRelationFilter, AdWhereInput> | null
+    AppartmentAd?: XOR<AppartmentAdNullableRelationFilter, AppartmentAdWhereInput> | null
   }
 
   export type FavoriteAdOrderByWithRelationInput = {
     id?: SortOrder
     userId?: SortOrder
-    adId?: SortOrder
+    adId?: SortOrderInput | SortOrder
+    appartmentAdId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     user?: UserOrderByWithRelationInput
     ad?: AdOrderByWithRelationInput
+    AppartmentAd?: AppartmentAdOrderByWithRelationInput
   }
 
   export type FavoriteAdWhereUniqueInput = Prisma.AtLeast<{
@@ -26440,16 +28223,19 @@ export namespace Prisma {
     OR?: FavoriteAdWhereInput[]
     NOT?: FavoriteAdWhereInput | FavoriteAdWhereInput[]
     userId?: IntFilter<"FavoriteAd"> | number
-    adId?: IntFilter<"FavoriteAd"> | number
+    adId?: IntNullableFilter<"FavoriteAd"> | number | null
+    appartmentAdId?: IntNullableFilter<"FavoriteAd"> | number | null
     createdAt?: DateTimeFilter<"FavoriteAd"> | Date | string
     user?: XOR<UserRelationFilter, UserWhereInput>
-    ad?: XOR<AdRelationFilter, AdWhereInput>
+    ad?: XOR<AdNullableRelationFilter, AdWhereInput> | null
+    AppartmentAd?: XOR<AppartmentAdNullableRelationFilter, AppartmentAdWhereInput> | null
   }, "id">
 
   export type FavoriteAdOrderByWithAggregationInput = {
     id?: SortOrder
     userId?: SortOrder
-    adId?: SortOrder
+    adId?: SortOrderInput | SortOrder
+    appartmentAdId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     _count?: FavoriteAdCountOrderByAggregateInput
     _avg?: FavoriteAdAvgOrderByAggregateInput
@@ -26464,7 +28250,8 @@ export namespace Prisma {
     NOT?: FavoriteAdScalarWhereWithAggregatesInput | FavoriteAdScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"FavoriteAd"> | number
     userId?: IntWithAggregatesFilter<"FavoriteAd"> | number
-    adId?: IntWithAggregatesFilter<"FavoriteAd"> | number
+    adId?: IntNullableWithAggregatesFilter<"FavoriteAd"> | number | null
+    appartmentAdId?: IntNullableWithAggregatesFilter<"FavoriteAd"> | number | null
     createdAt?: DateTimeWithAggregatesFilter<"FavoriteAd"> | Date | string
   }
 
@@ -26654,6 +28441,7 @@ export namespace Prisma {
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     ads?: AdCreateNestedManyWithoutUserInput
+    AppartmentAds?: AppartmentAdCreateNestedManyWithoutUserInput
     favoriteAds?: FavoriteAdCreateNestedManyWithoutUserInput
     shop?: ShopCreateNestedManyWithoutUserInput
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
@@ -26694,6 +28482,7 @@ export namespace Prisma {
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     ads?: AdUncheckedCreateNestedManyWithoutUserInput
+    AppartmentAds?: AppartmentAdUncheckedCreateNestedManyWithoutUserInput
     favoriteAds?: FavoriteAdUncheckedCreateNestedManyWithoutUserInput
     shop?: ShopUncheckedCreateNestedManyWithoutUserInput
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
@@ -26733,6 +28522,7 @@ export namespace Prisma {
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     ads?: AdUpdateManyWithoutUserNestedInput
+    AppartmentAds?: AppartmentAdUpdateManyWithoutUserNestedInput
     favoriteAds?: FavoriteAdUpdateManyWithoutUserNestedInput
     shop?: ShopUpdateManyWithoutUserNestedInput
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
@@ -26773,6 +28563,7 @@ export namespace Prisma {
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     ads?: AdUncheckedUpdateManyWithoutUserNestedInput
+    AppartmentAds?: AppartmentAdUncheckedUpdateManyWithoutUserNestedInput
     favoriteAds?: FavoriteAdUncheckedUpdateManyWithoutUserNestedInput
     shop?: ShopUncheckedUpdateManyWithoutUserNestedInput
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
@@ -27406,6 +29197,7 @@ export namespace Prisma {
     phoneNumber2?: string | null
     user: UserCreateNestedOneWithoutShopInput
     ads?: AdCreateNestedManyWithoutShopInput
+    AppartmentAds?: AppartmentAdCreateNestedManyWithoutShopInput
     followers?: FollowCreateNestedManyWithoutFollowedShopInput
     ratings?: RatingCreateNestedManyWithoutShopInput
     chats?: ChatCreateNestedManyWithoutShopsInput
@@ -27432,6 +29224,7 @@ export namespace Prisma {
     phoneNumber1?: string | null
     phoneNumber2?: string | null
     ads?: AdUncheckedCreateNestedManyWithoutShopInput
+    AppartmentAds?: AppartmentAdUncheckedCreateNestedManyWithoutShopInput
     followers?: FollowUncheckedCreateNestedManyWithoutFollowedShopInput
     ratings?: RatingUncheckedCreateNestedManyWithoutShopInput
     chats?: ChatUncheckedCreateNestedManyWithoutShopsInput
@@ -27457,6 +29250,7 @@ export namespace Prisma {
     phoneNumber2?: NullableStringFieldUpdateOperationsInput | string | null
     user?: UserUpdateOneRequiredWithoutShopNestedInput
     ads?: AdUpdateManyWithoutShopNestedInput
+    AppartmentAds?: AppartmentAdUpdateManyWithoutShopNestedInput
     followers?: FollowUpdateManyWithoutFollowedShopNestedInput
     ratings?: RatingUpdateManyWithoutShopNestedInput
     chats?: ChatUpdateManyWithoutShopsNestedInput
@@ -27483,6 +29277,7 @@ export namespace Prisma {
     phoneNumber1?: NullableStringFieldUpdateOperationsInput | string | null
     phoneNumber2?: NullableStringFieldUpdateOperationsInput | string | null
     ads?: AdUncheckedUpdateManyWithoutShopNestedInput
+    AppartmentAds?: AppartmentAdUncheckedUpdateManyWithoutShopNestedInput
     followers?: FollowUncheckedUpdateManyWithoutFollowedShopNestedInput
     ratings?: RatingUncheckedUpdateManyWithoutShopNestedInput
     chats?: ChatUncheckedUpdateManyWithoutShopsNestedInput
@@ -27769,24 +29564,28 @@ export namespace Prisma {
 
   export type ImageCreateInput = {
     url: string
-    ad: AdCreateNestedOneWithoutAdimagesInput
+    ad?: AdCreateNestedOneWithoutAdimagesInput
+    AppartmentAd?: AppartmentAdCreateNestedOneWithoutImagesInput
   }
 
   export type ImageUncheckedCreateInput = {
     id?: number
     url: string
-    adId: number
+    adId?: number | null
+    appartmentAdId?: number | null
   }
 
   export type ImageUpdateInput = {
     url?: StringFieldUpdateOperationsInput | string
-    ad?: AdUpdateOneRequiredWithoutAdimagesNestedInput
+    ad?: AdUpdateOneWithoutAdimagesNestedInput
+    AppartmentAd?: AppartmentAdUpdateOneWithoutImagesNestedInput
   }
 
   export type ImageUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     url?: StringFieldUpdateOperationsInput | string
-    adId?: IntFieldUpdateOperationsInput | number
+    adId?: NullableIntFieldUpdateOperationsInput | number | null
+    appartmentAdId?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type ImageUpdateManyMutationInput = {
@@ -27796,7 +29595,8 @@ export namespace Prisma {
   export type ImageUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     url?: StringFieldUpdateOperationsInput | string
-    adId?: IntFieldUpdateOperationsInput | number
+    adId?: NullableIntFieldUpdateOperationsInput | number | null
+    appartmentAdId?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type AdCreateInput = {
@@ -27988,29 +29788,210 @@ export namespace Prisma {
     clicks?: IntFieldUpdateOperationsInput | number
   }
 
+  export type AppartmentAdCreateInput = {
+    createdAt?: Date | string
+    description?: string | null
+    title?: string | null
+    country?: string | null
+    city?: string | null
+    category: string
+    type?: string | null
+    propertyType?: string | null
+    payment?: string
+    price: string
+    bedrooms: string
+    bathrooms: string
+    amenities?: string | null
+    isOwner?: string | null
+    buildingAge?: string | null
+    designedFor?: string | null
+    floorsNum?: string | null
+    buildingSize?: string | null
+    landSize?: string | null
+    BuildingInterface?: string | null
+    adStatus?: string
+    views?: number
+    clicks?: number
+    user?: UserCreateNestedOneWithoutAppartmentAdsInput
+    shop?: ShopCreateNestedOneWithoutAppartmentAdsInput
+    images?: ImageCreateNestedManyWithoutAppartmentAdInput
+    favoritedBy?: FavoriteAdCreateNestedManyWithoutAppartmentAdInput
+  }
+
+  export type AppartmentAdUncheckedCreateInput = {
+    id?: number
+    userId?: number | null
+    shopId?: number | null
+    createdAt?: Date | string
+    description?: string | null
+    title?: string | null
+    country?: string | null
+    city?: string | null
+    category: string
+    type?: string | null
+    propertyType?: string | null
+    payment?: string
+    price: string
+    bedrooms: string
+    bathrooms: string
+    amenities?: string | null
+    isOwner?: string | null
+    buildingAge?: string | null
+    designedFor?: string | null
+    floorsNum?: string | null
+    buildingSize?: string | null
+    landSize?: string | null
+    BuildingInterface?: string | null
+    adStatus?: string
+    views?: number
+    clicks?: number
+    images?: ImageUncheckedCreateNestedManyWithoutAppartmentAdInput
+    favoritedBy?: FavoriteAdUncheckedCreateNestedManyWithoutAppartmentAdInput
+  }
+
+  export type AppartmentAdUpdateInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    title?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    category?: StringFieldUpdateOperationsInput | string
+    type?: NullableStringFieldUpdateOperationsInput | string | null
+    propertyType?: NullableStringFieldUpdateOperationsInput | string | null
+    payment?: StringFieldUpdateOperationsInput | string
+    price?: StringFieldUpdateOperationsInput | string
+    bedrooms?: StringFieldUpdateOperationsInput | string
+    bathrooms?: StringFieldUpdateOperationsInput | string
+    amenities?: NullableStringFieldUpdateOperationsInput | string | null
+    isOwner?: NullableStringFieldUpdateOperationsInput | string | null
+    buildingAge?: NullableStringFieldUpdateOperationsInput | string | null
+    designedFor?: NullableStringFieldUpdateOperationsInput | string | null
+    floorsNum?: NullableStringFieldUpdateOperationsInput | string | null
+    buildingSize?: NullableStringFieldUpdateOperationsInput | string | null
+    landSize?: NullableStringFieldUpdateOperationsInput | string | null
+    BuildingInterface?: NullableStringFieldUpdateOperationsInput | string | null
+    adStatus?: StringFieldUpdateOperationsInput | string
+    views?: IntFieldUpdateOperationsInput | number
+    clicks?: IntFieldUpdateOperationsInput | number
+    user?: UserUpdateOneWithoutAppartmentAdsNestedInput
+    shop?: ShopUpdateOneWithoutAppartmentAdsNestedInput
+    images?: ImageUpdateManyWithoutAppartmentAdNestedInput
+    favoritedBy?: FavoriteAdUpdateManyWithoutAppartmentAdNestedInput
+  }
+
+  export type AppartmentAdUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: NullableIntFieldUpdateOperationsInput | number | null
+    shopId?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    title?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    category?: StringFieldUpdateOperationsInput | string
+    type?: NullableStringFieldUpdateOperationsInput | string | null
+    propertyType?: NullableStringFieldUpdateOperationsInput | string | null
+    payment?: StringFieldUpdateOperationsInput | string
+    price?: StringFieldUpdateOperationsInput | string
+    bedrooms?: StringFieldUpdateOperationsInput | string
+    bathrooms?: StringFieldUpdateOperationsInput | string
+    amenities?: NullableStringFieldUpdateOperationsInput | string | null
+    isOwner?: NullableStringFieldUpdateOperationsInput | string | null
+    buildingAge?: NullableStringFieldUpdateOperationsInput | string | null
+    designedFor?: NullableStringFieldUpdateOperationsInput | string | null
+    floorsNum?: NullableStringFieldUpdateOperationsInput | string | null
+    buildingSize?: NullableStringFieldUpdateOperationsInput | string | null
+    landSize?: NullableStringFieldUpdateOperationsInput | string | null
+    BuildingInterface?: NullableStringFieldUpdateOperationsInput | string | null
+    adStatus?: StringFieldUpdateOperationsInput | string
+    views?: IntFieldUpdateOperationsInput | number
+    clicks?: IntFieldUpdateOperationsInput | number
+    images?: ImageUncheckedUpdateManyWithoutAppartmentAdNestedInput
+    favoritedBy?: FavoriteAdUncheckedUpdateManyWithoutAppartmentAdNestedInput
+  }
+
+  export type AppartmentAdUpdateManyMutationInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    title?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    category?: StringFieldUpdateOperationsInput | string
+    type?: NullableStringFieldUpdateOperationsInput | string | null
+    propertyType?: NullableStringFieldUpdateOperationsInput | string | null
+    payment?: StringFieldUpdateOperationsInput | string
+    price?: StringFieldUpdateOperationsInput | string
+    bedrooms?: StringFieldUpdateOperationsInput | string
+    bathrooms?: StringFieldUpdateOperationsInput | string
+    amenities?: NullableStringFieldUpdateOperationsInput | string | null
+    isOwner?: NullableStringFieldUpdateOperationsInput | string | null
+    buildingAge?: NullableStringFieldUpdateOperationsInput | string | null
+    designedFor?: NullableStringFieldUpdateOperationsInput | string | null
+    floorsNum?: NullableStringFieldUpdateOperationsInput | string | null
+    buildingSize?: NullableStringFieldUpdateOperationsInput | string | null
+    landSize?: NullableStringFieldUpdateOperationsInput | string | null
+    BuildingInterface?: NullableStringFieldUpdateOperationsInput | string | null
+    adStatus?: StringFieldUpdateOperationsInput | string
+    views?: IntFieldUpdateOperationsInput | number
+    clicks?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type AppartmentAdUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: NullableIntFieldUpdateOperationsInput | number | null
+    shopId?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    title?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    category?: StringFieldUpdateOperationsInput | string
+    type?: NullableStringFieldUpdateOperationsInput | string | null
+    propertyType?: NullableStringFieldUpdateOperationsInput | string | null
+    payment?: StringFieldUpdateOperationsInput | string
+    price?: StringFieldUpdateOperationsInput | string
+    bedrooms?: StringFieldUpdateOperationsInput | string
+    bathrooms?: StringFieldUpdateOperationsInput | string
+    amenities?: NullableStringFieldUpdateOperationsInput | string | null
+    isOwner?: NullableStringFieldUpdateOperationsInput | string | null
+    buildingAge?: NullableStringFieldUpdateOperationsInput | string | null
+    designedFor?: NullableStringFieldUpdateOperationsInput | string | null
+    floorsNum?: NullableStringFieldUpdateOperationsInput | string | null
+    buildingSize?: NullableStringFieldUpdateOperationsInput | string | null
+    landSize?: NullableStringFieldUpdateOperationsInput | string | null
+    BuildingInterface?: NullableStringFieldUpdateOperationsInput | string | null
+    adStatus?: StringFieldUpdateOperationsInput | string
+    views?: IntFieldUpdateOperationsInput | number
+    clicks?: IntFieldUpdateOperationsInput | number
+  }
+
   export type FavoriteAdCreateInput = {
     createdAt?: Date | string
     user: UserCreateNestedOneWithoutFavoriteAdsInput
-    ad: AdCreateNestedOneWithoutFavoritedByInput
+    ad?: AdCreateNestedOneWithoutFavoritedByInput
+    AppartmentAd?: AppartmentAdCreateNestedOneWithoutFavoritedByInput
   }
 
   export type FavoriteAdUncheckedCreateInput = {
     id?: number
     userId: number
-    adId: number
+    adId?: number | null
+    appartmentAdId?: number | null
     createdAt?: Date | string
   }
 
   export type FavoriteAdUpdateInput = {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutFavoriteAdsNestedInput
-    ad?: AdUpdateOneRequiredWithoutFavoritedByNestedInput
+    ad?: AdUpdateOneWithoutFavoritedByNestedInput
+    AppartmentAd?: AppartmentAdUpdateOneWithoutFavoritedByNestedInput
   }
 
   export type FavoriteAdUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     userId?: IntFieldUpdateOperationsInput | number
-    adId?: IntFieldUpdateOperationsInput | number
+    adId?: NullableIntFieldUpdateOperationsInput | number | null
+    appartmentAdId?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -28021,7 +30002,8 @@ export namespace Prisma {
   export type FavoriteAdUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     userId?: IntFieldUpdateOperationsInput | number
-    adId?: IntFieldUpdateOperationsInput | number
+    adId?: NullableIntFieldUpdateOperationsInput | number | null
+    appartmentAdId?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -28306,6 +30288,12 @@ export namespace Prisma {
     none?: AdWhereInput
   }
 
+  export type AppartmentAdListRelationFilter = {
+    every?: AppartmentAdWhereInput
+    some?: AppartmentAdWhereInput
+    none?: AppartmentAdWhereInput
+  }
+
   export type FavoriteAdListRelationFilter = {
     every?: FavoriteAdWhereInput
     some?: FavoriteAdWhereInput
@@ -28397,6 +30385,10 @@ export namespace Prisma {
   }
 
   export type AdOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type AppartmentAdOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -29304,37 +31296,47 @@ export namespace Prisma {
     _max?: NestedFloatFilter<$PrismaModel>
   }
 
-  export type AdRelationFilter = {
-    is?: AdWhereInput
-    isNot?: AdWhereInput
+  export type AdNullableRelationFilter = {
+    is?: AdWhereInput | null
+    isNot?: AdWhereInput | null
+  }
+
+  export type AppartmentAdNullableRelationFilter = {
+    is?: AppartmentAdWhereInput | null
+    isNot?: AppartmentAdWhereInput | null
   }
 
   export type ImageCountOrderByAggregateInput = {
     id?: SortOrder
     url?: SortOrder
     adId?: SortOrder
+    appartmentAdId?: SortOrder
   }
 
   export type ImageAvgOrderByAggregateInput = {
     id?: SortOrder
     adId?: SortOrder
+    appartmentAdId?: SortOrder
   }
 
   export type ImageMaxOrderByAggregateInput = {
     id?: SortOrder
     url?: SortOrder
     adId?: SortOrder
+    appartmentAdId?: SortOrder
   }
 
   export type ImageMinOrderByAggregateInput = {
     id?: SortOrder
     url?: SortOrder
     adId?: SortOrder
+    appartmentAdId?: SortOrder
   }
 
   export type ImageSumOrderByAggregateInput = {
     id?: SortOrder
     adId?: SortOrder
+    appartmentAdId?: SortOrder
   }
 
   export type ImageListRelationFilter = {
@@ -29456,10 +31458,114 @@ export namespace Prisma {
     clicks?: SortOrder
   }
 
+  export type AppartmentAdCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    shopId?: SortOrder
+    createdAt?: SortOrder
+    description?: SortOrder
+    title?: SortOrder
+    country?: SortOrder
+    city?: SortOrder
+    category?: SortOrder
+    type?: SortOrder
+    propertyType?: SortOrder
+    payment?: SortOrder
+    price?: SortOrder
+    bedrooms?: SortOrder
+    bathrooms?: SortOrder
+    amenities?: SortOrder
+    isOwner?: SortOrder
+    buildingAge?: SortOrder
+    designedFor?: SortOrder
+    floorsNum?: SortOrder
+    buildingSize?: SortOrder
+    landSize?: SortOrder
+    BuildingInterface?: SortOrder
+    adStatus?: SortOrder
+    views?: SortOrder
+    clicks?: SortOrder
+  }
+
+  export type AppartmentAdAvgOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    shopId?: SortOrder
+    views?: SortOrder
+    clicks?: SortOrder
+  }
+
+  export type AppartmentAdMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    shopId?: SortOrder
+    createdAt?: SortOrder
+    description?: SortOrder
+    title?: SortOrder
+    country?: SortOrder
+    city?: SortOrder
+    category?: SortOrder
+    type?: SortOrder
+    propertyType?: SortOrder
+    payment?: SortOrder
+    price?: SortOrder
+    bedrooms?: SortOrder
+    bathrooms?: SortOrder
+    amenities?: SortOrder
+    isOwner?: SortOrder
+    buildingAge?: SortOrder
+    designedFor?: SortOrder
+    floorsNum?: SortOrder
+    buildingSize?: SortOrder
+    landSize?: SortOrder
+    BuildingInterface?: SortOrder
+    adStatus?: SortOrder
+    views?: SortOrder
+    clicks?: SortOrder
+  }
+
+  export type AppartmentAdMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    shopId?: SortOrder
+    createdAt?: SortOrder
+    description?: SortOrder
+    title?: SortOrder
+    country?: SortOrder
+    city?: SortOrder
+    category?: SortOrder
+    type?: SortOrder
+    propertyType?: SortOrder
+    payment?: SortOrder
+    price?: SortOrder
+    bedrooms?: SortOrder
+    bathrooms?: SortOrder
+    amenities?: SortOrder
+    isOwner?: SortOrder
+    buildingAge?: SortOrder
+    designedFor?: SortOrder
+    floorsNum?: SortOrder
+    buildingSize?: SortOrder
+    landSize?: SortOrder
+    BuildingInterface?: SortOrder
+    adStatus?: SortOrder
+    views?: SortOrder
+    clicks?: SortOrder
+  }
+
+  export type AppartmentAdSumOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    shopId?: SortOrder
+    views?: SortOrder
+    clicks?: SortOrder
+  }
+
   export type FavoriteAdCountOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
     adId?: SortOrder
+    appartmentAdId?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -29467,12 +31573,14 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     adId?: SortOrder
+    appartmentAdId?: SortOrder
   }
 
   export type FavoriteAdMaxOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
     adId?: SortOrder
+    appartmentAdId?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -29480,6 +31588,7 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     adId?: SortOrder
+    appartmentAdId?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -29487,6 +31596,7 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     adId?: SortOrder
+    appartmentAdId?: SortOrder
   }
 
   export type UserCreateNestedOneWithoutAccountsInput = {
@@ -29561,6 +31671,12 @@ export namespace Prisma {
     create?: XOR<AdCreateWithoutUserInput, AdUncheckedCreateWithoutUserInput> | AdCreateWithoutUserInput[] | AdUncheckedCreateWithoutUserInput[]
     connectOrCreate?: AdCreateOrConnectWithoutUserInput | AdCreateOrConnectWithoutUserInput[]
     connect?: AdWhereUniqueInput | AdWhereUniqueInput[]
+  }
+
+  export type AppartmentAdCreateNestedManyWithoutUserInput = {
+    create?: XOR<AppartmentAdCreateWithoutUserInput, AppartmentAdUncheckedCreateWithoutUserInput> | AppartmentAdCreateWithoutUserInput[] | AppartmentAdUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: AppartmentAdCreateOrConnectWithoutUserInput | AppartmentAdCreateOrConnectWithoutUserInput[]
+    connect?: AppartmentAdWhereUniqueInput | AppartmentAdWhereUniqueInput[]
   }
 
   export type FavoriteAdCreateNestedManyWithoutUserInput = {
@@ -29681,6 +31797,12 @@ export namespace Prisma {
     create?: XOR<AdCreateWithoutUserInput, AdUncheckedCreateWithoutUserInput> | AdCreateWithoutUserInput[] | AdUncheckedCreateWithoutUserInput[]
     connectOrCreate?: AdCreateOrConnectWithoutUserInput | AdCreateOrConnectWithoutUserInput[]
     connect?: AdWhereUniqueInput | AdWhereUniqueInput[]
+  }
+
+  export type AppartmentAdUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<AppartmentAdCreateWithoutUserInput, AppartmentAdUncheckedCreateWithoutUserInput> | AppartmentAdCreateWithoutUserInput[] | AppartmentAdUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: AppartmentAdCreateOrConnectWithoutUserInput | AppartmentAdCreateOrConnectWithoutUserInput[]
+    connect?: AppartmentAdWhereUniqueInput | AppartmentAdWhereUniqueInput[]
   }
 
   export type FavoriteAdUncheckedCreateNestedManyWithoutUserInput = {
@@ -29822,6 +31944,19 @@ export namespace Prisma {
     update?: AdUpdateWithWhereUniqueWithoutUserInput | AdUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: AdUpdateManyWithWhereWithoutUserInput | AdUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: AdScalarWhereInput | AdScalarWhereInput[]
+  }
+
+  export type AppartmentAdUpdateManyWithoutUserNestedInput = {
+    create?: XOR<AppartmentAdCreateWithoutUserInput, AppartmentAdUncheckedCreateWithoutUserInput> | AppartmentAdCreateWithoutUserInput[] | AppartmentAdUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: AppartmentAdCreateOrConnectWithoutUserInput | AppartmentAdCreateOrConnectWithoutUserInput[]
+    upsert?: AppartmentAdUpsertWithWhereUniqueWithoutUserInput | AppartmentAdUpsertWithWhereUniqueWithoutUserInput[]
+    set?: AppartmentAdWhereUniqueInput | AppartmentAdWhereUniqueInput[]
+    disconnect?: AppartmentAdWhereUniqueInput | AppartmentAdWhereUniqueInput[]
+    delete?: AppartmentAdWhereUniqueInput | AppartmentAdWhereUniqueInput[]
+    connect?: AppartmentAdWhereUniqueInput | AppartmentAdWhereUniqueInput[]
+    update?: AppartmentAdUpdateWithWhereUniqueWithoutUserInput | AppartmentAdUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: AppartmentAdUpdateManyWithWhereWithoutUserInput | AppartmentAdUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: AppartmentAdScalarWhereInput | AppartmentAdScalarWhereInput[]
   }
 
   export type FavoriteAdUpdateManyWithoutUserNestedInput = {
@@ -30076,6 +32211,19 @@ export namespace Prisma {
     update?: AdUpdateWithWhereUniqueWithoutUserInput | AdUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: AdUpdateManyWithWhereWithoutUserInput | AdUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: AdScalarWhereInput | AdScalarWhereInput[]
+  }
+
+  export type AppartmentAdUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<AppartmentAdCreateWithoutUserInput, AppartmentAdUncheckedCreateWithoutUserInput> | AppartmentAdCreateWithoutUserInput[] | AppartmentAdUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: AppartmentAdCreateOrConnectWithoutUserInput | AppartmentAdCreateOrConnectWithoutUserInput[]
+    upsert?: AppartmentAdUpsertWithWhereUniqueWithoutUserInput | AppartmentAdUpsertWithWhereUniqueWithoutUserInput[]
+    set?: AppartmentAdWhereUniqueInput | AppartmentAdWhereUniqueInput[]
+    disconnect?: AppartmentAdWhereUniqueInput | AppartmentAdWhereUniqueInput[]
+    delete?: AppartmentAdWhereUniqueInput | AppartmentAdWhereUniqueInput[]
+    connect?: AppartmentAdWhereUniqueInput | AppartmentAdWhereUniqueInput[]
+    update?: AppartmentAdUpdateWithWhereUniqueWithoutUserInput | AppartmentAdUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: AppartmentAdUpdateManyWithWhereWithoutUserInput | AppartmentAdUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: AppartmentAdScalarWhereInput | AppartmentAdScalarWhereInput[]
   }
 
   export type FavoriteAdUncheckedUpdateManyWithoutUserNestedInput = {
@@ -30517,6 +32665,12 @@ export namespace Prisma {
     connect?: AdWhereUniqueInput | AdWhereUniqueInput[]
   }
 
+  export type AppartmentAdCreateNestedManyWithoutShopInput = {
+    create?: XOR<AppartmentAdCreateWithoutShopInput, AppartmentAdUncheckedCreateWithoutShopInput> | AppartmentAdCreateWithoutShopInput[] | AppartmentAdUncheckedCreateWithoutShopInput[]
+    connectOrCreate?: AppartmentAdCreateOrConnectWithoutShopInput | AppartmentAdCreateOrConnectWithoutShopInput[]
+    connect?: AppartmentAdWhereUniqueInput | AppartmentAdWhereUniqueInput[]
+  }
+
   export type FollowCreateNestedManyWithoutFollowedShopInput = {
     create?: XOR<FollowCreateWithoutFollowedShopInput, FollowUncheckedCreateWithoutFollowedShopInput> | FollowCreateWithoutFollowedShopInput[] | FollowUncheckedCreateWithoutFollowedShopInput[]
     connectOrCreate?: FollowCreateOrConnectWithoutFollowedShopInput | FollowCreateOrConnectWithoutFollowedShopInput[]
@@ -30551,6 +32705,12 @@ export namespace Prisma {
     create?: XOR<AdCreateWithoutShopInput, AdUncheckedCreateWithoutShopInput> | AdCreateWithoutShopInput[] | AdUncheckedCreateWithoutShopInput[]
     connectOrCreate?: AdCreateOrConnectWithoutShopInput | AdCreateOrConnectWithoutShopInput[]
     connect?: AdWhereUniqueInput | AdWhereUniqueInput[]
+  }
+
+  export type AppartmentAdUncheckedCreateNestedManyWithoutShopInput = {
+    create?: XOR<AppartmentAdCreateWithoutShopInput, AppartmentAdUncheckedCreateWithoutShopInput> | AppartmentAdCreateWithoutShopInput[] | AppartmentAdUncheckedCreateWithoutShopInput[]
+    connectOrCreate?: AppartmentAdCreateOrConnectWithoutShopInput | AppartmentAdCreateOrConnectWithoutShopInput[]
+    connect?: AppartmentAdWhereUniqueInput | AppartmentAdWhereUniqueInput[]
   }
 
   export type FollowUncheckedCreateNestedManyWithoutFollowedShopInput = {
@@ -30602,6 +32762,19 @@ export namespace Prisma {
     update?: AdUpdateWithWhereUniqueWithoutShopInput | AdUpdateWithWhereUniqueWithoutShopInput[]
     updateMany?: AdUpdateManyWithWhereWithoutShopInput | AdUpdateManyWithWhereWithoutShopInput[]
     deleteMany?: AdScalarWhereInput | AdScalarWhereInput[]
+  }
+
+  export type AppartmentAdUpdateManyWithoutShopNestedInput = {
+    create?: XOR<AppartmentAdCreateWithoutShopInput, AppartmentAdUncheckedCreateWithoutShopInput> | AppartmentAdCreateWithoutShopInput[] | AppartmentAdUncheckedCreateWithoutShopInput[]
+    connectOrCreate?: AppartmentAdCreateOrConnectWithoutShopInput | AppartmentAdCreateOrConnectWithoutShopInput[]
+    upsert?: AppartmentAdUpsertWithWhereUniqueWithoutShopInput | AppartmentAdUpsertWithWhereUniqueWithoutShopInput[]
+    set?: AppartmentAdWhereUniqueInput | AppartmentAdWhereUniqueInput[]
+    disconnect?: AppartmentAdWhereUniqueInput | AppartmentAdWhereUniqueInput[]
+    delete?: AppartmentAdWhereUniqueInput | AppartmentAdWhereUniqueInput[]
+    connect?: AppartmentAdWhereUniqueInput | AppartmentAdWhereUniqueInput[]
+    update?: AppartmentAdUpdateWithWhereUniqueWithoutShopInput | AppartmentAdUpdateWithWhereUniqueWithoutShopInput[]
+    updateMany?: AppartmentAdUpdateManyWithWhereWithoutShopInput | AppartmentAdUpdateManyWithWhereWithoutShopInput[]
+    deleteMany?: AppartmentAdScalarWhereInput | AppartmentAdScalarWhereInput[]
   }
 
   export type FollowUpdateManyWithoutFollowedShopNestedInput = {
@@ -30680,6 +32853,19 @@ export namespace Prisma {
     update?: AdUpdateWithWhereUniqueWithoutShopInput | AdUpdateWithWhereUniqueWithoutShopInput[]
     updateMany?: AdUpdateManyWithWhereWithoutShopInput | AdUpdateManyWithWhereWithoutShopInput[]
     deleteMany?: AdScalarWhereInput | AdScalarWhereInput[]
+  }
+
+  export type AppartmentAdUncheckedUpdateManyWithoutShopNestedInput = {
+    create?: XOR<AppartmentAdCreateWithoutShopInput, AppartmentAdUncheckedCreateWithoutShopInput> | AppartmentAdCreateWithoutShopInput[] | AppartmentAdUncheckedCreateWithoutShopInput[]
+    connectOrCreate?: AppartmentAdCreateOrConnectWithoutShopInput | AppartmentAdCreateOrConnectWithoutShopInput[]
+    upsert?: AppartmentAdUpsertWithWhereUniqueWithoutShopInput | AppartmentAdUpsertWithWhereUniqueWithoutShopInput[]
+    set?: AppartmentAdWhereUniqueInput | AppartmentAdWhereUniqueInput[]
+    disconnect?: AppartmentAdWhereUniqueInput | AppartmentAdWhereUniqueInput[]
+    delete?: AppartmentAdWhereUniqueInput | AppartmentAdWhereUniqueInput[]
+    connect?: AppartmentAdWhereUniqueInput | AppartmentAdWhereUniqueInput[]
+    update?: AppartmentAdUpdateWithWhereUniqueWithoutShopInput | AppartmentAdUpdateWithWhereUniqueWithoutShopInput[]
+    updateMany?: AppartmentAdUpdateManyWithWhereWithoutShopInput | AppartmentAdUpdateManyWithWhereWithoutShopInput[]
+    deleteMany?: AppartmentAdScalarWhereInput | AppartmentAdScalarWhereInput[]
   }
 
   export type FollowUncheckedUpdateManyWithoutFollowedShopNestedInput = {
@@ -31109,12 +33295,30 @@ export namespace Prisma {
     connect?: AdWhereUniqueInput
   }
 
-  export type AdUpdateOneRequiredWithoutAdimagesNestedInput = {
+  export type AppartmentAdCreateNestedOneWithoutImagesInput = {
+    create?: XOR<AppartmentAdCreateWithoutImagesInput, AppartmentAdUncheckedCreateWithoutImagesInput>
+    connectOrCreate?: AppartmentAdCreateOrConnectWithoutImagesInput
+    connect?: AppartmentAdWhereUniqueInput
+  }
+
+  export type AdUpdateOneWithoutAdimagesNestedInput = {
     create?: XOR<AdCreateWithoutAdimagesInput, AdUncheckedCreateWithoutAdimagesInput>
     connectOrCreate?: AdCreateOrConnectWithoutAdimagesInput
     upsert?: AdUpsertWithoutAdimagesInput
+    disconnect?: AdWhereInput | boolean
+    delete?: AdWhereInput | boolean
     connect?: AdWhereUniqueInput
     update?: XOR<XOR<AdUpdateToOneWithWhereWithoutAdimagesInput, AdUpdateWithoutAdimagesInput>, AdUncheckedUpdateWithoutAdimagesInput>
+  }
+
+  export type AppartmentAdUpdateOneWithoutImagesNestedInput = {
+    create?: XOR<AppartmentAdCreateWithoutImagesInput, AppartmentAdUncheckedCreateWithoutImagesInput>
+    connectOrCreate?: AppartmentAdCreateOrConnectWithoutImagesInput
+    upsert?: AppartmentAdUpsertWithoutImagesInput
+    disconnect?: AppartmentAdWhereInput | boolean
+    delete?: AppartmentAdWhereInput | boolean
+    connect?: AppartmentAdWhereUniqueInput
+    update?: XOR<XOR<AppartmentAdUpdateToOneWithWhereWithoutImagesInput, AppartmentAdUpdateWithoutImagesInput>, AppartmentAdUncheckedUpdateWithoutImagesInput>
   }
 
   export type UserCreateNestedOneWithoutAdsInput = {
@@ -31225,6 +33429,114 @@ export namespace Prisma {
     deleteMany?: FavoriteAdScalarWhereInput | FavoriteAdScalarWhereInput[]
   }
 
+  export type UserCreateNestedOneWithoutAppartmentAdsInput = {
+    create?: XOR<UserCreateWithoutAppartmentAdsInput, UserUncheckedCreateWithoutAppartmentAdsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutAppartmentAdsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type ShopCreateNestedOneWithoutAppartmentAdsInput = {
+    create?: XOR<ShopCreateWithoutAppartmentAdsInput, ShopUncheckedCreateWithoutAppartmentAdsInput>
+    connectOrCreate?: ShopCreateOrConnectWithoutAppartmentAdsInput
+    connect?: ShopWhereUniqueInput
+  }
+
+  export type ImageCreateNestedManyWithoutAppartmentAdInput = {
+    create?: XOR<ImageCreateWithoutAppartmentAdInput, ImageUncheckedCreateWithoutAppartmentAdInput> | ImageCreateWithoutAppartmentAdInput[] | ImageUncheckedCreateWithoutAppartmentAdInput[]
+    connectOrCreate?: ImageCreateOrConnectWithoutAppartmentAdInput | ImageCreateOrConnectWithoutAppartmentAdInput[]
+    connect?: ImageWhereUniqueInput | ImageWhereUniqueInput[]
+  }
+
+  export type FavoriteAdCreateNestedManyWithoutAppartmentAdInput = {
+    create?: XOR<FavoriteAdCreateWithoutAppartmentAdInput, FavoriteAdUncheckedCreateWithoutAppartmentAdInput> | FavoriteAdCreateWithoutAppartmentAdInput[] | FavoriteAdUncheckedCreateWithoutAppartmentAdInput[]
+    connectOrCreate?: FavoriteAdCreateOrConnectWithoutAppartmentAdInput | FavoriteAdCreateOrConnectWithoutAppartmentAdInput[]
+    connect?: FavoriteAdWhereUniqueInput | FavoriteAdWhereUniqueInput[]
+  }
+
+  export type ImageUncheckedCreateNestedManyWithoutAppartmentAdInput = {
+    create?: XOR<ImageCreateWithoutAppartmentAdInput, ImageUncheckedCreateWithoutAppartmentAdInput> | ImageCreateWithoutAppartmentAdInput[] | ImageUncheckedCreateWithoutAppartmentAdInput[]
+    connectOrCreate?: ImageCreateOrConnectWithoutAppartmentAdInput | ImageCreateOrConnectWithoutAppartmentAdInput[]
+    connect?: ImageWhereUniqueInput | ImageWhereUniqueInput[]
+  }
+
+  export type FavoriteAdUncheckedCreateNestedManyWithoutAppartmentAdInput = {
+    create?: XOR<FavoriteAdCreateWithoutAppartmentAdInput, FavoriteAdUncheckedCreateWithoutAppartmentAdInput> | FavoriteAdCreateWithoutAppartmentAdInput[] | FavoriteAdUncheckedCreateWithoutAppartmentAdInput[]
+    connectOrCreate?: FavoriteAdCreateOrConnectWithoutAppartmentAdInput | FavoriteAdCreateOrConnectWithoutAppartmentAdInput[]
+    connect?: FavoriteAdWhereUniqueInput | FavoriteAdWhereUniqueInput[]
+  }
+
+  export type UserUpdateOneWithoutAppartmentAdsNestedInput = {
+    create?: XOR<UserCreateWithoutAppartmentAdsInput, UserUncheckedCreateWithoutAppartmentAdsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutAppartmentAdsInput
+    upsert?: UserUpsertWithoutAppartmentAdsInput
+    disconnect?: UserWhereInput | boolean
+    delete?: UserWhereInput | boolean
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutAppartmentAdsInput, UserUpdateWithoutAppartmentAdsInput>, UserUncheckedUpdateWithoutAppartmentAdsInput>
+  }
+
+  export type ShopUpdateOneWithoutAppartmentAdsNestedInput = {
+    create?: XOR<ShopCreateWithoutAppartmentAdsInput, ShopUncheckedCreateWithoutAppartmentAdsInput>
+    connectOrCreate?: ShopCreateOrConnectWithoutAppartmentAdsInput
+    upsert?: ShopUpsertWithoutAppartmentAdsInput
+    disconnect?: ShopWhereInput | boolean
+    delete?: ShopWhereInput | boolean
+    connect?: ShopWhereUniqueInput
+    update?: XOR<XOR<ShopUpdateToOneWithWhereWithoutAppartmentAdsInput, ShopUpdateWithoutAppartmentAdsInput>, ShopUncheckedUpdateWithoutAppartmentAdsInput>
+  }
+
+  export type ImageUpdateManyWithoutAppartmentAdNestedInput = {
+    create?: XOR<ImageCreateWithoutAppartmentAdInput, ImageUncheckedCreateWithoutAppartmentAdInput> | ImageCreateWithoutAppartmentAdInput[] | ImageUncheckedCreateWithoutAppartmentAdInput[]
+    connectOrCreate?: ImageCreateOrConnectWithoutAppartmentAdInput | ImageCreateOrConnectWithoutAppartmentAdInput[]
+    upsert?: ImageUpsertWithWhereUniqueWithoutAppartmentAdInput | ImageUpsertWithWhereUniqueWithoutAppartmentAdInput[]
+    set?: ImageWhereUniqueInput | ImageWhereUniqueInput[]
+    disconnect?: ImageWhereUniqueInput | ImageWhereUniqueInput[]
+    delete?: ImageWhereUniqueInput | ImageWhereUniqueInput[]
+    connect?: ImageWhereUniqueInput | ImageWhereUniqueInput[]
+    update?: ImageUpdateWithWhereUniqueWithoutAppartmentAdInput | ImageUpdateWithWhereUniqueWithoutAppartmentAdInput[]
+    updateMany?: ImageUpdateManyWithWhereWithoutAppartmentAdInput | ImageUpdateManyWithWhereWithoutAppartmentAdInput[]
+    deleteMany?: ImageScalarWhereInput | ImageScalarWhereInput[]
+  }
+
+  export type FavoriteAdUpdateManyWithoutAppartmentAdNestedInput = {
+    create?: XOR<FavoriteAdCreateWithoutAppartmentAdInput, FavoriteAdUncheckedCreateWithoutAppartmentAdInput> | FavoriteAdCreateWithoutAppartmentAdInput[] | FavoriteAdUncheckedCreateWithoutAppartmentAdInput[]
+    connectOrCreate?: FavoriteAdCreateOrConnectWithoutAppartmentAdInput | FavoriteAdCreateOrConnectWithoutAppartmentAdInput[]
+    upsert?: FavoriteAdUpsertWithWhereUniqueWithoutAppartmentAdInput | FavoriteAdUpsertWithWhereUniqueWithoutAppartmentAdInput[]
+    set?: FavoriteAdWhereUniqueInput | FavoriteAdWhereUniqueInput[]
+    disconnect?: FavoriteAdWhereUniqueInput | FavoriteAdWhereUniqueInput[]
+    delete?: FavoriteAdWhereUniqueInput | FavoriteAdWhereUniqueInput[]
+    connect?: FavoriteAdWhereUniqueInput | FavoriteAdWhereUniqueInput[]
+    update?: FavoriteAdUpdateWithWhereUniqueWithoutAppartmentAdInput | FavoriteAdUpdateWithWhereUniqueWithoutAppartmentAdInput[]
+    updateMany?: FavoriteAdUpdateManyWithWhereWithoutAppartmentAdInput | FavoriteAdUpdateManyWithWhereWithoutAppartmentAdInput[]
+    deleteMany?: FavoriteAdScalarWhereInput | FavoriteAdScalarWhereInput[]
+  }
+
+  export type ImageUncheckedUpdateManyWithoutAppartmentAdNestedInput = {
+    create?: XOR<ImageCreateWithoutAppartmentAdInput, ImageUncheckedCreateWithoutAppartmentAdInput> | ImageCreateWithoutAppartmentAdInput[] | ImageUncheckedCreateWithoutAppartmentAdInput[]
+    connectOrCreate?: ImageCreateOrConnectWithoutAppartmentAdInput | ImageCreateOrConnectWithoutAppartmentAdInput[]
+    upsert?: ImageUpsertWithWhereUniqueWithoutAppartmentAdInput | ImageUpsertWithWhereUniqueWithoutAppartmentAdInput[]
+    set?: ImageWhereUniqueInput | ImageWhereUniqueInput[]
+    disconnect?: ImageWhereUniqueInput | ImageWhereUniqueInput[]
+    delete?: ImageWhereUniqueInput | ImageWhereUniqueInput[]
+    connect?: ImageWhereUniqueInput | ImageWhereUniqueInput[]
+    update?: ImageUpdateWithWhereUniqueWithoutAppartmentAdInput | ImageUpdateWithWhereUniqueWithoutAppartmentAdInput[]
+    updateMany?: ImageUpdateManyWithWhereWithoutAppartmentAdInput | ImageUpdateManyWithWhereWithoutAppartmentAdInput[]
+    deleteMany?: ImageScalarWhereInput | ImageScalarWhereInput[]
+  }
+
+  export type FavoriteAdUncheckedUpdateManyWithoutAppartmentAdNestedInput = {
+    create?: XOR<FavoriteAdCreateWithoutAppartmentAdInput, FavoriteAdUncheckedCreateWithoutAppartmentAdInput> | FavoriteAdCreateWithoutAppartmentAdInput[] | FavoriteAdUncheckedCreateWithoutAppartmentAdInput[]
+    connectOrCreate?: FavoriteAdCreateOrConnectWithoutAppartmentAdInput | FavoriteAdCreateOrConnectWithoutAppartmentAdInput[]
+    upsert?: FavoriteAdUpsertWithWhereUniqueWithoutAppartmentAdInput | FavoriteAdUpsertWithWhereUniqueWithoutAppartmentAdInput[]
+    set?: FavoriteAdWhereUniqueInput | FavoriteAdWhereUniqueInput[]
+    disconnect?: FavoriteAdWhereUniqueInput | FavoriteAdWhereUniqueInput[]
+    delete?: FavoriteAdWhereUniqueInput | FavoriteAdWhereUniqueInput[]
+    connect?: FavoriteAdWhereUniqueInput | FavoriteAdWhereUniqueInput[]
+    update?: FavoriteAdUpdateWithWhereUniqueWithoutAppartmentAdInput | FavoriteAdUpdateWithWhereUniqueWithoutAppartmentAdInput[]
+    updateMany?: FavoriteAdUpdateManyWithWhereWithoutAppartmentAdInput | FavoriteAdUpdateManyWithWhereWithoutAppartmentAdInput[]
+    deleteMany?: FavoriteAdScalarWhereInput | FavoriteAdScalarWhereInput[]
+  }
+
   export type UserCreateNestedOneWithoutFavoriteAdsInput = {
     create?: XOR<UserCreateWithoutFavoriteAdsInput, UserUncheckedCreateWithoutFavoriteAdsInput>
     connectOrCreate?: UserCreateOrConnectWithoutFavoriteAdsInput
@@ -31237,6 +33549,12 @@ export namespace Prisma {
     connect?: AdWhereUniqueInput
   }
 
+  export type AppartmentAdCreateNestedOneWithoutFavoritedByInput = {
+    create?: XOR<AppartmentAdCreateWithoutFavoritedByInput, AppartmentAdUncheckedCreateWithoutFavoritedByInput>
+    connectOrCreate?: AppartmentAdCreateOrConnectWithoutFavoritedByInput
+    connect?: AppartmentAdWhereUniqueInput
+  }
+
   export type UserUpdateOneRequiredWithoutFavoriteAdsNestedInput = {
     create?: XOR<UserCreateWithoutFavoriteAdsInput, UserUncheckedCreateWithoutFavoriteAdsInput>
     connectOrCreate?: UserCreateOrConnectWithoutFavoriteAdsInput
@@ -31245,12 +33563,24 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutFavoriteAdsInput, UserUpdateWithoutFavoriteAdsInput>, UserUncheckedUpdateWithoutFavoriteAdsInput>
   }
 
-  export type AdUpdateOneRequiredWithoutFavoritedByNestedInput = {
+  export type AdUpdateOneWithoutFavoritedByNestedInput = {
     create?: XOR<AdCreateWithoutFavoritedByInput, AdUncheckedCreateWithoutFavoritedByInput>
     connectOrCreate?: AdCreateOrConnectWithoutFavoritedByInput
     upsert?: AdUpsertWithoutFavoritedByInput
+    disconnect?: AdWhereInput | boolean
+    delete?: AdWhereInput | boolean
     connect?: AdWhereUniqueInput
     update?: XOR<XOR<AdUpdateToOneWithWhereWithoutFavoritedByInput, AdUpdateWithoutFavoritedByInput>, AdUncheckedUpdateWithoutFavoritedByInput>
+  }
+
+  export type AppartmentAdUpdateOneWithoutFavoritedByNestedInput = {
+    create?: XOR<AppartmentAdCreateWithoutFavoritedByInput, AppartmentAdUncheckedCreateWithoutFavoritedByInput>
+    connectOrCreate?: AppartmentAdCreateOrConnectWithoutFavoritedByInput
+    upsert?: AppartmentAdUpsertWithoutFavoritedByInput
+    disconnect?: AppartmentAdWhereInput | boolean
+    delete?: AppartmentAdWhereInput | boolean
+    connect?: AppartmentAdWhereUniqueInput
+    update?: XOR<XOR<AppartmentAdUpdateToOneWithWhereWithoutFavoritedByInput, AppartmentAdUpdateWithoutFavoritedByInput>, AppartmentAdUncheckedUpdateWithoutFavoritedByInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -31502,6 +33832,7 @@ export namespace Prisma {
     languages?: string | null
     sessions?: SessionCreateNestedManyWithoutUserInput
     ads?: AdCreateNestedManyWithoutUserInput
+    AppartmentAds?: AppartmentAdCreateNestedManyWithoutUserInput
     favoriteAds?: FavoriteAdCreateNestedManyWithoutUserInput
     shop?: ShopCreateNestedManyWithoutUserInput
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
@@ -31541,6 +33872,7 @@ export namespace Prisma {
     languages?: string | null
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     ads?: AdUncheckedCreateNestedManyWithoutUserInput
+    AppartmentAds?: AppartmentAdUncheckedCreateNestedManyWithoutUserInput
     favoriteAds?: FavoriteAdUncheckedCreateNestedManyWithoutUserInput
     shop?: ShopUncheckedCreateNestedManyWithoutUserInput
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
@@ -31595,6 +33927,7 @@ export namespace Prisma {
     languages?: NullableStringFieldUpdateOperationsInput | string | null
     sessions?: SessionUpdateManyWithoutUserNestedInput
     ads?: AdUpdateManyWithoutUserNestedInput
+    AppartmentAds?: AppartmentAdUpdateManyWithoutUserNestedInput
     favoriteAds?: FavoriteAdUpdateManyWithoutUserNestedInput
     shop?: ShopUpdateManyWithoutUserNestedInput
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
@@ -31634,6 +33967,7 @@ export namespace Prisma {
     languages?: NullableStringFieldUpdateOperationsInput | string | null
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     ads?: AdUncheckedUpdateManyWithoutUserNestedInput
+    AppartmentAds?: AppartmentAdUncheckedUpdateManyWithoutUserNestedInput
     favoriteAds?: FavoriteAdUncheckedUpdateManyWithoutUserNestedInput
     shop?: ShopUncheckedUpdateManyWithoutUserNestedInput
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
@@ -31672,6 +34006,7 @@ export namespace Prisma {
     languages?: string | null
     accounts?: AccountCreateNestedManyWithoutUserInput
     ads?: AdCreateNestedManyWithoutUserInput
+    AppartmentAds?: AppartmentAdCreateNestedManyWithoutUserInput
     favoriteAds?: FavoriteAdCreateNestedManyWithoutUserInput
     shop?: ShopCreateNestedManyWithoutUserInput
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
@@ -31711,6 +34046,7 @@ export namespace Prisma {
     languages?: string | null
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     ads?: AdUncheckedCreateNestedManyWithoutUserInput
+    AppartmentAds?: AppartmentAdUncheckedCreateNestedManyWithoutUserInput
     favoriteAds?: FavoriteAdUncheckedCreateNestedManyWithoutUserInput
     shop?: ShopUncheckedCreateNestedManyWithoutUserInput
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
@@ -31765,6 +34101,7 @@ export namespace Prisma {
     languages?: NullableStringFieldUpdateOperationsInput | string | null
     accounts?: AccountUpdateManyWithoutUserNestedInput
     ads?: AdUpdateManyWithoutUserNestedInput
+    AppartmentAds?: AppartmentAdUpdateManyWithoutUserNestedInput
     favoriteAds?: FavoriteAdUpdateManyWithoutUserNestedInput
     shop?: ShopUpdateManyWithoutUserNestedInput
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
@@ -31804,6 +34141,7 @@ export namespace Prisma {
     languages?: NullableStringFieldUpdateOperationsInput | string | null
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     ads?: AdUncheckedUpdateManyWithoutUserNestedInput
+    AppartmentAds?: AppartmentAdUncheckedUpdateManyWithoutUserNestedInput
     favoriteAds?: FavoriteAdUncheckedUpdateManyWithoutUserNestedInput
     shop?: ShopUncheckedUpdateManyWithoutUserNestedInput
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
@@ -31941,14 +34279,80 @@ export namespace Prisma {
     create: XOR<AdCreateWithoutUserInput, AdUncheckedCreateWithoutUserInput>
   }
 
+  export type AppartmentAdCreateWithoutUserInput = {
+    createdAt?: Date | string
+    description?: string | null
+    title?: string | null
+    country?: string | null
+    city?: string | null
+    category: string
+    type?: string | null
+    propertyType?: string | null
+    payment?: string
+    price: string
+    bedrooms: string
+    bathrooms: string
+    amenities?: string | null
+    isOwner?: string | null
+    buildingAge?: string | null
+    designedFor?: string | null
+    floorsNum?: string | null
+    buildingSize?: string | null
+    landSize?: string | null
+    BuildingInterface?: string | null
+    adStatus?: string
+    views?: number
+    clicks?: number
+    shop?: ShopCreateNestedOneWithoutAppartmentAdsInput
+    images?: ImageCreateNestedManyWithoutAppartmentAdInput
+    favoritedBy?: FavoriteAdCreateNestedManyWithoutAppartmentAdInput
+  }
+
+  export type AppartmentAdUncheckedCreateWithoutUserInput = {
+    id?: number
+    shopId?: number | null
+    createdAt?: Date | string
+    description?: string | null
+    title?: string | null
+    country?: string | null
+    city?: string | null
+    category: string
+    type?: string | null
+    propertyType?: string | null
+    payment?: string
+    price: string
+    bedrooms: string
+    bathrooms: string
+    amenities?: string | null
+    isOwner?: string | null
+    buildingAge?: string | null
+    designedFor?: string | null
+    floorsNum?: string | null
+    buildingSize?: string | null
+    landSize?: string | null
+    BuildingInterface?: string | null
+    adStatus?: string
+    views?: number
+    clicks?: number
+    images?: ImageUncheckedCreateNestedManyWithoutAppartmentAdInput
+    favoritedBy?: FavoriteAdUncheckedCreateNestedManyWithoutAppartmentAdInput
+  }
+
+  export type AppartmentAdCreateOrConnectWithoutUserInput = {
+    where: AppartmentAdWhereUniqueInput
+    create: XOR<AppartmentAdCreateWithoutUserInput, AppartmentAdUncheckedCreateWithoutUserInput>
+  }
+
   export type FavoriteAdCreateWithoutUserInput = {
     createdAt?: Date | string
-    ad: AdCreateNestedOneWithoutFavoritedByInput
+    ad?: AdCreateNestedOneWithoutFavoritedByInput
+    AppartmentAd?: AppartmentAdCreateNestedOneWithoutFavoritedByInput
   }
 
   export type FavoriteAdUncheckedCreateWithoutUserInput = {
     id?: number
-    adId: number
+    adId?: number | null
+    appartmentAdId?: number | null
     createdAt?: Date | string
   }
 
@@ -31974,6 +34378,7 @@ export namespace Prisma {
     phoneNumber1?: string | null
     phoneNumber2?: string | null
     ads?: AdCreateNestedManyWithoutShopInput
+    AppartmentAds?: AppartmentAdCreateNestedManyWithoutShopInput
     followers?: FollowCreateNestedManyWithoutFollowedShopInput
     ratings?: RatingCreateNestedManyWithoutShopInput
     chats?: ChatCreateNestedManyWithoutShopsInput
@@ -31999,6 +34404,7 @@ export namespace Prisma {
     phoneNumber1?: string | null
     phoneNumber2?: string | null
     ads?: AdUncheckedCreateNestedManyWithoutShopInput
+    AppartmentAds?: AppartmentAdUncheckedCreateNestedManyWithoutShopInput
     followers?: FollowUncheckedCreateNestedManyWithoutFollowedShopInput
     ratings?: RatingUncheckedCreateNestedManyWithoutShopInput
     chats?: ChatUncheckedCreateNestedManyWithoutShopsInput
@@ -32451,6 +34857,54 @@ export namespace Prisma {
     clicks?: IntFilter<"Ad"> | number
   }
 
+  export type AppartmentAdUpsertWithWhereUniqueWithoutUserInput = {
+    where: AppartmentAdWhereUniqueInput
+    update: XOR<AppartmentAdUpdateWithoutUserInput, AppartmentAdUncheckedUpdateWithoutUserInput>
+    create: XOR<AppartmentAdCreateWithoutUserInput, AppartmentAdUncheckedCreateWithoutUserInput>
+  }
+
+  export type AppartmentAdUpdateWithWhereUniqueWithoutUserInput = {
+    where: AppartmentAdWhereUniqueInput
+    data: XOR<AppartmentAdUpdateWithoutUserInput, AppartmentAdUncheckedUpdateWithoutUserInput>
+  }
+
+  export type AppartmentAdUpdateManyWithWhereWithoutUserInput = {
+    where: AppartmentAdScalarWhereInput
+    data: XOR<AppartmentAdUpdateManyMutationInput, AppartmentAdUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type AppartmentAdScalarWhereInput = {
+    AND?: AppartmentAdScalarWhereInput | AppartmentAdScalarWhereInput[]
+    OR?: AppartmentAdScalarWhereInput[]
+    NOT?: AppartmentAdScalarWhereInput | AppartmentAdScalarWhereInput[]
+    id?: IntFilter<"AppartmentAd"> | number
+    userId?: IntNullableFilter<"AppartmentAd"> | number | null
+    shopId?: IntNullableFilter<"AppartmentAd"> | number | null
+    createdAt?: DateTimeFilter<"AppartmentAd"> | Date | string
+    description?: StringNullableFilter<"AppartmentAd"> | string | null
+    title?: StringNullableFilter<"AppartmentAd"> | string | null
+    country?: StringNullableFilter<"AppartmentAd"> | string | null
+    city?: StringNullableFilter<"AppartmentAd"> | string | null
+    category?: StringFilter<"AppartmentAd"> | string
+    type?: StringNullableFilter<"AppartmentAd"> | string | null
+    propertyType?: StringNullableFilter<"AppartmentAd"> | string | null
+    payment?: StringFilter<"AppartmentAd"> | string
+    price?: StringFilter<"AppartmentAd"> | string
+    bedrooms?: StringFilter<"AppartmentAd"> | string
+    bathrooms?: StringFilter<"AppartmentAd"> | string
+    amenities?: StringNullableFilter<"AppartmentAd"> | string | null
+    isOwner?: StringNullableFilter<"AppartmentAd"> | string | null
+    buildingAge?: StringNullableFilter<"AppartmentAd"> | string | null
+    designedFor?: StringNullableFilter<"AppartmentAd"> | string | null
+    floorsNum?: StringNullableFilter<"AppartmentAd"> | string | null
+    buildingSize?: StringNullableFilter<"AppartmentAd"> | string | null
+    landSize?: StringNullableFilter<"AppartmentAd"> | string | null
+    BuildingInterface?: StringNullableFilter<"AppartmentAd"> | string | null
+    adStatus?: StringFilter<"AppartmentAd"> | string
+    views?: IntFilter<"AppartmentAd"> | number
+    clicks?: IntFilter<"AppartmentAd"> | number
+  }
+
   export type FavoriteAdUpsertWithWhereUniqueWithoutUserInput = {
     where: FavoriteAdWhereUniqueInput
     update: XOR<FavoriteAdUpdateWithoutUserInput, FavoriteAdUncheckedUpdateWithoutUserInput>
@@ -32473,7 +34927,8 @@ export namespace Prisma {
     NOT?: FavoriteAdScalarWhereInput | FavoriteAdScalarWhereInput[]
     id?: IntFilter<"FavoriteAd"> | number
     userId?: IntFilter<"FavoriteAd"> | number
-    adId?: IntFilter<"FavoriteAd"> | number
+    adId?: IntNullableFilter<"FavoriteAd"> | number | null
+    appartmentAdId?: IntNullableFilter<"FavoriteAd"> | number | null
     createdAt?: DateTimeFilter<"FavoriteAd"> | Date | string
   }
 
@@ -32926,6 +35381,7 @@ export namespace Prisma {
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     ads?: AdCreateNestedManyWithoutUserInput
+    AppartmentAds?: AppartmentAdCreateNestedManyWithoutUserInput
     favoriteAds?: FavoriteAdCreateNestedManyWithoutUserInput
     shop?: ShopCreateNestedManyWithoutUserInput
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
@@ -32965,6 +35421,7 @@ export namespace Prisma {
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     ads?: AdUncheckedCreateNestedManyWithoutUserInput
+    AppartmentAds?: AppartmentAdUncheckedCreateNestedManyWithoutUserInput
     favoriteAds?: FavoriteAdUncheckedCreateNestedManyWithoutUserInput
     shop?: ShopUncheckedCreateNestedManyWithoutUserInput
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
@@ -33069,6 +35526,7 @@ export namespace Prisma {
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     ads?: AdUpdateManyWithoutUserNestedInput
+    AppartmentAds?: AppartmentAdUpdateManyWithoutUserNestedInput
     favoriteAds?: FavoriteAdUpdateManyWithoutUserNestedInput
     shop?: ShopUpdateManyWithoutUserNestedInput
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
@@ -33108,6 +35566,7 @@ export namespace Prisma {
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     ads?: AdUncheckedUpdateManyWithoutUserNestedInput
+    AppartmentAds?: AppartmentAdUncheckedUpdateManyWithoutUserNestedInput
     favoriteAds?: FavoriteAdUncheckedUpdateManyWithoutUserNestedInput
     shop?: ShopUncheckedUpdateManyWithoutUserNestedInput
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
@@ -33202,6 +35661,7 @@ export namespace Prisma {
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     ads?: AdCreateNestedManyWithoutUserInput
+    AppartmentAds?: AppartmentAdCreateNestedManyWithoutUserInput
     favoriteAds?: FavoriteAdCreateNestedManyWithoutUserInput
     shop?: ShopCreateNestedManyWithoutUserInput
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
@@ -33241,6 +35701,7 @@ export namespace Prisma {
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     ads?: AdUncheckedCreateNestedManyWithoutUserInput
+    AppartmentAds?: AppartmentAdUncheckedCreateNestedManyWithoutUserInput
     favoriteAds?: FavoriteAdUncheckedCreateNestedManyWithoutUserInput
     shop?: ShopUncheckedCreateNestedManyWithoutUserInput
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
@@ -33295,6 +35756,7 @@ export namespace Prisma {
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     ads?: AdUpdateManyWithoutUserNestedInput
+    AppartmentAds?: AppartmentAdUpdateManyWithoutUserNestedInput
     favoriteAds?: FavoriteAdUpdateManyWithoutUserNestedInput
     shop?: ShopUpdateManyWithoutUserNestedInput
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
@@ -33334,6 +35796,7 @@ export namespace Prisma {
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     ads?: AdUncheckedUpdateManyWithoutUserNestedInput
+    AppartmentAds?: AppartmentAdUncheckedUpdateManyWithoutUserNestedInput
     favoriteAds?: FavoriteAdUncheckedUpdateManyWithoutUserNestedInput
     shop?: ShopUncheckedUpdateManyWithoutUserNestedInput
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
@@ -33372,6 +35835,7 @@ export namespace Prisma {
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     ads?: AdCreateNestedManyWithoutUserInput
+    AppartmentAds?: AppartmentAdCreateNestedManyWithoutUserInput
     favoriteAds?: FavoriteAdCreateNestedManyWithoutUserInput
     shop?: ShopCreateNestedManyWithoutUserInput
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
@@ -33411,6 +35875,7 @@ export namespace Prisma {
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     ads?: AdUncheckedCreateNestedManyWithoutUserInput
+    AppartmentAds?: AppartmentAdUncheckedCreateNestedManyWithoutUserInput
     favoriteAds?: FavoriteAdUncheckedCreateNestedManyWithoutUserInput
     shop?: ShopUncheckedCreateNestedManyWithoutUserInput
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
@@ -33465,6 +35930,7 @@ export namespace Prisma {
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     ads?: AdUpdateManyWithoutUserNestedInput
+    AppartmentAds?: AppartmentAdUpdateManyWithoutUserNestedInput
     favoriteAds?: FavoriteAdUpdateManyWithoutUserNestedInput
     shop?: ShopUpdateManyWithoutUserNestedInput
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
@@ -33504,6 +35970,7 @@ export namespace Prisma {
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     ads?: AdUncheckedUpdateManyWithoutUserNestedInput
+    AppartmentAds?: AppartmentAdUncheckedUpdateManyWithoutUserNestedInput
     favoriteAds?: FavoriteAdUncheckedUpdateManyWithoutUserNestedInput
     shop?: ShopUncheckedUpdateManyWithoutUserNestedInput
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
@@ -33542,6 +36009,7 @@ export namespace Prisma {
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     ads?: AdCreateNestedManyWithoutUserInput
+    AppartmentAds?: AppartmentAdCreateNestedManyWithoutUserInput
     favoriteAds?: FavoriteAdCreateNestedManyWithoutUserInput
     shop?: ShopCreateNestedManyWithoutUserInput
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
@@ -33581,6 +36049,7 @@ export namespace Prisma {
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     ads?: AdUncheckedCreateNestedManyWithoutUserInput
+    AppartmentAds?: AppartmentAdUncheckedCreateNestedManyWithoutUserInput
     favoriteAds?: FavoriteAdUncheckedCreateNestedManyWithoutUserInput
     shop?: ShopUncheckedCreateNestedManyWithoutUserInput
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
@@ -33635,6 +36104,7 @@ export namespace Prisma {
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     ads?: AdUpdateManyWithoutUserNestedInput
+    AppartmentAds?: AppartmentAdUpdateManyWithoutUserNestedInput
     favoriteAds?: FavoriteAdUpdateManyWithoutUserNestedInput
     shop?: ShopUpdateManyWithoutUserNestedInput
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
@@ -33674,6 +36144,7 @@ export namespace Prisma {
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     ads?: AdUncheckedUpdateManyWithoutUserNestedInput
+    AppartmentAds?: AppartmentAdUncheckedUpdateManyWithoutUserNestedInput
     favoriteAds?: FavoriteAdUncheckedUpdateManyWithoutUserNestedInput
     shop?: ShopUncheckedUpdateManyWithoutUserNestedInput
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
@@ -33712,6 +36183,7 @@ export namespace Prisma {
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     ads?: AdCreateNestedManyWithoutUserInput
+    AppartmentAds?: AppartmentAdCreateNestedManyWithoutUserInput
     favoriteAds?: FavoriteAdCreateNestedManyWithoutUserInput
     shop?: ShopCreateNestedManyWithoutUserInput
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
@@ -33751,6 +36223,7 @@ export namespace Prisma {
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     ads?: AdUncheckedCreateNestedManyWithoutUserInput
+    AppartmentAds?: AppartmentAdUncheckedCreateNestedManyWithoutUserInput
     favoriteAds?: FavoriteAdUncheckedCreateNestedManyWithoutUserInput
     shop?: ShopUncheckedCreateNestedManyWithoutUserInput
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
@@ -33805,6 +36278,7 @@ export namespace Prisma {
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     ads?: AdUpdateManyWithoutUserNestedInput
+    AppartmentAds?: AppartmentAdUpdateManyWithoutUserNestedInput
     favoriteAds?: FavoriteAdUpdateManyWithoutUserNestedInput
     shop?: ShopUpdateManyWithoutUserNestedInput
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
@@ -33844,6 +36318,7 @@ export namespace Prisma {
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     ads?: AdUncheckedUpdateManyWithoutUserNestedInput
+    AppartmentAds?: AppartmentAdUncheckedUpdateManyWithoutUserNestedInput
     favoriteAds?: FavoriteAdUncheckedUpdateManyWithoutUserNestedInput
     shop?: ShopUncheckedUpdateManyWithoutUserNestedInput
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
@@ -33882,6 +36357,7 @@ export namespace Prisma {
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     ads?: AdCreateNestedManyWithoutUserInput
+    AppartmentAds?: AppartmentAdCreateNestedManyWithoutUserInput
     favoriteAds?: FavoriteAdCreateNestedManyWithoutUserInput
     shop?: ShopCreateNestedManyWithoutUserInput
     following?: FollowCreateNestedManyWithoutFollowerInput
@@ -33921,6 +36397,7 @@ export namespace Prisma {
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     ads?: AdUncheckedCreateNestedManyWithoutUserInput
+    AppartmentAds?: AppartmentAdUncheckedCreateNestedManyWithoutUserInput
     favoriteAds?: FavoriteAdUncheckedCreateNestedManyWithoutUserInput
     shop?: ShopUncheckedCreateNestedManyWithoutUserInput
     following?: FollowUncheckedCreateNestedManyWithoutFollowerInput
@@ -33975,6 +36452,7 @@ export namespace Prisma {
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     ads?: AdUpdateManyWithoutUserNestedInput
+    AppartmentAds?: AppartmentAdUpdateManyWithoutUserNestedInput
     favoriteAds?: FavoriteAdUpdateManyWithoutUserNestedInput
     shop?: ShopUpdateManyWithoutUserNestedInput
     following?: FollowUpdateManyWithoutFollowerNestedInput
@@ -34014,6 +36492,7 @@ export namespace Prisma {
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     ads?: AdUncheckedUpdateManyWithoutUserNestedInput
+    AppartmentAds?: AppartmentAdUncheckedUpdateManyWithoutUserNestedInput
     favoriteAds?: FavoriteAdUncheckedUpdateManyWithoutUserNestedInput
     shop?: ShopUncheckedUpdateManyWithoutUserNestedInput
     following?: FollowUncheckedUpdateManyWithoutFollowerNestedInput
@@ -34102,6 +36581,7 @@ export namespace Prisma {
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     ads?: AdCreateNestedManyWithoutUserInput
+    AppartmentAds?: AppartmentAdCreateNestedManyWithoutUserInput
     favoriteAds?: FavoriteAdCreateNestedManyWithoutUserInput
     shop?: ShopCreateNestedManyWithoutUserInput
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
@@ -34141,6 +36621,7 @@ export namespace Prisma {
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     ads?: AdUncheckedCreateNestedManyWithoutUserInput
+    AppartmentAds?: AppartmentAdUncheckedCreateNestedManyWithoutUserInput
     favoriteAds?: FavoriteAdUncheckedCreateNestedManyWithoutUserInput
     shop?: ShopUncheckedCreateNestedManyWithoutUserInput
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
@@ -34237,6 +36718,7 @@ export namespace Prisma {
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     ads?: AdUpdateManyWithoutUserNestedInput
+    AppartmentAds?: AppartmentAdUpdateManyWithoutUserNestedInput
     favoriteAds?: FavoriteAdUpdateManyWithoutUserNestedInput
     shop?: ShopUpdateManyWithoutUserNestedInput
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
@@ -34276,6 +36758,7 @@ export namespace Prisma {
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     ads?: AdUncheckedUpdateManyWithoutUserNestedInput
+    AppartmentAds?: AppartmentAdUncheckedUpdateManyWithoutUserNestedInput
     favoriteAds?: FavoriteAdUncheckedUpdateManyWithoutUserNestedInput
     shop?: ShopUncheckedUpdateManyWithoutUserNestedInput
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
@@ -34410,6 +36893,7 @@ export namespace Prisma {
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     ads?: AdCreateNestedManyWithoutUserInput
+    AppartmentAds?: AppartmentAdCreateNestedManyWithoutUserInput
     favoriteAds?: FavoriteAdCreateNestedManyWithoutUserInput
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
     following?: FollowCreateNestedManyWithoutFollowerInput
@@ -34449,6 +36933,7 @@ export namespace Prisma {
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     ads?: AdUncheckedCreateNestedManyWithoutUserInput
+    AppartmentAds?: AppartmentAdUncheckedCreateNestedManyWithoutUserInput
     favoriteAds?: FavoriteAdUncheckedCreateNestedManyWithoutUserInput
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
     following?: FollowUncheckedCreateNestedManyWithoutFollowerInput
@@ -34538,6 +37023,70 @@ export namespace Prisma {
   export type AdCreateOrConnectWithoutShopInput = {
     where: AdWhereUniqueInput
     create: XOR<AdCreateWithoutShopInput, AdUncheckedCreateWithoutShopInput>
+  }
+
+  export type AppartmentAdCreateWithoutShopInput = {
+    createdAt?: Date | string
+    description?: string | null
+    title?: string | null
+    country?: string | null
+    city?: string | null
+    category: string
+    type?: string | null
+    propertyType?: string | null
+    payment?: string
+    price: string
+    bedrooms: string
+    bathrooms: string
+    amenities?: string | null
+    isOwner?: string | null
+    buildingAge?: string | null
+    designedFor?: string | null
+    floorsNum?: string | null
+    buildingSize?: string | null
+    landSize?: string | null
+    BuildingInterface?: string | null
+    adStatus?: string
+    views?: number
+    clicks?: number
+    user?: UserCreateNestedOneWithoutAppartmentAdsInput
+    images?: ImageCreateNestedManyWithoutAppartmentAdInput
+    favoritedBy?: FavoriteAdCreateNestedManyWithoutAppartmentAdInput
+  }
+
+  export type AppartmentAdUncheckedCreateWithoutShopInput = {
+    id?: number
+    userId?: number | null
+    createdAt?: Date | string
+    description?: string | null
+    title?: string | null
+    country?: string | null
+    city?: string | null
+    category: string
+    type?: string | null
+    propertyType?: string | null
+    payment?: string
+    price: string
+    bedrooms: string
+    bathrooms: string
+    amenities?: string | null
+    isOwner?: string | null
+    buildingAge?: string | null
+    designedFor?: string | null
+    floorsNum?: string | null
+    buildingSize?: string | null
+    landSize?: string | null
+    BuildingInterface?: string | null
+    adStatus?: string
+    views?: number
+    clicks?: number
+    images?: ImageUncheckedCreateNestedManyWithoutAppartmentAdInput
+    favoritedBy?: FavoriteAdUncheckedCreateNestedManyWithoutAppartmentAdInput
+  }
+
+  export type AppartmentAdCreateOrConnectWithoutShopInput = {
+    where: AppartmentAdWhereUniqueInput
+    create: XOR<AppartmentAdCreateWithoutShopInput, AppartmentAdUncheckedCreateWithoutShopInput>
   }
 
   export type FollowCreateWithoutFollowedShopInput = {
@@ -34681,6 +37230,7 @@ export namespace Prisma {
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     ads?: AdUpdateManyWithoutUserNestedInput
+    AppartmentAds?: AppartmentAdUpdateManyWithoutUserNestedInput
     favoriteAds?: FavoriteAdUpdateManyWithoutUserNestedInput
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
     following?: FollowUpdateManyWithoutFollowerNestedInput
@@ -34720,6 +37270,7 @@ export namespace Prisma {
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     ads?: AdUncheckedUpdateManyWithoutUserNestedInput
+    AppartmentAds?: AppartmentAdUncheckedUpdateManyWithoutUserNestedInput
     favoriteAds?: FavoriteAdUncheckedUpdateManyWithoutUserNestedInput
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
     following?: FollowUncheckedUpdateManyWithoutFollowerNestedInput
@@ -34752,6 +37303,22 @@ export namespace Prisma {
   export type AdUpdateManyWithWhereWithoutShopInput = {
     where: AdScalarWhereInput
     data: XOR<AdUpdateManyMutationInput, AdUncheckedUpdateManyWithoutShopInput>
+  }
+
+  export type AppartmentAdUpsertWithWhereUniqueWithoutShopInput = {
+    where: AppartmentAdWhereUniqueInput
+    update: XOR<AppartmentAdUpdateWithoutShopInput, AppartmentAdUncheckedUpdateWithoutShopInput>
+    create: XOR<AppartmentAdCreateWithoutShopInput, AppartmentAdUncheckedCreateWithoutShopInput>
+  }
+
+  export type AppartmentAdUpdateWithWhereUniqueWithoutShopInput = {
+    where: AppartmentAdWhereUniqueInput
+    data: XOR<AppartmentAdUpdateWithoutShopInput, AppartmentAdUncheckedUpdateWithoutShopInput>
+  }
+
+  export type AppartmentAdUpdateManyWithWhereWithoutShopInput = {
+    where: AppartmentAdScalarWhereInput
+    data: XOR<AppartmentAdUpdateManyMutationInput, AppartmentAdUncheckedUpdateManyWithoutShopInput>
   }
 
   export type FollowUpsertWithWhereUniqueWithoutFollowedShopInput = {
@@ -34854,6 +37421,7 @@ export namespace Prisma {
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     ads?: AdCreateNestedManyWithoutUserInput
+    AppartmentAds?: AppartmentAdCreateNestedManyWithoutUserInput
     favoriteAds?: FavoriteAdCreateNestedManyWithoutUserInput
     shop?: ShopCreateNestedManyWithoutUserInput
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
@@ -34893,6 +37461,7 @@ export namespace Prisma {
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     ads?: AdUncheckedCreateNestedManyWithoutUserInput
+    AppartmentAds?: AppartmentAdUncheckedCreateNestedManyWithoutUserInput
     favoriteAds?: FavoriteAdUncheckedCreateNestedManyWithoutUserInput
     shop?: ShopUncheckedCreateNestedManyWithoutUserInput
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
@@ -34934,6 +37503,7 @@ export namespace Prisma {
     phoneNumber2?: string | null
     user: UserCreateNestedOneWithoutShopInput
     ads?: AdCreateNestedManyWithoutShopInput
+    AppartmentAds?: AppartmentAdCreateNestedManyWithoutShopInput
     followers?: FollowCreateNestedManyWithoutFollowedShopInput
     ratings?: RatingCreateNestedManyWithoutShopInput
     sentMessages?: MessageCreateNestedManyWithoutSenderShopInput
@@ -34959,6 +37529,7 @@ export namespace Prisma {
     phoneNumber1?: string | null
     phoneNumber2?: string | null
     ads?: AdUncheckedCreateNestedManyWithoutShopInput
+    AppartmentAds?: AppartmentAdUncheckedCreateNestedManyWithoutShopInput
     followers?: FollowUncheckedCreateNestedManyWithoutFollowedShopInput
     ratings?: RatingUncheckedCreateNestedManyWithoutShopInput
     sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderShopInput
@@ -35124,6 +37695,7 @@ export namespace Prisma {
     phoneNumber2?: string | null
     user: UserCreateNestedOneWithoutShopInput
     ads?: AdCreateNestedManyWithoutShopInput
+    AppartmentAds?: AppartmentAdCreateNestedManyWithoutShopInput
     followers?: FollowCreateNestedManyWithoutFollowedShopInput
     ratings?: RatingCreateNestedManyWithoutShopInput
     chats?: ChatCreateNestedManyWithoutShopsInput
@@ -35149,6 +37721,7 @@ export namespace Prisma {
     phoneNumber1?: string | null
     phoneNumber2?: string | null
     ads?: AdUncheckedCreateNestedManyWithoutShopInput
+    AppartmentAds?: AppartmentAdUncheckedCreateNestedManyWithoutShopInput
     followers?: FollowUncheckedCreateNestedManyWithoutFollowedShopInput
     ratings?: RatingUncheckedCreateNestedManyWithoutShopInput
     chats?: ChatUncheckedCreateNestedManyWithoutShopsInput
@@ -35178,6 +37751,7 @@ export namespace Prisma {
     phoneNumber2?: string | null
     user: UserCreateNestedOneWithoutShopInput
     ads?: AdCreateNestedManyWithoutShopInput
+    AppartmentAds?: AppartmentAdCreateNestedManyWithoutShopInput
     followers?: FollowCreateNestedManyWithoutFollowedShopInput
     ratings?: RatingCreateNestedManyWithoutShopInput
     chats?: ChatCreateNestedManyWithoutShopsInput
@@ -35203,6 +37777,7 @@ export namespace Prisma {
     phoneNumber1?: string | null
     phoneNumber2?: string | null
     ads?: AdUncheckedCreateNestedManyWithoutShopInput
+    AppartmentAds?: AppartmentAdUncheckedCreateNestedManyWithoutShopInput
     followers?: FollowUncheckedCreateNestedManyWithoutFollowedShopInput
     ratings?: RatingUncheckedCreateNestedManyWithoutShopInput
     chats?: ChatUncheckedCreateNestedManyWithoutShopsInput
@@ -35234,6 +37809,7 @@ export namespace Prisma {
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     ads?: AdCreateNestedManyWithoutUserInput
+    AppartmentAds?: AppartmentAdCreateNestedManyWithoutUserInput
     favoriteAds?: FavoriteAdCreateNestedManyWithoutUserInput
     shop?: ShopCreateNestedManyWithoutUserInput
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
@@ -35273,6 +37849,7 @@ export namespace Prisma {
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     ads?: AdUncheckedCreateNestedManyWithoutUserInput
+    AppartmentAds?: AppartmentAdUncheckedCreateNestedManyWithoutUserInput
     favoriteAds?: FavoriteAdUncheckedCreateNestedManyWithoutUserInput
     shop?: ShopUncheckedCreateNestedManyWithoutUserInput
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
@@ -35316,6 +37893,7 @@ export namespace Prisma {
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     ads?: AdCreateNestedManyWithoutUserInput
+    AppartmentAds?: AppartmentAdCreateNestedManyWithoutUserInput
     favoriteAds?: FavoriteAdCreateNestedManyWithoutUserInput
     shop?: ShopCreateNestedManyWithoutUserInput
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
@@ -35355,6 +37933,7 @@ export namespace Prisma {
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     ads?: AdUncheckedCreateNestedManyWithoutUserInput
+    AppartmentAds?: AppartmentAdUncheckedCreateNestedManyWithoutUserInput
     favoriteAds?: FavoriteAdUncheckedCreateNestedManyWithoutUserInput
     shop?: ShopUncheckedCreateNestedManyWithoutUserInput
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
@@ -35455,6 +38034,7 @@ export namespace Prisma {
     phoneNumber2?: NullableStringFieldUpdateOperationsInput | string | null
     user?: UserUpdateOneRequiredWithoutShopNestedInput
     ads?: AdUpdateManyWithoutShopNestedInput
+    AppartmentAds?: AppartmentAdUpdateManyWithoutShopNestedInput
     followers?: FollowUpdateManyWithoutFollowedShopNestedInput
     ratings?: RatingUpdateManyWithoutShopNestedInput
     chats?: ChatUpdateManyWithoutShopsNestedInput
@@ -35480,6 +38060,7 @@ export namespace Prisma {
     phoneNumber1?: NullableStringFieldUpdateOperationsInput | string | null
     phoneNumber2?: NullableStringFieldUpdateOperationsInput | string | null
     ads?: AdUncheckedUpdateManyWithoutShopNestedInput
+    AppartmentAds?: AppartmentAdUncheckedUpdateManyWithoutShopNestedInput
     followers?: FollowUncheckedUpdateManyWithoutFollowedShopNestedInput
     ratings?: RatingUncheckedUpdateManyWithoutShopNestedInput
     chats?: ChatUncheckedUpdateManyWithoutShopsNestedInput
@@ -35515,6 +38096,7 @@ export namespace Prisma {
     phoneNumber2?: NullableStringFieldUpdateOperationsInput | string | null
     user?: UserUpdateOneRequiredWithoutShopNestedInput
     ads?: AdUpdateManyWithoutShopNestedInput
+    AppartmentAds?: AppartmentAdUpdateManyWithoutShopNestedInput
     followers?: FollowUpdateManyWithoutFollowedShopNestedInput
     ratings?: RatingUpdateManyWithoutShopNestedInput
     chats?: ChatUpdateManyWithoutShopsNestedInput
@@ -35540,6 +38122,7 @@ export namespace Prisma {
     phoneNumber1?: NullableStringFieldUpdateOperationsInput | string | null
     phoneNumber2?: NullableStringFieldUpdateOperationsInput | string | null
     ads?: AdUncheckedUpdateManyWithoutShopNestedInput
+    AppartmentAds?: AppartmentAdUncheckedUpdateManyWithoutShopNestedInput
     followers?: FollowUncheckedUpdateManyWithoutFollowedShopNestedInput
     ratings?: RatingUncheckedUpdateManyWithoutShopNestedInput
     chats?: ChatUncheckedUpdateManyWithoutShopsNestedInput
@@ -35577,6 +38160,7 @@ export namespace Prisma {
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     ads?: AdUpdateManyWithoutUserNestedInput
+    AppartmentAds?: AppartmentAdUpdateManyWithoutUserNestedInput
     favoriteAds?: FavoriteAdUpdateManyWithoutUserNestedInput
     shop?: ShopUpdateManyWithoutUserNestedInput
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
@@ -35616,6 +38200,7 @@ export namespace Prisma {
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     ads?: AdUncheckedUpdateManyWithoutUserNestedInput
+    AppartmentAds?: AppartmentAdUncheckedUpdateManyWithoutUserNestedInput
     favoriteAds?: FavoriteAdUncheckedUpdateManyWithoutUserNestedInput
     shop?: ShopUncheckedUpdateManyWithoutUserNestedInput
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
@@ -35665,6 +38250,7 @@ export namespace Prisma {
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     ads?: AdUpdateManyWithoutUserNestedInput
+    AppartmentAds?: AppartmentAdUpdateManyWithoutUserNestedInput
     favoriteAds?: FavoriteAdUpdateManyWithoutUserNestedInput
     shop?: ShopUpdateManyWithoutUserNestedInput
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
@@ -35704,6 +38290,7 @@ export namespace Prisma {
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     ads?: AdUncheckedUpdateManyWithoutUserNestedInput
+    AppartmentAds?: AppartmentAdUncheckedUpdateManyWithoutUserNestedInput
     favoriteAds?: FavoriteAdUncheckedUpdateManyWithoutUserNestedInput
     shop?: ShopUncheckedUpdateManyWithoutUserNestedInput
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
@@ -35771,6 +38358,7 @@ export namespace Prisma {
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     ads?: AdCreateNestedManyWithoutUserInput
+    AppartmentAds?: AppartmentAdCreateNestedManyWithoutUserInput
     favoriteAds?: FavoriteAdCreateNestedManyWithoutUserInput
     shop?: ShopCreateNestedManyWithoutUserInput
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
@@ -35810,6 +38398,7 @@ export namespace Prisma {
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     ads?: AdUncheckedCreateNestedManyWithoutUserInput
+    AppartmentAds?: AppartmentAdUncheckedCreateNestedManyWithoutUserInput
     favoriteAds?: FavoriteAdUncheckedCreateNestedManyWithoutUserInput
     shop?: ShopUncheckedCreateNestedManyWithoutUserInput
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
@@ -35899,6 +38488,7 @@ export namespace Prisma {
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     ads?: AdUpdateManyWithoutUserNestedInput
+    AppartmentAds?: AppartmentAdUpdateManyWithoutUserNestedInput
     favoriteAds?: FavoriteAdUpdateManyWithoutUserNestedInput
     shop?: ShopUpdateManyWithoutUserNestedInput
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
@@ -35938,6 +38528,7 @@ export namespace Prisma {
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     ads?: AdUncheckedUpdateManyWithoutUserNestedInput
+    AppartmentAds?: AppartmentAdUncheckedUpdateManyWithoutUserNestedInput
     favoriteAds?: FavoriteAdUncheckedUpdateManyWithoutUserNestedInput
     shop?: ShopUncheckedUpdateManyWithoutUserNestedInput
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
@@ -35976,6 +38567,7 @@ export namespace Prisma {
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     ads?: AdCreateNestedManyWithoutUserInput
+    AppartmentAds?: AppartmentAdCreateNestedManyWithoutUserInput
     favoriteAds?: FavoriteAdCreateNestedManyWithoutUserInput
     shop?: ShopCreateNestedManyWithoutUserInput
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
@@ -36015,6 +38607,7 @@ export namespace Prisma {
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     ads?: AdUncheckedCreateNestedManyWithoutUserInput
+    AppartmentAds?: AppartmentAdUncheckedCreateNestedManyWithoutUserInput
     favoriteAds?: FavoriteAdUncheckedCreateNestedManyWithoutUserInput
     shop?: ShopUncheckedCreateNestedManyWithoutUserInput
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
@@ -36058,6 +38651,7 @@ export namespace Prisma {
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     ads?: AdCreateNestedManyWithoutUserInput
+    AppartmentAds?: AppartmentAdCreateNestedManyWithoutUserInput
     favoriteAds?: FavoriteAdCreateNestedManyWithoutUserInput
     shop?: ShopCreateNestedManyWithoutUserInput
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
@@ -36097,6 +38691,7 @@ export namespace Prisma {
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     ads?: AdUncheckedCreateNestedManyWithoutUserInput
+    AppartmentAds?: AppartmentAdUncheckedCreateNestedManyWithoutUserInput
     favoriteAds?: FavoriteAdUncheckedCreateNestedManyWithoutUserInput
     shop?: ShopUncheckedCreateNestedManyWithoutUserInput
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
@@ -36138,6 +38733,7 @@ export namespace Prisma {
     phoneNumber2?: string | null
     user: UserCreateNestedOneWithoutShopInput
     ads?: AdCreateNestedManyWithoutShopInput
+    AppartmentAds?: AppartmentAdCreateNestedManyWithoutShopInput
     ratings?: RatingCreateNestedManyWithoutShopInput
     chats?: ChatCreateNestedManyWithoutShopsInput
     sentMessages?: MessageCreateNestedManyWithoutSenderShopInput
@@ -36163,6 +38759,7 @@ export namespace Prisma {
     phoneNumber1?: string | null
     phoneNumber2?: string | null
     ads?: AdUncheckedCreateNestedManyWithoutShopInput
+    AppartmentAds?: AppartmentAdUncheckedCreateNestedManyWithoutShopInput
     ratings?: RatingUncheckedCreateNestedManyWithoutShopInput
     chats?: ChatUncheckedCreateNestedManyWithoutShopsInput
     sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderShopInput
@@ -36205,6 +38802,7 @@ export namespace Prisma {
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     ads?: AdUpdateManyWithoutUserNestedInput
+    AppartmentAds?: AppartmentAdUpdateManyWithoutUserNestedInput
     favoriteAds?: FavoriteAdUpdateManyWithoutUserNestedInput
     shop?: ShopUpdateManyWithoutUserNestedInput
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
@@ -36244,6 +38842,7 @@ export namespace Prisma {
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     ads?: AdUncheckedUpdateManyWithoutUserNestedInput
+    AppartmentAds?: AppartmentAdUncheckedUpdateManyWithoutUserNestedInput
     favoriteAds?: FavoriteAdUncheckedUpdateManyWithoutUserNestedInput
     shop?: ShopUncheckedUpdateManyWithoutUserNestedInput
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
@@ -36293,6 +38892,7 @@ export namespace Prisma {
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     ads?: AdUpdateManyWithoutUserNestedInput
+    AppartmentAds?: AppartmentAdUpdateManyWithoutUserNestedInput
     favoriteAds?: FavoriteAdUpdateManyWithoutUserNestedInput
     shop?: ShopUpdateManyWithoutUserNestedInput
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
@@ -36332,6 +38932,7 @@ export namespace Prisma {
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     ads?: AdUncheckedUpdateManyWithoutUserNestedInput
+    AppartmentAds?: AppartmentAdUncheckedUpdateManyWithoutUserNestedInput
     favoriteAds?: FavoriteAdUncheckedUpdateManyWithoutUserNestedInput
     shop?: ShopUncheckedUpdateManyWithoutUserNestedInput
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
@@ -36379,6 +38980,7 @@ export namespace Prisma {
     phoneNumber2?: NullableStringFieldUpdateOperationsInput | string | null
     user?: UserUpdateOneRequiredWithoutShopNestedInput
     ads?: AdUpdateManyWithoutShopNestedInput
+    AppartmentAds?: AppartmentAdUpdateManyWithoutShopNestedInput
     ratings?: RatingUpdateManyWithoutShopNestedInput
     chats?: ChatUpdateManyWithoutShopsNestedInput
     sentMessages?: MessageUpdateManyWithoutSenderShopNestedInput
@@ -36404,6 +39006,7 @@ export namespace Prisma {
     phoneNumber1?: NullableStringFieldUpdateOperationsInput | string | null
     phoneNumber2?: NullableStringFieldUpdateOperationsInput | string | null
     ads?: AdUncheckedUpdateManyWithoutShopNestedInput
+    AppartmentAds?: AppartmentAdUncheckedUpdateManyWithoutShopNestedInput
     ratings?: RatingUncheckedUpdateManyWithoutShopNestedInput
     chats?: ChatUncheckedUpdateManyWithoutShopsNestedInput
     sentMessages?: MessageUncheckedUpdateManyWithoutSenderShopNestedInput
@@ -36430,6 +39033,7 @@ export namespace Prisma {
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     ads?: AdCreateNestedManyWithoutUserInput
+    AppartmentAds?: AppartmentAdCreateNestedManyWithoutUserInput
     favoriteAds?: FavoriteAdCreateNestedManyWithoutUserInput
     shop?: ShopCreateNestedManyWithoutUserInput
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
@@ -36469,6 +39073,7 @@ export namespace Prisma {
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     ads?: AdUncheckedCreateNestedManyWithoutUserInput
+    AppartmentAds?: AppartmentAdUncheckedCreateNestedManyWithoutUserInput
     favoriteAds?: FavoriteAdUncheckedCreateNestedManyWithoutUserInput
     shop?: ShopUncheckedCreateNestedManyWithoutUserInput
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
@@ -36512,6 +39117,7 @@ export namespace Prisma {
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     ads?: AdCreateNestedManyWithoutUserInput
+    AppartmentAds?: AppartmentAdCreateNestedManyWithoutUserInput
     favoriteAds?: FavoriteAdCreateNestedManyWithoutUserInput
     shop?: ShopCreateNestedManyWithoutUserInput
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
@@ -36551,6 +39157,7 @@ export namespace Prisma {
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     ads?: AdUncheckedCreateNestedManyWithoutUserInput
+    AppartmentAds?: AppartmentAdUncheckedCreateNestedManyWithoutUserInput
     favoriteAds?: FavoriteAdUncheckedCreateNestedManyWithoutUserInput
     shop?: ShopUncheckedCreateNestedManyWithoutUserInput
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
@@ -36592,6 +39199,7 @@ export namespace Prisma {
     phoneNumber2?: string | null
     user: UserCreateNestedOneWithoutShopInput
     ads?: AdCreateNestedManyWithoutShopInput
+    AppartmentAds?: AppartmentAdCreateNestedManyWithoutShopInput
     followers?: FollowCreateNestedManyWithoutFollowedShopInput
     chats?: ChatCreateNestedManyWithoutShopsInput
     sentMessages?: MessageCreateNestedManyWithoutSenderShopInput
@@ -36617,6 +39225,7 @@ export namespace Prisma {
     phoneNumber1?: string | null
     phoneNumber2?: string | null
     ads?: AdUncheckedCreateNestedManyWithoutShopInput
+    AppartmentAds?: AppartmentAdUncheckedCreateNestedManyWithoutShopInput
     followers?: FollowUncheckedCreateNestedManyWithoutFollowedShopInput
     chats?: ChatUncheckedCreateNestedManyWithoutShopsInput
     sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderShopInput
@@ -36659,6 +39268,7 @@ export namespace Prisma {
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     ads?: AdUpdateManyWithoutUserNestedInput
+    AppartmentAds?: AppartmentAdUpdateManyWithoutUserNestedInput
     favoriteAds?: FavoriteAdUpdateManyWithoutUserNestedInput
     shop?: ShopUpdateManyWithoutUserNestedInput
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
@@ -36698,6 +39308,7 @@ export namespace Prisma {
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     ads?: AdUncheckedUpdateManyWithoutUserNestedInput
+    AppartmentAds?: AppartmentAdUncheckedUpdateManyWithoutUserNestedInput
     favoriteAds?: FavoriteAdUncheckedUpdateManyWithoutUserNestedInput
     shop?: ShopUncheckedUpdateManyWithoutUserNestedInput
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
@@ -36747,6 +39358,7 @@ export namespace Prisma {
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     ads?: AdUpdateManyWithoutUserNestedInput
+    AppartmentAds?: AppartmentAdUpdateManyWithoutUserNestedInput
     favoriteAds?: FavoriteAdUpdateManyWithoutUserNestedInput
     shop?: ShopUpdateManyWithoutUserNestedInput
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
@@ -36786,6 +39398,7 @@ export namespace Prisma {
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     ads?: AdUncheckedUpdateManyWithoutUserNestedInput
+    AppartmentAds?: AppartmentAdUncheckedUpdateManyWithoutUserNestedInput
     favoriteAds?: FavoriteAdUncheckedUpdateManyWithoutUserNestedInput
     shop?: ShopUncheckedUpdateManyWithoutUserNestedInput
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
@@ -36833,6 +39446,7 @@ export namespace Prisma {
     phoneNumber2?: NullableStringFieldUpdateOperationsInput | string | null
     user?: UserUpdateOneRequiredWithoutShopNestedInput
     ads?: AdUpdateManyWithoutShopNestedInput
+    AppartmentAds?: AppartmentAdUpdateManyWithoutShopNestedInput
     followers?: FollowUpdateManyWithoutFollowedShopNestedInput
     chats?: ChatUpdateManyWithoutShopsNestedInput
     sentMessages?: MessageUpdateManyWithoutSenderShopNestedInput
@@ -36858,6 +39472,7 @@ export namespace Prisma {
     phoneNumber1?: NullableStringFieldUpdateOperationsInput | string | null
     phoneNumber2?: NullableStringFieldUpdateOperationsInput | string | null
     ads?: AdUncheckedUpdateManyWithoutShopNestedInput
+    AppartmentAds?: AppartmentAdUncheckedUpdateManyWithoutShopNestedInput
     followers?: FollowUncheckedUpdateManyWithoutFollowedShopNestedInput
     chats?: ChatUncheckedUpdateManyWithoutShopsNestedInput
     sentMessages?: MessageUncheckedUpdateManyWithoutSenderShopNestedInput
@@ -36930,6 +39545,70 @@ export namespace Prisma {
   export type AdCreateOrConnectWithoutAdimagesInput = {
     where: AdWhereUniqueInput
     create: XOR<AdCreateWithoutAdimagesInput, AdUncheckedCreateWithoutAdimagesInput>
+  }
+
+  export type AppartmentAdCreateWithoutImagesInput = {
+    createdAt?: Date | string
+    description?: string | null
+    title?: string | null
+    country?: string | null
+    city?: string | null
+    category: string
+    type?: string | null
+    propertyType?: string | null
+    payment?: string
+    price: string
+    bedrooms: string
+    bathrooms: string
+    amenities?: string | null
+    isOwner?: string | null
+    buildingAge?: string | null
+    designedFor?: string | null
+    floorsNum?: string | null
+    buildingSize?: string | null
+    landSize?: string | null
+    BuildingInterface?: string | null
+    adStatus?: string
+    views?: number
+    clicks?: number
+    user?: UserCreateNestedOneWithoutAppartmentAdsInput
+    shop?: ShopCreateNestedOneWithoutAppartmentAdsInput
+    favoritedBy?: FavoriteAdCreateNestedManyWithoutAppartmentAdInput
+  }
+
+  export type AppartmentAdUncheckedCreateWithoutImagesInput = {
+    id?: number
+    userId?: number | null
+    shopId?: number | null
+    createdAt?: Date | string
+    description?: string | null
+    title?: string | null
+    country?: string | null
+    city?: string | null
+    category: string
+    type?: string | null
+    propertyType?: string | null
+    payment?: string
+    price: string
+    bedrooms: string
+    bathrooms: string
+    amenities?: string | null
+    isOwner?: string | null
+    buildingAge?: string | null
+    designedFor?: string | null
+    floorsNum?: string | null
+    buildingSize?: string | null
+    landSize?: string | null
+    BuildingInterface?: string | null
+    adStatus?: string
+    views?: number
+    clicks?: number
+    favoritedBy?: FavoriteAdUncheckedCreateNestedManyWithoutAppartmentAdInput
+  }
+
+  export type AppartmentAdCreateOrConnectWithoutImagesInput = {
+    where: AppartmentAdWhereUniqueInput
+    create: XOR<AppartmentAdCreateWithoutImagesInput, AppartmentAdUncheckedCreateWithoutImagesInput>
   }
 
   export type AdUpsertWithoutAdimagesInput = {
@@ -37006,6 +39685,76 @@ export namespace Prisma {
     favoritedBy?: FavoriteAdUncheckedUpdateManyWithoutAdNestedInput
   }
 
+  export type AppartmentAdUpsertWithoutImagesInput = {
+    update: XOR<AppartmentAdUpdateWithoutImagesInput, AppartmentAdUncheckedUpdateWithoutImagesInput>
+    create: XOR<AppartmentAdCreateWithoutImagesInput, AppartmentAdUncheckedCreateWithoutImagesInput>
+    where?: AppartmentAdWhereInput
+  }
+
+  export type AppartmentAdUpdateToOneWithWhereWithoutImagesInput = {
+    where?: AppartmentAdWhereInput
+    data: XOR<AppartmentAdUpdateWithoutImagesInput, AppartmentAdUncheckedUpdateWithoutImagesInput>
+  }
+
+  export type AppartmentAdUpdateWithoutImagesInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    title?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    category?: StringFieldUpdateOperationsInput | string
+    type?: NullableStringFieldUpdateOperationsInput | string | null
+    propertyType?: NullableStringFieldUpdateOperationsInput | string | null
+    payment?: StringFieldUpdateOperationsInput | string
+    price?: StringFieldUpdateOperationsInput | string
+    bedrooms?: StringFieldUpdateOperationsInput | string
+    bathrooms?: StringFieldUpdateOperationsInput | string
+    amenities?: NullableStringFieldUpdateOperationsInput | string | null
+    isOwner?: NullableStringFieldUpdateOperationsInput | string | null
+    buildingAge?: NullableStringFieldUpdateOperationsInput | string | null
+    designedFor?: NullableStringFieldUpdateOperationsInput | string | null
+    floorsNum?: NullableStringFieldUpdateOperationsInput | string | null
+    buildingSize?: NullableStringFieldUpdateOperationsInput | string | null
+    landSize?: NullableStringFieldUpdateOperationsInput | string | null
+    BuildingInterface?: NullableStringFieldUpdateOperationsInput | string | null
+    adStatus?: StringFieldUpdateOperationsInput | string
+    views?: IntFieldUpdateOperationsInput | number
+    clicks?: IntFieldUpdateOperationsInput | number
+    user?: UserUpdateOneWithoutAppartmentAdsNestedInput
+    shop?: ShopUpdateOneWithoutAppartmentAdsNestedInput
+    favoritedBy?: FavoriteAdUpdateManyWithoutAppartmentAdNestedInput
+  }
+
+  export type AppartmentAdUncheckedUpdateWithoutImagesInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: NullableIntFieldUpdateOperationsInput | number | null
+    shopId?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    title?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    category?: StringFieldUpdateOperationsInput | string
+    type?: NullableStringFieldUpdateOperationsInput | string | null
+    propertyType?: NullableStringFieldUpdateOperationsInput | string | null
+    payment?: StringFieldUpdateOperationsInput | string
+    price?: StringFieldUpdateOperationsInput | string
+    bedrooms?: StringFieldUpdateOperationsInput | string
+    bathrooms?: StringFieldUpdateOperationsInput | string
+    amenities?: NullableStringFieldUpdateOperationsInput | string | null
+    isOwner?: NullableStringFieldUpdateOperationsInput | string | null
+    buildingAge?: NullableStringFieldUpdateOperationsInput | string | null
+    designedFor?: NullableStringFieldUpdateOperationsInput | string | null
+    floorsNum?: NullableStringFieldUpdateOperationsInput | string | null
+    buildingSize?: NullableStringFieldUpdateOperationsInput | string | null
+    landSize?: NullableStringFieldUpdateOperationsInput | string | null
+    BuildingInterface?: NullableStringFieldUpdateOperationsInput | string | null
+    adStatus?: StringFieldUpdateOperationsInput | string
+    views?: IntFieldUpdateOperationsInput | number
+    clicks?: IntFieldUpdateOperationsInput | number
+    favoritedBy?: FavoriteAdUncheckedUpdateManyWithoutAppartmentAdNestedInput
+  }
+
   export type UserCreateWithoutAdsInput = {
     createdAt?: Date | string
     phoneNumber?: string | null
@@ -37025,6 +39774,7 @@ export namespace Prisma {
     languages?: string | null
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
+    AppartmentAds?: AppartmentAdCreateNestedManyWithoutUserInput
     favoriteAds?: FavoriteAdCreateNestedManyWithoutUserInput
     shop?: ShopCreateNestedManyWithoutUserInput
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
@@ -37064,6 +39814,7 @@ export namespace Prisma {
     languages?: string | null
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    AppartmentAds?: AppartmentAdUncheckedCreateNestedManyWithoutUserInput
     favoriteAds?: FavoriteAdUncheckedCreateNestedManyWithoutUserInput
     shop?: ShopUncheckedCreateNestedManyWithoutUserInput
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
@@ -37105,6 +39856,7 @@ export namespace Prisma {
     phoneNumber1?: string | null
     phoneNumber2?: string | null
     user: UserCreateNestedOneWithoutShopInput
+    AppartmentAds?: AppartmentAdCreateNestedManyWithoutShopInput
     followers?: FollowCreateNestedManyWithoutFollowedShopInput
     ratings?: RatingCreateNestedManyWithoutShopInput
     chats?: ChatCreateNestedManyWithoutShopsInput
@@ -37130,6 +39882,7 @@ export namespace Prisma {
     snapchatLink?: string | null
     phoneNumber1?: string | null
     phoneNumber2?: string | null
+    AppartmentAds?: AppartmentAdUncheckedCreateNestedManyWithoutShopInput
     followers?: FollowUncheckedCreateNestedManyWithoutFollowedShopInput
     ratings?: RatingUncheckedCreateNestedManyWithoutShopInput
     chats?: ChatUncheckedCreateNestedManyWithoutShopsInput
@@ -37144,11 +39897,13 @@ export namespace Prisma {
 
   export type ImageCreateWithoutAdInput = {
     url: string
+    AppartmentAd?: AppartmentAdCreateNestedOneWithoutImagesInput
   }
 
   export type ImageUncheckedCreateWithoutAdInput = {
     id?: number
     url: string
+    appartmentAdId?: number | null
   }
 
   export type ImageCreateOrConnectWithoutAdInput = {
@@ -37159,11 +39914,13 @@ export namespace Prisma {
   export type FavoriteAdCreateWithoutAdInput = {
     createdAt?: Date | string
     user: UserCreateNestedOneWithoutFavoriteAdsInput
+    AppartmentAd?: AppartmentAdCreateNestedOneWithoutFavoritedByInput
   }
 
   export type FavoriteAdUncheckedCreateWithoutAdInput = {
     id?: number
     userId: number
+    appartmentAdId?: number | null
     createdAt?: Date | string
   }
 
@@ -37202,6 +39959,7 @@ export namespace Prisma {
     languages?: NullableStringFieldUpdateOperationsInput | string | null
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
+    AppartmentAds?: AppartmentAdUpdateManyWithoutUserNestedInput
     favoriteAds?: FavoriteAdUpdateManyWithoutUserNestedInput
     shop?: ShopUpdateManyWithoutUserNestedInput
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
@@ -37241,6 +39999,7 @@ export namespace Prisma {
     languages?: NullableStringFieldUpdateOperationsInput | string | null
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    AppartmentAds?: AppartmentAdUncheckedUpdateManyWithoutUserNestedInput
     favoriteAds?: FavoriteAdUncheckedUpdateManyWithoutUserNestedInput
     shop?: ShopUncheckedUpdateManyWithoutUserNestedInput
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
@@ -37288,6 +40047,7 @@ export namespace Prisma {
     phoneNumber1?: NullableStringFieldUpdateOperationsInput | string | null
     phoneNumber2?: NullableStringFieldUpdateOperationsInput | string | null
     user?: UserUpdateOneRequiredWithoutShopNestedInput
+    AppartmentAds?: AppartmentAdUpdateManyWithoutShopNestedInput
     followers?: FollowUpdateManyWithoutFollowedShopNestedInput
     ratings?: RatingUpdateManyWithoutShopNestedInput
     chats?: ChatUpdateManyWithoutShopsNestedInput
@@ -37313,6 +40073,7 @@ export namespace Prisma {
     snapchatLink?: NullableStringFieldUpdateOperationsInput | string | null
     phoneNumber1?: NullableStringFieldUpdateOperationsInput | string | null
     phoneNumber2?: NullableStringFieldUpdateOperationsInput | string | null
+    AppartmentAds?: AppartmentAdUncheckedUpdateManyWithoutShopNestedInput
     followers?: FollowUncheckedUpdateManyWithoutFollowedShopNestedInput
     ratings?: RatingUncheckedUpdateManyWithoutShopNestedInput
     chats?: ChatUncheckedUpdateManyWithoutShopsNestedInput
@@ -37342,7 +40103,8 @@ export namespace Prisma {
     NOT?: ImageScalarWhereInput | ImageScalarWhereInput[]
     id?: IntFilter<"Image"> | number
     url?: StringFilter<"Image"> | string
-    adId?: IntFilter<"Image"> | number
+    adId?: IntNullableFilter<"Image"> | number | null
+    appartmentAdId?: IntNullableFilter<"Image"> | number | null
   }
 
   export type FavoriteAdUpsertWithWhereUniqueWithoutAdInput = {
@@ -37359,6 +40121,364 @@ export namespace Prisma {
   export type FavoriteAdUpdateManyWithWhereWithoutAdInput = {
     where: FavoriteAdScalarWhereInput
     data: XOR<FavoriteAdUpdateManyMutationInput, FavoriteAdUncheckedUpdateManyWithoutAdInput>
+  }
+
+  export type UserCreateWithoutAppartmentAdsInput = {
+    createdAt?: Date | string
+    phoneNumber?: string | null
+    username?: string | null
+    country?: string | null
+    image?: string | null
+    status?: string | null
+    email: string
+    cvUrl?: string | null
+    jobTitle?: string | null
+    about?: string | null
+    website?: string | null
+    yearsOfExperince?: number | null
+    age?: number | null
+    skills?: string | null
+    activites?: string | null
+    languages?: string | null
+    accounts?: AccountCreateNestedManyWithoutUserInput
+    sessions?: SessionCreateNestedManyWithoutUserInput
+    ads?: AdCreateNestedManyWithoutUserInput
+    favoriteAds?: FavoriteAdCreateNestedManyWithoutUserInput
+    shop?: ShopCreateNestedManyWithoutUserInput
+    subscription?: SubscriptionCreateNestedOneWithoutUserInput
+    following?: FollowCreateNestedManyWithoutFollowerInput
+    followers?: FollowCreateNestedManyWithoutFollowedUserInput
+    ratings?: RatingCreateNestedManyWithoutUserInput
+    ratedUsers?: RatingCreateNestedManyWithoutRatedUserInput
+    chats?: ChatCreateNestedManyWithoutUsersInput
+    messagesSent?: MessageCreateNestedManyWithoutSenderInput
+    messagesReceived?: MessageCreateNestedManyWithoutReceiverInput
+    company?: CompanyCreateNestedOneWithoutUserInput
+    jobApplications?: JobApplicationCreateNestedManyWithoutUserInput
+    workExperiences?: WorkExperienceCreateNestedManyWithoutUserInput
+    educations?: EducationCreateNestedManyWithoutUserInput
+    certifications?: CertificationCreateNestedManyWithoutUserInput
+    trainings?: TrainingCreateNestedManyWithoutUserInput
+    notifications?: NotificationCreateNestedManyWithoutRecipientInput
+  }
+
+  export type UserUncheckedCreateWithoutAppartmentAdsInput = {
+    id?: number
+    createdAt?: Date | string
+    phoneNumber?: string | null
+    username?: string | null
+    country?: string | null
+    image?: string | null
+    status?: string | null
+    email: string
+    cvUrl?: string | null
+    jobTitle?: string | null
+    about?: string | null
+    website?: string | null
+    yearsOfExperince?: number | null
+    age?: number | null
+    skills?: string | null
+    activites?: string | null
+    languages?: string | null
+    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    ads?: AdUncheckedCreateNestedManyWithoutUserInput
+    favoriteAds?: FavoriteAdUncheckedCreateNestedManyWithoutUserInput
+    shop?: ShopUncheckedCreateNestedManyWithoutUserInput
+    subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
+    following?: FollowUncheckedCreateNestedManyWithoutFollowerInput
+    followers?: FollowUncheckedCreateNestedManyWithoutFollowedUserInput
+    ratings?: RatingUncheckedCreateNestedManyWithoutUserInput
+    ratedUsers?: RatingUncheckedCreateNestedManyWithoutRatedUserInput
+    chats?: ChatUncheckedCreateNestedManyWithoutUsersInput
+    messagesSent?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    messagesReceived?: MessageUncheckedCreateNestedManyWithoutReceiverInput
+    company?: CompanyUncheckedCreateNestedOneWithoutUserInput
+    jobApplications?: JobApplicationUncheckedCreateNestedManyWithoutUserInput
+    workExperiences?: WorkExperienceUncheckedCreateNestedManyWithoutUserInput
+    educations?: EducationUncheckedCreateNestedManyWithoutUserInput
+    certifications?: CertificationUncheckedCreateNestedManyWithoutUserInput
+    trainings?: TrainingUncheckedCreateNestedManyWithoutUserInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutRecipientInput
+  }
+
+  export type UserCreateOrConnectWithoutAppartmentAdsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutAppartmentAdsInput, UserUncheckedCreateWithoutAppartmentAdsInput>
+  }
+
+  export type ShopCreateWithoutAppartmentAdsInput = {
+    shopCategory?: string
+    shopName: string
+    city?: string | null
+    bgColor?: string | null
+    country?: string | null
+    bgImage?: string
+    shopImage?: string | null
+    description?: string | null
+    facebookLink?: string | null
+    twitterLink?: string | null
+    instagramLink?: string | null
+    tiktokLink?: string | null
+    snapchatLink?: string | null
+    phoneNumber1?: string | null
+    phoneNumber2?: string | null
+    user: UserCreateNestedOneWithoutShopInput
+    ads?: AdCreateNestedManyWithoutShopInput
+    followers?: FollowCreateNestedManyWithoutFollowedShopInput
+    ratings?: RatingCreateNestedManyWithoutShopInput
+    chats?: ChatCreateNestedManyWithoutShopsInput
+    sentMessages?: MessageCreateNestedManyWithoutSenderShopInput
+    receivedMessages?: MessageCreateNestedManyWithoutReceiverShopInput
+  }
+
+  export type ShopUncheckedCreateWithoutAppartmentAdsInput = {
+    id?: number
+    userId: number
+    shopCategory?: string
+    shopName: string
+    city?: string | null
+    bgColor?: string | null
+    country?: string | null
+    bgImage?: string
+    shopImage?: string | null
+    description?: string | null
+    facebookLink?: string | null
+    twitterLink?: string | null
+    instagramLink?: string | null
+    tiktokLink?: string | null
+    snapchatLink?: string | null
+    phoneNumber1?: string | null
+    phoneNumber2?: string | null
+    ads?: AdUncheckedCreateNestedManyWithoutShopInput
+    followers?: FollowUncheckedCreateNestedManyWithoutFollowedShopInput
+    ratings?: RatingUncheckedCreateNestedManyWithoutShopInput
+    chats?: ChatUncheckedCreateNestedManyWithoutShopsInput
+    sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderShopInput
+    receivedMessages?: MessageUncheckedCreateNestedManyWithoutReceiverShopInput
+  }
+
+  export type ShopCreateOrConnectWithoutAppartmentAdsInput = {
+    where: ShopWhereUniqueInput
+    create: XOR<ShopCreateWithoutAppartmentAdsInput, ShopUncheckedCreateWithoutAppartmentAdsInput>
+  }
+
+  export type ImageCreateWithoutAppartmentAdInput = {
+    url: string
+    ad?: AdCreateNestedOneWithoutAdimagesInput
+  }
+
+  export type ImageUncheckedCreateWithoutAppartmentAdInput = {
+    id?: number
+    url: string
+    adId?: number | null
+  }
+
+  export type ImageCreateOrConnectWithoutAppartmentAdInput = {
+    where: ImageWhereUniqueInput
+    create: XOR<ImageCreateWithoutAppartmentAdInput, ImageUncheckedCreateWithoutAppartmentAdInput>
+  }
+
+  export type FavoriteAdCreateWithoutAppartmentAdInput = {
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutFavoriteAdsInput
+    ad?: AdCreateNestedOneWithoutFavoritedByInput
+  }
+
+  export type FavoriteAdUncheckedCreateWithoutAppartmentAdInput = {
+    id?: number
+    userId: number
+    adId?: number | null
+    createdAt?: Date | string
+  }
+
+  export type FavoriteAdCreateOrConnectWithoutAppartmentAdInput = {
+    where: FavoriteAdWhereUniqueInput
+    create: XOR<FavoriteAdCreateWithoutAppartmentAdInput, FavoriteAdUncheckedCreateWithoutAppartmentAdInput>
+  }
+
+  export type UserUpsertWithoutAppartmentAdsInput = {
+    update: XOR<UserUpdateWithoutAppartmentAdsInput, UserUncheckedUpdateWithoutAppartmentAdsInput>
+    create: XOR<UserCreateWithoutAppartmentAdsInput, UserUncheckedCreateWithoutAppartmentAdsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutAppartmentAdsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutAppartmentAdsInput, UserUncheckedUpdateWithoutAppartmentAdsInput>
+  }
+
+  export type UserUpdateWithoutAppartmentAdsInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
+    cvUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    jobTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    about?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    yearsOfExperince?: NullableIntFieldUpdateOperationsInput | number | null
+    age?: NullableIntFieldUpdateOperationsInput | number | null
+    skills?: NullableStringFieldUpdateOperationsInput | string | null
+    activites?: NullableStringFieldUpdateOperationsInput | string | null
+    languages?: NullableStringFieldUpdateOperationsInput | string | null
+    accounts?: AccountUpdateManyWithoutUserNestedInput
+    sessions?: SessionUpdateManyWithoutUserNestedInput
+    ads?: AdUpdateManyWithoutUserNestedInput
+    favoriteAds?: FavoriteAdUpdateManyWithoutUserNestedInput
+    shop?: ShopUpdateManyWithoutUserNestedInput
+    subscription?: SubscriptionUpdateOneWithoutUserNestedInput
+    following?: FollowUpdateManyWithoutFollowerNestedInput
+    followers?: FollowUpdateManyWithoutFollowedUserNestedInput
+    ratings?: RatingUpdateManyWithoutUserNestedInput
+    ratedUsers?: RatingUpdateManyWithoutRatedUserNestedInput
+    chats?: ChatUpdateManyWithoutUsersNestedInput
+    messagesSent?: MessageUpdateManyWithoutSenderNestedInput
+    messagesReceived?: MessageUpdateManyWithoutReceiverNestedInput
+    company?: CompanyUpdateOneWithoutUserNestedInput
+    jobApplications?: JobApplicationUpdateManyWithoutUserNestedInput
+    workExperiences?: WorkExperienceUpdateManyWithoutUserNestedInput
+    educations?: EducationUpdateManyWithoutUserNestedInput
+    certifications?: CertificationUpdateManyWithoutUserNestedInput
+    trainings?: TrainingUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUpdateManyWithoutRecipientNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutAppartmentAdsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
+    cvUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    jobTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    about?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    yearsOfExperince?: NullableIntFieldUpdateOperationsInput | number | null
+    age?: NullableIntFieldUpdateOperationsInput | number | null
+    skills?: NullableStringFieldUpdateOperationsInput | string | null
+    activites?: NullableStringFieldUpdateOperationsInput | string | null
+    languages?: NullableStringFieldUpdateOperationsInput | string | null
+    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    ads?: AdUncheckedUpdateManyWithoutUserNestedInput
+    favoriteAds?: FavoriteAdUncheckedUpdateManyWithoutUserNestedInput
+    shop?: ShopUncheckedUpdateManyWithoutUserNestedInput
+    subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
+    following?: FollowUncheckedUpdateManyWithoutFollowerNestedInput
+    followers?: FollowUncheckedUpdateManyWithoutFollowedUserNestedInput
+    ratings?: RatingUncheckedUpdateManyWithoutUserNestedInput
+    ratedUsers?: RatingUncheckedUpdateManyWithoutRatedUserNestedInput
+    chats?: ChatUncheckedUpdateManyWithoutUsersNestedInput
+    messagesSent?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    messagesReceived?: MessageUncheckedUpdateManyWithoutReceiverNestedInput
+    company?: CompanyUncheckedUpdateOneWithoutUserNestedInput
+    jobApplications?: JobApplicationUncheckedUpdateManyWithoutUserNestedInput
+    workExperiences?: WorkExperienceUncheckedUpdateManyWithoutUserNestedInput
+    educations?: EducationUncheckedUpdateManyWithoutUserNestedInput
+    certifications?: CertificationUncheckedUpdateManyWithoutUserNestedInput
+    trainings?: TrainingUncheckedUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutRecipientNestedInput
+  }
+
+  export type ShopUpsertWithoutAppartmentAdsInput = {
+    update: XOR<ShopUpdateWithoutAppartmentAdsInput, ShopUncheckedUpdateWithoutAppartmentAdsInput>
+    create: XOR<ShopCreateWithoutAppartmentAdsInput, ShopUncheckedCreateWithoutAppartmentAdsInput>
+    where?: ShopWhereInput
+  }
+
+  export type ShopUpdateToOneWithWhereWithoutAppartmentAdsInput = {
+    where?: ShopWhereInput
+    data: XOR<ShopUpdateWithoutAppartmentAdsInput, ShopUncheckedUpdateWithoutAppartmentAdsInput>
+  }
+
+  export type ShopUpdateWithoutAppartmentAdsInput = {
+    shopCategory?: StringFieldUpdateOperationsInput | string
+    shopName?: StringFieldUpdateOperationsInput | string
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    bgColor?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    bgImage?: StringFieldUpdateOperationsInput | string
+    shopImage?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    facebookLink?: NullableStringFieldUpdateOperationsInput | string | null
+    twitterLink?: NullableStringFieldUpdateOperationsInput | string | null
+    instagramLink?: NullableStringFieldUpdateOperationsInput | string | null
+    tiktokLink?: NullableStringFieldUpdateOperationsInput | string | null
+    snapchatLink?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber1?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber2?: NullableStringFieldUpdateOperationsInput | string | null
+    user?: UserUpdateOneRequiredWithoutShopNestedInput
+    ads?: AdUpdateManyWithoutShopNestedInput
+    followers?: FollowUpdateManyWithoutFollowedShopNestedInput
+    ratings?: RatingUpdateManyWithoutShopNestedInput
+    chats?: ChatUpdateManyWithoutShopsNestedInput
+    sentMessages?: MessageUpdateManyWithoutSenderShopNestedInput
+    receivedMessages?: MessageUpdateManyWithoutReceiverShopNestedInput
+  }
+
+  export type ShopUncheckedUpdateWithoutAppartmentAdsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    shopCategory?: StringFieldUpdateOperationsInput | string
+    shopName?: StringFieldUpdateOperationsInput | string
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    bgColor?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    bgImage?: StringFieldUpdateOperationsInput | string
+    shopImage?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    facebookLink?: NullableStringFieldUpdateOperationsInput | string | null
+    twitterLink?: NullableStringFieldUpdateOperationsInput | string | null
+    instagramLink?: NullableStringFieldUpdateOperationsInput | string | null
+    tiktokLink?: NullableStringFieldUpdateOperationsInput | string | null
+    snapchatLink?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber1?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber2?: NullableStringFieldUpdateOperationsInput | string | null
+    ads?: AdUncheckedUpdateManyWithoutShopNestedInput
+    followers?: FollowUncheckedUpdateManyWithoutFollowedShopNestedInput
+    ratings?: RatingUncheckedUpdateManyWithoutShopNestedInput
+    chats?: ChatUncheckedUpdateManyWithoutShopsNestedInput
+    sentMessages?: MessageUncheckedUpdateManyWithoutSenderShopNestedInput
+    receivedMessages?: MessageUncheckedUpdateManyWithoutReceiverShopNestedInput
+  }
+
+  export type ImageUpsertWithWhereUniqueWithoutAppartmentAdInput = {
+    where: ImageWhereUniqueInput
+    update: XOR<ImageUpdateWithoutAppartmentAdInput, ImageUncheckedUpdateWithoutAppartmentAdInput>
+    create: XOR<ImageCreateWithoutAppartmentAdInput, ImageUncheckedCreateWithoutAppartmentAdInput>
+  }
+
+  export type ImageUpdateWithWhereUniqueWithoutAppartmentAdInput = {
+    where: ImageWhereUniqueInput
+    data: XOR<ImageUpdateWithoutAppartmentAdInput, ImageUncheckedUpdateWithoutAppartmentAdInput>
+  }
+
+  export type ImageUpdateManyWithWhereWithoutAppartmentAdInput = {
+    where: ImageScalarWhereInput
+    data: XOR<ImageUpdateManyMutationInput, ImageUncheckedUpdateManyWithoutAppartmentAdInput>
+  }
+
+  export type FavoriteAdUpsertWithWhereUniqueWithoutAppartmentAdInput = {
+    where: FavoriteAdWhereUniqueInput
+    update: XOR<FavoriteAdUpdateWithoutAppartmentAdInput, FavoriteAdUncheckedUpdateWithoutAppartmentAdInput>
+    create: XOR<FavoriteAdCreateWithoutAppartmentAdInput, FavoriteAdUncheckedCreateWithoutAppartmentAdInput>
+  }
+
+  export type FavoriteAdUpdateWithWhereUniqueWithoutAppartmentAdInput = {
+    where: FavoriteAdWhereUniqueInput
+    data: XOR<FavoriteAdUpdateWithoutAppartmentAdInput, FavoriteAdUncheckedUpdateWithoutAppartmentAdInput>
+  }
+
+  export type FavoriteAdUpdateManyWithWhereWithoutAppartmentAdInput = {
+    where: FavoriteAdScalarWhereInput
+    data: XOR<FavoriteAdUpdateManyMutationInput, FavoriteAdUncheckedUpdateManyWithoutAppartmentAdInput>
   }
 
   export type UserCreateWithoutFavoriteAdsInput = {
@@ -37381,6 +40501,7 @@ export namespace Prisma {
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     ads?: AdCreateNestedManyWithoutUserInput
+    AppartmentAds?: AppartmentAdCreateNestedManyWithoutUserInput
     shop?: ShopCreateNestedManyWithoutUserInput
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
     following?: FollowCreateNestedManyWithoutFollowerInput
@@ -37420,6 +40541,7 @@ export namespace Prisma {
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     ads?: AdUncheckedCreateNestedManyWithoutUserInput
+    AppartmentAds?: AppartmentAdUncheckedCreateNestedManyWithoutUserInput
     shop?: ShopUncheckedCreateNestedManyWithoutUserInput
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
     following?: FollowUncheckedCreateNestedManyWithoutFollowerInput
@@ -37511,6 +40633,70 @@ export namespace Prisma {
     create: XOR<AdCreateWithoutFavoritedByInput, AdUncheckedCreateWithoutFavoritedByInput>
   }
 
+  export type AppartmentAdCreateWithoutFavoritedByInput = {
+    createdAt?: Date | string
+    description?: string | null
+    title?: string | null
+    country?: string | null
+    city?: string | null
+    category: string
+    type?: string | null
+    propertyType?: string | null
+    payment?: string
+    price: string
+    bedrooms: string
+    bathrooms: string
+    amenities?: string | null
+    isOwner?: string | null
+    buildingAge?: string | null
+    designedFor?: string | null
+    floorsNum?: string | null
+    buildingSize?: string | null
+    landSize?: string | null
+    BuildingInterface?: string | null
+    adStatus?: string
+    views?: number
+    clicks?: number
+    user?: UserCreateNestedOneWithoutAppartmentAdsInput
+    shop?: ShopCreateNestedOneWithoutAppartmentAdsInput
+    images?: ImageCreateNestedManyWithoutAppartmentAdInput
+  }
+
+  export type AppartmentAdUncheckedCreateWithoutFavoritedByInput = {
+    id?: number
+    userId?: number | null
+    shopId?: number | null
+    createdAt?: Date | string
+    description?: string | null
+    title?: string | null
+    country?: string | null
+    city?: string | null
+    category: string
+    type?: string | null
+    propertyType?: string | null
+    payment?: string
+    price: string
+    bedrooms: string
+    bathrooms: string
+    amenities?: string | null
+    isOwner?: string | null
+    buildingAge?: string | null
+    designedFor?: string | null
+    floorsNum?: string | null
+    buildingSize?: string | null
+    landSize?: string | null
+    BuildingInterface?: string | null
+    adStatus?: string
+    views?: number
+    clicks?: number
+    images?: ImageUncheckedCreateNestedManyWithoutAppartmentAdInput
+  }
+
+  export type AppartmentAdCreateOrConnectWithoutFavoritedByInput = {
+    where: AppartmentAdWhereUniqueInput
+    create: XOR<AppartmentAdCreateWithoutFavoritedByInput, AppartmentAdUncheckedCreateWithoutFavoritedByInput>
+  }
+
   export type UserUpsertWithoutFavoriteAdsInput = {
     update: XOR<UserUpdateWithoutFavoriteAdsInput, UserUncheckedUpdateWithoutFavoriteAdsInput>
     create: XOR<UserCreateWithoutFavoriteAdsInput, UserUncheckedCreateWithoutFavoriteAdsInput>
@@ -37542,6 +40728,7 @@ export namespace Prisma {
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     ads?: AdUpdateManyWithoutUserNestedInput
+    AppartmentAds?: AppartmentAdUpdateManyWithoutUserNestedInput
     shop?: ShopUpdateManyWithoutUserNestedInput
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
     following?: FollowUpdateManyWithoutFollowerNestedInput
@@ -37581,6 +40768,7 @@ export namespace Prisma {
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     ads?: AdUncheckedUpdateManyWithoutUserNestedInput
+    AppartmentAds?: AppartmentAdUncheckedUpdateManyWithoutUserNestedInput
     shop?: ShopUncheckedUpdateManyWithoutUserNestedInput
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
     following?: FollowUncheckedUpdateManyWithoutFollowerNestedInput
@@ -37671,6 +40859,76 @@ export namespace Prisma {
     views?: IntFieldUpdateOperationsInput | number
     clicks?: IntFieldUpdateOperationsInput | number
     Adimages?: ImageUncheckedUpdateManyWithoutAdNestedInput
+  }
+
+  export type AppartmentAdUpsertWithoutFavoritedByInput = {
+    update: XOR<AppartmentAdUpdateWithoutFavoritedByInput, AppartmentAdUncheckedUpdateWithoutFavoritedByInput>
+    create: XOR<AppartmentAdCreateWithoutFavoritedByInput, AppartmentAdUncheckedCreateWithoutFavoritedByInput>
+    where?: AppartmentAdWhereInput
+  }
+
+  export type AppartmentAdUpdateToOneWithWhereWithoutFavoritedByInput = {
+    where?: AppartmentAdWhereInput
+    data: XOR<AppartmentAdUpdateWithoutFavoritedByInput, AppartmentAdUncheckedUpdateWithoutFavoritedByInput>
+  }
+
+  export type AppartmentAdUpdateWithoutFavoritedByInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    title?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    category?: StringFieldUpdateOperationsInput | string
+    type?: NullableStringFieldUpdateOperationsInput | string | null
+    propertyType?: NullableStringFieldUpdateOperationsInput | string | null
+    payment?: StringFieldUpdateOperationsInput | string
+    price?: StringFieldUpdateOperationsInput | string
+    bedrooms?: StringFieldUpdateOperationsInput | string
+    bathrooms?: StringFieldUpdateOperationsInput | string
+    amenities?: NullableStringFieldUpdateOperationsInput | string | null
+    isOwner?: NullableStringFieldUpdateOperationsInput | string | null
+    buildingAge?: NullableStringFieldUpdateOperationsInput | string | null
+    designedFor?: NullableStringFieldUpdateOperationsInput | string | null
+    floorsNum?: NullableStringFieldUpdateOperationsInput | string | null
+    buildingSize?: NullableStringFieldUpdateOperationsInput | string | null
+    landSize?: NullableStringFieldUpdateOperationsInput | string | null
+    BuildingInterface?: NullableStringFieldUpdateOperationsInput | string | null
+    adStatus?: StringFieldUpdateOperationsInput | string
+    views?: IntFieldUpdateOperationsInput | number
+    clicks?: IntFieldUpdateOperationsInput | number
+    user?: UserUpdateOneWithoutAppartmentAdsNestedInput
+    shop?: ShopUpdateOneWithoutAppartmentAdsNestedInput
+    images?: ImageUpdateManyWithoutAppartmentAdNestedInput
+  }
+
+  export type AppartmentAdUncheckedUpdateWithoutFavoritedByInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: NullableIntFieldUpdateOperationsInput | number | null
+    shopId?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    title?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    category?: StringFieldUpdateOperationsInput | string
+    type?: NullableStringFieldUpdateOperationsInput | string | null
+    propertyType?: NullableStringFieldUpdateOperationsInput | string | null
+    payment?: StringFieldUpdateOperationsInput | string
+    price?: StringFieldUpdateOperationsInput | string
+    bedrooms?: StringFieldUpdateOperationsInput | string
+    bathrooms?: StringFieldUpdateOperationsInput | string
+    amenities?: NullableStringFieldUpdateOperationsInput | string | null
+    isOwner?: NullableStringFieldUpdateOperationsInput | string | null
+    buildingAge?: NullableStringFieldUpdateOperationsInput | string | null
+    designedFor?: NullableStringFieldUpdateOperationsInput | string | null
+    floorsNum?: NullableStringFieldUpdateOperationsInput | string | null
+    buildingSize?: NullableStringFieldUpdateOperationsInput | string | null
+    landSize?: NullableStringFieldUpdateOperationsInput | string | null
+    BuildingInterface?: NullableStringFieldUpdateOperationsInput | string | null
+    adStatus?: StringFieldUpdateOperationsInput | string
+    views?: IntFieldUpdateOperationsInput | number
+    clicks?: IntFieldUpdateOperationsInput | number
+    images?: ImageUncheckedUpdateManyWithoutAppartmentAdNestedInput
   }
 
   export type AccountUpdateWithoutUserInput = {
@@ -37826,20 +41084,110 @@ export namespace Prisma {
     clicks?: IntFieldUpdateOperationsInput | number
   }
 
+  export type AppartmentAdUpdateWithoutUserInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    title?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    category?: StringFieldUpdateOperationsInput | string
+    type?: NullableStringFieldUpdateOperationsInput | string | null
+    propertyType?: NullableStringFieldUpdateOperationsInput | string | null
+    payment?: StringFieldUpdateOperationsInput | string
+    price?: StringFieldUpdateOperationsInput | string
+    bedrooms?: StringFieldUpdateOperationsInput | string
+    bathrooms?: StringFieldUpdateOperationsInput | string
+    amenities?: NullableStringFieldUpdateOperationsInput | string | null
+    isOwner?: NullableStringFieldUpdateOperationsInput | string | null
+    buildingAge?: NullableStringFieldUpdateOperationsInput | string | null
+    designedFor?: NullableStringFieldUpdateOperationsInput | string | null
+    floorsNum?: NullableStringFieldUpdateOperationsInput | string | null
+    buildingSize?: NullableStringFieldUpdateOperationsInput | string | null
+    landSize?: NullableStringFieldUpdateOperationsInput | string | null
+    BuildingInterface?: NullableStringFieldUpdateOperationsInput | string | null
+    adStatus?: StringFieldUpdateOperationsInput | string
+    views?: IntFieldUpdateOperationsInput | number
+    clicks?: IntFieldUpdateOperationsInput | number
+    shop?: ShopUpdateOneWithoutAppartmentAdsNestedInput
+    images?: ImageUpdateManyWithoutAppartmentAdNestedInput
+    favoritedBy?: FavoriteAdUpdateManyWithoutAppartmentAdNestedInput
+  }
+
+  export type AppartmentAdUncheckedUpdateWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    shopId?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    title?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    category?: StringFieldUpdateOperationsInput | string
+    type?: NullableStringFieldUpdateOperationsInput | string | null
+    propertyType?: NullableStringFieldUpdateOperationsInput | string | null
+    payment?: StringFieldUpdateOperationsInput | string
+    price?: StringFieldUpdateOperationsInput | string
+    bedrooms?: StringFieldUpdateOperationsInput | string
+    bathrooms?: StringFieldUpdateOperationsInput | string
+    amenities?: NullableStringFieldUpdateOperationsInput | string | null
+    isOwner?: NullableStringFieldUpdateOperationsInput | string | null
+    buildingAge?: NullableStringFieldUpdateOperationsInput | string | null
+    designedFor?: NullableStringFieldUpdateOperationsInput | string | null
+    floorsNum?: NullableStringFieldUpdateOperationsInput | string | null
+    buildingSize?: NullableStringFieldUpdateOperationsInput | string | null
+    landSize?: NullableStringFieldUpdateOperationsInput | string | null
+    BuildingInterface?: NullableStringFieldUpdateOperationsInput | string | null
+    adStatus?: StringFieldUpdateOperationsInput | string
+    views?: IntFieldUpdateOperationsInput | number
+    clicks?: IntFieldUpdateOperationsInput | number
+    images?: ImageUncheckedUpdateManyWithoutAppartmentAdNestedInput
+    favoritedBy?: FavoriteAdUncheckedUpdateManyWithoutAppartmentAdNestedInput
+  }
+
+  export type AppartmentAdUncheckedUpdateManyWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    shopId?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    title?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    category?: StringFieldUpdateOperationsInput | string
+    type?: NullableStringFieldUpdateOperationsInput | string | null
+    propertyType?: NullableStringFieldUpdateOperationsInput | string | null
+    payment?: StringFieldUpdateOperationsInput | string
+    price?: StringFieldUpdateOperationsInput | string
+    bedrooms?: StringFieldUpdateOperationsInput | string
+    bathrooms?: StringFieldUpdateOperationsInput | string
+    amenities?: NullableStringFieldUpdateOperationsInput | string | null
+    isOwner?: NullableStringFieldUpdateOperationsInput | string | null
+    buildingAge?: NullableStringFieldUpdateOperationsInput | string | null
+    designedFor?: NullableStringFieldUpdateOperationsInput | string | null
+    floorsNum?: NullableStringFieldUpdateOperationsInput | string | null
+    buildingSize?: NullableStringFieldUpdateOperationsInput | string | null
+    landSize?: NullableStringFieldUpdateOperationsInput | string | null
+    BuildingInterface?: NullableStringFieldUpdateOperationsInput | string | null
+    adStatus?: StringFieldUpdateOperationsInput | string
+    views?: IntFieldUpdateOperationsInput | number
+    clicks?: IntFieldUpdateOperationsInput | number
+  }
+
   export type FavoriteAdUpdateWithoutUserInput = {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    ad?: AdUpdateOneRequiredWithoutFavoritedByNestedInput
+    ad?: AdUpdateOneWithoutFavoritedByNestedInput
+    AppartmentAd?: AppartmentAdUpdateOneWithoutFavoritedByNestedInput
   }
 
   export type FavoriteAdUncheckedUpdateWithoutUserInput = {
     id?: IntFieldUpdateOperationsInput | number
-    adId?: IntFieldUpdateOperationsInput | number
+    adId?: NullableIntFieldUpdateOperationsInput | number | null
+    appartmentAdId?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type FavoriteAdUncheckedUpdateManyWithoutUserInput = {
     id?: IntFieldUpdateOperationsInput | number
-    adId?: IntFieldUpdateOperationsInput | number
+    adId?: NullableIntFieldUpdateOperationsInput | number | null
+    appartmentAdId?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -37860,6 +41208,7 @@ export namespace Prisma {
     phoneNumber1?: NullableStringFieldUpdateOperationsInput | string | null
     phoneNumber2?: NullableStringFieldUpdateOperationsInput | string | null
     ads?: AdUpdateManyWithoutShopNestedInput
+    AppartmentAds?: AppartmentAdUpdateManyWithoutShopNestedInput
     followers?: FollowUpdateManyWithoutFollowedShopNestedInput
     ratings?: RatingUpdateManyWithoutShopNestedInput
     chats?: ChatUpdateManyWithoutShopsNestedInput
@@ -37885,6 +41234,7 @@ export namespace Prisma {
     phoneNumber1?: NullableStringFieldUpdateOperationsInput | string | null
     phoneNumber2?: NullableStringFieldUpdateOperationsInput | string | null
     ads?: AdUncheckedUpdateManyWithoutShopNestedInput
+    AppartmentAds?: AppartmentAdUncheckedUpdateManyWithoutShopNestedInput
     followers?: FollowUncheckedUpdateManyWithoutFollowedShopNestedInput
     ratings?: RatingUncheckedUpdateManyWithoutShopNestedInput
     chats?: ChatUncheckedUpdateManyWithoutShopsNestedInput
@@ -38430,6 +41780,93 @@ export namespace Prisma {
     clicks?: IntFieldUpdateOperationsInput | number
   }
 
+  export type AppartmentAdUpdateWithoutShopInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    title?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    category?: StringFieldUpdateOperationsInput | string
+    type?: NullableStringFieldUpdateOperationsInput | string | null
+    propertyType?: NullableStringFieldUpdateOperationsInput | string | null
+    payment?: StringFieldUpdateOperationsInput | string
+    price?: StringFieldUpdateOperationsInput | string
+    bedrooms?: StringFieldUpdateOperationsInput | string
+    bathrooms?: StringFieldUpdateOperationsInput | string
+    amenities?: NullableStringFieldUpdateOperationsInput | string | null
+    isOwner?: NullableStringFieldUpdateOperationsInput | string | null
+    buildingAge?: NullableStringFieldUpdateOperationsInput | string | null
+    designedFor?: NullableStringFieldUpdateOperationsInput | string | null
+    floorsNum?: NullableStringFieldUpdateOperationsInput | string | null
+    buildingSize?: NullableStringFieldUpdateOperationsInput | string | null
+    landSize?: NullableStringFieldUpdateOperationsInput | string | null
+    BuildingInterface?: NullableStringFieldUpdateOperationsInput | string | null
+    adStatus?: StringFieldUpdateOperationsInput | string
+    views?: IntFieldUpdateOperationsInput | number
+    clicks?: IntFieldUpdateOperationsInput | number
+    user?: UserUpdateOneWithoutAppartmentAdsNestedInput
+    images?: ImageUpdateManyWithoutAppartmentAdNestedInput
+    favoritedBy?: FavoriteAdUpdateManyWithoutAppartmentAdNestedInput
+  }
+
+  export type AppartmentAdUncheckedUpdateWithoutShopInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    title?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    category?: StringFieldUpdateOperationsInput | string
+    type?: NullableStringFieldUpdateOperationsInput | string | null
+    propertyType?: NullableStringFieldUpdateOperationsInput | string | null
+    payment?: StringFieldUpdateOperationsInput | string
+    price?: StringFieldUpdateOperationsInput | string
+    bedrooms?: StringFieldUpdateOperationsInput | string
+    bathrooms?: StringFieldUpdateOperationsInput | string
+    amenities?: NullableStringFieldUpdateOperationsInput | string | null
+    isOwner?: NullableStringFieldUpdateOperationsInput | string | null
+    buildingAge?: NullableStringFieldUpdateOperationsInput | string | null
+    designedFor?: NullableStringFieldUpdateOperationsInput | string | null
+    floorsNum?: NullableStringFieldUpdateOperationsInput | string | null
+    buildingSize?: NullableStringFieldUpdateOperationsInput | string | null
+    landSize?: NullableStringFieldUpdateOperationsInput | string | null
+    BuildingInterface?: NullableStringFieldUpdateOperationsInput | string | null
+    adStatus?: StringFieldUpdateOperationsInput | string
+    views?: IntFieldUpdateOperationsInput | number
+    clicks?: IntFieldUpdateOperationsInput | number
+    images?: ImageUncheckedUpdateManyWithoutAppartmentAdNestedInput
+    favoritedBy?: FavoriteAdUncheckedUpdateManyWithoutAppartmentAdNestedInput
+  }
+
+  export type AppartmentAdUncheckedUpdateManyWithoutShopInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    title?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    category?: StringFieldUpdateOperationsInput | string
+    type?: NullableStringFieldUpdateOperationsInput | string | null
+    propertyType?: NullableStringFieldUpdateOperationsInput | string | null
+    payment?: StringFieldUpdateOperationsInput | string
+    price?: StringFieldUpdateOperationsInput | string
+    bedrooms?: StringFieldUpdateOperationsInput | string
+    bathrooms?: StringFieldUpdateOperationsInput | string
+    amenities?: NullableStringFieldUpdateOperationsInput | string | null
+    isOwner?: NullableStringFieldUpdateOperationsInput | string | null
+    buildingAge?: NullableStringFieldUpdateOperationsInput | string | null
+    designedFor?: NullableStringFieldUpdateOperationsInput | string | null
+    floorsNum?: NullableStringFieldUpdateOperationsInput | string | null
+    buildingSize?: NullableStringFieldUpdateOperationsInput | string | null
+    landSize?: NullableStringFieldUpdateOperationsInput | string | null
+    BuildingInterface?: NullableStringFieldUpdateOperationsInput | string | null
+    adStatus?: StringFieldUpdateOperationsInput | string
+    views?: IntFieldUpdateOperationsInput | number
+    clicks?: IntFieldUpdateOperationsInput | number
+  }
+
   export type FollowUpdateWithoutFollowedShopInput = {
     follower?: UserUpdateOneRequiredWithoutFollowingNestedInput
     followedUser?: UserUpdateOneWithoutFollowersNestedInput
@@ -38575,6 +42012,7 @@ export namespace Prisma {
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     ads?: AdUpdateManyWithoutUserNestedInput
+    AppartmentAds?: AppartmentAdUpdateManyWithoutUserNestedInput
     favoriteAds?: FavoriteAdUpdateManyWithoutUserNestedInput
     shop?: ShopUpdateManyWithoutUserNestedInput
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
@@ -38614,6 +42052,7 @@ export namespace Prisma {
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     ads?: AdUncheckedUpdateManyWithoutUserNestedInput
+    AppartmentAds?: AppartmentAdUncheckedUpdateManyWithoutUserNestedInput
     favoriteAds?: FavoriteAdUncheckedUpdateManyWithoutUserNestedInput
     shop?: ShopUncheckedUpdateManyWithoutUserNestedInput
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
@@ -38670,6 +42109,7 @@ export namespace Prisma {
     phoneNumber2?: NullableStringFieldUpdateOperationsInput | string | null
     user?: UserUpdateOneRequiredWithoutShopNestedInput
     ads?: AdUpdateManyWithoutShopNestedInput
+    AppartmentAds?: AppartmentAdUpdateManyWithoutShopNestedInput
     followers?: FollowUpdateManyWithoutFollowedShopNestedInput
     ratings?: RatingUpdateManyWithoutShopNestedInput
     sentMessages?: MessageUpdateManyWithoutSenderShopNestedInput
@@ -38695,6 +42135,7 @@ export namespace Prisma {
     phoneNumber1?: NullableStringFieldUpdateOperationsInput | string | null
     phoneNumber2?: NullableStringFieldUpdateOperationsInput | string | null
     ads?: AdUncheckedUpdateManyWithoutShopNestedInput
+    AppartmentAds?: AppartmentAdUncheckedUpdateManyWithoutShopNestedInput
     followers?: FollowUncheckedUpdateManyWithoutFollowedShopNestedInput
     ratings?: RatingUncheckedUpdateManyWithoutShopNestedInput
     sentMessages?: MessageUncheckedUpdateManyWithoutSenderShopNestedInput
@@ -38758,32 +42199,75 @@ export namespace Prisma {
 
   export type ImageUpdateWithoutAdInput = {
     url?: StringFieldUpdateOperationsInput | string
+    AppartmentAd?: AppartmentAdUpdateOneWithoutImagesNestedInput
   }
 
   export type ImageUncheckedUpdateWithoutAdInput = {
     id?: IntFieldUpdateOperationsInput | number
     url?: StringFieldUpdateOperationsInput | string
+    appartmentAdId?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type ImageUncheckedUpdateManyWithoutAdInput = {
     id?: IntFieldUpdateOperationsInput | number
     url?: StringFieldUpdateOperationsInput | string
+    appartmentAdId?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type FavoriteAdUpdateWithoutAdInput = {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutFavoriteAdsNestedInput
+    AppartmentAd?: AppartmentAdUpdateOneWithoutFavoritedByNestedInput
   }
 
   export type FavoriteAdUncheckedUpdateWithoutAdInput = {
     id?: IntFieldUpdateOperationsInput | number
     userId?: IntFieldUpdateOperationsInput | number
+    appartmentAdId?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type FavoriteAdUncheckedUpdateManyWithoutAdInput = {
     id?: IntFieldUpdateOperationsInput | number
     userId?: IntFieldUpdateOperationsInput | number
+    appartmentAdId?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ImageUpdateWithoutAppartmentAdInput = {
+    url?: StringFieldUpdateOperationsInput | string
+    ad?: AdUpdateOneWithoutAdimagesNestedInput
+  }
+
+  export type ImageUncheckedUpdateWithoutAppartmentAdInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    url?: StringFieldUpdateOperationsInput | string
+    adId?: NullableIntFieldUpdateOperationsInput | number | null
+  }
+
+  export type ImageUncheckedUpdateManyWithoutAppartmentAdInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    url?: StringFieldUpdateOperationsInput | string
+    adId?: NullableIntFieldUpdateOperationsInput | number | null
+  }
+
+  export type FavoriteAdUpdateWithoutAppartmentAdInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutFavoriteAdsNestedInput
+    ad?: AdUpdateOneWithoutFavoritedByNestedInput
+  }
+
+  export type FavoriteAdUncheckedUpdateWithoutAppartmentAdInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    adId?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FavoriteAdUncheckedUpdateManyWithoutAppartmentAdInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    adId?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -38816,6 +42300,10 @@ export namespace Prisma {
      * @deprecated Use AdCountOutputTypeDefaultArgs instead
      */
     export type AdCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = AdCountOutputTypeDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use AppartmentAdCountOutputTypeDefaultArgs instead
+     */
+    export type AppartmentAdCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = AppartmentAdCountOutputTypeDefaultArgs<ExtArgs>
     /**
      * @deprecated Use AccountDefaultArgs instead
      */
@@ -38896,6 +42384,10 @@ export namespace Prisma {
      * @deprecated Use AdDefaultArgs instead
      */
     export type AdArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = AdDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use AppartmentAdDefaultArgs instead
+     */
+    export type AppartmentAdArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = AppartmentAdDefaultArgs<ExtArgs>
     /**
      * @deprecated Use FavoriteAdDefaultArgs instead
      */

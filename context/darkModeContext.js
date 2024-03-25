@@ -19,7 +19,7 @@ const COLOR_DIGIT = "ABCDEF1234567890";
 export const DarkModeProvider = ({ children }) => {
   const [adImages, setAdImages] = useState([]);
   const [phoneNum, setPhoneNum] = useState("");
-  const [extraFeature, setExtraFeature] = useState([]);
+  const [cities, setCities] = useState([]);
   const [errorMessage, setErrorMessage] = useState(null);
   const [successMessage, setSuccessMessage] = useState(null);
   const [requirements, setRequirements] = useState([""]); // Initialize with an empty requirement
@@ -169,8 +169,8 @@ export const DarkModeProvider = ({ children }) => {
         setSelectedCountry,
         phoneNum,
         setPhoneNum,
-        extraFeature,
-        setExtraFeature,
+        cities,
+        setCities,
         errorMessage,
         setErrorMessage,
         successMessage,

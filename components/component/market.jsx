@@ -209,8 +209,6 @@ export default function Market({ lng, ads, user }) {
     if (value) {
       createQueryString(queryName, value);
     }
-
-    console.log(value);
   };
   return (
     <>

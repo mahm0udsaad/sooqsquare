@@ -92,6 +92,7 @@ export async function createAdForUser(data, userId, adStatus) {
     revalidatePath("/myAds");
   }
 }
+
 export async function createAd(formData) {
   try {
     // Extracting data from formData

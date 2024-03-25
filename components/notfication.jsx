@@ -78,7 +78,7 @@ export default function NotificationsBell({ Notifications, userId }) {
           <CardContent className="p-0 max-h-[50dvh] overflow-y-scroll notfs">
             <div className="grid gap-4 p-4">
               {notifications?.map((notf) => (
-                <div className="grid gap-1.5">
+                <div key={timeSince(notf?.createdAt)} className="grid gap-1.5">
                   <h3 className="text-sm font-bold leading-none">
                     {notf.content}
                   </h3>

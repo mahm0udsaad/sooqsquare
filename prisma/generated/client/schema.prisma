@@ -57,6 +57,7 @@ model User {
   status             String?
   email              String       @unique
   ads                Ad[]
+  AppartmentAds      AppartmentAd[]
   favoriteAds        FavoriteAd[]
   shop               Shop[]
   subscription       Subscription?
@@ -194,7 +195,6 @@ model JobPost {
   requirements       String?
   JobApplications    JobApplication[]
 }
-
 model Shop {
   id                  Int      @id @default(autoincrement())
   user                User     @relation(fields: [userId], references: [id])
@@ -215,20 +215,19 @@ model Shop {
   phoneNumber1        String?
   phoneNumber2        String?
   ads                 Ad[]
+  AppartmentAds      AppartmentAd[]
   followers           Follow[] @relation("ShopFollowers")
   ratings             Rating[]
   chats               Chat[]
   sentMessages      Message[] @relation("sentShopMessages")
   receivedMessages  Message[] @relation("receivedShopMessages")
 }
-
 model Chat {
   id          Int       @id @default(autoincrement())
   users       User[]    
   shops       Shop[]     
   messages    Message[] 
 }
-
 model Message {
   id            Int       @id @default(autoincrement())
   createdAt     DateTime  @default(now())
@@ -247,7 +246,6 @@ model Message {
   senderId      Int?
   receiverId    Int?
 }
-
 model Notification {
   id          Int       @id @default(autoincrement())
   createdAt   DateTime  @default(now())
@@ -258,7 +256,6 @@ model Notification {
   recipient   User      @relation(fields: [recipientId], references: [id])
   recipientId Int
 }
-
 model Follow {
   id              Int      @id @default(autoincrement())
   follower        User     @relation(name: "UserFollowing", fields: [followerId], references: [id])
@@ -288,8 +285,10 @@ model Rating {
 model Image {
   id   Int    @id @default(autoincrement())
   url  String
-  ad   Ad     @relation(fields: [adId], references: [id])
-  adId Int
+  ad   Ad?     @relation(fields: [adId], references: [id])
+  adId Int?
+  appartmentAdId Int?
+  AppartmentAd  AppartmentAd? @relation(fields: [appartmentAdId], references: [id])
 }
 
 model Ad {
@@ -326,13 +325,45 @@ model Ad {
   views                  Int          @default(0)
   clicks                 Int          @default(0)
 }
-
+model AppartmentAd {
+  id                     Int          @id @default(autoincrement())
+  user                   User?        @relation(fields: [userId], references: [id])
+  userId                 Int?
+  shop                   Shop?        @relation(fields: [shopId], references: [id])
+  shopId                 Int?
+  createdAt              DateTime     @default(now())
+  images                 Image[]
+  description            String?
+  title                  String?
+  country                String?
+  city                   String?
+  category               String
+  type                   String?
+  propertyType           String?
+  payment                String    @default("cash")
+  price                  String
+  bedrooms               String
+  bathrooms              String
+  amenities              String?
+  isOwner                String?
+  buildingAge            String?
+  designedFor            String?
+  floorsNum              String?
+  buildingSize           String?
+  landSize               String?
+  BuildingInterface      String?
+  adStatus               String       @default("active")
+  favoritedBy            FavoriteAd[]
+  views                  Int          @default(0)
+  clicks                 Int          @default(0)
+}
 model FavoriteAd {
   id        Int      @id @default(autoincrement())
   user      User     @relation(fields: [userId], references: [id])
   userId    Int
-  ad        Ad       @relation(fields: [adId], references: [id])
-  adId      Int
+  ad        Ad?       @relation(fields: [adId], references: [id])
+  adId      Int?
+    appartmentAdId Int?
+  AppartmentAd  AppartmentAd? @relation(fields: [appartmentAdId], references: [id])
   createdAt DateTime @default(now())
 }
-

@@ -46,7 +46,7 @@ const NavBar = async ({ lng }) => {
 
         <div className="flex items-center gap-3 ">
           <Link
-            href={"/newSell"}
+            href={"/apartments/sell"}
             className="border mr-4 px-8 hover:shadow-inner main-bg py-2 rounded-xl flex items-center"
           >
             {t("Sell")}
