@@ -74,7 +74,7 @@ export default function UserButton({ user, lng }) {
               <HeartIcon className="w-6 h-6 text-rose-600" />
               <span className="mx-3">Favorites</span>
             </Link>
-            {user?.shop.length > 0 && (
+            {user?.shop?.length > 0 && (
               <Link
                 onClick={() => setOpen(false)}
                 className="py-3  items-center flex text-gray-700 dark:text-gray-200 hover:dark:text-white hover:text-zinc-900"
