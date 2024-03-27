@@ -17,7 +17,7 @@ io.on("connection", (socket) => {
   socket.on("login", ({ userId }) => {
     // Associate the user ID with the socket ID
     activeUsers.set(socket.id, userId);
-    axios.post("http://localhost:3000/api/userStatus", {
+    axios.post("https://sooqsquare.com/api/userStatus", {
       userId,
       status: "online",
     });

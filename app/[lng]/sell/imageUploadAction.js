@@ -82,7 +82,6 @@ export default async function upload(data) {
     const imageUrl = `https://cloud.sooqsquare.com/apps/sharingpath/nextcloud/upload/${encodeURIComponent(
       imageFile.name
     )}`;
-    console.log(imageUrl);
     return { adImage: imageUrl };
   } catch (error) {
     console.error("Error uploading the image:", error);

@@ -7,8 +7,8 @@ import {
   DropdownMenu,
 } from "@/components/ui/dropdown-menu";
 import Link from "next/link";
-
-export default function AppartmentsList({ items }) {
+import AppartmentAdCard from "./appartment-card";
+export default function AppartmentsList({ items, user }) {
   return (
     <div className="space-y-8">
       <div className="flex items-center  bg-white p-3 gap-4">
@@ -43,37 +43,7 @@ export default function AppartmentsList({ items }) {
       </div>
       <div className="grid gap-4 md:grid-cols-2 container">
         {items.map((item) => (
-          <div key={item.id} className="flex items-start gap-4">
-            <img
-              alt="Apartment 1"
-              className="rounded-lg shadow-lg overflow-hidden w-1/3 flex-shrink-0 aspect-3/4 object-cover"
-              height={150}
-              src={item.images[0].url}
-              width={200}
-            />
-            <div className="grid gap-1">
-              <h3 className="font-semibold text-lg md:text-xl">{item.title}</h3>
-              <p className="text-sm text-gray-500 dark:text-gray-400">
-                {item.description}
-              </p>
-              <h4 className="font-semibold">{item.price}</h4>
-              <div className="flex gap-2">
-                <Link
-                  href={`/apartments/${item.id}`}
-                  className="border-zinc-900 h-10 px-4 py-2 border rounded text-zinc-900 bg-transparent hover:bg-zinc-900 hover:text-white transition"
-                  variant="outline"
-                >
-                  View
-                </Link>
-                <Button
-                  className="border-green-500 text-green-500 main-outline"
-                  variant="outline"
-                >
-                  Chat
-                </Button>
-              </div>
-            </div>
-          </div>
+          <AppartmentAdCard ad={item} key={item.id} user={user} />
         ))}
       </div>
     </div>

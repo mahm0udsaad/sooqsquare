@@ -1,6 +1,5 @@
 "use client";
 import { useForm } from "react-hook-form";
-import ImagesForm from "./imageForm";
 import { useEffect, useState } from "react";
 import { GenericSelection, withGenericSelection } from "./dynamicSelection";
 import {
@@ -12,25 +11,31 @@ import {
   interfaceProps,
   propertyTypes,
 } from "../static";
-import PriceForm from "./priceForm";
-import Name_desc from "./name-desc";
-import Amenities from "./amenities";
-import SizeForm, { LandSizeForm } from "./size";
-import FinalForm from "./finalForm";
+
 import LocationDetails from "./locaiton";
+import { IsOwner } from "./owner";
 import { useSearchParams } from "next/navigation";
 import { createAd } from "../actions";
 import { useToast } from "@/components/ui/use-toast";
 import dynamic from "next/dynamic";
-import { IsOwner } from "./owner";
 import { Button } from "@/components/ui/button";
 import { StepBack, X } from "lucide-react";
-
+const ImagesForm = dynamic(() => import("./imageForm"), { ssr: false });
+const PriceForm = dynamic(() => import("./priceForm"), { ssr: false });
+const Name_desc = dynamic(() => import("./name-desc"), { ssr: false });
+const Amenities = dynamic(() => import("./amenities"), { ssr: false });
+const SizeForm = dynamic(() => import("./size"));
+const FinalForm = dynamic(() => import("./finalForm"), { ssr: false });
+const LandSizeForm = dynamic(() =>
+  import("./size").then((module) => ({ default: module.LandSizeForm }), {
+    ssr: false,
+  })
+);
+const SuccesDialoag = dynamic(() => import("./successDialog"), {
+  ssr: false,
+});
 const SelectionComp = withGenericSelection(GenericSelection);
 const Forms = ({ lng, user }) => {
-  const SuccesDialoag = dynamic(() => import("./successDialog"), {
-    ssr: false,
-  });
   const { setValue, handleSubmit, watch } = useForm();
   const [currentStep, setCurrentStep] = useState(1);
   const [open, setOpen] = useState(false);
@@ -47,6 +52,7 @@ const Forms = ({ lng, user }) => {
   useEffect(() => {
     window.scrollTo(0, -1000);
   }, [currentStep]);
+
   const onSubmit = async (data) => {
     const shopId = searchParams.get("profile").includes("shop")
       ? searchParams.get("profile").split("=")[1]

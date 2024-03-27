@@ -72,7 +72,7 @@ export const FavoriteCard = ({ lng, ad, userId }) => {
       </Carousel>
       <div className="flex flex-col items-start justify-center space-y-4 md:w-1/2 md:pl-8">
         <h2 className="text-2xl font-bold">{name}</h2>
-        <p className="text-lg text-gray-500 dark:text-gray-400">
+        <p className="text-lg line-clamp-2 text-gray-500 dark:text-gray-400">
           {description}
         </p>
         <h3 className="text-xl font-semibold">Specifications:</h3>
@@ -189,7 +189,80 @@ export const FavoriteCard = ({ lng, ad, userId }) => {
     </div>
   );
 };
+export const FavoriteAppCard = ({ lng, ad, userId }) => {
+  const { t } = useTranslation(lng, "translation");
+  const isArabic = lng === "ar";
+  const carouselStyle = isArabic ? { direction: "ltr" } : {};
+  function extractApartmentAdDataViewMore(ad) {
+    const {
+      id,
+      favoritedBy,
+      country,
+      shopId,
+      userId,
+      shop,
+      createdAt,
+      views,
+      user,
+      images,
+      description,
+      title,
+      amenities,
+      clicks,
+      ...adData
+    } = ad;
+    return adData;
+  }
+  const updatedAd = extractApartmentAdDataViewMore(ad);
+  return (
+    <div className="flex relative flex-col md:flex-row items-center justify-between lg:w-11/12 w-full lg:mx-auto mx-3 p-8 rounded-lg shadow-md bg-white dark:bg-zinc-800">
+      <Badge className={"absolute top-0 left-0 bg-yellow-700"}>
+        Appartments
+      </Badge>
+      <Carousel style={carouselStyle} className="w-full max-w-xs mx-auto ">
+        <CarouselContent className="dark:bg-zinc-800">
+          {ad.images.map((image, index) => (
+            <CarouselItem key={index}>
+              <Card>
+                <CardContent className="flex dark:bg-zinc-800 aspect-square items-center justify-center p-6">
+                  <img className="w-48" src={image.url} alt="adImage" />
+                </CardContent>
+              </Card>
+            </CarouselItem>
+          ))}
+        </CarouselContent>
+        <CarouselPrevious />
+        <CarouselNext />
+      </Carousel>
+      <div className="flex flex-col items-start justify-center space-y-4 md:w-1/2 md:pl-8">
+        <div className="flex w-full items-center justify-between">
+          <h2 className="text-2xl font-bold">{ad.title}</h2>
+        </div>
+        <p className="text-lg line-clamp-2 text-gray-500 dark:text-gray-400 cardDescription">
+          {ad.description}
+        </p>
 
+        <h3 className="text-xl font-semibold">{t("Specifications")}:</h3>
+        <ul className="grid grid-cols-2 list-inside space-y-2 text-gray-500 dark:text-gray-400">
+          {Object.entries(updatedAd).map(
+            ([key, value]) =>
+              value !== null && (
+                <div key={key} className="flex items-center">
+                  <Badge className={"dark:bg-white dark:text-black mx-3 "}>
+                    {t(key)}
+                  </Badge>
+                  <span className="dark:text-gray-300 ml-2">{value}</span>
+                </div>
+              )
+          )}
+        </ul>
+      </div>
+      <div className="flex flex-col h-full items-start justify-start">
+        <HeartIcon className="w-6 h-6" />
+      </div>
+    </div>
+  );
+};
 function TrashIcon(props) {
   return (
     <svg

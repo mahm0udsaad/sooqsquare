@@ -35,7 +35,9 @@
     "app/api/completion/route.js",
     "utils/cn.js",
     "components/ui/bento-grid.jsx",
-    "app/[lng]/apartments/components/boxs.jsx"
+    "app/[lng]/apartments/components/boxs.jsx",
+    "components/ui/tabs.jsx",
+    "app/[lng]/(chat)/Ai-chat/comp.jsx"
   ],
   "exclude": ["node_modules"]
 }

@@ -363,7 +363,7 @@ model FavoriteAd {
   userId    Int
   ad        Ad?       @relation(fields: [adId], references: [id])
   adId      Int?
-    appartmentAdId Int?
+  appartmentAdId Int?
   AppartmentAd  AppartmentAd? @relation(fields: [appartmentAdId], references: [id])
   createdAt DateTime @default(now())
 }

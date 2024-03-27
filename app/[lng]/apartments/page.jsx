@@ -15,7 +15,7 @@ const VehicleMarket = async ({ params: { lng }, searchParams }) => {
       <BackgroundBoxes />
       <div className="flex min-h-screen sticky top-20">
         <FiltersSideBar lng={lng} />
-        <AppartmentsList items={ads} />
+        <AppartmentsList items={ads} user={user} />
       </div>
     </>
   );

@@ -8,6 +8,7 @@ import { useTranslation } from "@/app/i18n/client";
 import { Progress } from "@/components/ui/progress";
 import dynamic from "next/dynamic";
 import { useState } from "react";
+
 const UploadedImage = dynamic(() => import("./test"), {
   ssr: false,
   loading: () => (

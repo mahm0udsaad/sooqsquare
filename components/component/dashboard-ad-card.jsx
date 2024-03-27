@@ -178,7 +178,8 @@ export const AdCard = ({ lng, ad }) => {
   const remainingTime = calculateRemainingTime(ad.createdAt);
 
   return (
-    <div className="flex flex-col md:flex-row items-center justify-between lg:w-11/12 w-full lg:mx-auto mx-3 p-8 rounded-lg shadow-md bg-white dark:bg-zinc-800">
+    <div className="flex relative flex-col md:flex-row items-center justify-between lg:w-11/12 w-full lg:mx-auto mx-3 p-8 rounded-lg shadow-md bg-white dark:bg-zinc-800">
+      <Badge className={"absolute top-0 left-0 main-bg"}>Cars</Badge>
       <TooltipProvider>
         <Carousel
           ref={carouselRef}

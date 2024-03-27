@@ -173,7 +173,76 @@ export async function createAdForUser(data, userId, adStatus) {
     revalidatePath("/myAds");
   }
 }
+export async function changeAdStatus(formData) {
+  try {
+    const adId = formData.get("adId");
+    // Fetch the current ad status
+    const currentAd = await prisma.AppartmentAd.findUnique({
+      where: { id: parseInt(adId) },
+      select: { adStatus: true },
+    });
 
+    if (!currentAd) {
+      throw new Error("Ad not found");
+    }
+
+    // Determine the new ad status
+    const newStatus = currentAd.adStatus === "active" ? "inActive" : "active";
+
+    // Update the ad status to the new status
+    const Ad = await prisma.AppartmentAd.update({
+      where: { id: parseInt(adId) },
+      data: { adStatus: newStatus },
+    });
+
+    console.log("Ad status changed successfully" + Ad.adStatus);
+    return Ad;
+  } catch (error) {
+    console.error("Error changing ad status:", error);
+    throw error;
+  } finally {
+    revalidatePath("/myAds");
+    revalidatePath("/shopAds");
+    await prisma.$disconnect();
+  }
+}
+export async function deleteAd(formData) {
+  try {
+    const adId = formData.get("adId");
+    // Check if the ad with the given ID exists
+    const existingAd = await prisma.AppartmentAd.findUnique({
+      where: {
+        id: parseInt(adId),
+      },
+    });
+
+    if (!existingAd) {
+      console.error("Ad not found");
+      return;
+    }
+
+    // Delete the ad and associated images
+    await prisma.Image.deleteMany({
+      where: {
+        adId: parseInt(adId),
+      },
+    });
+
+    await prisma.AppartmentAd.delete({
+      where: {
+        id: parseInt(adId),
+      },
+    });
+
+    return existingAd;
+  } catch (error) {
+    console.error("Error deleting ad:", error);
+    // Handle errors appropriately
+  } finally {
+    revalidatePath("/myAds");
+    revalidatePath("/vehicle");
+  }
+}
 export async function getAllads(searchParams, user) {
   const ads = await prisma.AppartmentAd.findMany({
     include: {
@@ -237,58 +306,10 @@ export async function getAdById(adId) {
     await prisma.$disconnect();
   }
 }
-export async function addToFavorites(userId, adId) {
-  if (!userId) {
-    return;
-  }
-  try {
-    // Find the user and ad
-    const user = await prisma.user.findUnique({ where: { id: userId } });
-    const ad = await prisma.AppartmentAd.findUnique({ where: { id: adId } });
 
-    if (!user || !ad) {
-      console.error("User or Ad not found");
-      return;
-    }
-
-    // Check if the ad is already in the user's favorites
-    const isFavorite = await prisma.favoriteAd.findFirst({
-      where: {
-        userId: userId,
-        adId: adId,
-      },
-    });
-
-    if (isFavorite) {
-      // If it's already a favorite, remove it
-      await prisma.favoriteAd.delete({
-        where: {
-          id: isFavorite.id,
-        },
-      });
-
-      console.log("Ad removed from favorites successfully");
-    } else {
-      // If it's not a favorite, add it
-      await prisma.favoriteAd.create({
-        data: {
-          user: { connect: { id: userId } },
-          ad: { connect: { id: adId } },
-        },
-      });
-    }
-
-    console.log("Ad added to favorites successfully");
-  } catch (error) {
-    console.error("Error adding ad to favorites:", error);
-  } finally {
-    revalidatePath("/favorites");
-    revalidatePath("/vehicle");
-  }
-}
 export async function incrementAdViews(adId) {
   try {
-    const updatedAd = await prisma.ad.update({
+    const updatedAd = await prisma.AppartmentAd.update({
       where: { id: adId },
       data: { views: { increment: 1 } },
     });
@@ -303,7 +324,7 @@ export async function incrementAdViews(adId) {
 }
 export async function incrementAdClicks(adId) {
   try {
-    const updatedAd = await prisma.ad.update({
+    const updatedAd = await prisma.AppartmentAd.update({
       where: { id: adId },
       data: { clicks: { increment: 1 } },
     });
@@ -313,6 +334,7 @@ export async function incrementAdClicks(adId) {
     console.error("Error incrementing ad clicks:", error);
     throw new Error("Error incrementing ad clicks");
   } finally {
+    revalidatePath("/dashboard/myAds");
     await prisma.$disconnect();
   }
 }
@@ -393,4 +415,78 @@ export async function checkFollowStatus(
   });
 
   return !!follow;
+}
+export async function updateAd(adId, updatedData) {
+  try {
+    const existingAd = await prisma.AppartmentAd.findUnique({
+      where: {
+        id: parseInt(adId),
+      },
+    });
+    updatedData.bathrooms = String(updatedData.bathrooms);
+    updatedData.bedrooms = String(updatedData.bedrooms);
+    if (!existingAd) {
+      console.error("Ad not found");
+      // You might want to throw an error or handle this case differently
+
+      return null;
+    }
+
+    const updatedAd = await prisma.AppartmentAd.update({
+      where: {
+        id: parseInt(adId),
+      },
+      data: updatedData,
+    });
+
+    console.log("Ad updated successfully:", updatedAd);
+    return updatedAd;
+  } catch (error) {
+    console.error("Error updating ad:", error);
+    // Handle errors appropriately
+    throw error;
+  } finally {
+    revalidatePath("/shopAds");
+    revalidatePath("/myAds");
+  }
+}
+export async function addToFavorites(userId, adId) {
+  if (!userId) {
+    return;
+  }
+  try {
+    // Check if the ad is already in the user's favorites
+    const isFavorite = await prisma.favoriteAd.findFirst({
+      where: {
+        userId: userId,
+        appartmentAdId: adId,
+      },
+    });
+
+    if (isFavorite) {
+      // If it's already a favorite, remove it
+      await prisma.favoriteAd.delete({
+        where: {
+          id: isFavorite.id,
+        },
+      });
+
+      console.log("Ad removed from favorites successfully");
+    } else {
+      // If it's not a favorite, add it
+      await prisma.favoriteAd.create({
+        data: {
+          user: { connect: { id: userId } },
+          AppartmentAd: { connect: { id: adId } },
+        },
+      });
+    }
+
+    console.log("Ad added to favorites successfully");
+  } catch (error) {
+    console.error("Error adding ad to favorites:", error);
+  } finally {
+    revalidatePath("/favorites");
+    revalidatePath("/vehicle");
+  }
 }

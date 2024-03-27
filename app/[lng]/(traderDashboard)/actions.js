@@ -1,36 +1,56 @@
-"use server"
+"use server";
 import { revalidatePath } from "next/cache";
 import prisma from "../../../prisma/client";
-import { redirect } from "next/navigation";
 
 export async function getAdsByUserId(userId) {
-  userId = parseInt(userId)
-    try {
-      const ads = await prisma.Ad.findMany({
-        where: {
-          userId: userId,
-        },
-        include: {
-          Adimages: true, 
-          favoritedBy:true,
-          user: true,    
-        },
-        orderBy: {
-          createdAt: 'desc',
-        },
-      });
-  
-      return ads;
-    } catch (error) {
-      return null
-      console.error('Error fetching ads by user:', error);
-    } finally {
-      await prisma.$disconnect();
-    }
+  userId = parseInt(userId);
+  try {
+    const ads = await prisma.Ad.findMany({
+      where: {
+        userId: userId,
+      },
+      include: {
+        Adimages: true,
+        favoritedBy: true,
+        user: true,
+      },
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
+
+    const appartmentAds = await prisma.AppartmentAd.findMany({
+      where: {
+        userId: userId,
+      },
+      include: {
+        images: true,
+        favoritedBy: true,
+        user: true,
+      },
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
+
+    // Merge the two arrays of ads
+    const allAds = [...ads, ...appartmentAds];
+
+    // Sort all ads by createdAt date
+    allAds.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+    return allAds;
+  } catch (error) {
+    console.error("Error fetching ads by user:", error);
+    return null;
+  } finally {
+    await prisma.$disconnect();
+  }
 }
+
 export async function updateAd(adId, updatedData) {
   try {
-    adId = parseInt(adId)
+    adId = parseInt(adId);
     const existingAd = await prisma.Ad.findUnique({
       where: {
         id: adId,
@@ -38,7 +58,7 @@ export async function updateAd(adId, updatedData) {
     });
 
     if (!existingAd) {
-      console.error('Ad not found');
+      console.error("Ad not found");
       // You might want to throw an error or handle this case differently
       return null;
     }
@@ -50,15 +70,15 @@ export async function updateAd(adId, updatedData) {
       data: updatedData,
     });
 
-    console.log('Ad updated successfully:', updatedAd);
+    console.log("Ad updated successfully:", updatedAd);
     return updatedAd;
   } catch (error) {
-    console.error('Error updating ad:', error);
+    console.error("Error updating ad:", error);
     // Handle errors appropriately
     throw error;
-  }finally{
-    revalidatePath('/shopAds')
-    revalidatePath('/myAds')
+  } finally {
+    revalidatePath("/shopAds");
+    revalidatePath("/myAds");
   }
 }
 export async function deleteAd(adId) {
@@ -71,7 +91,7 @@ export async function deleteAd(adId) {
     });
 
     if (!existingAd) {
-      console.error('Ad not found');
+      console.error("Ad not found");
       // You might want to throw an error or handle this case differently
       return;
     }
@@ -79,7 +99,7 @@ export async function deleteAd(adId) {
     // Delete the ad and associated images
     await prisma.Image.deleteMany({
       where: {
-        adId:adId,
+        adId: adId,
       },
     });
 
@@ -91,41 +111,41 @@ export async function deleteAd(adId) {
 
     return existingAd;
   } catch (error) {
-    console.error('Error deleting ad:', error);
+    console.error("Error deleting ad:", error);
     // Handle errors appropriately
-  }finally{
-    revalidatePath('/myAds')
-    revalidatePath('/vehicle')
+  } finally {
+    revalidatePath("/myAds");
+    revalidatePath("/vehicle");
   }
 }
 export async function createShop(userId, data) {
   let newShop;
   try {
-     newShop = await prisma.Shop.create({
+    newShop = await prisma.Shop.create({
       data: {
-        user: { connect: { id: userId } }, 
-          shopImage: data.shopImage,
-          shopName: data.shopName,
-          city: data.city,
-          country: data.country,
-          description: data.description,
+        user: { connect: { id: userId } },
+        shopImage: data.shopImage,
+        shopName: data.shopName,
+        city: data.city,
+        country: data.country,
+        description: data.description,
       },
     });
-    
+
     return newShop;
   } catch (error) {
-    console.error('Error creating shop:', error);
+    console.error("Error creating shop:", error);
   } finally {
-    revalidatePath('/dashboard')
+    revalidatePath("/dashboard");
   }
 }
 export async function getAllShops() {
   try {
-      const shops = await prisma.shop.findMany();
-      return shops;
+    const shops = await prisma.shop.findMany();
+    return shops;
   } catch (error) {
-      console.error('Error fetching all shops:', error);
-      throw error; // Rethrow the error for handling at a higher level if needed
+    console.error("Error fetching all shops:", error);
+    throw error; // Rethrow the error for handling at a higher level if needed
   }
 }
 export async function getShopById(shopId) {
@@ -133,7 +153,7 @@ export async function getShopById(shopId) {
     const parsedShopId = parseInt(shopId, 10);
 
     if (isNaN(parsedShopId)) {
-      throw new Error('Invalid shopId');
+      throw new Error("Invalid shopId");
     }
 
     const shop = await prisma.shop.findUnique({
@@ -165,23 +185,42 @@ export async function getShopById(shopId) {
             country: true,
             city: true,
             extraFeatures: true,
-            favoritedBy:true,
+            favoritedBy: true,
             adStatus: true,
             views: true,
             clicks: true,
           },
           orderBy: {
-            createdAt: 'desc', // Order by createdAt in descending order (newest first)
+            createdAt: "desc", // Order by createdAt in descending order (newest first)
+          },
+        },
+        AppartmentAds: {
+          include: {
+            images: true,
+            favoritedBy: true,
+            user: true,
+          },
+          orderBy: {
+            createdAt: "desc",
           },
         },
       },
     });
 
-    return shop;
+    // Merge the two arrays of ads
+    const allAds = [...shop.ads, ...shop.AppartmentAds];
+
+    // Sort all ads by createdAt date
+    allAds.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+    // Attach the merged and sorted ads to the shop object
+    return allAds;
   } catch (error) {
-    console.error('Error in getShopById:', error);
+    console.error("Error in getShopById:", error);
+    return null;
   }
 }
+
 export async function deleteShop(shopId, userId) {
   try {
     const shop = await prisma.shop.findUnique({
@@ -198,7 +237,7 @@ export async function deleteShop(shopId, userId) {
     });
 
     if (!shop) {
-      console.error('Shop not found');
+      console.error("Shop not found");
       return null;
     }
 
@@ -218,10 +257,10 @@ export async function deleteShop(shopId, userId) {
 
     return shopId;
   } catch (error) {
-    console.error('Error deleting shop:', error);
-    throw new Error('Error deleting shop');
-  }finally{
-    revalidatePath('/dashboard');
+    console.error("Error deleting shop:", error);
+    throw new Error("Error deleting shop");
+  } finally {
+    revalidatePath("/dashboard");
   }
 }
 export async function addBgImageToShop(shopId, bgImage) {
@@ -243,7 +282,7 @@ export async function addBgImageToShop(shopId, bgImage) {
     return null;
   } finally {
     // Close the Prisma client connection when done
-    revalidatePath('/myShop')
+    revalidatePath("/myShop");
     await prisma.$disconnect();
   }
 }
@@ -266,7 +305,7 @@ export async function addImageToShop(shopId, shopImage) {
     return null;
   } finally {
     // Close the Prisma client connection when done
-    revalidatePath('/myShop')
+    revalidatePath("/myShop");
     await prisma.$disconnect();
   }
 }
@@ -282,7 +321,7 @@ export async function transferUserAdsToShop(userId) {
     });
 
     if (!userWithAds) {
-      console.error('User not found');
+      console.error("User not found");
       return;
     }
 
@@ -311,18 +350,18 @@ export async function transferUserAdsToShop(userId) {
           },
         });
 
-        console.log('Ads transferred successfully.');
+        console.log("Ads transferred successfully.");
       } else {
-        console.log('No ads to transfer.');
+        console.log("No ads to transfer.");
       }
     } else {
-      console.error('User does not have a shop.');
+      console.error("User does not have a shop.");
     }
   } catch (error) {
-    console.error('Error transferring ads:', error);
+    console.error("Error transferring ads:", error);
   } finally {
-    revalidatePath('/myShopView')
-    revalidatePath('/vehicle')
+    revalidatePath("/myShopView");
+    revalidatePath("/vehicle");
   }
 }
 export async function updateShopInfo(shopId, data) {
@@ -335,7 +374,7 @@ export async function updateShopInfo(shopId, data) {
     });
 
     if (!existingShop) {
-      console.error('Shop not found');
+      console.error("Shop not found");
       return null;
     }
 
@@ -362,13 +401,13 @@ export async function updateShopInfo(shopId, data) {
 
     return updatedShop;
   } catch (error) {
-    console.error('Error updating shop information:', error);
+    console.error("Error updating shop information:", error);
     return null;
   } finally {
-    revalidatePath('/dashboard')
+    revalidatePath("/dashboard");
   }
 }
-export async function changeAdStatus(adId , adStatus) {
+export async function changeAdStatus(adId, adStatus) {
   try {
     const updatedAd = await prisma.ad.update({
       where: { id: adId },
@@ -378,11 +417,11 @@ export async function changeAdStatus(adId , adStatus) {
     return updatedAd;
   } catch (error) {
     console.error(`Error deactivating ad with adId ${adId}:`, error);
-    throw new Error('Failed to deactivate ad');
-  }finally{
-    revalidatePath('/myAds')
-    revalidatePath('/vehicle')
-    revalidatePath('/shopAds')
+    throw new Error("Failed to deactivate ad");
+  } finally {
+    revalidatePath("/myAds");
+    revalidatePath("/vehicle");
+    revalidatePath("/shopAds");
   }
 }
 export async function getFavoriteAdsByUserId(userId) {
@@ -414,8 +453,15 @@ export async function getFavoriteAdsByUserId(userId) {
                 name: true,
                 RegionalSpecifications: true,
                 extraFeatures: true,
-                user:true,
-                shop:true
+                user: true,
+                shop: true,
+              },
+            },
+            AppartmentAd: {
+              include: {
+                images: true,
+                user: true,
+                shop: true,
               },
             },
           },
@@ -424,16 +470,21 @@ export async function getFavoriteAdsByUserId(userId) {
     });
 
     if (!user) {
-      console.error('User not found');
+      console.error("User not found");
       return;
     }
+    const favoriteRegularAds = user.favoriteAds
+      .map((item) => item.ad)
+      .filter((ad) => ad !== null);
+    const favoriteAppartmentAds = user.favoriteAds
+      .map((item) => item.AppartmentAd)
+      .filter((ad) => ad !== null);
 
-    const favoriteAds = user.favoriteAds.map((fav) => fav.ad);
-
-    console.log('Favorite Ads for User ID', userId, ':', favoriteAds);
-    return favoriteAds;
+    // Merging all favorite ads into a single array
+    const allFavoriteAds = [...favoriteRegularAds, ...favoriteAppartmentAds];
+    return allFavoriteAds;
   } catch (error) {
-    console.error('Error getting favorite ads:', error);
+    console.error("Error getting favorite ads:", error);
   } finally {
     // Close the Prisma client connection
     await prisma.$disconnect();
@@ -448,10 +499,10 @@ export async function updateAdImage(adId, dataToUpdate) {
 
     return updatedAd;
   } catch (error) {
-    console.error('Error updating ad:', error);
+    console.error("Error updating ad:", error);
     throw error;
-  }finally{
-    revalidatePath('/myAds')
+  } finally {
+    revalidatePath("/myAds");
   }
 }
 export async function deleteImage(imageUrl) {
@@ -462,7 +513,7 @@ export async function deleteImage(imageUrl) {
 
     return deletedImage;
   } catch (error) {
-    console.error('Error deleting image:', error);
+    console.error("Error deleting image:", error);
     throw error;
   }
 }
@@ -471,17 +522,17 @@ export async function updateAdImageURL(existingImageId, newImageUrl) {
     const updatedAd = await prisma.image.update({
       where: { id: existingImageId },
       data: {
-        url: newImageUrl
-      }
+        url: newImageUrl,
+      },
     });
 
-    console.log('ad', updatedAd); // Corrected 'updateAd' to 'updatedAd'
+    console.log("ad", updatedAd); // Corrected 'updateAd' to 'updatedAd'
 
     return updatedAd;
   } catch (error) {
-    console.error('Error updating ad image URL:', error);
+    console.error("Error updating ad image URL:", error);
     throw error;
   } finally {
-    revalidatePath('/myAds');
+    revalidatePath("/myAds");
   }
 }

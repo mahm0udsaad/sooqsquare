@@ -6,9 +6,14 @@ import {
   Select,
 } from "@/components/ui/select";
 
-export const GenericSelection = ({ title, itemsArray, handleSelection }) => {
+export const GenericSelection = ({
+  title,
+  itemsArray,
+  handleSelection,
+  shouldOpen,
+}) => {
   return (
-    <Select className="flex-grow" open={true}>
+    <Select className="flex-grow">
       <SelectTrigger>
         <div className="w-full py-3 text-2xl font-semibold flex justify-around items-center">
           {title}
@@ -38,6 +43,7 @@ export const withGenericSelection = (Component) => {
     itemsArray,
     paramNameToSet,
     setValue,
+    shouldOpen,
     nextStep,
     ...restProps
   }) {
@@ -52,6 +58,7 @@ export const withGenericSelection = (Component) => {
           title={title}
           paramNameToSet={paramNameToSet}
           itemsArray={itemsArray}
+          shouldOpen={shouldOpen}
           handleSelection={handleSelection}
           {...restProps}
         />
