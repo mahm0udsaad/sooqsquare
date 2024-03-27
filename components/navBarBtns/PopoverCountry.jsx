@@ -30,9 +30,10 @@ const PopoverCountry = ({ lng, user }) => {
     // Store selectedCountry in localStorage
     localStorage.setItem("selectedCountry", JSON.stringify({ country, code }));
   };
+
   useEffect(() => {
     if ("serviceWorker" in navigator && user) {
-      subscribeToPushNotifications(user.id);
+      subscribeToPushNotifications(user?.id);
     }
 
     const fetchLocation = async () => {
