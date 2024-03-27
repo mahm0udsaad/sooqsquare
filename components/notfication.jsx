@@ -72,7 +72,7 @@ export default function NotificationsBell({ Notifications, userId }) {
           <CardHeader className="p-4 border-b">
             <CardTitle>Notifications</CardTitle>
             <CardDescription>
-              You have {notifications.length} unread messages.
+              You have {notifications?.length} unread messages.
             </CardDescription>
           </CardHeader>
           <CardContent className="p-0 max-h-[50dvh] overflow-y-scroll notfs">
